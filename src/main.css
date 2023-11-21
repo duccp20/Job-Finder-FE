@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  outline: none;
+}
+button {
+  cursor: pointer;
+  outline: none;
+  border: 0;
+}
+body {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  font-family: "Inter", sans-serif;
+}
