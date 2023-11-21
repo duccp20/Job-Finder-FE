@@ -2,7 +2,15 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        custom: "0px 4px 4px 0px rgba(0, 0, 0, 0.05)",
+      },
+      backgroundImage: {
+        gradientCustom:
+          "linear-gradient(100deg, #FFB950 -5.85%, #FE5656 109.55%)",
+      },
+    },
   },
   plugins: [],
 };
