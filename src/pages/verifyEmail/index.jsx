@@ -1,13 +1,15 @@
 import React from "react";
 import Header from "../../components/Header";
+import RegisterSuccessful from "../../components/RegisterSuccessful";
 
 export const VerifyEmail = () => {
   return (
-    <div className="w-screen h-screen bg-[#fff] 	">
+    <div className="w-screen h-screen bg-[#f6f6f6] z-[2] relative">
+      <RegisterSuccessful></RegisterSuccessful>
       <>
         <Header></Header>
       </>
-      <div className="w-3/5 h-3/5 my-[45px] mx-auto bg-white rounded-xl shadow-custom  border-2">
+      <div className="w-3/5 h-3/5 my-[45px] mx-auto bg-white rounded-xl shadow-custom border-[2px]">
         <h1 className="text-[17px] font-bold uppercase text-center my-[30px]">
           Xác thực tài khoản
         </h1>
