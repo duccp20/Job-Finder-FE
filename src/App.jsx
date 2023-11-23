@@ -31,6 +31,7 @@ const App = () => {
       path: "/verifyEmail",
       element: <VerifyEmail />,
     },
+
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,
