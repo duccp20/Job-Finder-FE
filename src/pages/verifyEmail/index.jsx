@@ -5,10 +5,11 @@ import Popup from "../../components/Popup";
 export const VerifyEmail = () => {
   return (
     <div className="w-screen h-screen bg-[#F6F6F6] relative">
-      {/* <Popup
+      <Popup
         text="ĐĂNG KÝ THÀNH CÔNG!
 "
-      ></Popup> */}
+      ></Popup>
+
       <>
         <Header></Header>
       </>
