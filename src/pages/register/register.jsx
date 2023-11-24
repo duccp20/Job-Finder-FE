@@ -184,13 +184,13 @@ export const RegisterCandidate = () => {
             </span>
             <p className="mt-6 text-[13px] font-normal">
               Bằng việc ấn vào nút “Đăng ký”, tôi đồng ý với
-              <span className="text-red-600"> Thỏa thuận sử dụng</span>
+              <span className="text-red-600"> Thỏa thuận sử dụng </span>
               và <span className="text-red-600"> Quy định bảo mật</span> của
               Jobsit.vn
             </p>
             <div className="mt-6 flex justify-center">
               <button
-                className="shadow-md text-center text-white rounded-[16px] px-[32px] py-[16px] bg-gradientCustom"
+                className="shadow-md text-center text-white font-bold rounded-[16px] px-[32px] py-[16px] bg-gradientCustom"
                 type="button"
               >
                 Đăng ký
