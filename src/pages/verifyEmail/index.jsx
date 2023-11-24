@@ -4,20 +4,20 @@ import Popup from "../../components/Popup";
 
 export const VerifyEmail = () => {
   return (
-    <div className="w-screen h-screen bg-[#F6F6F6] z-[2] relative">
-      <Popup
+    <div className="w-screen h-screen bg-[#F6F6F6] relative">
+      {/* <Popup
         text="ĐĂNG KÝ THÀNH CÔNG!
 "
-      ></Popup>
+      ></Popup> */}
       <>
         <Header></Header>
       </>
-      <div className="w-[55%] h-[60%] my-[45px] mx-auto bg-white rounded-xl shadow-custom border-[2px]">
-        <h1 className="text-[17px] font-bold uppercase text-center my-[30px]">
+      <div className="w-[59%] h-auto my-[45px] pt-[70px] pb-[90px] mx-auto bg-white rounded-[10px] shadow-custom border-[1px] border-[#DEDEDE]">
+        <h1 className="text-[22px] font-[700] uppercase text-center mb-[30px] leading-normal">
           Xác thực tài khoản
         </h1>
-        <div className="mx-[50px] text-xs">
-          <p className="font-bold m-4">
+        <div className="mx-[50px] font-[400] text-[15] leading-normal">
+          <p className="font-[700] m-4">
             Đăng nhập vào email của bạn để xác thực tài khoản
           </p>
           <p className="m-4">
