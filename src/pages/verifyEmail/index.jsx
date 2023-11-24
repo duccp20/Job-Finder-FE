@@ -1,11 +1,14 @@
 import React from "react";
 import Header from "../../components/Header";
-import RegisterSuccessful from "../../components/RegisterSuccessful";
+import Popup from "../../components/Popup";
 
 export const VerifyEmail = () => {
   return (
     <div className="w-screen h-screen bg-[#F6F6F6] z-[2] relative">
-      <RegisterSuccessful></RegisterSuccessful>
+      <Popup
+        text="ĐĂNG KÝ THÀNH CÔNG!
+"
+      ></Popup>
       <>
         <Header></Header>
       </>
