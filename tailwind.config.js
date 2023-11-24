@@ -5,6 +5,8 @@ export default {
     extend: {
       boxShadow: {
         custom: "0px 4px 4px 0px rgba(0, 0, 0, 0.05)",
+        blur: "0px 4px 15px 7px rgba(0,0,0,0.44)",
+        button: "0px 8px 21px 0px rgba(0, 0, 0, 0.16)",
       },
       backgroundImage: {
         gradientCustom:
