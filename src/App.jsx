@@ -1,8 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RegisterCandidate } from "./pages/register/register";
-import { VerifyEmail } from "./pages/verifyEmail";
-import LoginPage from "./pages/login/login";
 const App = () => {
   const router = createBrowserRouter([
     // {
@@ -28,11 +26,6 @@ const App = () => {
       path: "/register",
       element: <RegisterCandidate />,
     },
-    {
-      path: "/verifyEmail",
-      element: <VerifyEmail />,
-    },
-
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,
