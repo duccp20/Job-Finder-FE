@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
-import rec from "../../../public/images/rec.jpg";
+import rec from "/images/rec.jpg";
 import Input from "../../components/Input/input";
 import publish from "/images/publish.jpg";
 import ava from "/svg/avatar.svg";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+// Step 2: Define your validation schema using Yup
+const schema = yup
+  .object({
+    subName: yup.string().required("Bắt buộc nhập họ và tên"),
+    age: yup.number().positive().integer().required(),
+  })
+  .required();
+
 export const RegisterCandidate = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -15,6 +27,18 @@ export const RegisterCandidate = () => {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+  // Step 3: Use the useForm hook with yupResolver
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  // Step 4: Form submission handler
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div className="h-full">
       <>
@@ -30,7 +54,10 @@ export const RegisterCandidate = () => {
               className=" absolute w-full top-1/2 -translate-y-1/2 p-10"
             />
           </div>
-          <form className="w-[60%] rounded-r-lg p-[53px]">
+          <form
+            className="w-[60%] rounded-r-lg p-[53px]"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <h1 className="text-[28px] text-[#FE5656] font-extrabold uppercase text-center my-8">
               Đăng ký tài khoản ứng viên
             </h1>
@@ -64,8 +91,9 @@ export const RegisterCandidate = () => {
                   name=""
                   id="sub-name"
                   className="py-3 px-2 border-2 border-[#BEB9B9]  rounded-[4px] w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500"
+                  {...register("subName")}
                 />
-
+                <p>{errors.firstName?.message}</p>
                 <span className="text-[12px] px-2 italic pt-1 font-thin">
                   Nhập họ và tên lót
                 </span>
@@ -191,7 +219,7 @@ export const RegisterCandidate = () => {
             <div className="mt-6 flex justify-center">
               <button
                 className="shadow-md text-center text-white rounded-[16px] px-[32px] py-[16px] bg-gradientCustom"
-                type="button"
+                type="submit"
               >
                 Đăng ký
               </button>
