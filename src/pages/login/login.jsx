@@ -1,115 +1,119 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Row,
-  Col,
-  message,
-  notification,
-} from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import "./loginStyle.css";
-import { callLogin } from "../../service/api";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { doLoginAction } from "../../redux/account/accountSlice";
+import logo from "/images/logo-user.jpg";
+import Input from "../../components/Input/input";
+import ava from "/svg/avatar.svg";
+import rec from "/images/rec.jpg";
+import google from "/svg/gg.svg";
+import facebook from "/svg/fb.svg";
+
 const LoginPage = () => {
-  const [isSubmit, setSubmit] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const onFinish = async (values) => {
-    const { username, password } = values;
-    setSubmit(true);
-    const res = await callLogin(username, password);
-    setSubmit(false);
-    if (res?.data) {
-      localStorage.setItem("access_token", res.data.access_token);
-      dispatch(doLoginAction(res.data.user));
-      message.success("Đăng nhập thành coong");
-      window.location.href = "/";
-    } else {
-      notification.error({
-        message: `Đăng nhập thất bại`,
-        description: res?.message ?? res,
-      });
-    }
-  };
+  // const [isSubmit, setSubmit] = useState(false);
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const onFinish = async (values) => {
+  //   const { username, password } = values;
+  //   setSubmit(true);
+  //   const res = await callLogin(username, password);
+  //   setSubmit(false);
+  //   if (res?.data) {
+  //     localStorage.setItem("access_token", res.data.access_token);
+  //     dispatch(doLoginAction(res.data.user));
+  //     message.success("Đăng nhập thành coong");
+  //     window.location.href = "/";
+  //   } else {
+  //     notification.error({
+  //       message: `Đăng nhập thất bại`,
+  //       description: res?.message ?? res,
+  //     });
+  //   }
+  // };
 
   return (
     <>
-      <Col>
-        <Row justify={"center"} align="middle" style={{ height: "100vh" }}>
-          <Col className="wrapper">
-            <Row justify={"center"}>
-              <Form.Item>
-                <h1 style={{ fontSize: 32, fontWeight: 500 }}>Đăng Nhập</h1>
-              </Form.Item>
-            </Row>
+      <div className="w-screen h-screen flex">
+        <form className="w-[65%] flex flex-col px-36 py-10">
+          <div className="flex justify-center items-center p-10">
+            <img src={logo} alt="" />
+          </div>
+          <h1 className="text-center text-[36px] font-bold uppercase">
+            Đăng nhập
+          </h1>
+          <div className="flex flex-col gap-[25px]">
+            <div>
+              <label
+                htmlFor="email"
+                className="font-bold text-[20px] text=[#1C1C1C] leading-normal"
+              >
+                Email
+              </label>
+              <Input type="text" id="email" />
+            </div>
+            <div>
+              <label
+                htmlFor="pass"
+                className="font-bold text-[20px] text=[#1C1C1C] leading-normal"
+              >
+                Mật khẩu
+              </label>
+              <Input type="password" id="pass" />
+            </div>
+            <span className="text-right text-[#3B6EF2] text-[#15px] underline">
+              <a href="#">Quên mật khẩu?</a>
+            </span>
+          </div>
 
-            <Form
-              name="normal_login"
-              className="login-form"
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
+          <div className="mt-6 flex justify-center">
+            <button
+              className="shadow-md text-center text-white rounded-[16px] px-[32px] py-[16px] bg-gradientCustom"
+              type="submit"
             >
-              <Form.Item
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Username!",
-                  },
-                ]}
-              >
-                <Input
-                  prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Username"
-                />
-              </Form.Item>
-              <Form.Item
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Password!",
-                  },
-                ]}
-              >
-                <Input
-                  prefix={<LockOutlined className="site-form-item-icon" />}
-                  type="password"
-                  placeholder="Password"
-                />
-              </Form.Item>
-              <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
-                <a className="login-form-forgot" href="">
-                  Forgot password
+              Đăng nhập
+            </button>
+          </div>
+          <div className="mb-6">
+            <div className="flex justify-center items-center my-6">
+              <div class=" bg-[#F0EDFF] w-40 h-[2px]"></div>
+              <span className="font-bold p-2 text-[#D9D9D9] ">
+                Đăng nhập bằng
+              </span>
+              <div class="w-40 h-[2px] bg-[#F0EDFF]"></div>
+            </div>
+            <div className="flex items-center justify-center">
+              <div>
+                <a href="">
+                  <img src={google} alt="" className="w-[50px] h-[50px]" />
                 </a>
-              </Form.Item>
+              </div>
+              <div>
+                <a href="">
+                  <img src={facebook} alt="" className="w-[53px] h-[53px]" />
+                </a>
+              </div>
+            </div>
+          </div>
 
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="login-form-button"
-                  loading={isSubmit}
-                >
-                  Log in
-                </Button>
-                Or <a href="">register now!</a>
-              </Form.Item>
-            </Form>
-          </Col>
-        </Row>
-      </Col>
+          <h6 className="text-center">
+            Chưa có tài khoản?{" "}
+            <span>
+              <a
+                href="http://"
+                className="text-[16px] font-bold text-[#FE5656]"
+              >
+                {" "}
+                Đăng ký ngay
+              </a>
+            </span>
+          </h6>
+        </form>
+        <div className="w-[35%] h-full relative">
+          <img src={rec} alt="" className=" h-full w-full" />
+          <img
+            src={ava}
+            alt=""
+            className="absolute w-full top-1/2 -translate-y-1/2 p-32"
+          />
+        </div>
+      </div>
     </>
   );
 };

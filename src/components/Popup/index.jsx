@@ -12,7 +12,7 @@ const Popup = (props) => {
   return (
     visible && (
       <div className="w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center shadow-custom absolute">
-        <div className="w-[35%] h-[35%] bg-white rounded-[46px] shadow-blur backdrop-blur-[6.800000190734863px]">
+        <div className="w-[35%] h-[30%] bg-white rounded-[46px] shadow-blur backdrop-blur-[6.800000190734863px]">
           <h1 className="text-[20px] font-extrabold uppercase text-center mt-[60px] text-xl	">
             {props.text}
           </h1>
