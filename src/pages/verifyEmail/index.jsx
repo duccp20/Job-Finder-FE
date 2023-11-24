@@ -4,16 +4,16 @@ import RegisterSuccessful from "../../components/RegisterSuccessful";
 
 export const VerifyEmail = () => {
   return (
-    <div className="w-screen h-screen bg-[#f6f6f6] z-[2] relative">
+    <div className="w-screen h-screen bg-[#F6F6F6] z-[2] relative">
       <RegisterSuccessful></RegisterSuccessful>
       <>
         <Header></Header>
       </>
-      <div className="w-3/5 h-3/5 my-[45px] mx-auto bg-white rounded-xl shadow-custom border-[2px]">
+      <div className="w-[55%] h-[60%] my-[45px] mx-auto bg-white rounded-xl shadow-custom border-[2px]">
         <h1 className="text-[17px] font-bold uppercase text-center my-[30px]">
           Xác thực tài khoản
         </h1>
-        <div className="mx-[65px] text-xs		">
+        <div className="mx-[50px] text-xs">
           <p className="font-bold m-4">
             Đăng nhập vào email của bạn để xác thực tài khoản
           </p>
