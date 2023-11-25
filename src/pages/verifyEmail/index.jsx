@@ -33,7 +33,7 @@ export const VerifyEmail = () => {
             Nếu bạn không nhận được email thông báo thành công, vui lòng nhấp
             vào link '
             <span className="text-red-600	">
-              Gửi lại email xác thực tài khoản
+              <a href="http://">Gửi lại email xác thực tài khoản</a>
             </span>
             ', hệ thống sẽ gửi email chứa liên kết xác thực vào tài khoản của
             bạn.

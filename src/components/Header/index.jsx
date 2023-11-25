@@ -36,16 +36,29 @@ const Header = () => {
     <>
       <div className="h-[70px] border-1 border-solid border-[#D1D1D1] flex items-center justify-between px-[26.75px] shadow-custom leading-10">
         <div>
-          <img src={logo} alt="" />
+          <a href="http://">
+            <img src={logo} alt="" />
+          </a>
         </div>
 
         <div className="flex items-center justify-center gap-9">
-          <div className="flex items-center justify-center gap-2">
-            <img src={flag} alt="" />
-            <img src={arrow} alt="" />
-          </div>
-          <span className="font-semibold">Đăng ký</span>
-          <span className="font-semibold">Đăng nhập</span>
+          <a
+            href="#
+        "
+          >
+            {" "}
+            <div className="flex items-center justify-center gap-2">
+              <img src={flag} alt="" />
+              <img src={arrow} alt="" />
+            </div>
+          </a>
+
+          <span className="font-semibold">
+            <a href="#">Đăng ký</a>
+          </span>
+          <span className="font-semibold">
+            <a href="#">Đăng nhập</a>
+          </span>
         </div>
       </div>
     </>
