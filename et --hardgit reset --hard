@@ -1,0 +1,202 @@
+[33mcommit 8cbbeeb0c4152fb3c8d0abc05ad40bc1c0b52c2b[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/phuocduc/login[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: e179466 6ebb13a
+Author: duccp20 <104719006+duccp20@users.noreply.github.com>
+Date:   Sat Nov 25 00:30:05 2023 +0700
+
+    Merge pull request #11 from duccp20/feature/tuyettran/forget-pass
+    
+    Feature/tuyettran/forget pass
+
+[33mcommit 6ebb13ac7b74e8a7ca0b4a721ee59239ebd5b34c[m[33m ([m[1;31morigin/feature/tuyettran/forget-pass[m[33m)[m
+Merge: 746b903 e179466
+Author: Tran4654 <tuyettranchidung@gmail.com>
+Date:   Sat Nov 25 00:20:45 2023 +0700
+
+    fix conflicts
+
+[33mcommit 746b9033112dd5a0447bedbc3c0351f55096daa5[m
+Author: Tran4654 <tuyettranchidung@gmail.com>
+Date:   Sat Nov 25 00:15:27 2023 +0700
+
+    them input email va sua nut 'dang ky'
+
+[33mcommit e179466ef9c88dd0a60cebef3229419578a830ef[m
+Merge: 87fb722 762bc60
+Author: duccp20 <104719006+duccp20@users.noreply.github.com>
+Date:   Fri Nov 24 20:25:07 2023 +0700
+
+    Merge pull request #10 from duccp20/feature/nhungoc/register-successful
+    
+    fix height verify email & popup
+
+[33mcommit 762bc604a55058ea5d8004849da8ee6f27ecd226[m[33m ([m[1;31morigin/feature/nhungoc/register-successful[m[33m)[m
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Fri Nov 24 20:19:50 2023 +0700
+
+    fix height verify email & popup
+
+[33mcommit 87fb72296bef56dfc1c3f0b34a8efa5845648863[m
+Merge: d4e6b52 15b79b3
+Author: duccp20 <104719006+duccp20@users.noreply.github.com>
+Date:   Fri Nov 24 18:03:37 2023 +0700
+
+    Merge pull request #9 from duccp20/feature/nhungoc/register-successful
+    
+    Feature/nhungoc/register successful
+
+[33mcommit 15b79b377f2c5be7e1685a225555e20d2b6ed196[m
+Merge: 9c64c27 d4e6b52
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Fri Nov 24 17:57:01 2023 +0700
+
+    fix conflict
+
+[33mcommit d4e6b521b79354365594658fe58b5eeceb46e150[m
+Merge: 2a1d8c6 788a09a
+Author: duccp20 <104719006+duccp20@users.noreply.github.com>
+Date:   Fri Nov 24 17:45:17 2023 +0700
+
+    Merge pull request #8 from duccp20/feature/phuocduc/login
+    
+    Feature/phuocduc/login
+
+[33mcommit 788a09aaf601db9930a39ba0a92efd2303a0250d[m[33m ([m[1;31morigin/feature/phuocduc/login[m[33m, [m[1;32mregister[m[33m)[m
+Author: phuoc <duccp20@gmail.com>
+Date:   Fri Nov 24 17:44:22 2023 +0700
+
+    login ui
+
+[33mcommit 9c64c279a1caf9dd28a98273e53811711c675f7b[m
+Merge: 7a513e1 2a1d8c6
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Fri Nov 24 17:20:04 2023 +0700
+
+    Merge branch 'main' of https://github.com/duccp20/Job-Finder-FE into feature/nhungoc/register-successful
+
+[33mcommit 7a513e189db455cfe15596ab3bacf789da4c841f[m
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Fri Nov 24 17:19:45 2023 +0700
+
+    fix size email and popup
+
+[33mcommit 16c2fe6fdbf7221b9b2291b43951e55adcaa99e6[m
+Merge: 1882d0f 2a1d8c6
+Author: phuoc <duccp20@gmail.com>
+Date:   Fri Nov 24 15:47:32 2023 +0700
+
+    fix conflict
+
+[33mcommit 1882d0f3a066635e7869ae64613e31976ed9cc0f[m
+Author: phuoc <duccp20@gmail.com>
+Date:   Fri Nov 24 15:42:24 2023 +0700
+
+    change
+
+[33mcommit 2a1d8c69454a66ebe570642cf3aa68d7df741bf1[m
+Merge: 0a82fbc 0c79d56
+Author: duccp20 <104719006+duccp20@users.noreply.github.com>
+Date:   Fri Nov 24 11:40:12 2023 +0700
+
+    Merge pull request #6 from duccp20/feature/nhungoc/register-successful
+    
+    rename popup
+
+[33mcommit 0c79d5679c846c6cc4040df666f250f69c707f6a[m
+Merge: 3be0c41 0a82fbc
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Fri Nov 24 11:35:34 2023 +0700
+
+    Merge branch 'main' of https://github.com/duccp20/Job-Finder-FE into feature/nhungoc/register-successful
+
+[33mcommit 3be0c41d67e6232d264929bfaa577dc2c5cd2c96[m
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Fri Nov 24 11:35:17 2023 +0700
+
+    rename popup
+
+[33mcommit 0a82fbccfd79b11c7e7b7bf95d5b006e8660c15c[m
+Merge: 60d691c 046585c
+Author: duccp20 <104719006+duccp20@users.noreply.github.com>
+Date:   Fri Nov 24 10:07:18 2023 +0700
+
+    Merge pull request #5 from duccp20/feature/nhungoc/register-successful
+    
+    done verify email & register success
+
+[33mcommit 046585cc780cc9997c2619ee87abd23af2937db9[m
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Fri Nov 24 09:52:41 2023 +0700
+
+    done verify email & register success
+
+[33mcommit 60d691cac164b31be7949c207952d6f696f4b61f[m
+Merge: f6c2ae7 6f0b042
+Author: nhungoc21 <95835818+nhungoc21@users.noreply.github.com>
+Date:   Thu Nov 23 22:30:11 2023 +0700
+
+    Merge pull request #4 from duccp20/feature/nhungoc/verify-email
+    
+    registerSuccess
+
+[33mcommit 6f0b04264f9fc5951db3c8d9bdf0a69f03dfd18c[m[33m ([m[1;31morigin/feature/nhungoc/verify-email[m[33m)[m
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Thu Nov 23 22:14:49 2023 +0700
+
+    registerSuccess
+
+[33mcommit f6c2ae7aa363eb10b8246d1a4aaf886686e08a00[m
+Merge: 71fad78 e4abda5
+Author: nhungoc21 <95835818+nhungoc21@users.noreply.github.com>
+Date:   Thu Nov 23 12:00:12 2023 +0700
+
+    Merge pull request #3 from duccp20/feature/nhungoc/verify-email
+    
+    create verifyEmail
+
+[33mcommit e4abda5be70bc4723d202ad1ce1f6019f7a54294[m
+Author: nhungoc21 <ngocutn21406@st.uel.edu.vn>
+Date:   Thu Nov 23 11:50:56 2023 +0700
+
+    create verifyEmail
+
+[33mcommit 71fad78125ddad625002b24ee6ac90e7b2205433[m
+Merge: 75af0e2 e319788
+Author: Tran4654 <95266657+Tran4654@users.noreply.github.com>
+Date:   Wed Nov 22 19:33:08 2023 +0700
+
+    Merge pull request #2 from duccp20/feature/tuyettran/password-ui
+    
+    them folder 'forgetpass', 'getcode'
+
+[33mcommit e31978835e94fd2cd02edee666845fe93b57c59c[m[33m ([m[1;31morigin/feature/tuyettran/password-ui[m[33m)[m
+Author: Tran4654 <tuyettranchidung@gmail.com>
+Date:   Wed Nov 22 19:27:09 2023 +0700
+
+    them folder 'forgetpass', 'getcode'
+
+[33mcommit 75af0e23d3c603a2568d21093042e1ed8d63669c[m
+Merge: 1775bd6 acd7ca5
+Author: duccp20 <104719006+duccp20@users.noreply.github.com>
+Date:   Tue Nov 21 21:50:35 2023 +0700
+
+    Merge pull request #1 from duccp20/register
+    
+    create register UI for candidate
+
+[33mcommit acd7ca5467176d3930f766807db699c23feabb28[m[33m ([m[1;31morigin/register[m[33m)[m
+Author: phuoc <duccp20@gmail.com>
+Date:   Tue Nov 21 21:49:16 2023 +0700
+
+    create register UI for candidate
+
+[33mcommit 1775bd641221578147390539f24510c49ba33379[m[33m ([m[1;32mmain[m[33m)[m
+Author: phuoc <duccp20@gmail.com>
+Date:   Fri Nov 17 13:01:52 2023 +0700
+
+    build base
+
+[33mcommit da7364de17608fc89f7539315b43ee389f6b57e3[m
+Author: phuoc <duccp20@gmail.com>
+Date:   Fri Nov 17 12:46:56 2023 +0700
+
+    ok
