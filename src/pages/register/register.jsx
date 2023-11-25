@@ -11,8 +11,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // Step 2: Define your validation schema using Yup
 const schema = yup
   .object({
-    subName: yup.string().required("Bắt buộc nhập họ và tên"),
-    age: yup.number().positive().integer().required(),
+    subName: yup
+      .string()
+      .required("Họ và tên lót không được phép là số hoặc ký tự đặc biệt"),
+    // name: yup.required(),
+    // email: yup.required(),
+    // passWord: yup.required(),
+    // confirmPassword: yup.required(),
+    // phoneNumber: yup.required(),
   })
   .required();
 
@@ -93,7 +99,24 @@ export const RegisterCandidate = () => {
                   className="py-3 px-2 border-2 border-[#BEB9B9]  rounded-[4px] w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   {...register("subName")}
                 />
-                <p>{errors.firstName?.message}</p>
+                {errors?.subName && (
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="16"
+                      viewBox="0 0 18 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M8.69838 1.33337C12.7018 1.33337 15.9471 4.31804 15.9471 8.00004C15.9471 11.682 12.7018 14.6667 8.69838 14.6667C4.69494 14.6667 1.44971 11.682 1.44971 8.00004C1.44971 4.31804 4.69494 1.33337 8.69838 1.33337ZM8.69838 10C8.50614 10 8.32176 10.0703 8.18583 10.1953C8.04989 10.3203 7.97352 10.4899 7.97352 10.6667C7.97352 10.8435 8.04989 11.0131 8.18583 11.1381C8.32176 11.2631 8.50614 11.3334 8.69838 11.3334C8.89063 11.3334 9.075 11.2631 9.21094 11.1381C9.34688 11.0131 9.42325 10.8435 9.42325 10.6667C9.42325 10.4899 9.34688 10.3203 9.21094 10.1953C9.075 10.0703 8.89063 10 8.69838 10ZM8.69838 4.00004C8.52084 4.00006 8.34948 4.06001 8.2168 4.16852C8.08413 4.27702 7.99936 4.42654 7.97859 4.58871L7.97352 4.66671V8.66671C7.97372 8.83663 8.04447 9.00006 8.1713 9.12362C8.29812 9.24718 8.47147 9.32153 8.6559 9.33149C8.84034 9.34145 9.02195 9.28626 9.16363 9.1772C9.30531 9.06814 9.39636 8.91344 9.41818 8.74471L9.42325 8.66671V4.66671C9.42325 4.4899 9.34688 4.32033 9.21094 4.1953C9.075 4.07028 8.89063 4.00004 8.69838 4.00004Z"
+                        fill="#FF0000"
+                      />
+                    </svg>
+                    {errors.subName?.message}
+                  </p>
+                )}
+
                 <span className="text-[12px] px-2 italic pt-1 font-thin">
                   Nhập họ và tên lót
                 </span>
@@ -106,7 +129,14 @@ export const RegisterCandidate = () => {
                   type="text"
                   className="py-3 px-2 border-2 border-[#BEB9B9] rounded-[4px] w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   id="name"
+                  {...register("name")}
                 />
+                {errors?.name && (
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.name?.message}
+                  </p>
+                )}
+
                 <span className="text-[12px] px-2 italic pt-1 font-thin">
                   Nhập tên
                 </span>
@@ -117,7 +147,12 @@ export const RegisterCandidate = () => {
               <label htmlFor="email" className="pb-1 font-bold">
                 Email <span className="text-red-600">*</span>
               </label>
-              <Input type="email" id="email" />
+              <Input type="email" id="email" {...register("email")} />
+              {errors?.email && (
+                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                  {errors.email?.message}
+                </p>
+              )}
               <span className="text-[12px] px-2 italic pt-1 font-thin">
                 Sử dụng email có thật để xác thực
               </span>
@@ -131,7 +166,13 @@ export const RegisterCandidate = () => {
                 <Input
                   type={showPassword ? "text" : "password"}
                   id="passWord"
+                  {...register("passWord")}
                 />
+                {errors?.passWord && (
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.passWord?.message}
+                  </p>
+                )}
                 <span
                   className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer top-[20px]"
                   onClick={togglePasswordVisibility}
@@ -167,7 +208,13 @@ export const RegisterCandidate = () => {
                 <Input
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirmPassword"
+                  {...register("confirmPassword")}
                 />
+                {errors?.confirmPassword && (
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.confirmPassword?.message}
+                  </p>
+                )}
 
                 <span
                   className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer top-[20px]"
@@ -205,7 +252,16 @@ export const RegisterCandidate = () => {
               <label htmlFor="confirmPassword" className="pb-1 font-bold">
                 Số điện thoại <span className="text-red-700">*</span>
               </label>
-              <Input />
+              <Input
+                type={"phoneNumber"}
+                id="phoneNumber"
+                {...register("phoneNumber")}
+              />
+              {errors?.phoneNumber && (
+                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                  {errors.phoneNumber?.message}
+                </p>
+              )}
             </div>
             <span className="text-[12px] italic pt-1 font-thin px-2">
               Có thể bắt đầu với đầu số 03, 05, 07, 08, 09, 84, +84
