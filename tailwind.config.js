@@ -12,6 +12,9 @@ export default {
         gradientCustom:
           "linear-gradient(100deg, #FFB950 -5.85%, #FE5656 109.55%)",
       },
+      fontFamily: {
+        nunito: ["Nunito Sans", "sans-serif"],
+      },
     },
   },
   plugins: [],
