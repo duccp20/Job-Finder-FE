@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RegisterCandidate } from "./pages/register/register";
+
 import LoginPage from "./pages/login/login";
 import { ForgetPass } from "./pages/forgetpass/forgetpass";
 import { VerifyEmail } from "./pages/verifyEmail";
