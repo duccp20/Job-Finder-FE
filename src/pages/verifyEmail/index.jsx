@@ -4,7 +4,7 @@ import Popup from "../../components/Popup";
 
 export const VerifyEmail = () => {
   return (
-    <div className="w-screen h-full bg-[#F6F6F6] relative pb-[50px]">
+    <div className="w-screen h-screen overflow-hidden bg-[#F6F6F6] relative pb-[50px]">
       <Popup
         text="ĐĂNG KÝ THÀNH CÔNG!
 "
@@ -13,7 +13,7 @@ export const VerifyEmail = () => {
       <>
         <Header></Header>
       </>
-      <div className="w-[59%] h-auto mt-[45px] pt-[70px] pb-[90px] mx-auto bg-white rounded-[10px] shadow-custom border-[1px] border-[#DEDEDE]">
+      <div className="w-[59%] h-auto mt-[5%] pt-[70px] pb-[90px] mx-auto bg-white rounded-[10px] shadow-custom border-[1px] border-[#DEDEDE]">
         <h1 className="text-[22px] font-[700] uppercase text-center mb-[30px] leading-normal">
           Xác thực tài khoản
         </h1>
