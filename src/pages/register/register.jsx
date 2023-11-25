@@ -15,7 +15,7 @@ const schema = yup
       .string()
       .required("Họ và tên lót không được phép là số hoặc ký tự đặc biệt"),
     // name: yup.required(),
-    // email: yup.required(),
+    email: yup.email().required(),
     // passWord: yup.required(),
     // confirmPassword: yup.required(),
     // phoneNumber: yup.required(),
