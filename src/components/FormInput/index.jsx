@@ -20,7 +20,7 @@ const FormInput = (props) => {
               *
             </span>
           </label>
-          <Input id="email" className="mt-4 top-2"></Input>
+          <Input id="email" type="text" />
           <div className="absolute right-0 left-auto">
             <a
               href="#"
@@ -34,7 +34,7 @@ const FormInput = (props) => {
 
         <div className="mt-9 flex justify-center mb-7">
           <button
-            className="shadow-md text-sm not-italic font-bold text-centerfont-extrabold text-white rounded-[16px] px-[32px] py-[16px] bg-gradientCustom"
+            className="shadow-md text-sm not-italic font-bold text-center font-extrabold text-white rounded-[16px] px-[32px] py-[16px] bg-gradientCustom"
             type="button"
           >
             {props.buttonName}
