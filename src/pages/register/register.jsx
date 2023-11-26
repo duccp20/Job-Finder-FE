@@ -143,11 +143,19 @@ export const RegisterCandidate = () => {
                 <label htmlFor="sub-name" className="pb-1 font-bold">
                   Họ và tên lót <span className="text-red-600">*</span>
                 </label>
-                <input
+                {/* <input
                   type="text"
                   id="sub-name"
                   className="py-3 px-2 border-2 border-[#BEB9B9]  rounded-[4px] w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   {...register("subName")}
+                /> */}
+                <Input
+                  type="text"
+                  id="sub-name"
+                  {...register("subName")}
+                  borderColor={
+                    errors.subName ? "border-red-500" : "border-gray-300"
+                  }
                 />
                 {errors?.subName && (
                   <div className="relative">
@@ -174,11 +182,19 @@ export const RegisterCandidate = () => {
                 <label htmlFor="name" className="pb-1 font-bold">
                   Tên <span className="text-red-700">*</span>
                 </label>
-                <input
+                {/* <input
                   type="text"
                   id="name"
                   className="py-3 px-2 border-2 border-[#BEB9B9] rounded-[4px] w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500"
                   {...register("name")}
+                /> */}
+                <Input
+                  type="text"
+                  id="sub-name"
+                  {...register("name")}
+                  borderColor={
+                    errors.name ? "border-red-500" : "border-gray-300"
+                  }
                 />
 
                 {errors?.name && (
@@ -209,13 +225,21 @@ export const RegisterCandidate = () => {
                 Email <span className="text-red-600">*</span>
               </label>
 
-              <input
+              {/* <input
                 type="text"
                 id="email"
                 className={`py-3 px-2 border-2 ${
                   errors.email ? "border-red-500" : "border-gray-300"
                 } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
                 {...register("email")}
+              /> */}
+              <Input
+                type="text"
+                id="sub-name"
+                {...register("email")}
+                borderColor={
+                  errors.email ? "border-red-500" : "border-gray-300"
+                }
               />
 
               {errors?.email && (
@@ -247,13 +271,21 @@ export const RegisterCandidate = () => {
                 </label>
 
                 <div className="relative">
-                  <input
+                  {/* <input
                     type={showPassword ? "text" : "password"}
                     id="passWord"
                     className={`py-3 px-2 border-2 ${
                       errors.passWord ? "border-red-500" : "border-gray-300"
                     } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
                     {...register("passWord")}
+                  /> */}
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    id="passWord"
+                    {...register("passWord")}
+                    borderColor={
+                      errors.passWord ? "border-red-500" : "border-gray-300"
+                    }
                   />
                   <span
                     className="absolute top-[50%] -translate-y-1/2 right-0 flex items-center cursor-pointer pr-2"
@@ -303,7 +335,7 @@ export const RegisterCandidate = () => {
                   Xác nhận mật khẩu <span className="text-red-700">*</span>
                 </label>
                 <div className="relative">
-                  <input
+                  {/* <input
                     type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
                     className={`py-3 px-2 border-2 ${
@@ -312,6 +344,16 @@ export const RegisterCandidate = () => {
                         : "border-gray-300"
                     } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
                     {...register("confirmPassword")}
+                  /> */}
+                  <Input
+                    type={showConfirmPassword ? "text" : "password"}
+                    id="confirmPassword"
+                    {...register("confirmPassword")}
+                    borderColor={
+                      errors.confirmPassword
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }
                   />
 
                   <span
@@ -370,13 +412,21 @@ export const RegisterCandidate = () => {
                 Số điện thoại <span className="text-red-700">*</span>
               </label>
 
-              <input
+              {/* <input
                 type="tel"
                 id="phoneNumber"
                 className={`py-3 px-2 border-2 ${
                   errors.phoneNumber ? "border-red-500" : "border-gray-300"
                 } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
                 {...register("phoneNumber")}
+              /> */}
+              <Input
+                type="tel"
+                id="phoneNumber"
+                {...register("phoneNumber")}
+                borderColor={
+                  errors.phoneNumber ? "border-red-500" : "border-gray-300"
+                }
               />
               {errors?.phoneNumber && (
                 <div className="relative">
