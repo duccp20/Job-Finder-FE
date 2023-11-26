@@ -6,7 +6,37 @@ import rec from "/images/rec.jpg";
 import google from "/svg/gg.svg";
 import facebook from "/svg/fb.svg";
 
+// const schema = yup
+//   .object({
+//     email: yup
+//       .string()
+//       .email("Email không đúng định dạng")
+//       .required("Email không đúng định dạng"),
+//     passWord: yup
+//       .string()
+//       .required(
+//         "Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt"
+//       )
+//       .min(8, "Ít nhất 8 ký tự")
+//       .matches(
+//         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+//         "1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt"
+//       ),
+//   })
+//   .required();
+
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  // Step 4: Form submission handler
+  const onSubmit = (data) => console.log(data);
+
   // const [isSubmit, setSubmit] = useState(false);
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
