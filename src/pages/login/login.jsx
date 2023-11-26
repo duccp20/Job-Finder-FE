@@ -26,16 +26,16 @@ import facebook from "/svg/fb.svg";
 //   .required();
 
 const LoginPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: yupResolver(schema),
+  // });
 
-  // Step 4: Form submission handler
-  const onSubmit = (data) => console.log(data);
+  // // Step 4: Form submission handler
+  // const onSubmit = (data) => console.log(data);
 
   // const [isSubmit, setSubmit] = useState(false);
   // const navigate = useNavigate();
@@ -61,7 +61,7 @@ const LoginPage = () => {
   return (
     <>
       <div className="w-screen h-screen flex">
-        <form className="w-[65%] flex flex-col px-36 py-10">
+        <form className="w-[55%] flex flex-col px-36 py-10">
           <div className="flex justify-center items-center p-10">
             <img src={logo} alt="" />
           </div>
@@ -108,7 +108,7 @@ const LoginPage = () => {
               </span>
               <div class="w-40 h-[2px] bg-[#F0EDFF]"></div>
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center gap-12">
               <div>
                 <a href="">
                   <img src={google} alt="" className="w-[50px] h-[50px]" />
@@ -135,7 +135,7 @@ const LoginPage = () => {
             </span>
           </h6>
         </form>
-        <div className="w-[35%] h-full relative">
+        <div className="w-[45%] h-full relative">
           <img src={rec} alt="" className=" h-full w-full" />
           <img
             src={ava}
