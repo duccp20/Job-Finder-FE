@@ -4,6 +4,7 @@ const Input = React.forwardRef((props, ref) => {
   return (
     <div>
       <input
+        name={props.name}
         ref={ref}
         type={props.type}
         id={props.id}

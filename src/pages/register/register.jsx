@@ -29,6 +29,10 @@ const schema = yup
     email: yup
       .string()
       .email("Email không đúng định dạng")
+      .matches(
+        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+        "Email không đúng định dạng"
+      )
       .required("Email không đúng định dạng"),
     passWord: yup
       .string()
