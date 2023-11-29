@@ -15,45 +15,7 @@ const schema = yup
   })
   .required();
 
-// const EnterCode = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm({
-//     resolver: yupResolver(schema),
-//   });
-//   const onSubmit = (data) => console.log(data);
-//   return (
-//     <>
-//       <FormInput
-// submit={handleSubmit(onSubmit)}
-//         title="Quên Mật Khẩu"
-//         label="Nhập mã "
-//         again="Gửi lại mã?"
-//         buttonName="Lấy lại mật khẩu"
-//       />
-//       <Input
-//         type="text"
-//         id="code"
-//         {...register("code")}
-//         borderColor={errors.code ? "border-red-500" : "border-gray-300"}
-//       />
-
-//       {errors?.code && (
-//         <div className="relative">
-//           <div className="flex justify-center items-center absolute">
-//             <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
-//               {errors.code?.message}
-//             </p>
-//           </div>
-//         </div>
-//       )}
-//     </>
-//   );
-// };
-
-export const ForgetPass = () => {
+export const EnterCode = () => {
   const {
     register,
     handleSubmit,
@@ -129,4 +91,4 @@ export const ForgetPass = () => {
     </div>
   );
 };
-export default ForgetPass;
+export default EnterCode;

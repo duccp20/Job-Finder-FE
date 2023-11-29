@@ -4,8 +4,9 @@ import { RegisterCandidate } from "./pages/register/register";
 
 import LoginPage from "./pages/login/login";
 import { VerifyEmail } from "./pages/verifyEmail";
-import { ForgetPass } from "./pages/forgetpass/forgetpass";
 import EnterCode from "./pages/entercode/entercode";
+import Profile from "./pages/profile/profile";
+import { ForgetPass } from "./pages/forgetPass/forgetpass";
 import HeaderHome from "./components/HeaderHome";
 const App = () => {
   const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const App = () => {
     {
       path: "/enter-code",
       element: <EnterCode />,
+    },
+    {
+      path: "/profile",
+      element: <Profile />,
     },
     {
       path: "/headerHome",
