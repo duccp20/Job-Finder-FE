@@ -1,14 +1,15 @@
 import React from "react";
-import Header from "../../components/Header";
+
 import { Toggle } from "../../components/Toggle";
 import pen from "/public/svg/pen.svg";
+import HeaderHome from "../../components/HeaderHome";
 
 const Profile = (props) => {
   return (
     <div>
-      <Header></Header>
+      <HeaderHome />
       <div className="flex h-screen w-full px-[100px] mt-[60px] gap-[24px] items-start">
-        <div className="border border-[#FE5656] rounded-[10px] w-[40%] h-auto py-[50px] px-[45px]">
+        <div className="border border-[#FE5656] rounded-[10px] w-[40%] h-auto py-[50px] px-[45px] shadow-banner">
           <img
             className="aspect-square mx-auto rounded-full object-cover bg-center bg-no-repeat w-[200px] h-[200px]"
             src="https://images.unsplash.com/photo-1701084412727-1f3e01088a5f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

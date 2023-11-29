@@ -7,6 +7,7 @@ import { VerifyEmail } from "./pages/verifyEmail";
 import EnterCode from "./pages/entercode/entercode";
 import Profile from "./pages/profile/profile";
 import { ForgetPass } from "./pages/forgetPass/forgetpass";
+import HeaderHome from "./components/HeaderHome";
 const App = () => {
   const router = createBrowserRouter([
     // {
@@ -48,7 +49,10 @@ const App = () => {
       path: "/profile",
       element: <Profile />,
     },
-
+    {
+      path: "/headerHome",
+      element: <HeaderHome />,
+    },
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,
