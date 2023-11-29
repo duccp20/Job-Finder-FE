@@ -46,7 +46,7 @@ export const ForgetPass = () => {
             htmlFor="email"
             className="text-gray-900 text-xl not-italic font-extrabold font-sans leading-[2.0]"
           >
-            Nhập email{" "}
+            Nhập Email{" "}
             <span className="text-red-700 text-xl not-italic font-normal font-sans">
               *
             </span>
