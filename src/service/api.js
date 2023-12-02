@@ -1,6 +1,5 @@
 import axios from "../utils/axiosCustomize";
 
-
 export const callRegister = (
   firstName,
   lastName,
@@ -15,6 +14,7 @@ export const callRegister = (
     email,
     password,
     phone,
+    role,
   });
 };
 
