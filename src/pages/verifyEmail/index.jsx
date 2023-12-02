@@ -2,14 +2,9 @@ import React from "react";
 import Header from "../../components/Header";
 import Popup from "../../components/Popup";
 
-export const VerifyEmail = () => {
+export const VerifyEmail = ({ props }) => {
   return (
     <div className="w-screen h-screen overflow-hidden bg-[#F6F6F6] relative pb-[50px]">
-      <Popup
-        text="ĐĂNG KÝ THÀNH CÔNG!
-"
-      ></Popup>
-
       <>
         <Header></Header>
       </>

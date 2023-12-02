@@ -38,6 +38,17 @@ const App = () => {
     {
       path: "/verifyEmail",
       element: <VerifyEmail />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          path: "success",
+          element: <VerifyEmail text="Xác thực thành công" />,
+        },
+        {
+          path: "fail",
+          element: <VerifyEmail text="Xác thực thất baị" />,
+        },
+      ],
     },
     {
       path: "/forget-pass",

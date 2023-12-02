@@ -34,7 +34,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="h-[70px] border-1 border-solid border-[#D1D1D1] flex items-center justify-between px-[26.75px] shadow-custom leading-10">
+      <div className=" bg-white h-[70px] w-full border-1 border-solid border-[#D1D1D1] flex items-center justify-between px-[26.75px] shadow-custom leading-10 fixed z-[999] top-0">
         <div>
           <a href="http://">
             <img src={logo} alt="" />
