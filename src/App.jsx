@@ -8,6 +8,8 @@ import EnterCode from "./pages/entercode/entercode";
 import Profile from "./pages/profile/profile";
 import { ForgetPass } from "./pages/forgetPass/forgetpass";
 import HeaderHome from "./components/HeaderHome";
+import PersonalInfor from "./pages/profile/personal_infor";
+import JobInfor from "./pages/profile/job_infor";
 const App = () => {
   const router = createBrowserRouter([
     // {
@@ -52,6 +54,14 @@ const App = () => {
     {
       path: "/headerHome",
       element: <HeaderHome />,
+    },
+    {
+      path: "/personalInfor",
+      element: <PersonalInfor />,
+    },
+    {
+      path: "/jobInfor",
+      element: <JobInfor />,
     },
     // {
     //   path: "/admin",
