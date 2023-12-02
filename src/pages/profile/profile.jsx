@@ -16,17 +16,17 @@ const Profile = (props) => {
             alt=""
           />
           {/* <h2>{props.name}</h2> */}
-          <h3 className="text-red-500 text-center text-2xl not-italic font-extrabold font-openSans mt-[35px] mb-[45px]">
+          <h3 className="text-red-500 text-center text-2xl not-italic font-extrabold mt-[35px] mb-[45px]">
             Tran Dang
           </h3>
           <hr className="mb-[35px] border-[1px]" />
           <div className="flex items-center">
-            <p className="text-red-500 text-base not-italic font-semibold font-openSans leading-relaxed">
+            <p className="text-red-500 text-base not-italic font-semibold leading-relaxed pr-4">
               Cho phép nhà tuyển dụng tìm kiếm hồ sơ trực tuyến của bạn
             </p>
             <Toggle></Toggle>
           </div>
-          <p className="text-[#7D7D7D] text-xs italic font-normal font-openSans ">
+          <p className="text-[#7D7D7D] text-xs italic font-normal pt-3">
             Cho phép nhà tuyển dụng chủ động tìm kiếm hồ sơ của bạn để có thêm
             nhiều cơ hội việc làm tốt từ IT Jobs.
           </p>
@@ -34,14 +34,14 @@ const Profile = (props) => {
         <div className="flex flex-col w-[60%] h-auto gap-5">
           <div className="h-[45%] rounded-[10px] shadow-banner">
             <div className=" rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] w-full h-[55px] flex justify-between py-[14px] px-[44px] shadow-banner">
-              <span className="text-xl not-italic font-bold text-white font-openSans ">
+              <span className="text-xl not-italic font-bold text-white ">
                 Thông tin cá nhân
               </span>
               <a href="#" className="">
                 <img src={pen} alt="" />
               </a>
             </div>
-            <div className="table py-[30px] px-[40px] font-openSans">
+            <div className="table py-[30px] px-[40px]">
               <table className="min-w-full">
                 <tbody className="text-left">
                   <tr className="">
@@ -84,14 +84,14 @@ const Profile = (props) => {
           </div>
           <div className="h-[55%] mt-[px] shadow-banner rounded-[10px]">
             <div className="rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] w-full h-[55px] flex justify-between py-[14px] px-[44px] shadow-banner">
-              <span className="text-xl not-italic font-bold text-white font-openSans ">
+              <span className="text-xl not-italic font-bold text-white ">
                 Thông tin công việc muốn ứng tuyển
               </span>
               <a href="#" className="">
                 <img src={pen} alt="" />
               </a>
             </div>
-            <div className="table py-[30px] px-[40px] font-openSans">
+            <div className="table py-[30px] px-[40px]">
               <table className="min-w-full">
                 <tbody className="text-left">
                   <tr className="">

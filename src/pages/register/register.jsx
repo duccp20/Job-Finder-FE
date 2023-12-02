@@ -147,12 +147,6 @@ export const RegisterCandidate = () => {
                 <label htmlFor="sub-name" className="pb-1 font-bold">
                   Họ và tên lót <span className="text-red-600">*</span>
                 </label>
-                {/* <input
-                  type="text"
-                  id="sub-name"
-                  className="py-3 px-2 border-2 border-[#BEB9B9]  rounded-[4px] w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500"
-                  {...register("subName")}
-                /> */}
                 <Input
                   type="text"
                   id="sub-name"
@@ -177,7 +171,7 @@ export const RegisterCandidate = () => {
                 {!errors?.subName && (
                   <div className="relative">
                     <span className="text-[12px] italic px-2 pt-2  font-thin absolute">
-                      Nhập tên
+                      Nhập họ và tên lót
                     </span>
                   </div>
                 )}
@@ -186,15 +180,9 @@ export const RegisterCandidate = () => {
                 <label htmlFor="name" className="pb-1 font-bold">
                   Tên <span className="text-red-700">*</span>
                 </label>
-                {/* <input
-                  type="text"
-                  id="name"
-                  className="py-3 px-2 border-2 border-[#BEB9B9] rounded-[4px] w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500"
-                  {...register("name")}
-                /> */}
                 <Input
                   type="text"
-                  id="sub-name"
+                  id="name"
                   {...register("name")}
                   borderColor={
                     errors.name ? "border-red-500" : "border-gray-300"
@@ -228,15 +216,6 @@ export const RegisterCandidate = () => {
               <label htmlFor="email" className="pb-1 font-bold">
                 Email <span className="text-red-600">*</span>
               </label>
-
-              {/* <input
-                type="text"
-                id="email"
-                className={`py-3 px-2 border-2 ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
-                {...register("email")}
-              /> */}
               <Input
                 type="text"
                 id="sub-name"
@@ -275,14 +254,6 @@ export const RegisterCandidate = () => {
                 </label>
 
                 <div className="relative">
-                  {/* <input
-                    type={showPassword ? "text" : "password"}
-                    id="passWord"
-                    className={`py-3 px-2 border-2 ${
-                      errors.passWord ? "border-red-500" : "border-gray-300"
-                    } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
-                    {...register("passWord")}
-                  /> */}
                   <Input
                     type={showPassword ? "text" : "password"}
                     id="passWord"
@@ -339,16 +310,6 @@ export const RegisterCandidate = () => {
                   Xác nhận mật khẩu <span className="text-red-700">*</span>
                 </label>
                 <div className="relative">
-                  {/* <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    id="confirmPassword"
-                    className={`py-3 px-2 border-2 ${
-                      errors.confirmPassword
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
-                    {...register("confirmPassword")}
-                  /> */}
                   <Input
                     type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
@@ -415,15 +376,6 @@ export const RegisterCandidate = () => {
               <label htmlFor="confirmPassword" className="pb-1 font-bold">
                 Số điện thoại <span className="text-red-700">*</span>
               </label>
-
-              {/* <input
-                type="tel"
-                id="phoneNumber"
-                className={`py-3 px-2 border-2 ${
-                  errors.phoneNumber ? "border-red-500" : "border-gray-300"
-                } rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
-                {...register("phoneNumber")}
-              /> */}
               <Input
                 type="tel"
                 id="phoneNumber"
