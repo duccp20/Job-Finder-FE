@@ -10,6 +10,7 @@ import { ForgetPass } from "./pages/forgetPass/forgetpass";
 import HeaderHome from "./components/HeaderHome";
 import PersonalInfor from "./pages/profile/personal_infor";
 import JobInfor from "./pages/profile/job_infor";
+import NotFound from "./components/NotFound";
 const App = () => {
   const router = createBrowserRouter([
     // {
@@ -38,6 +39,17 @@ const App = () => {
     {
       path: "/verifyEmail",
       element: <VerifyEmail />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          path: "success",
+          element: <VerifyEmail text="Xác thực thành công" />,
+        },
+        {
+          path: "fail",
+          element: <VerifyEmail text="Xác thực thất baị" />,
+        },
+      ],
     },
     {
       path: "/forget-pass",
