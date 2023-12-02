@@ -103,7 +103,7 @@ export const RegisterCandidate = () => {
 
         if (res.httpCode === 200 && res.message === "SEND MAIL") {
           console.log(res, "in call register mail");
-          window.location.href = "/verifyEmail";
+          window.location.href = "/verify-email";
         } else {
           console.log(res);
           alert("Không thể gửi mail vui lòng thử lại sau");

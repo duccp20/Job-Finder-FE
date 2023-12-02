@@ -3,7 +3,7 @@ import axios from "axios";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 const instance = axios.create({
   baseURL: baseUrl,
-  withCredentials: true, //cho phép axios auto set refresh-token từ response vào cookie
+  // withCredentials: true, //cho phép axios auto set refresh-token từ response vào cookie
 });
 
 const token = localStorage.getItem("access_token");
