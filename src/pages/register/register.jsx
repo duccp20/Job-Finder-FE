@@ -41,8 +41,8 @@ const schema = yup
       )
       .min(8, "Ít nhất 8 ký tự")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt"
+        /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]*$/,
+        "Ít nhất 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt"
       ),
     confirmPassword: yup
       .string()
@@ -131,15 +131,15 @@ export const RegisterCandidate = () => {
               </div>
               <div className="w-[50%]  rounded-lg  leading-[42px] ">
                 <button className="bg-[#375899] w-full text-[13px] rounded-[4px] uppercase flex justify-center items-center ">
-                  <i class="fa-brands fa-facebook-f tracking-[5px] text-[16px]"></i>
+                  <i className="fa-brands fa-facebook-f tracking-[5px] text-[16px]"></i>
                   Tiếp tục với Facebook
                 </button>
               </div>
             </div>
             <div className="flex justify-center items-center mt-6">
-              <div class=" bg-[#CFD0D4] w-40 h-[2px]"></div>
+              <div className=" bg-[#CFD0D4] w-40 h-[2px]"></div>
               <span className="font-bold p-2 text-[#CFD0D4] ">Hoặc</span>
-              <div class="w-40 h-[2px] bg-[#CFD0D4]"></div>
+              <div className="w-40 h-[2px] bg-[#CFD0D4]"></div>
             </div>
 
             <div className="flex gap-4 w-full mt-6">
@@ -170,7 +170,7 @@ export const RegisterCandidate = () => {
                 )}
                 {!errors?.subName && (
                   <div className="relative">
-                    <span className="text-[12px] italic px-2 pt-2  font-thin absolute">
+                    <span className="text-[12px] italic px-2 pt-2 font-thin absolute">
                       Nhập họ và tên lót
                     </span>
                   </div>
@@ -218,7 +218,7 @@ export const RegisterCandidate = () => {
               </label>
               <Input
                 type="text"
-                id="sub-name"
+                id="email"
                 {...register("email")}
                 borderColor={
                   errors.email ? "border-red-500" : "border-gray-300"
@@ -240,7 +240,7 @@ export const RegisterCandidate = () => {
               )}
               {!errors?.email && (
                 <div className="relative">
-                  <span className="text-[12px] px-2 italic pt-1 font-thin absolute">
+                  <span className="text-[12px] px-2 italic pt-2 font-thin absolute">
                     Sử dụng email có thật để xác thực
                   </span>
                 </div>
@@ -365,7 +365,7 @@ export const RegisterCandidate = () => {
 
             {!errors?.passWord && !errors?.confirmPassword && (
               <div className="relative">
-                <span className="absolute text-[12px] px-2 italic pt-1 font-thin">
+                <span className="absolute text-[12px] px-2 italic pt-2 font-thin">
                   Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc
                   biệt
                 </span>
@@ -399,7 +399,7 @@ export const RegisterCandidate = () => {
               )}
               {!errors?.phoneNumber && (
                 <div className="relative">
-                  <span className="absolute text-[12px] px-2 italic pt-1 font-thin">
+                  <span className="absolute text-[12px] px-2 italic pt-2 font-thin">
                     Có thể bắt đầu với đầu số 03, 05, 07, 08, 09, 84, +84
                   </span>
                 </div>
