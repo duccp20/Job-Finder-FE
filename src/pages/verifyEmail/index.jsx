@@ -1,14 +1,25 @@
 import React from "react";
 import Header from "../../components/Header";
 import Popup from "../../components/Popup";
+import { useLocation, useParams } from "react-router";
 
 export const VerifyEmail = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const status = searchParams.get("status");
+
+  let text;
+  status === "success"
+    ? (text = "Xác thực thành công")
+    : (text = "Xác thực thất bại");
+
+  if (status === "completed") {
+    text = "Tài khoản đã được xác thực";
+  }
+
   return (
     <div className="w-screen h-screen overflow-hidden bg-[#F6F6F6] relative pb-[50px]">
-      <Popup
-        text="ĐĂNG KÝ THÀNH CÔNG!
-"
-      ></Popup>
+      {status && <Popup text={text}></Popup>}
 
       <>
         <Header></Header>
