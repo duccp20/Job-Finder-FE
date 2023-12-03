@@ -54,10 +54,10 @@ const Header = () => {
           </a>
 
           <span className="font-semibold">
-            <a href="#">Đăng ký</a>
+            <a href="/register">Đăng ký</a>
           </span>
           <span className="font-semibold">
-            <a href="#">Đăng nhập</a>
+            <a href="/login">Đăng nhập</a>
           </span>
         </div>
       </div>

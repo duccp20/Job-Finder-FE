@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router";
 
 const Popup = (props) => {
+  const navigate = useNavigate();
+  const handleNavigate = (text) => {
+    if (
+      (text = "Xác thực thành công") ||
+      (text = "Tài khoản đã được xác thực")
+    ) {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div className="w-screen h-full overflow-hidden bg-black bg-opacity-30 flex items-center justify-center shadow-custom absolute">
       <div className="w-[35%] h-auto px-[10px] py-[25px] bg-white rounded-[46px] shadow-blur backdrop-blur-[6.800000190734863px]">
@@ -11,9 +23,7 @@ const Popup = (props) => {
           <button
             className="shadow-button text-center text-white rounded-[16px] px-[32px] py-[16px] bg-gradientCustom text-[20px] font-[800]"
             type="button"
-            onClick={() => {
-              window.location.href = "/login";
-            }}
+            onClick={() => handleNavigate(props.text)}
           >
             Tiếp tục
           </button>

@@ -5,17 +5,19 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../../components/Input/input";
 import Header from "../../components/Header";
+import { callActivePassOTP } from "../../service/api";
 
 const schema = yup
   .object({
     code: yup
       .string()
-      .matches(/123456/, "Mã không hợp lệ")
-      .required("Mã không đúng định dạng"),
+      .required("OTP không được để trống")
+      .matches(/^\d+$/, "OTP chỉ chứa số"),
   })
   .required();
 
 export const EnterCode = () => {
+  const [showPopup, setShowPopup] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -25,7 +27,23 @@ export const EnterCode = () => {
   });
 
   // Step 4: Form submission handler
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    setShowPopup(false);
+
+    const res = await callActivePassOTP(data.code);
+
+    console.log(res);
+
+    // if (res.httpCode === 200 && res.message === "SEND MAIL") {
+    //   navigate("/enter-code");
+    //   return;
+    // }
+
+    // if (res?.errors && res.message === "DATA NOT FOUND") {
+    //   setShowPopup(true);
+    //   return;
+    // }
+  };
 
   return (
     <div className="h-screen relative">
@@ -51,6 +69,7 @@ export const EnterCode = () => {
           <Input
             type="text"
             id="code"
+            name="code"
             {...register("code")}
             borderColor={errors.code ? "border-red-500" : "border-gray-300"}
           />
@@ -66,12 +85,9 @@ export const EnterCode = () => {
           )}
 
           <div className="absolute right-0 left-auto">
-            <a
-              href="#"
-              className="text-[#3B6EF2] text-sm font-poppins not-italic font-normal underline leading-loose"
-            >
+            <span className="text-[#3B6EF2] text-sm font-poppins not-italic font-normal underline leading-loose">
               Gửi lại mã?
-            </a>
+            </span>
           </div>
         </div>
         <p className="text-gray-900 text-xl not-italic font-extrabold font-sans mb-4"></p>

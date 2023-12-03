@@ -3,6 +3,7 @@ import logo from "/images/logo-user.jpg";
 import google from "/images/google.jpg";
 import flag from "/svg/flag.svg";
 import arrow from "/svg/arrow.svg";
+import guest from "/images/guest-logo.jpg";
 const HeaderHome = () => {
   const [dropdown, setDropdown] = useState({
     jobDropdown: false,
@@ -127,18 +128,18 @@ const HeaderHome = () => {
               className="flex flex-col w-full relative z-[2] cursor-pointer hover:text-[#FE5656]"
               onMouseOver={() => enterDropdown("userDropdown")}
             >
-              <div className="w-[100%] border-[2px] border-[#C5C5C5] shadow-custom rounded-[25px] px-[20px] py-[14px] font-[700]">
+              <div className="w-[100%] border-[2px] border-[#C5C5C5] shadow-bannerLighter rounded-[25px] px-[20px] py-[14px] font-[700]">
                 Tran Dang
               </div>
-              <div className="absolute right-0 max-w-[50px] max-h-[50px]">
-                <a href="#">
-                  <img src={google} className="rounded-[50%] w-full h-full" />
-                </a>
-              </div>
+            </div>
+            <div className="absolute -right-[15px] z-[10]">
+              <a href="#">
+                <img src={guest} className="rounded-[50%] w-full h-full" />
+              </a>
             </div>
 
             {dropdown.userDropdown && (
-              <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px]  rounded-[4px] shadow-custom text-left text-[15px] font-[600] bg-white z-[1]">
+              <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px]  rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
                 {userOptions.map((option) => (
                   <button
                     key={option}

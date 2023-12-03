@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Header from "../../components/Header";
+import { callSendForgetPassOTP } from "../../service/api";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -20,6 +22,9 @@ const schema = yup
   .required();
 
 export const ForgetPass = () => {
+  const [showPopup, setShowPopup] = React.useState(false);
+  const navigate = useNavigate();
+  // const
   const {
     register,
     handleSubmit,
@@ -29,7 +34,23 @@ export const ForgetPass = () => {
   });
 
   // Step 4: Form submission handler
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    setShowPopup(false);
+
+    const res = await callSendForgetPassOTP(data.email);
+
+    console.log(res);
+
+    if (res.httpCode === 200 && res.message === "SEND MAIL") {
+      navigate("/enter-code");
+      return;
+    }
+
+    if (res?.errors && res.message === "DATA NOT FOUND") {
+      setShowPopup(true);
+      return;
+    }
+  };
 
   return (
     <div className="h-screen relative">
@@ -41,6 +62,11 @@ export const ForgetPass = () => {
         <h3 className="text-black text-3xl not-italic font-sans font-extrabold uppercase text-center mb-8">
           Quên mật khẩu
         </h3>
+        {showPopup && (
+          <p className="text-white bg-gradientCustom p-2">
+            Mã OTP đã được gửi đến email của bạn
+          </p>
+        )}
         <div className="relative h-auto">
           <label
             htmlFor="email"
@@ -68,15 +94,6 @@ export const ForgetPass = () => {
               </div>
             </div>
           )}
-
-          <div className="absolute right-0 left-auto">
-            <a
-              href="#"
-              className="text-[#3B6EF2] text-sm font-poppins not-italic font-normal underline leading-loose"
-            >
-              Gửi lại mã?
-            </a>
-          </div>
         </div>
         <p className="text-gray-900 text-xl not-italic font-extrabold font-sans mb-4"></p>
 
