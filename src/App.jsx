@@ -8,6 +8,8 @@ import EnterCode from "./pages/entercode/entercode";
 import Profile from "./pages/profile/profile";
 import { ForgetPass } from "./pages/forgetPass/forgetpass";
 import HeaderHome from "./components/HeaderHome";
+import HomePage from "./pages/homePage/homePage";
+
 const App = () => {
   const router = createBrowserRouter([
     // {
@@ -52,6 +54,10 @@ const App = () => {
     {
       path: "/headerHome",
       element: <HeaderHome />,
+    },
+    {
+      path: "/homePage",
+      element: <HomePage />,
     },
     // {
     //   path: "/admin",
