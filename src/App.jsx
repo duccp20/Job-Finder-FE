@@ -8,6 +8,7 @@ import EnterCode from "./pages/entercode/entercode";
 import Profile from "./pages/profile/profile";
 import { ForgetPass } from "./pages/forgetPass/forgetpass";
 import HeaderHome from "./components/HeaderHome";
+import HomePage from "./pages/homePage/homePage";
 import PersonalInfor from "./pages/profile/personal_infor";
 import JobInfor from "./pages/profile/job_infor";
 import NotFound from "./components/NotFound";
@@ -70,6 +71,9 @@ const App = () => {
       element: <HeaderHome />,
     },
     {
+      path: "/homePage",
+      element: <HomePage />,
+
       path: "/personalInfor",
       element: <PersonalInfor />,
     },
