@@ -22,18 +22,26 @@ export const callActiveMail = (email) => {
   return axios.post("/api/v1/candidate/active-account", { email });
 };
 
-export const callLogin = (username, password) => {
-  return axios.post("/api/v1/auth/login", { username, password });
+export const callLogin = (email, password) => {
+  return axios.post("/api/v1/user/login", { email, password });
 };
 
-export const callFetchAccount = () => {
-  return axios.get("/api/v1/auth/account");
+export const callSendForgetPassOTP = (email) => {
+  return axios.post("/api/v1/user/otp-forget-password", { email });
 };
 
-export const callLogout = () => {
-  return axios.post("/api/v1/auth/logout");
+export const callActivePassOTP = (otp) => {
+  return axios.get("/api/v1/user/active-otp", { otp });
 };
 
-export const callFetchUserPagination = (query) => {
-  return axios.get(`/api/v1/user?${query}`);
-};
+// export const callFetchAccount = () => {
+//   return axios.get("/api/v1/auth/account");
+// };
+
+// export const callLogout = () => {
+//   return axios.post("/api/v1/auth/logout");
+// };
+
+// export const callFetchUserPagination = (query) => {
+//   return axios.get(`/api/v1/user?${query}`);
+// };
