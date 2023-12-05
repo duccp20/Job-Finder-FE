@@ -35,11 +35,8 @@ const HomePage = () => {
     // e.g., fetchData(page);
   };
 
-  // Your content rendering logic goes here
-
   return (
     <div>
-      <HeaderHome />
       <div className="flex h-screen w-full px-[100px] py-[36px] gap-[45px]">
         <div className=" w-[20%]">
           <div className="h-auto px-[18px] pt-[12px] pb-[24px] border-[0.5px] border-[#DEDEDE] rounded-[10px]">
