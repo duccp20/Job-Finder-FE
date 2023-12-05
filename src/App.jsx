@@ -13,7 +13,6 @@ import PersonalInfor from "./pages/profile/personal_infor";
 import JobInfor from "./pages/profile/job_infor";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
-import Home from "./pages/home";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -23,7 +22,7 @@ const App = () => {
       children: [
         {
           index: true,
-          element: <Home />,
+          element: <HomePage />,
         },
       ],
     },
@@ -71,9 +70,6 @@ const App = () => {
       element: <HeaderHome />,
     },
     {
-      path: "/homePage",
-      element: <HomePage />,
-
       path: "/personalInfor",
       element: <PersonalInfor />,
     },
