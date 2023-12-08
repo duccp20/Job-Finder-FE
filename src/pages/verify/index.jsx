@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header";
 import Popup from "../../components/Popup";
 import { useLocation, useParams } from "react-router";
 
-export const VerifyEmail = () => {
+export const Verify = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const status = searchParams.get("status");

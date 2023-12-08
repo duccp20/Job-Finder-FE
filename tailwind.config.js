@@ -19,6 +19,12 @@ export default {
         nunito: ["Nunito Sans", "sans-serif"],
         openSans: ["Open Sans"],
       },
+      animation: {
+        "slide-in": "slideInFromRight 0.5s ease-out forwards",
+        "fade-in-up": "fadeInUp 0.5s ease-out forwards",
+        "slide-down": "slideDown 0.5s ease-out forwards",
+        "silde-up": "slideUp 0.5s ease-out forwards",
+      },
     },
   },
   variants: {

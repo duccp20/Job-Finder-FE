@@ -26,12 +26,19 @@ export const callLogin = (email, password) => {
   return axios.post("/api/v1/user/login", { email, password });
 };
 
-export const callSendForgetPassOTP = (email) => {
-  return axios.post("/api/v1/user/otp-forget-password", { email });
+export const callSendForgetPass = (email) => {
+  return axios.post("/api/v1/user/forget-password", { email });
 };
 
-export const callActivePassOTP = (otp) => {
-  return axios.get("/api/v1/user/active-otp", { otp });
+export const callResetPassword = (token, newPassword) => {
+  return axios.post("/api/v1/user/reset-password-by-token", {
+    token,
+    newPassword,
+  });
+};
+
+export const callFetchUserProfile = () => {
+  return axios.get("/api/v1/user");
 };
 
 // export const callFetchAccount = () => {

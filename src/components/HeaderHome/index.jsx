@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import logo from "/images/logo-user.jpg";
-import google from "/images/google.jpg";
 import flag from "/svg/flag.svg";
-import arrow from "/svg/arrow.svg";
 import guest from "/images/guest-logo.jpg";
+import { useSelector } from "react-redux";
 const HeaderHome = () => {
+  const dataUser = useSelector((state) => state.account.user);
+
   const [dropdown, setDropdown] = useState({
     jobDropdown: false,
     userDropdown: false,
@@ -129,7 +130,7 @@ const HeaderHome = () => {
               onMouseOver={() => enterDropdown("userDropdown")}
             >
               <div className="w-[100%] border-[2px] border-[#C5C5C5] shadow-bannerLighter rounded-[25px] px-[20px] py-[14px] font-[700]">
-                Tran Dang
+                {dataUser && dataUser.firstName ? dataUser.firstName : "Khách"}
               </div>
             </div>
             <div className="absolute -right-[15px] z-[10]">
