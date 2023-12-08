@@ -1,21 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "/images/logo-user.jpg";
 import flag from "/svg/flag.svg";
 import guest from "/images/guest-logo.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { doLogoutAction } from "../../redux/account/accountSlice";
 const HeaderHome = () => {
   const dataUser = useSelector((state) => state.account.user);
-
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState({
     jobDropdown: false,
     userDropdown: false,
   });
+  const navigate = useNavigate();
 
   const [selectedOption, setSelectedOption] = useState(null);
 
   const jobOptions = ["Tìm việc làm", "Tìm thực tập"];
-  const userOptions = ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"];
-
+  // const userOptions = ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"];
+  const authOptions = isAuthenticated
+    ? ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"]
+    : ["Đăng ký", "Đăng nhập"];
   const enterDropdown = (nameDropdown) => {
     setDropdown((prev) => ({
       ...prev,
@@ -33,6 +39,23 @@ const HeaderHome = () => {
   const selectOption = (option) => {
     setSelectedOption(option);
     setDropdown(false);
+
+    if (option === "Đăng ký") {
+      navigate("/register");
+    }
+    if (option === "Đăng nhập") {
+      navigate("/login");
+    }
+
+    if (option === "Đăng xuất") {
+      localStorage.removeItem("access_token");
+      dispatch(doLogoutAction());
+      navigate("/login");
+    }
+
+    if (option === "Thông tin cá nhân") {
+      navigate("/profile");
+    }
   };
 
   return (
@@ -102,7 +125,7 @@ const HeaderHome = () => {
         <div className="w-[18%] flex items-center justify-end pr-[26.75px] gap-3">
           <a
             href="#
-        "
+            "
           >
             <div className="flex items-center justify-center gap-2">
               <img src={flag} alt="" />
@@ -130,18 +153,41 @@ const HeaderHome = () => {
               onMouseOver={() => enterDropdown("userDropdown")}
             >
               <div className="w-[100%] border-[2px] border-[#C5C5C5] shadow-bannerLighter rounded-[25px] px-[20px] py-[14px] font-[700]">
-                {dataUser && dataUser.firstName ? dataUser.firstName : "Khách"}
+                {isAuthenticated && dataUser && dataUser.firstName
+                  ? dataUser.firstName
+                  : "Khách"}
               </div>
             </div>
             <div className="absolute -right-[15px] z-[10]">
               <a href="#">
-                <img src={guest} className="rounded-[50%] w-full h-full" />
+                <img
+                  src={
+                    isAuthenticated && dataUser && dataUser.avatar
+                      ? dataUser.avatar
+                      : guest
+                  }
+                  className="rounded-[50%] w-full h-full"
+                />
               </a>
             </div>
 
+            {/* {dropdown.userDropdown && (
+                  <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px]  rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
+                    {userOptions.map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => selectOption(option)}
+                        className="block w-full text-left pt-6 text-[15px] font-[600] hover:text-[#FE5656]"
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                )} */}
+
             {dropdown.userDropdown && (
-              <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px]  rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
-                {userOptions.map((option) => (
+              <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px] rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
+                {authOptions.map((option) => (
                   <button
                     key={option}
                     onClick={() => selectOption(option)}
