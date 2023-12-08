@@ -6,10 +6,14 @@ const initialState = {
   user: {
     email: "",
     phone: "",
-    fullName: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    birthDay: "",
     role: "",
     avatar: "",
     id: "",
+    location: "",
   },
 };
 

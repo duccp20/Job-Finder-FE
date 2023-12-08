@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RegisterCandidate } from "./pages/register/register";
-
 import LoginPage from "./pages/login/login";
 import { Verify } from "./pages/verify";
 import Profile from "./pages/profile/profile";
 import { ForgetPass } from "./pages/forgetPass/forgetpass";
 import HeaderHome from "./components/HeaderHome";
-import HomePage from "./pages/home/homePage";
-import PersonalInfor from "./pages/profile/personal_infor";
-import JobInfor from "./pages/profile/job_infor";
+import HomePage from "./pages/home/home";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
 import NewPassword from "./pages/newpass/newpass";
@@ -17,6 +14,9 @@ import Loading from "./components/Loading";
 import { callFetchUserProfile } from "./service/api";
 import { useDispatch, useSelector } from "react-redux";
 import { doFetchAccountAction } from "./redux/account/accountSlice";
+import PersonalDetails from "./pages/profile/personal-details";
+import JobDetails from "./pages/profile/job-details";
+import JobPersonOverall from "./pages/profile/job-person-overall";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -24,7 +24,8 @@ const App = () => {
   const fetchAccount = async () => {
     if (
       window.location.pathname === "/register" ||
-      window.location.pathname === "/login"
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/forgot-password"
     )
       return;
 
@@ -82,19 +83,31 @@ const App = () => {
     {
       path: "/profile",
       element: <Profile />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <JobPersonOverall />,
+        },
+        {
+          path: "personal",
+          element: <PersonalDetails />,
+        },
+        {
+          path: "job",
+          element: <JobDetails />,
+        },
+      ],
     },
     {
       path: "/headerHome",
       element: <HeaderHome />,
     },
     {
-      path: "/personalInfor",
-      element: <PersonalInfor />,
+      path: "/ok",
+      element: <JobDetails></JobDetails>,
     },
-    {
-      path: "/jobInfor",
-      element: <JobInfor />,
-    },
+
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,
