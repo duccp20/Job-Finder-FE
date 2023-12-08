@@ -191,7 +191,7 @@ const LoginPage = () => {
               )}
             </div>
             <span className="text-right text-[#3B6EF2] text-[#15px] underline">
-              <a href="/forget-pass">Quên mật khẩu?</a>
+              <a href="/forgot-password">Quên mật khẩu?</a>
             </span>
           </div>
 

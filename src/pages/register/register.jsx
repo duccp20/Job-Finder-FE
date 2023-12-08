@@ -452,7 +452,7 @@ export const RegisterCandidate = () => {
               <p className="text-center font-normal mt-6">
                 Bạn đã có tài khoản?{" "}
                 <span className="text-[#FE5656] font-extrabold">
-                  <a href="#">Trở về đăng nhập</a>
+                  <a href="/login">Trở về đăng nhập</a>
                 </span>
               </p>
             </form>

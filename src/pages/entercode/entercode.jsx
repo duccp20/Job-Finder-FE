@@ -1,11 +1,10 @@
 import React from "react";
-import FormInput from "../../components/FormInput";
+import FormInput from "../newpass";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../../components/Input/input";
 import Header from "../../components/Header";
-import { callActivePassOTP } from "../../service/api";
 
 const schema = yup
   .object({

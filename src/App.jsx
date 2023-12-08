@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RegisterCandidate } from "./pages/register/register";
 
 import LoginPage from "./pages/login/login";
-import { VerifyEmail } from "./pages/verifyEmail";
-import EnterCode from "./pages/entercode/entercode";
+import { Verify } from "./pages/verify";
 import Profile from "./pages/profile/profile";
 import { ForgetPass } from "./pages/forgetPass/forgetpass";
 import HeaderHome from "./components/HeaderHome";
-import HomePage from "./pages/homePage/homePage";
+import HomePage from "./pages/home/homePage";
 import PersonalInfor from "./pages/profile/personal_infor";
 import JobInfor from "./pages/profile/job_infor";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
+import NewPassword from "./pages/newpass/newpass";
+import Loading from "./components/Loading";
+import { callFetchUserProfile } from "./service/api";
+import { useDispatch, useSelector } from "react-redux";
+import { doFetchAccountAction } from "./redux/account/accountSlice";
+
 const App = () => {
+  const isLoading = useSelector((state) => state.account.isLoading);
+  const dispatch = useDispatch();
+  const fetchAccount = async () => {
+    console.log("in fetch account");
+    if (
+      window.location.pathname === "/register" ||
+      window.location.pathname === "/login"
+    )
+      return;
+
+    const res = await callFetchUserProfile();
+    console.log(res, "callFetchAccount");
+    if (res && res?.data) {
+      dispatch(doFetchAccountAction(res.data));
+    }
+  };
+  useEffect(() => {
+    fetchAccount();
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -36,30 +61,24 @@ const App = () => {
     },
     {
       path: "/verify-email",
-      element: <VerifyEmail />,
+      element: <Verify />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgetPass />,
       errorElement: <NotFound />,
       children: [
         {
-          path: "?status=success",
-          element: <VerifyEmail />,
-        },
-        {
-          path: "?status=fail",
-          element: <VerifyEmail />,
-        },
-        {
-          path: "?status=completed",
-          element: <VerifyEmail />,
+          path: "verify",
+          element: <ForgetPass />,
         },
       ],
     },
     {
-      path: "/forget-pass",
-      element: <ForgetPass />,
-    },
-    {
-      path: "/enter-code",
-      element: <EnterCode />,
+      path: "/reset-password",
+      element: <NewPassword />,
+      errorElement: <NotFound />,
     },
     {
       path: "/profile",
@@ -103,7 +122,18 @@ const App = () => {
   ]);
   return (
     <>
-      <RouterProvider router={router} />
+      {/* Có API */}
+      {!isLoading ||
+      window.location.pathname === "/" ||
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/register" ? (
+        <RouterProvider router={router} />
+      ) : (
+        <Loading></Loading>
+      )}
+
+      {/* Chưa có api */}
+      {/* <RouterProvider router={router} /> */}
     </>
   );
 };
