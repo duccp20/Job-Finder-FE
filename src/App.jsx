@@ -22,7 +22,6 @@ const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
   const dispatch = useDispatch();
   const fetchAccount = async () => {
-    console.log("in fetch account");
     if (
       window.location.pathname === "/register" ||
       window.location.pathname === "/login"
@@ -30,7 +29,7 @@ const App = () => {
       return;
 
     const res = await callFetchUserProfile();
-    console.log(res, "callFetchAccount");
+
     if (res && res?.data) {
       dispatch(doFetchAccountAction(res.data));
     }
@@ -126,7 +125,8 @@ const App = () => {
       {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
-      window.location.pathname === "/register" ? (
+      window.location.pathname === "/register" ||
+      window.location.pathname === "/forgot-password" ? (
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
