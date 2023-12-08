@@ -7,10 +7,22 @@ import { Toggle } from "../../components/Toggle";
 import pen from "/public/svg/pen.svg";
 import HeaderHome from "../../components/HeaderHome";
 import Input from "../../components/Input/input";
+import IconError from "../../components/IconError";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 
 const JobInfor = () => {
+  const schema = yup
+    .object({
+      job: yup.string().required("Công việc không được để trống"),
+      selectPosition: yup.string().required("Vui lòng chọn vị trí công việc"),
+      selectField: yup.string().required("Vui lòng chọn chuyên ngành"),
+      selectType: yup.string().required("Vui lòng chọn hình thức làm việc"),
+      selectLocation: yup.string().required("Vui lòng chọn địa điểm làm việc"),
+      cv: yup.string().required("Vui lòng cập nhật cv"),
+    })
+    .required();
+
   const {
     register,
     handleSubmit,
@@ -19,7 +31,7 @@ const JobInfor = () => {
     watch,
     formState: { errors },
   } = useForm({
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = (data) => console.log(data);
@@ -70,9 +82,20 @@ const JobInfor = () => {
               <Input
                 type="text"
                 id="job"
-                borderColor="border-gray-300"
+                borderColor={errors.job ? "border-red-500" : "border-gray-300"}
                 {...register("job")}
               />
+              {errors?.job && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.job?.message}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-col w-full mt-6">
               <label htmlFor="position" className="pb-2 ">
@@ -85,9 +108,11 @@ const JobInfor = () => {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={
-                      "py-3 px-2 border-2 border-gray-300 rounded-md w-full focus:outline-none"
-                    }
+                    className={`py-3 px-2 border-2 ${
+                      errors.selectPosition
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded-md w-full focus:outline-none`}
                   >
                     <option value="" disabled hidden>
                       Chọn vị trí
@@ -100,6 +125,17 @@ const JobInfor = () => {
                   </select>
                 )}
               />
+              {errors?.selectPosition && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.selectPosition?.message}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-col w-full mt-6">
               <label htmlFor="field" className="pb-2 ">
@@ -112,9 +148,9 @@ const JobInfor = () => {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={
-                      "py-3 px-2 border-2 border-gray-300 rounded-md w-full focus:outline-none"
-                    }
+                    className={`py-3 px-2 border-2 ${
+                      errors.selectField ? "border-red-500" : "border-gray-300"
+                    } rounded-md w-full focus:outline-none`}
                   >
                     <option value="" disabled hidden>
                       Chọn chuyên ngành
@@ -127,6 +163,17 @@ const JobInfor = () => {
                   </select>
                 )}
               />
+              {errors?.selectField && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.selectField?.message}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-col w-full mt-6">
               <label htmlFor="type" className="pb-2 ">
@@ -139,9 +186,9 @@ const JobInfor = () => {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={
-                      "py-3 px-2 border-2 border-gray-300 rounded-md w-full focus:outline-none"
-                    }
+                    className={`py-3 px-2 border-2 ${
+                      errors.selectType ? "border-red-500" : "border-gray-300"
+                    } rounded-md w-full focus:outline-none`}
                   >
                     <option value="" disabled hidden>
                       Chọn hình thức
@@ -154,6 +201,17 @@ const JobInfor = () => {
                   </select>
                 )}
               />
+              {errors?.selectType && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.selectType?.message}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-col w-full mt-6">
               <label htmlFor="location" className="pb-2 ">
@@ -166,9 +224,11 @@ const JobInfor = () => {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className={
-                      "py-3 px-2 border-2 border-gray-300 rounded-md w-full focus:outline-none"
-                    }
+                    className={`py-3 px-2 border-2 ${
+                      errors.selectLocation
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    } rounded-md w-full focus:outline-none`}
                   >
                     <option value="" disabled hidden>
                       Chọn địa điểm
@@ -181,6 +241,17 @@ const JobInfor = () => {
                   </select>
                 )}
               />
+              {errors?.selectLocation && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.selectLocation?.message}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-col w-full mt-6 ">
               <label htmlFor="cv" className="pb-2 ">
@@ -200,7 +271,9 @@ const JobInfor = () => {
                     />
                     <label
                       htmlFor="cv"
-                      className="cursor-pointer border-2 border-gray-300 w-full py-2 rounded-[5px] flex items-center justify-center"
+                      className={`cursor-pointer border-2 ${
+                        errors.cv ? "border-red-500" : "border-gray-300"
+                      } w-full py-2 rounded-[5px] flex items-center justify-center`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -225,10 +298,21 @@ const JobInfor = () => {
                   </>
                 )}
               />
+              {errors?.cv && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    {errors.cv?.message}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-col w-full mt-6">
               <label htmlFor="coverLetter" className="pb-2 ">
-                Thư xin việc <span className="text-red-700">*</span>
+                Thư xin việc
               </label>
               <textarea
                 type="text"
