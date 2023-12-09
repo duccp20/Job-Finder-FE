@@ -15,7 +15,7 @@ const schema = yup
   })
   .required();
 
-export const EnterCode = () => {
+export const ForgetPassCode = () => {
   const [showPopup, setShowPopup] = React.useState(false);
   const {
     register,
@@ -106,4 +106,3 @@ export const EnterCode = () => {
     </div>
   );
 };
-export default EnterCode;

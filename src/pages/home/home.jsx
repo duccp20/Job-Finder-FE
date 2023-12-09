@@ -3,6 +3,8 @@ import HeaderHome from "../../components/HeaderHome";
 import dropdown from "/public/svg/dropdown.svg";
 import check from "/public/svg/check.svg";
 import JobItem from "../../components/JobItem";
+import Pagination from "../../components/Pagination";
+import useDataFetcher from "../../components/Pagination/useDataFetcher";
 
 const HomePage = () => {
   const [open, setOpen] = useState(true);
@@ -26,14 +28,8 @@ const HomePage = () => {
       )
     );
   };
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10; // Replace with the total number of pages for your content
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    // You can also fetch new data based on the selected page
-    // e.g., fetchData(page);
-  };
+  const { loading, pages, totalPages, currentPage, setCurrentPage } =
+    useDataFetcher();
 
   return (
     <div>
@@ -41,7 +37,7 @@ const HomePage = () => {
         <div className=" w-[20%]">
           <div className="h-auto px-[18px] pt-[12px] pb-[24px] border-[0.5px] border-[#DEDEDE] rounded-[10px]">
             <div className="flex justify-between relative" onClick={handleOpen}>
-              <span className="text-[#FE5656] text-base not-italic font-bold font-openSans">
+              <span className="text-[#FE5656] text-base not-italic font-bold">
                 Hình thức làm việc
               </span>
               <img src={dropdown} alt="" />
@@ -247,11 +243,26 @@ const HomePage = () => {
             </div>
           </form>
           <div>
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-            <JobItem></JobItem>
+            {loading ? (
+              <div className="text-center text-5xl">Loading...</div>
+            ) : (
+              <>
+                <div>
+                  {pages && pages.length > 0 ? (
+                    pages.map((page) => (
+                      <JobItem key={page.id} {...page}></JobItem>
+                    ))
+                  ) : (
+                    <p>Không có dữ liệu :{"("}</p>
+                  )}
+                </div>
+                <Pagination
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                ></Pagination>
+              </>
+            )}
           </div>
         </div>
       </div>
