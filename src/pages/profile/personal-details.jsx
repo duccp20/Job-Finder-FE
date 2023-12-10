@@ -71,23 +71,6 @@ const PersonalDetails = () => {
 
   const onSubmit = (data) => console.log(data);
 
-  const [imagePreview, setImagePreview] = useState("");
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        const imgDataUrl = e.target.result;
-        setImagePreview(imgDataUrl);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
     <>
       <div className="h-auto w-[60%] rounded-[10px] shadow-banner flex flex-col">
