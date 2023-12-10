@@ -17,6 +17,8 @@ import { doFetchAccountAction } from "./redux/account/accountSlice";
 import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
+import CompanyInformation from "./pages/recruitment/company";
+import Recruitment from "./pages/recruitment/detail";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -108,6 +110,15 @@ const App = () => {
       element: <JobDetails></JobDetails>,
     },
 
+    {
+      path: "/recruitment",
+      element: <Recruitment />,
+    },
+    {
+      path: "/company",
+      element: <CompanyInformation />,
+    },
+
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,
@@ -135,7 +146,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {!isLoading ||
+      {/* {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
@@ -143,10 +154,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )}
+      )} */}
 
       {/* Chưa có api */}
-      {/* <RouterProvider router={router} /> */}
+      <RouterProvider router={router} />
     </>
   );
 };
