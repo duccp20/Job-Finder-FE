@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 
-const JobItem = (props) => {
+const JobItem = ({ image, title }) => {
   return (
     <div className="rounded-[10px] border border-[#DEDEDE] px-[21px] py-[15px] hover:border-[#FE5656] mb-[15px]">
       <div className="flex">
         <img
-          src="https://source.unsplash.com/random"
+          src={image}
           alt=""
           className="rounded-[8px] border border-[#7D7D7D] object-cover h-[90px] w-[90px] mr-[20px]"
         />
         <div className="flex flex-col justify-between flex-grow">
-          <h3 className="text-red-500 text-xl not-italic font-bold">
-            Thực tập Java
-          </h3>
-          <span>Công ty R2S</span>
+          <h3 className="text-red-500 text-xl not-italic font-bold">{title}</h3>
+          <span>abc</span>
           <div className="flex items-baseline">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +33,7 @@ const JobItem = (props) => {
               </defs>
             </svg>
             <span className="text-gray-800 text-base not-italic font-light">
-              Hồ Chí Minh
+              hcm
             </span>
           </div>
         </div>
@@ -55,9 +53,14 @@ const JobItem = (props) => {
         </div>
       </div>
       <div className="flex justify-between items-end">
-        <span className="inline-block p-[10px] text-gray-600 text-xs not-italic font-semibold bg-[#F3F9FC]">
-          Front end
-        </span>
+        <div className="flex items-start gap-[19px]">
+          <span className="inline-block p-[10px] text-gray-600 text-xs not-italic font-semibold bg-[#F3F9FC]">
+            FE
+          </span>
+          <span className="inline-block p-[10px] text-gray-600 text-xs not-italic font-semibold bg-[#F3F9FC]">
+            KHMT
+          </span>
+        </div>
         <div className="flex flex-col ">
           <div className="flex items-center">
             <svg
@@ -73,7 +76,7 @@ const JobItem = (props) => {
               />
             </svg>
             <span className="text-[#2B3940] text-base not-italic font-light ml-[12px]">
-              Số lượng ứng viên: 3
+              Số lượng ứng viên:
             </span>
           </div>
           <div className="flex items-center">
@@ -90,7 +93,7 @@ const JobItem = (props) => {
               />
             </svg>
             <span className="text-[#2B3940] text-base not-italic font-light ml-[12px]">
-              03/02/2022 - 04/28/2022
+              1/1/2022
             </span>
           </div>
         </div>

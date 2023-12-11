@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RegisterCandidate } from "./pages/register/register";
 import LoginPage from "./pages/login/login";
+
 import { Verify } from "./pages/verify";
+
 import Profile from "./pages/profile/profile";
-import { ForgetPass } from "./pages/forgetPass/forgetpass";
+// import { ForgetPassMail } from "./pages/forgetPassMail/forgetPassMail";
 import HeaderHome from "./components/HeaderHome";
 import HomePage from "./pages/home/home";
 import NotFound from "./components/NotFound";
@@ -17,6 +19,8 @@ import { doFetchAccountAction } from "./redux/account/accountSlice";
 import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
+import Uploader from "./components/Uploader";
+import { ForgetPass } from "./pages/forgetPassMail/forgetPass";
 import CompanyInformation from "./pages/recruitment/company";
 import Recruitment from "./pages/recruitment/detail";
 
@@ -81,8 +85,15 @@ const App = () => {
     {
       path: "/reset-password",
       element: <NewPassword />,
-      errorElement: <NotFound />,
     },
+    // {
+    //   path: "/forgetPass-mail",
+    //   element: <ForgetPassMail />,
+    // },
+    // {
+    //   path: "/forgetPass-code",
+    //   element: <ForgetPassCode />,
+    // },
     {
       path: "/profile",
       element: <Profile />,
@@ -110,6 +121,10 @@ const App = () => {
     {
       path: "/company",
       element: <CompanyInformation />,
+    },
+    {
+      path: "/upload",
+      element: <Uploader></Uploader>,
     },
 
     // {
@@ -139,7 +154,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {!isLoading ||
+      {/* {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
@@ -148,10 +163,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )}
+      )} */}
 
       {/* Chưa có api */}
-      {/* <RouterProvider router={router} /> */}
+      <RouterProvider router={router} />
     </>
   );
 };

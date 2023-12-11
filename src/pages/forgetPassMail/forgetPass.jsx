@@ -21,7 +21,6 @@ const schema = yup
       .required("Email không đúng định dạng"),
   })
   .required();
-
 export const ForgetPass = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState({
