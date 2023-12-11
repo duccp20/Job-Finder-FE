@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 const JobPersonOverall = () => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
+  const candidateData = useSelector((state) => state.candidate.data);
   const navigate = useNavigate();
   return (
     <div className="flex flex-col w-[60%] h-auto gap-5">
@@ -51,24 +52,31 @@ const JobPersonOverall = () => {
                 </td>
                 <th className="py-[8px] pl-[50px]">Giới tính </th>
                 <td className="py-[8px] px-[4px]">
-                  {isAuthenticated && user && user.gender
-                    ? user.gender
-                    : "(chưa có dữ liệu)"}
+                  {isAuthenticated && user && user.gender ? "Nam" : "Nữ"}
                 </td>
               </tr>
-              <tr>
+              {/* <tr>
                 <th className="py-[8px] px-[4px]">Tỉnh/ Thành phố </th>
                 <td className="py-[8px] px-[4px]">(chưa có dữ liệu)</td>
                 <th className="py-[8px] pl-[50px]">Quận/ Huyện </th>
                 <td className="py-[8px] px-[4px]">(chưa có dữ liệu)</td>
-              </tr>
+              </tr> */}
               <tr>
                 <th className="py-[8px] px-[4px]">Địa chỉ </th>
-                <td className="py-[8px] px-[4px]">(chưa có dữ liệu)</td>
+                <td className="py-[8px] px-[4px]">
+                  {" "}
+                  {isAuthenticated && user && user.address
+                    ? user.address
+                    : "(chưa có dữ liệu)"}
+                </td>
               </tr>
               <tr>
                 <th className="py-[8px] px-[4px]">Trường học </th>
-                <td className="py-[8px] px-[4px]">(chưa có dữ liệu)</td>
+                <td className="py-[8px] px-[4px]">
+                  {candidateData && candidateData.university
+                    ? candidateData.university
+                    : "(chưa có dữ liệu)"}
+                </td>
               </tr>
             </tbody>
           </table>

@@ -6,8 +6,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import IconError from "../../components/IconError";
 import { useLocation } from "react-router-dom";
-import { callResetPassword } from "../../service/api";
+
 import Popup from "../../components/Popup";
+import { callResetPassword } from "../../service/user/api";
 
 const schema = yup
   .object({

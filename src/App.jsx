@@ -11,7 +11,7 @@ import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
 import NewPassword from "./pages/newpass/newpass";
 import Loading from "./components/Loading";
-import { callFetchUserProfile } from "./service/api";
+import { callFetchUserProfile } from "./service/user/api";
 import { useDispatch, useSelector } from "react-redux";
 import { doFetchAccountAction } from "./redux/account/accountSlice";
 import PersonalDetails from "./pages/profile/personal-details";
@@ -27,7 +27,8 @@ const App = () => {
     if (
       window.location.pathname === "/register" ||
       window.location.pathname === "/login" ||
-      window.location.pathname === "/forgot-password"
+      window.location.pathname === "/forgot-password" ||
+      window.location.pathname === "/verify-email"
     )
       return;
 
@@ -101,14 +102,6 @@ const App = () => {
         },
       ],
     },
-    {
-      path: "/headerHome",
-      element: <HeaderHome />,
-    },
-    {
-      path: "/ok",
-      element: <JobDetails></JobDetails>,
-    },
 
     {
       path: "/recruitment",
@@ -146,18 +139,19 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {/* {!isLoading ||
+      {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
-      window.location.pathname === "/forgot-password" ? (
+      window.location.pathname === "/forgot-password" ||
+      window.location.pathname === "/verify-email" ? (
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )} */}
+      )}
 
       {/* Chưa có api */}
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
     </>
   );
 };
