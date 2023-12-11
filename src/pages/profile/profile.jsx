@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { Toggle } from "../../components/Toggle";
-
 import HeaderHome from "../../components/HeaderHome";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import Input from "../../components/Input/input";
+import { callFetchCandidateByUserId } from "../../service/candidate/api";
+import { doFetchCandidate } from "../../redux/candidate/candidateSlice";
 
 const Profile = () => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { control } = useForm();
   const [imagePreview, setImagePreview] = useState("");
@@ -28,6 +29,22 @@ const Profile = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const fetchCandidate = async () => {
+    const res = await callFetchCandidateByUserId(user.id);
+    console.log(res);
+    if (res && res?.data) {
+      console.log(res.data);
+      dispatch(doFetchCandidate(res.data));
+    }
+
+    if (res && res?.errors) {
+      console.log(res.errors + " " + res.message);
+    }
+  };
+  useEffect(() => {
+    fetchCandidate();
+  }, []);
   return (
     <div>
       <HeaderHome />
@@ -76,7 +93,7 @@ const Profile = () => {
           />
 
           <h3 className="text-red-500 text-center text-2xl not-italic font-extrabold mt-[35px] mb-[45px]">
-            {isAuthenticated && user && user.firstName + " " + user.lastName}
+            {isAuthenticated && user && user.lastName + " " + user.firstName}
           </h3>
           <hr className="mb-[35px] border-[1px]" />
           <div className="flex items-center">

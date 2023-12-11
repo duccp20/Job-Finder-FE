@@ -1,4 +1,4 @@
-import axios from "../utils/axiosCustomize";
+import axios from "../../utils/axiosCustomize";
 
 export const callRegister = (
   firstName,

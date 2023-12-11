@@ -7,7 +7,7 @@ import ava from "/svg/avatar.svg";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { callActiveMail, callRegister } from "../../service/api";
+import { callActiveMail, callRegister } from "../../service/user/api";
 import Popup from "../../components/Popup";
 import { useNavigate } from "react-router-dom";
 import IconError from "../../components/IconError";
@@ -91,12 +91,12 @@ export const RegisterCandidate = () => {
     try {
       setShowPopup(false);
       const res = await callRegister(
-        data.subName,
         data.name,
+        data.subName,
         data.email,
         data.passWord,
         data.phoneNumber,
-        "1"
+        "2" // roleID : 2 is Candidate
       );
 
       if (res.httpCode === 201 && res.message === "Register Successfully") {

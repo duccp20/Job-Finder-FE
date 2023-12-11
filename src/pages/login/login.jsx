@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import IconError from "../../components/IconError";
-import { callLogin } from "../../service/api";
+import { callLogin } from "../../service/user/api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { doLoginAction } from "../../redux/account/accountSlice";
