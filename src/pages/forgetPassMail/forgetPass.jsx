@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Header from "../../components/Header";
-import { callSendForgetPass } from "../../service/api";
+
 import { useLocation } from "react-router-dom";
 import Popup from "../../components/Popup";
+import { callSendForgetPass } from "../../service/user/api";
 
 const schema = yup
   .object({
