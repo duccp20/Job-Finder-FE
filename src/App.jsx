@@ -6,7 +6,7 @@ import LoginPage from "./pages/login/login";
 import { Verify } from "./pages/verify";
 
 import Profile from "./pages/profile/profile";
-// import { ForgetPassMail } from "./pages/forgetPassMail/forgetPassMail";
+import { ForgetPass } from "./pages/forgetPass/forgetPass";
 import HeaderHome from "./components/HeaderHome";
 import HomePage from "./pages/home/home";
 import NotFound from "./components/NotFound";
@@ -20,9 +20,9 @@ import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
 import Uploader from "./components/Uploader";
-import { ForgetPass } from "./pages/forgetPassMail/forgetPass";
 import CompanyInformation from "./pages/recruitment/company";
 import Recruitment from "./pages/recruitment/detail";
+import LoginAs from "./components/LoginAs";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -125,6 +125,10 @@ const App = () => {
     {
       path: "/upload",
       element: <Uploader></Uploader>,
+    },
+    {
+      path: "/loginas",
+      element: <LoginAs></LoginAs>,
     },
 
     // {
