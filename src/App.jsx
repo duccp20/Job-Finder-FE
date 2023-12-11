@@ -3,10 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RegisterCandidate } from "./pages/register/register";
 import LoginPage from "./pages/login/login";
 
-import { Veriify } from "./pages/verify";
+import { Verify } from "./pages/verify";
 
 import Profile from "./pages/profile/profile";
-import { ForgetPassMail } from "./pages/forgetPassMail/forgetPassMail";
+// import { ForgetPassMail } from "./pages/forgetPassMail/forgetPassMail";
 import HeaderHome from "./components/HeaderHome";
 import HomePage from "./pages/home/home";
 import NotFound from "./components/NotFound";
@@ -19,6 +19,8 @@ import { doFetchAccountAction } from "./redux/account/accountSlice";
 import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
+import Uploader from "./components/Uploader";
+import { ForgetPass } from "./pages/forgetPassMail/forgetPass";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -80,14 +82,15 @@ const App = () => {
     {
       path: "/reset-password",
       element: <NewPassword />,
-
-      path: "/forgetPass-mail",
-      element: <ForgetPassMail />,
     },
-    {
-      path: "/forgetPass-code",
-      element: <ForgetPassCode />,
-    },
+    // {
+    //   path: "/forgetPass-mail",
+    //   element: <ForgetPassMail />,
+    // },
+    // {
+    //   path: "/forgetPass-code",
+    //   element: <ForgetPassCode />,
+    // },
     {
       path: "/profile",
       element: <Profile />,
@@ -114,6 +117,10 @@ const App = () => {
     {
       path: "/ok",
       element: <JobDetails></JobDetails>,
+    },
+    {
+      path: "/upload",
+      element: <Uploader></Uploader>,
     },
 
     // {
