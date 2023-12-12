@@ -60,7 +60,7 @@ const HeaderHome = () => {
 
   return (
     <>
-      <div className="h-[70px] flex justify-between items-center border-1 border-solid border-[rgb(209,209,209)] shadow-custom ">
+      <div className="w-full h-[70px] flex justify-between items-center border-1 border-solid border-[rgb(209,209,209)] shadow-custom fixed z-[999] bg-white top-0">
         <div className=" flex items-center justify-between pl-[26.75px] leading-10 gap-5">
           <div>
             <a href="http://">
@@ -125,7 +125,7 @@ const HeaderHome = () => {
         <div className="w-[18%] flex items-center justify-end pr-[26.75px] gap-3">
           <a
             href="#
-            "
+              "
           >
             <div className="flex items-center justify-center gap-2">
               <img src={flag} alt="" />
@@ -172,18 +172,18 @@ const HeaderHome = () => {
             </div>
 
             {/* {dropdown.userDropdown && (
-                  <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px]  rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
-                    {userOptions.map((option) => (
-                      <button
-                        key={option}
-                        onClick={() => selectOption(option)}
-                        className="block w-full text-left pt-6 text-[15px] font-[600] hover:text-[#FE5656]"
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                )} */}
+                    <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px]  rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
+                      {userOptions.map((option) => (
+                        <button
+                          key={option}
+                          onClick={() => selectOption(option)}
+                          className="block w-full text-left pt-6 text-[15px] font-[600] hover:text-[#FE5656]"
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  )} */}
 
             {dropdown.userDropdown && (
               <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px] rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
