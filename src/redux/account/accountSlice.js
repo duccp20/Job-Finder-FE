@@ -38,6 +38,13 @@ export const accountSlice = createSlice({
     doLogoutAction: (state, action) => {
       state.isAuthenticated = action.payload;
     },
+
+    doSetProfileData: (state, action) => {
+      state.user = {
+        ...state.data,
+        ...action.payload,
+      };
+    },
   },
 });
 
@@ -46,5 +53,6 @@ export const {
   doFetchAccountAction,
   doRedirectLogin,
   doLogoutAction,
+  doSetProfileData,
 } = accountSlice.actions;
 export default accountSlice.reducer;

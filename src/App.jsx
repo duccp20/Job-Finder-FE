@@ -186,19 +186,20 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {/* {!isLoading ||
+      {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
       window.location.pathname === "/forgot-password" ||
+      window.location.pathname === "/reset-password" ||
       window.location.pathname === "/verify-email" ? (
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )} */}
+      )}
 
       {/* Chưa có api */}
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
     </>
   );
 };

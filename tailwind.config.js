@@ -24,6 +24,7 @@ export default {
         "fade-in-up": "fadeInUp 0.5s ease-out forwards",
         "slide-down": "slideDown 0.5s ease-out forwards",
         "silde-up": "slideUp 0.5s ease-out forwards",
+        // spin: "spin 1s linear infinite",
       },
     },
   },

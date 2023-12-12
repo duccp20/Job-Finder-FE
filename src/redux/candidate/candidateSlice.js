@@ -17,8 +17,15 @@ export const candidateSlice = createSlice({
     doFetchCandidate: (state, action) => {
       state.data = action.payload;
     },
+
+    doSetCandidateData: (state, action) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const { doFetchCandidate } = candidateSlice.actions;
+export const { doFetchCandidate, doSetCandidateData } = candidateSlice.actions;
 export default candidateSlice.reducer;

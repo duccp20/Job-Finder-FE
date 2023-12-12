@@ -21,7 +21,7 @@ const Uploader = (props) => {
   const fileInputRef = React.createRef();
   return (
     <div className="w-screen h-screen relative overflow-hidden">
-      <div className="w-[50%] h-auto absolute top-0 right-0 left-0 mx-auto ">
+      <div className="w-[50%] h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mx-auto border">
         <div className="w-full h-[55px] flex rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] px-[28px] items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ const Uploader = (props) => {
                 Nộp hồ sơ
               </button>
             </div>
-            <div>
+            <div className="border border-[#BEB9B9] rounded-[4px]">
               <button
                 className="!text-center !text-base !not-italic !font-bold !text-[#7D7D7D] !rounded-[4px] px-[32px] py-[12px] !border-solid !border-black"
                 type="submit"
