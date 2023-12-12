@@ -45,8 +45,8 @@ const HomePage = () => {
       prevCheckboxes.map((checkbox) =>
         checkbox.id === id
           ? { ...checkbox, checked: !checkbox.checked }
-          : checkbox
-      )
+          : checkbox,
+      ),
     );
   };
 

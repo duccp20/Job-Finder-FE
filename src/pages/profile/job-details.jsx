@@ -8,10 +8,14 @@ import pen from "/public/svg/pen.svg";
 import HeaderHome from "../../components/HeaderHome";
 import Input from "../../components/Input/input";
 import IconError from "../../components/IconError";
+import { callEditProfile } from "../../service/candidate/api";
+import { useDispatch, useSelector } from "react-redux";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 
 const JobDetails = () => {
+  const userProfileDTO = useSelector((state) => state.account.user);
+  const dispatch = useDispatch();
   const schema = yup
     .object({
       job: yup.string().required("Công việc không được để trống"),
@@ -34,10 +38,10 @@ const JobDetails = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {};
 
   return (
-    <div className="h-auto w-[60%] rounded-[10px] shadow-banner flex flex-col">
+    <div className=" w-[60%] rounded-[10px] h-auto shadow-banner flex flex-col">
       <div className=" rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] w-full h-[55px] flex justify-between py-[14px] px-[44px] shadow-banner">
         <span className="text-xl not-italic font-bold text-white ">
           Thông tin việc muốn ứng tuyển
@@ -48,7 +52,7 @@ const JobDetails = () => {
       </div>
 
       <form
-        className="py-[30px] px-[40px] font-[600] text-[15px]"
+        className=" px-[40px] font-[600]  py-[30px] text-[15px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col w-full mt-4">

@@ -8,18 +8,18 @@ import pen from "/public/svg/pen.svg";
 import HeaderHome from "../../components/HeaderHome";
 import Input from "../../components/Input/input";
 import IconError from "../../components/IconError";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { callEditProfile } from "../../service/candidate/api";
+import { doSetProfileData } from "../../redux/account/accountSlice";
+import { doSetCandidateData } from "../../redux/candidate/candidateSlice";
 
-// const cities = ["Tỉnh A", "Tỉnh B", "Tỉnh C"];
-// const districts = {
-//   "Tỉnh A": ["Quận/Huyện A1", "Quận/Huyện A2"],
-//   "Tỉnh B": ["Quận/Huyện B1", "Quận/Huyện B2"],
-//   "Tỉnh C": ["Quận/Huyện C1", "Quận/Huyện C2"],
-// };
 const PersonalDetails = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
   const dataUser = useSelector((state) => state.account.user);
+  const dispatch = useDispatch();
   const universityData = useSelector(
     (state) => state.candidate.data.university
   );
@@ -50,8 +50,6 @@ const PersonalDetails = () => {
         .required(),
 
       address: yup.string().required("Địa chỉ không được để trống"),
-      // city: yup.string().required("Vui lòng chọn tỉnh thành"),
-      // district: yup.string().required("Vui lòng chọn quận huyện"),
     })
     .required();
 
@@ -65,24 +63,65 @@ const PersonalDetails = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    console.log(dataUser);
+    const userProfileDTO = {
+      userId: dataUser.id,
+      firstName: data.name,
+      lastName: data.subName,
+      phone: data.phoneNumber,
+      birthDay: convertDate(data.birthday),
+      gender: data.gender,
+      address: data.address,
+      avatar: dataUser.avatar,
+    };
+
+    const candidateDTO = {
+      university: data.university,
+    };
+    setIsSubmitting(true);
+    const res = await callEditProfile(userProfileDTO, candidateDTO);
+    setIsSubmitting(false);
+    if (res && res?.data) {
+      console.log("dât fỏm api", res.data);
+      dispatch(doSetProfileData(res.data.showUserDTO));
+      dispatch(doSetCandidateData(res.data.candidateDTO));
+    }
+
+    if (res?.errors) {
+      alert(res.message);
+    }
   };
 
   useEffect(() => {
-    setValue("school", universityData || "");
+    setValue("university", universityData || "");
   }, [universityData, setValue]);
+
   function convertDate(inputDate) {
-    const parts = inputDate.split("/");
-    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    const parts = inputDate.split("-");
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
   }
+  function convertDateToYYYYMMDD(inputDate) {
+    // Giả sử inputDate có định dạng 'DD/MM/YYYY'
+    const parts = inputDate.split("/");
+    return `${parts[2]}-${parts[1]}-${parts[0]}`; // Chuyển đổi sang định dạng 'YYYY-MM-DD'
+  }
+
+  // ...
+
+  useEffect(() => {
+    if (isAuthenticated && dataUser && dataUser.birthDay) {
+      const convertedDate = convertDateToYYYYMMDD(dataUser.birthDay);
+      setValue("birthday", convertedDate);
+    }
+  }, [isAuthenticated, dataUser, setValue]);
   return (
     <>
       <div className="h-auto w-[60%] rounded-[10px] shadow-banner flex flex-col">
         <div className=" rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] w-full h-[55px] flex justify-between py-[14px] px-[44px] shadow-banner">
           <span className="text-xl not-italic font-bold text-white ">
             Thông tin cá nhân
-            {universityData}
           </span>
           <a href="#" className="">
             <img src={pen} alt="" />
@@ -175,11 +214,6 @@ const PersonalDetails = () => {
                       errors.birthday ? "border-red-500" : "border-gray-300"
                     }
                     {...register("birthday")}
-                    defaultValue={
-                      isAuthenticated && dataUser && dataUser.birthDay
-                        ? convertDate(dataUser.birthDay)
-                        : ""
-                    }
                   />
                 )}
               />
@@ -219,11 +253,13 @@ const PersonalDetails = () => {
                 name="gender"
                 control={control}
                 defaultValue={
-                  isAuthenticated && dataUser && dataUser.gender ? "Nam" : "Nữ"
+                  isAuthenticated && dataUser ? dataUser.gender : false
                 }
-                render={({ field }) => (
+                render={({ field: { onChange, value, ref } }) => (
                   <select
-                    {...field}
+                    ref={ref}
+                    onChange={(e) => onChange(e.target.value === "male")}
+                    value={value ? "male" : "female"}
                     className={`py-3 px-2 border-2 ${
                       errors.gender ? "border-red-500" : "border-gray-300"
                     } rounded-md w-full focus:outline-none`}
@@ -235,96 +271,7 @@ const PersonalDetails = () => {
               />
             </div>
           </div>
-          {/* <div className="flex gap-5 w-full mt-6">
-            <div className="flex flex-col w-[50%]">
-              <label htmlFor="city" className="pb-2 ">
-                Tỉnh/ Thành phố <span className="text-red-700">*</span>
-              </label>
-              <Controller
-                name="city"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    value={watch("city") || ""}
-                    onChange={(e) =>
-                      setValue("city", e.target.value, {
-                        shouldValidate: true,
-                      })
-                    }
-                    className={`py-3 px-2 border-2 ${
-                      errors.city ? "border-red-500" : "border-gray-300"
-                    } rounded-md w-full focus:outline-none`}
-                  >
-                    <option value="" disabled hidden>
-                      Chọn tỉnh thành
-                    </option>
-                    {cities.map((city) => (
-                      <option key={city} value={city}>
-                        {city}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-              {errors?.city && (
-                <div className="flex items-center ">
-                  <span className="pt-1.5 ">
-                    <IconError />
-                  </span>
 
-                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
-                    {errors.city?.message}
-                  </p>
-                </div>
-              )}
-            </div>
-            <div className="flex flex-col w-[50%]">
-              <label htmlFor="district" className="pb-2 ">
-                Quận/ Huyện <span className="text-red-700">*</span>
-              </label>
-              <Controller
-                name="district"
-                control={control}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    value={watch("district") || ""}
-                    onChange={(e) =>
-                      setValue("district", e.target.value, {
-                        shouldValidate: true,
-                      })
-                    }
-                    className={`py-3 px-2 border-2 ${
-                      errors.district ? "border-red-500" : "border-gray-300"
-                    } rounded-md w-full focus:outline-none`}
-                  >
-                    <option value="" disabled hidden>
-                      Chọn quận/huyện
-                    </option>
-                    {districts[watch("city")] &&
-                      districts[watch("city")].map((district) => (
-                        <option key={district} value={district}>
-                          {district}
-                        </option>
-                      ))}
-                  </select>
-                )}
-              />
-              {errors?.district && (
-                <div className="flex items-center ">
-                  <span className="pt-1.5">
-                    <IconError />
-                  </span>
-
-                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
-                    {errors.district?.message}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div> */}
           <div className="flex flex-col w-full mt-6">
             <label htmlFor="address" className="pb-2 ">
               Địa chỉ <span className="text-red-700">*</span>
@@ -351,24 +298,27 @@ const PersonalDetails = () => {
             )}
           </div>
           <div className="flex flex-col w-full mt-6">
-            <label htmlFor="school" className="pb-2 ">
+            <label htmlFor="university" className="pb-2 ">
               Trường học
             </label>
             <Input
               type="text"
-              id="school"
+              id="university"
               bordercolor="border-gray-300"
-              {...register("school")}
+              {...register("university")}
               defaultValue={universityData || ""}
             />
           </div>
           <div className="mt-6 gap-4 flex justify-end">
             <button
-              className="text-center text-[15px] font-bold text-white rounded-[4px] px-[22px] py-[12px] bg-[#FE5656]"
+              className={`text-center text-[15px] font-bold text-white rounded-[4px] px-[22px] py-[12px]  ${
+                isSubmitting ? "bg-gray-500" : "bg-[#FE5656]"
+              } `}
               type="submit"
             >
-              Cập nhật
+              {isSubmitting ? "Đang cập nhật..." : "Cập nhật"}
             </button>
+
             <button
               className="text-center text-[15px] font-bold text-[#7D7D7D] rounded-[4px] px-[36px] py-[12px] bg-gray-200 "
               type="text"
