@@ -4,80 +4,75 @@ import RecruitmentItem from "../../components/Recruitment/item";
 import SearchBar from "../../components/SearchBatr/search";
 import RecruitmentHeader from "../../components/Recruitment/header";
 
-const Recruitment = () => {
+const RecruitmentDetail = () => {
   return (
-    <div>
-      <HeaderHome />
-      <SearchBar />
-
-      <div className="w-[90%] rounded-[6px] border-[2px] border-[#FE5656] py-[45px] my-[10px] m-auto">
-        <RecruitmentHeader></RecruitmentHeader>
-        <div className="flex">
-          <div className=" w-[60%] flex flex-col gap-[10px] ml-[40px] mr-[10px] mt-[30px] text-inherit">
-            <p className="font-[700] my-[10px]">Mô tả công việc</p>
-            <ul className="list-disc mx-[10px] px-[10px] leading-normal">
-              <li className="mb-[10px]">
-                Tham gia vào các dự án thiết kế, phát triển các sản phẩm mới
-                theo yêu cầu của khách hàng hoặc từ Leader.
-              </li>
-              <li className="mb-[10px]">
-                Tham gia bảo trì, nâng cấp chức năng, giao diện theo yêu cầu của
-                khách hàng trên hệ thống website hiện có.
-              </li>
-              <li className="mb-[10px]">
-                Tham gia phân tích yêu cầu, thiết kế, cài đặt và review code sử
-                dụng một trong các framework của Javascript.
-              </li>
-              <li className="mb-[10px]">
-                Nghiên cứu và ứng dụng các công nghệ mới vào phát triển sản
-                phẩm.
-              </li>
-              <li className="mb-[10px]">Báo cáo kết quả công việc cho PM.</li>
-            </ul>
-            <p className="font-[700] my-[10px]">Yêu cầu công việc</p>
-            <ul className="list-disc mx-[10px] px-[10px] leading-normal">
-              <li className="mb-[10px]">
-                Nắm vững kiến thức về HTML/CSS,
-                JS/JQuery/AJAX/Bootstrap/Responsive.
-              </li>
-              <li className="mb-[10px]">
-                Nắm vững ngôn ngữ lập trình JavaScript.
-              </li>
-              <li className="mb-[10px]">Hiểu biết về REST API.</li>
-              <li className="mb-[10px]">
-                Có khả năng làm việc tốt với ReactJs, Next.Js
-              </li>
-              <li className="mb-[10px]">
-                Có khả năng tự học, và linh hoạt khi làm việc với các framework
-                khác của Javascript. (NodeJs, ReactJs, Ghost, Strapi) để phát
-                triển dự án..
-              </li>
-              <li className="mb-[10px]">Có tư duy logic tốt.</li>
-              <li className="mb-[10px]">
-                Có kỹ năng lên kế hoạch công việc và quản lý thời gian tốt.
-              </li>
-              <li className="mb-[10px]">Có kỹ năng làm việc nhóm tốt. </li>
-              <li className="mb-[10px]">
-                Chịu được áp lực và hoàn thành công việc đúng deadline.
-              </li>
-            </ul>
-            <p className="font-[700] my-[10px]">Chế độ phúc lợi</p>
-            <ul className="list-disc mx-[10px] px-[10px] leading-normal">
-              <li className="mb-[10px]">
-                Trợ cấp thực tập: 3.000.000 - 5.000.000 đồng/tháng.
-              </li>
-              <li className="mb-[10px]">
-                Làm việc cùng team tech trẻ trung, đầy nhiệt huyết và năng động.
-              </li>
-              <li className="mb-[10px]">
-                Cơ hội học hỏi và làm việc trực tiếp cùng các Leader đầy kinh
-                nghiệm.
-              </li>
-            </ul>
-          </div>
-          <div className="w-[40%] h-full bg-[#FE56561A] border border-[#FE5656] mr-[30px] my-[30px] pb-[40px]">
-            <RecruitmentItem
-              icon=<svg
+    <>
+      <div className="flex">
+        <div className=" w-[60%] flex flex-col gap-[10px] ml-[40px] mr-[10px] mt-[30px] text-inherit">
+          <p className="font-[700] my-[10px]">Mô tả công việc</p>
+          <ul className="list-disc mx-[10px] px-[10px] leading-normal">
+            <li className="mb-[10px]">
+              Tham gia vào các dự án thiết kế, phát triển các sản phẩm mới theo
+              yêu cầu của khách hàng hoặc từ Leader.
+            </li>
+            <li className="mb-[10px]">
+              Tham gia bảo trì, nâng cấp chức năng, giao diện theo yêu cầu của
+              khách hàng trên hệ thống website hiện có.
+            </li>
+            <li className="mb-[10px]">
+              Tham gia phân tích yêu cầu, thiết kế, cài đặt và review code sử
+              dụng một trong các framework của Javascript.
+            </li>
+            <li className="mb-[10px]">
+              Nghiên cứu và ứng dụng các công nghệ mới vào phát triển sản phẩm.
+            </li>
+            <li className="mb-[10px]">Báo cáo kết quả công việc cho PM.</li>
+          </ul>
+          <p className="font-[700] my-[10px]">Yêu cầu công việc</p>
+          <ul className="list-disc mx-[10px] px-[10px] leading-normal">
+            <li className="mb-[10px]">
+              Nắm vững kiến thức về HTML/CSS,
+              JS/JQuery/AJAX/Bootstrap/Responsive.
+            </li>
+            <li className="mb-[10px]">
+              Nắm vững ngôn ngữ lập trình JavaScript.
+            </li>
+            <li className="mb-[10px]">Hiểu biết về REST API.</li>
+            <li className="mb-[10px]">
+              Có khả năng làm việc tốt với ReactJs, Next.Js
+            </li>
+            <li className="mb-[10px]">
+              Có khả năng tự học, và linh hoạt khi làm việc với các framework
+              khác của Javascript. (NodeJs, ReactJs, Ghost, Strapi) để phát
+              triển dự án..
+            </li>
+            <li className="mb-[10px]">Có tư duy logic tốt.</li>
+            <li className="mb-[10px]">
+              Có kỹ năng lên kế hoạch công việc và quản lý thời gian tốt.
+            </li>
+            <li className="mb-[10px]">Có kỹ năng làm việc nhóm tốt. </li>
+            <li className="mb-[10px]">
+              Chịu được áp lực và hoàn thành công việc đúng deadline.
+            </li>
+          </ul>
+          <p className="font-[700] my-[10px]">Chế độ phúc lợi</p>
+          <ul className="list-disc mx-[10px] px-[10px] leading-normal">
+            <li className="mb-[10px]">
+              Trợ cấp thực tập: 3.000.000 - 5.000.000 đồng/tháng.
+            </li>
+            <li className="mb-[10px]">
+              Làm việc cùng team tech trẻ trung, đầy nhiệt huyết và năng động.
+            </li>
+            <li className="mb-[10px]">
+              Cơ hội học hỏi và làm việc trực tiếp cùng các Leader đầy kinh
+              nghiệm.
+            </li>
+          </ul>
+        </div>
+        <div className="w-[40%] h-full bg-[#FE56561A] border border-[#FE5656] mr-[30px] my-[30px] pb-[40px]">
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
                 height="36"
@@ -89,12 +84,14 @@ const Recruitment = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Vị trí làm việc"
-              detail="Front end"
-            ></RecruitmentItem>
+            }
+            title="Vị trí làm việc"
+            detail="Front end"
+          ></RecruitmentItem>
 
-            <RecruitmentItem
-              icon=<svg
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
                 height="32"
@@ -106,12 +103,14 @@ const Recruitment = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Hình thức làm việc"
-              detail="Full time / Part time"
-            ></RecruitmentItem>
+            }
+            title="Hình thức làm việc"
+            detail="Full time / Part time"
+          ></RecruitmentItem>
 
-            <RecruitmentItem
-              icon=<svg
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
                 height="42"
@@ -135,12 +134,14 @@ const Recruitment = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Số lượng cần tuyển"
-              detail="3"
-            ></RecruitmentItem>
+            }
+            title="Số lượng cần tuyển"
+            detail="3"
+          ></RecruitmentItem>
 
-            <RecruitmentItem
-              icon=<svg
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
                 height="32"
@@ -152,12 +153,14 @@ const Recruitment = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Trợ cấp"
-              detail="3.000.000  - 5.000.0000 VNĐ"
-            ></RecruitmentItem>
+            }
+            title="Trợ cấp"
+            detail="3.000.000  - 5.000.0000 VNĐ"
+          ></RecruitmentItem>
 
-            <RecruitmentItem
-              icon=<svg
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="37"
                 height="38"
@@ -169,12 +172,14 @@ const Recruitment = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Ngày đăng tuyển"
-              detail="02/03/2023"
-            ></RecruitmentItem>
+            }
+            title="Ngày đăng tuyển"
+            detail="02/03/2023"
+          ></RecruitmentItem>
 
-            <RecruitmentItem
-              icon=<svg
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
                 height="34"
@@ -186,68 +191,68 @@ const Recruitment = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Hạn nộp hồ sơ"
-              detail="28/04/2023"
-            ></RecruitmentItem>
-          </div>
+            }
+            title="Hạn nộp hồ sơ"
+            detail="28/04/2023"
+          ></RecruitmentItem>
+        </div>
+      </div>
+
+      <div className="mx-[40px] mt-[20px]">
+        <p className="font-[700] my-[15px]">Địa điểm làm việc</p>
+        <div className="flex items-center gap-3 mb-[30px]">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="26"
+              viewBox="0 0 21 26"
+              fill="none"
+            >
+              <path
+                d="M9.20391 25.4158C6.34922 22.1472 0 14.2251 0 9.7753C0 4.37648 4.70094 0 10.5 0C16.2969 0 21 4.37648 21 9.7753C21 14.2251 14.6016 22.1472 11.7961 25.4158C11.1234 26.1947 9.87656 26.1947 9.20391 25.4158ZM10.5 13.0337C12.4305 13.0337 14 11.5725 14 9.7753C14 7.97807 12.4305 6.51686 10.5 6.51686C8.56953 6.51686 7 7.97807 7 9.7753C7 11.5725 8.56953 13.0337 10.5 13.0337Z"
+                fill="#FE5656"
+              />
+            </svg>
+          </span>
+          <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
         </div>
 
-        <div className="mx-[40px] mt-[20px]">
-          <p className="font-[700] my-[15px]">Địa điểm làm việc</p>
-          <div className="flex items-center gap-3 mb-[30px]">
-            <span>
+        <p className="font-[700] my-[20px]">Cách thức ứng tuyển</p>
+        <p>
+          Ứng viên nộp hồ sơ trực tuyến bằng cách bấm nút{" "}
+          <a href="#" className="text-[#FE5656]">
+            ỨNG TUYỂN NGAY
+          </a>{" "}
+          dưới đây.
+        </p>
+
+        <div className="flex gap-[10px] my-[30px]">
+          <button className="px-5 py-2 bg-[#FE5656] text-white text-base not-italic font-bold rounded-[4px] hover:outline hover:outline-[#FE5656] hover:bg-white hover:text-[#FE5656]">
+            ỨNG TUYỂN NGAY
+          </button>
+          <button className="pl-9 pr-16 py-2 text-[#FE5656] text-base not-italic font-bold rounded-[4px] border-[2px] border-solid border-[#FE5656] relative">
+            LƯU TIN
+            <span className="absolute top-[50%] translate-y-[-50%] right-[15%]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="21"
-                height="26"
-                viewBox="0 0 21 26"
+                width="20"
+                height="22"
+                viewBox="0 0 20 22"
                 fill="none"
               >
                 <path
-                  d="M9.20391 25.4158C6.34922 22.1472 0 14.2251 0 9.7753C0 4.37648 4.70094 0 10.5 0C16.2969 0 21 4.37648 21 9.7753C21 14.2251 14.6016 22.1472 11.7961 25.4158C11.1234 26.1947 9.87656 26.1947 9.20391 25.4158ZM10.5 13.0337C12.4305 13.0337 14 11.5725 14 9.7753C14 7.97807 12.4305 6.51686 10.5 6.51686C8.56953 6.51686 7 7.97807 7 9.7753C7 11.5725 8.56953 13.0337 10.5 13.0337Z"
+                  d="M17.4175 0.9375H2.48821C1.11399 0.9375 0 1.78229 0 2.82442V19.8027C0 20.7737 1.38873 21.3783 2.49443 20.8893L9.95283 17.5896L17.4123 20.8889C18.5164 21.3437 19.9057 20.7737 19.9057 19.8027V2.82442C19.9057 1.78229 18.7912 0.9375 17.4175 0.9375ZM17.4175 18.706L9.95283 15.4039L2.48821 18.706V3.06028C2.48821 2.9278 2.62454 2.82442 2.75258 2.82442H17.0598C17.2827 2.82442 17.4175 2.9278 17.4175 3.06028V18.706Z"
                   fill="#FE5656"
                 />
               </svg>
             </span>
-            <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
-          </div>
-
-          <p className="font-[700] my-[20px]">Cách thức ứng tuyển</p>
-          <p>
-            Ứng viên nộp hồ sơ trực tuyến bằng cách bấm nút{" "}
-            <a href="#" className="text-[#FE5656]">
-              ỨNG TUYỂN NGAY
-            </a>{" "}
-            dưới đây.
-          </p>
-
-          <div className="flex gap-[10px] my-[30px]">
-            <button className="px-5 py-2 bg-[#FE5656] text-white text-base not-italic font-bold rounded-[4px] hover:outline hover:outline-[#FE5656] hover:bg-white hover:text-[#FE5656]">
-              ỨNG TUYỂN NGAY
-            </button>
-            <button className="pl-9 pr-16 py-2 text-[#FE5656] text-base not-italic font-bold rounded-[4px] border-[2px] border-solid border-[#FE5656] relative">
-              LƯU TIN
-              <span className="absolute top-[50%] translate-y-[-50%] right-[15%]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="22"
-                  viewBox="0 0 20 22"
-                  fill="none"
-                >
-                  <path
-                    d="M17.4175 0.9375H2.48821C1.11399 0.9375 0 1.78229 0 2.82442V19.8027C0 20.7737 1.38873 21.3783 2.49443 20.8893L9.95283 17.5896L17.4123 20.8889C18.5164 21.3437 19.9057 20.7737 19.9057 19.8027V2.82442C19.9057 1.78229 18.7912 0.9375 17.4175 0.9375ZM17.4175 18.706L9.95283 15.4039L2.48821 18.706V3.06028C2.48821 2.9278 2.62454 2.82442 2.75258 2.82442H17.0598C17.2827 2.82442 17.4175 2.9278 17.4175 3.06028V18.706Z"
-                    fill="#FE5656"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-          <p>Hạn nộp hồ sơ: 28/04/2023</p>
+          </button>
         </div>
+        <p>Hạn nộp hồ sơ: 28/04/2023</p>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Recruitment;
+export default RecruitmentDetail;
