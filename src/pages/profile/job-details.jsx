@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,12 +10,18 @@ import Input from "../../components/Input/input";
 import IconError from "../../components/IconError";
 import { callEditProfile } from "../../service/candidate/api";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 
 const JobDetails = () => {
-  const userProfileDTO = useSelector((state) => state.account.user);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+  const dataUser = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
+  const dataCandidate = useSelector((state) => state.candidate.data);
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const schema = yup
     .object({
       job: yup.string().required("Công việc không được để trống"),
@@ -38,12 +44,47 @@ const JobDetails = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    console.log(data);
+    console.log(dataUser);
+    const userProfileDTO = {
+      userId: dataUser.id,
+      firstName: data.name,
+      lastName: data.subName,
+      phone: data.phoneNumber,
+      birthDay: convertDate(data.birthday),
+      gender: data.gender,
+      address: data.address,
+      avatar: dataUser.avatar,
+    };
+
+    const candidateDTO = {
+      ...dataCandidate,
+      university: data.university,
+    };
+    setIsSubmitting(true);
+    const candidateProfileDTO = JSON.stringify({
+      userProfileDTO,
+      candidateDTO,
+    });
+    const res = await callEditProfile(dataUser.id, candidateProfileDTO);
+    console.log(res);
+    setIsSubmitting(false);
+    if (res && res?.data) {
+      dispatch(doSetProfileData(res.data.showUserDTO));
+      dispatch(doSetCandidateData(res.data.candidateDTO));
+      setShowPopup(true);
+    }
+
+    if (res?.errors) {
+      alert(res.message);
+    }
+  };
 
   return (
-    <div className=" w-[60%] rounded-[10px] h-auto shadow-banner flex flex-col">
-      <div className=" rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] w-full h-[55px] flex justify-between py-[14px] px-[44px] shadow-banner">
-        <span className="text-xl not-italic font-bold text-white ">
+    <div className=" flex h-auto w-[60%] flex-col rounded-[10px] shadow-banner">
+      <div className=" flex h-[55px] w-full justify-between rounded-bl-[0px] rounded-br-[0px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FE5656] px-[44px] py-[14px] shadow-banner">
+        <span className="text-xl font-bold not-italic text-white ">
           Thông tin việc muốn ứng tuyển
         </span>
         <a href="#" className="">
@@ -52,10 +93,10 @@ const JobDetails = () => {
       </div>
 
       <form
-        className=" px-[40px] font-[600]  py-[30px] text-[15px]"
+        className=" px-[40px] py-[30px]  text-[15px] font-[600]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col w-full mt-4">
+        <div className="mt-4 flex w-full flex-col">
           <label htmlFor="job" className="pb-2 ">
             Công việc mong muốn <span className="text-red-700">*</span>
           </label>
@@ -71,13 +112,13 @@ const JobDetails = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.job?.message}
               </p>
             </div>
           )}
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="position" className="pb-2 ">
             Vị trí làm việc <span className="text-red-700">*</span>
           </label>
@@ -88,9 +129,9 @@ const JobDetails = () => {
             render={({ field }) => (
               <select
                 {...field}
-                className={`py-3 px-2 border-2 ${
+                className={`border-2 px-2 py-3 ${
                   errors.selectPosition ? "border-red-500" : "border-gray-300"
-                } rounded-md w-full focus:outline-none`}
+                } w-full rounded-md focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Chọn vị trí
@@ -109,13 +150,13 @@ const JobDetails = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.selectPosition?.message}
               </p>
             </div>
           )}
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="field" className="pb-2 ">
             Chuyên ngành <span className="text-red-700">*</span>
           </label>
@@ -126,9 +167,9 @@ const JobDetails = () => {
             render={({ field }) => (
               <select
                 {...field}
-                className={`py-3 px-2 border-2 ${
+                className={`border-2 px-2 py-3 ${
                   errors.selectField ? "border-red-500" : "border-gray-300"
-                } rounded-md w-full focus:outline-none`}
+                } w-full rounded-md focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Chọn chuyên ngành
@@ -147,13 +188,13 @@ const JobDetails = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.selectField?.message}
               </p>
             </div>
           )}
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="type" className="pb-2 ">
             Hình thức làm việc <span className="text-red-700">*</span>
           </label>
@@ -164,9 +205,9 @@ const JobDetails = () => {
             render={({ field }) => (
               <select
                 {...field}
-                className={`py-3 px-2 border-2 ${
+                className={`border-2 px-2 py-3 ${
                   errors.selectType ? "border-red-500" : "border-gray-300"
-                } rounded-md w-full focus:outline-none`}
+                } w-full rounded-md focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Chọn hình thức
@@ -185,13 +226,13 @@ const JobDetails = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.selectType?.message}
               </p>
             </div>
           )}
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="location" className="pb-2 ">
             Địa điểm làm việc <span className="text-red-700">*</span>
           </label>
@@ -202,9 +243,9 @@ const JobDetails = () => {
             render={({ field }) => (
               <select
                 {...field}
-                className={`py-3 px-2 border-2 ${
+                className={`border-2 px-2 py-3 ${
                   errors.selectLocation ? "border-red-500" : "border-gray-300"
-                } rounded-md w-full focus:outline-none`}
+                } w-full rounded-md focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Chọn địa điểm
@@ -223,13 +264,13 @@ const JobDetails = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.selectLocation?.message}
               </p>
             </div>
           )}
         </div>
-        <div className="flex flex-col w-full mt-6 ">
+        <div className="mt-6 flex w-full flex-col ">
           <label htmlFor="cv" className="pb-2 ">
             CV đính kèm <span className="text-red-700">*</span>
           </label>
@@ -249,7 +290,7 @@ const JobDetails = () => {
                   htmlFor="cv"
                   className={`cursor-pointer border-2 ${
                     errors.cv ? "border-red-500" : "border-gray-300"
-                  } w-full py-2 rounded-[5px] flex items-center justify-center`}
+                  } flex w-full items-center justify-center rounded-[5px] py-2`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -280,13 +321,13 @@ const JobDetails = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.cv?.message}
               </p>
             </div>
           )}
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="coverLetter" className="pb-2 ">
             Thư xin việc
           </label>
@@ -294,19 +335,19 @@ const JobDetails = () => {
             type="text"
             id="coverLetter"
             {...register("coverLetter")}
-            className="h-[180px] leading-normal py-3 px-4 border-2 border-gray-300 rounded-[4px] w-full focus:outline-none"
+            className="h-[180px] w-full rounded-[4px] border-2 border-gray-300 px-4 py-3 leading-normal focus:outline-none"
             placeholder="Viết giới thiệu ngắn gọn về bản thân (điểm mạnh và điểm yếu) và nêu rõ mong muốn, lý do làm việc tại công ty này."
           />
         </div>
-        <div className="mt-6 gap-4 flex justify-end">
+        <div className="mt-6 flex justify-end gap-4">
           <button
-            className="text-center text-[15px] font-bold text-white rounded-[4px] px-[22px] py-[12px] bg-[#FE5656]"
+            className="rounded-[4px] bg-[#FE5656] px-[22px] py-[12px] text-center text-[15px] font-bold text-white"
             type="submit"
           >
             Cập nhật
           </button>
           <button
-            className="text-center text-[15px] font-bold text-[#7D7D7D] rounded-[4px] px-[36px] py-[12px] bg-gray-200 "
+            className="rounded-[4px] bg-gray-200 px-[36px] py-[12px] text-center text-[15px] font-bold text-[#7D7D7D] "
             type=""
           >
             Hủy

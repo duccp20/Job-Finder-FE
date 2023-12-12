@@ -13,6 +13,9 @@ import { useNavigate } from "react-router-dom";
 import { callEditProfile } from "../../service/candidate/api";
 import { doSetProfileData } from "../../redux/account/accountSlice";
 import { doSetCandidateData } from "../../redux/candidate/candidateSlice";
+import Spinner from "../../components/Spinner/spinnner";
+import Popup from "../../components/Popup";
+import Button from "../../components/Button/button";
 
 const PersonalDetails = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,9 +23,7 @@ const PersonalDetails = () => {
   const navigate = useNavigate();
   const dataUser = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
-  const universityData = useSelector(
-    (state) => state.candidate.data.university
-  );
+  const dataCandidate = useSelector((state) => state.candidate.data);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const schema = yup
     .object({
@@ -30,14 +31,14 @@ const PersonalDetails = () => {
         .string()
         .matches(
           /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-          "Họ và tên lót không được phép là số hoặc ký tự đặc biệt"
+          "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
         )
         .required(),
       name: yup
         .string()
         .matches(
           /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-          "Tên không được phép là số hoặc ký tự đặc biệt"
+          "Tên không được phép là số hoặc ký tự đặc biệt",
         )
         .required(),
 
@@ -45,7 +46,7 @@ const PersonalDetails = () => {
         .string()
         .matches(
           /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
-          "Số điện thoại không đúng định dạng"
+          "Số điện thoại không đúng định dạng",
         )
         .required(),
 
@@ -78,15 +79,21 @@ const PersonalDetails = () => {
     };
 
     const candidateDTO = {
+      ...dataCandidate,
       university: data.university,
     };
     setIsSubmitting(true);
-    const res = await callEditProfile(userProfileDTO, candidateDTO);
+    const candidateProfileDTO = JSON.stringify({
+      userProfileDTO,
+      candidateDTO,
+    });
+    const res = await callEditProfile(dataUser.id, candidateProfileDTO);
+    console.log(res);
     setIsSubmitting(false);
     if (res && res?.data) {
-      console.log("dât fỏm api", res.data);
       dispatch(doSetProfileData(res.data.showUserDTO));
       dispatch(doSetCandidateData(res.data.candidateDTO));
+      setShowPopup(true);
     }
 
     if (res?.errors) {
@@ -95,17 +102,16 @@ const PersonalDetails = () => {
   };
 
   useEffect(() => {
-    setValue("university", universityData || "");
-  }, [universityData, setValue]);
+    setValue("university", dataCandidate?.university || "");
+  }, [dataCandidate?.university, setValue]);
 
   function convertDate(inputDate) {
     const parts = inputDate.split("-");
     return `${parts[2]}/${parts[1]}/${parts[0]}`;
   }
   function convertDateToYYYYMMDD(inputDate) {
-    // Giả sử inputDate có định dạng 'DD/MM/YYYY'
     const parts = inputDate.split("/");
-    return `${parts[2]}-${parts[1]}-${parts[0]}`; // Chuyển đổi sang định dạng 'YYYY-MM-DD'
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
   }
 
   // ...
@@ -118,9 +124,12 @@ const PersonalDetails = () => {
   }, [isAuthenticated, dataUser, setValue]);
   return (
     <>
-      <div className="h-auto w-[60%] rounded-[10px] shadow-banner flex flex-col">
-        <div className=" rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] w-full h-[55px] flex justify-between py-[14px] px-[44px] shadow-banner">
-          <span className="text-xl not-italic font-bold text-white ">
+      {showPopup && (
+        <Popup text="Cập nhật thành công" redirect="profile"></Popup>
+      )}
+      <div className="flex h-full w-[60%] flex-col rounded-[10px] shadow-banner">
+        <div className=" flex h-[55px] w-full justify-between rounded-bl-[0px] rounded-br-[0px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FE5656] px-[44px] py-[14px] shadow-banner">
+          <span className="text-xl font-bold not-italic text-white ">
             Thông tin cá nhân
           </span>
           <a href="#" className="">
@@ -128,11 +137,11 @@ const PersonalDetails = () => {
           </a>
         </div>
         <form
-          className="py-[30px] px-[40px] font-[600] text-[15px]"
+          className="px-[40px] py-[30px] text-[15px] font-[600]"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="flex gap-5 w-full mt-4">
-            <div className="flex flex-col w-[50%]">
+          <div className="mt-4 flex w-full gap-5">
+            <div className="flex w-[50%] flex-col">
               <label htmlFor="subName" className="pb-2 ">
                 Họ và tên lót <span className="text-red-700">*</span>
               </label>
@@ -153,13 +162,13 @@ const PersonalDetails = () => {
                     <IconError />
                   </span>
 
-                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                  <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                     {errors.subName?.message}
                   </p>
                 </div>
               )}
             </div>
-            <div className="flex flex-col w-[50%]">
+            <div className="flex w-[50%] flex-col">
               <label htmlFor="name" className="pb-2 ">
                 Tên <span className="text-red-700">*</span>
               </label>
@@ -178,15 +187,15 @@ const PersonalDetails = () => {
                     <IconError />
                   </span>
 
-                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                  <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                     {errors.name?.message}
                   </p>
                 </div>
               )}
             </div>
           </div>
-          <div className="flex gap-5 w-full mt-6">
-            <div className="flex flex-col w-[50%]">
+          <div className="mt-6 flex w-full gap-5">
+            <div className="flex w-[50%] flex-col">
               <label htmlFor="email" className="pb-2 ">
                 Email <span className="text-red-700">*</span>
               </label>
@@ -198,7 +207,7 @@ const PersonalDetails = () => {
                 defaultValue={isAuthenticated && dataUser ? dataUser.email : ""}
               />
             </div>
-            <div className="flex flex-col w-[50%]">
+            <div className="flex w-[50%] flex-col">
               <label htmlFor="birthday" className="pb-2 ">
                 Ngày sinh <span className="text-red-700">*</span>
               </label>
@@ -219,8 +228,8 @@ const PersonalDetails = () => {
               />
             </div>
           </div>
-          <div className="flex gap-5 w-full mt-6">
-            <div className="flex flex-col w-[50%]">
+          <div className="mt-6 flex w-full gap-5">
+            <div className="flex w-[50%] flex-col">
               <label htmlFor="phoneNumber" className="pb-2 ">
                 Số điện thoại <span className="text-red-700">*</span>
               </label>
@@ -239,13 +248,13 @@ const PersonalDetails = () => {
                     <IconError />
                   </span>
 
-                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                  <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                     {errors.phoneNumber?.message}
                   </p>
                 </div>
               )}
             </div>
-            <div className="flex flex-col w-[50%]">
+            <div className="flex w-[50%] flex-col">
               <label htmlFor="gender" className="pb-2 ">
                 Giới tính <span className="text-red-700">*</span>
               </label>
@@ -260,9 +269,9 @@ const PersonalDetails = () => {
                     ref={ref}
                     onChange={(e) => onChange(e.target.value === "male")}
                     value={value ? "male" : "female"}
-                    className={`py-3 px-2 border-2 ${
-                      errors.gender ? "border-red-500" : "border-gray-300"
-                    } rounded-md w-full focus:outline-none`}
+                    className="w-full rounded-md border-2 
+                      border-gray-300
+                     px-2 py-3 focus:outline-none"
                   >
                     <option value="male">Nam</option>
                     <option value="female">Nữ</option>
@@ -272,7 +281,7 @@ const PersonalDetails = () => {
             </div>
           </div>
 
-          <div className="flex flex-col w-full mt-6">
+          <div className="mt-6 flex w-full flex-col">
             <label htmlFor="address" className="pb-2 ">
               Địa chỉ <span className="text-red-700">*</span>
             </label>
@@ -291,13 +300,13 @@ const PersonalDetails = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.address?.message}
                 </p>
               </div>
             )}
           </div>
-          <div className="flex flex-col w-full mt-6">
+          <div className="mt-6 flex w-full flex-col">
             <label htmlFor="university" className="pb-2 ">
               Trường học
             </label>
@@ -306,21 +315,17 @@ const PersonalDetails = () => {
               id="university"
               bordercolor="border-gray-300"
               {...register("university")}
-              defaultValue={universityData || ""}
+              defaultValue={dataCandidate.university || ""}
             />
           </div>
-          <div className="mt-6 gap-4 flex justify-end">
+          <div className="mt-6 flex justify-end gap-4">
+            <Button
+              isSubmitting={isSubmitting}
+              textSubmitting={"Đang cập nhật"}
+              textNoSubmitting={"Cập nhật"}
+            />
             <button
-              className={`text-center text-[15px] font-bold text-white rounded-[4px] px-[22px] py-[12px]  ${
-                isSubmitting ? "bg-gray-500" : "bg-[#FE5656]"
-              } `}
-              type="submit"
-            >
-              {isSubmitting ? "Đang cập nhật..." : "Cập nhật"}
-            </button>
-
-            <button
-              className="text-center text-[15px] font-bold text-[#7D7D7D] rounded-[4px] px-[36px] py-[12px] bg-gray-200 "
+              className="rounded-[4px] bg-gray-200 px-[36px] py-[12px] text-center text-[15px] font-bold text-[#7D7D7D] "
               type="text"
               onClick={() => {
                 navigate("/profile");
