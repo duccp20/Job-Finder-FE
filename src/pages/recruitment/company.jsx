@@ -4,87 +4,83 @@ import SearchBar from "../../components/SearchBatr/search";
 import RecruitmentHeader from "../../components/Recruitment/header";
 import RecruitmentItem from "../../components/Recruitment/item";
 import JobItem from "../../components/JobItem";
+import Pagination from "../../components/Pagination";
 
 const CompanyInformation = () => {
   return (
-    <div>
-      <HeaderHome />
-      <SearchBar />
-      <div className="w-[90%] rounded-[6px] border-[2px] border-[#FE5656] py-[45px] my-[10px] m-auto">
-        <RecruitmentHeader></RecruitmentHeader>
-        <div className="flex">
-          <div className=" w-[65%] flex flex-col gap-[10px] ml-[40px] mr-[10px] pr-[30px] mt-[30px] text-inherit leading-normal">
-            <p className="font-[700] mb-[10px]">
-              Giới thiệu về Công ty R2S - Cung cấp phương pháp giải quyết phần
-              mềm
-            </p>
-            <p className="mb-[10px]">
-              R2S thành lập vào ngày một tháng tám năm 2019 với nhiệm vụ đào tạo
-              nhân sự CNTT cho doanh nghiệp, phát triển phần mềm và tư vấn giải
-              pháp CNTT. R2S ra đời với sứ mệnh:
-            </p>
-            <ol className="list-decimal mx-[10px] px-[10px] ">
-              <li>
-                Đào tạo nhân sự làm được việc ngay cho doanh nghiệp (Resource)
-              </li>
-              <li>Phát triển phần mềm (Software)</li>
-              <li>
-                Tư vấn giải pháp CNTT cho các doanh nghiệp thực hiện chuyển đổi
-                số (Solution)
-              </li>
-            </ol>
-            <p className="my-[10px]">
-              Với 03 nhiệm vụ trên, R2S đã cho ra đời R2S Academy với nhiều
-              chương trình đào tạo dành cho lập trình viên, dành cho Tester,
-              dành cho BA, dành cho DevOps,…nhằm giúp các bạn trang bị những
-              kinh nghiệm làm việc như quản lý source code, viết code sạch, làm
-              việc nhóm, cách hỏi đáp để làm rõ yêu cầu,….Hiện nay, R2S Academy
-              có hàng chục khoá học và có gần 500 học viên đã và đang học. Trong
-              số những học viên tham gia tại R2S Academy, với hình thức đào tạo
-              online nên các bạn có cơ hội gặp gỡ nhau ở mọi miền đất nước. Thậm
-              chí có những bạn đang ở Đức, Ý, Nhật, Hàn Quốc, Malaysia cũng tham
-              gia học.
-            </p>
-            <p>
-              Với mô hình đào tạo, phát triển phần mềm và kết nối doanh nghiệp,
-              R2S đã tạo ra môi trường học tập sát với nhu cầu thực tế. Không
-              những thế, học viên còn có cơ hội thực tập và được R2S tuyển dụng.
-              Một hệ sinh thái kết nối việc học, thực hành gắn liền thực tế nên
-              học viên có cơ hội học những gì doanh nghiệp cần, tích luỹ kinh
-              nghiệm thông qua các buổi học và có cơ hội việc làm ngay và sau
-              khi kết thúc khoá học. R2S coi trọng đến triết lý kinh doanh “TẬN
-              TUỴ phục vụ KHÁCH HÀNG, tạo NIỀM TIN với ĐỐI TÁC, CHĂM LO đời sống
-              NHÂN VIÊN, ĐÓNG GÓP thiết thực cho CỘNG ĐỒNG“. Đây chính là kim
-              chỉ nam để toàn thể nhân viên R2S cùng hành động.
-            </p>
+    <>
+      <div className="flex">
+        <div className=" w-[65%] flex flex-col gap-[10px] ml-[40px] mr-[10px] pr-[30px] mt-[30px] text-inherit leading-normal">
+          <p className="font-[700] mb-[10px]">
+            Giới thiệu về Công ty R2S - Cung cấp phương pháp giải quyết phần mềm
+          </p>
+          <p className="mb-[10px]">
+            R2S thành lập vào ngày một tháng tám năm 2019 với nhiệm vụ đào tạo
+            nhân sự CNTT cho doanh nghiệp, phát triển phần mềm và tư vấn giải
+            pháp CNTT. R2S ra đời với sứ mệnh:
+          </p>
+          <ol className="list-decimal mx-[10px] px-[10px] ">
+            <li>
+              Đào tạo nhân sự làm được việc ngay cho doanh nghiệp (Resource)
+            </li>
+            <li>Phát triển phần mềm (Software)</li>
+            <li>
+              Tư vấn giải pháp CNTT cho các doanh nghiệp thực hiện chuyển đổi số
+              (Solution)
+            </li>
+          </ol>
+          <p className="my-[10px]">
+            Với 03 nhiệm vụ trên, R2S đã cho ra đời R2S Academy với nhiều chương
+            trình đào tạo dành cho lập trình viên, dành cho Tester, dành cho BA,
+            dành cho DevOps,…nhằm giúp các bạn trang bị những kinh nghiệm làm
+            việc như quản lý source code, viết code sạch, làm việc nhóm, cách
+            hỏi đáp để làm rõ yêu cầu,….Hiện nay, R2S Academy có hàng chục khoá
+            học và có gần 500 học viên đã và đang học. Trong số những học viên
+            tham gia tại R2S Academy, với hình thức đào tạo online nên các bạn
+            có cơ hội gặp gỡ nhau ở mọi miền đất nước. Thậm chí có những bạn
+            đang ở Đức, Ý, Nhật, Hàn Quốc, Malaysia cũng tham gia học.
+          </p>
+          <p>
+            Với mô hình đào tạo, phát triển phần mềm và kết nối doanh nghiệp,
+            R2S đã tạo ra môi trường học tập sát với nhu cầu thực tế. Không
+            những thế, học viên còn có cơ hội thực tập và được R2S tuyển dụng.
+            Một hệ sinh thái kết nối việc học, thực hành gắn liền thực tế nên
+            học viên có cơ hội học những gì doanh nghiệp cần, tích luỹ kinh
+            nghiệm thông qua các buổi học và có cơ hội việc làm ngay và sau khi
+            kết thúc khoá học. R2S coi trọng đến triết lý kinh doanh “TẬN TUỴ
+            phục vụ KHÁCH HÀNG, tạo NIỀM TIN với ĐỐI TÁC, CHĂM LO đời sống NHÂN
+            VIÊN, ĐÓNG GÓP thiết thực cho CỘNG ĐỒNG“. Đây chính là kim chỉ nam
+            để toàn thể nhân viên R2S cùng hành động.
+          </p>
 
-            <p className="font-[700] mt-[15px]">Địa điểm công ty</p>
-            <div className="flex items-center gap-3">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="26"
-                  viewBox="0 0 21 26"
-                  fill="none"
-                >
-                  <path
-                    d="M9.20391 25.4158C6.34922 22.1472 0 14.2251 0 9.7753C0 4.37648 4.70094 0 10.5 0C16.2969 0 21 4.37648 21 9.7753C21 14.2251 14.6016 22.1472 11.7961 25.4158C11.1234 26.1947 9.87656 26.1947 9.20391 25.4158ZM10.5 13.0337C12.4305 13.0337 14 11.5725 14 9.7753C14 7.97807 12.4305 6.51686 10.5 6.51686C8.56953 6.51686 7 7.97807 7 9.7753C7 11.5725 8.56953 13.0337 10.5 13.0337Z"
-                    fill="#FE5656"
-                  />
-                </svg>
-              </span>
-              <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
-            </div>
+          <p className="font-[700] mt-[15px]">Địa điểm công ty</p>
+          <div className="flex items-center gap-3">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="21"
+                height="26"
+                viewBox="0 0 21 26"
+                fill="none"
+              >
+                <path
+                  d="M9.20391 25.4158C6.34922 22.1472 0 14.2251 0 9.7753C0 4.37648 4.70094 0 10.5 0C16.2969 0 21 4.37648 21 9.7753C21 14.2251 14.6016 22.1472 11.7961 25.4158C11.1234 26.1947 9.87656 26.1947 9.20391 25.4158ZM10.5 13.0337C12.4305 13.0337 14 11.5725 14 9.7753C14 7.97807 12.4305 6.51686 10.5 6.51686C8.56953 6.51686 7 7.97807 7 9.7753C7 11.5725 8.56953 13.0337 10.5 13.0337Z"
+                  fill="#FE5656"
+                />
+              </svg>
+            </span>
+            <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
           </div>
-          <div className="w-[35%] h-full bg-[#FE56561A] border border-[#FE5656] mr-[30px] my-[30px] pb-[40px]">
-            <img
-              src="https://source.unsplash.com/random"
-              alt=""
-              className="rounded-[8px] border border-[#7D7D7D] object-cover h-[200px] w-[200px] m-auto mt-[50px]"
-            />
-            <RecruitmentItem
-              icon=<svg
+        </div>
+        <div className="w-[35%] h-full bg-[#FE56561A] border border-[#FE5656] mr-[30px] my-[30px] pb-[40px]">
+          <img
+            src="https://source.unsplash.com/random"
+            alt=""
+            className="rounded-[8px] border border-[#7D7D7D] object-cover h-[200px] w-[200px] m-auto mt-[50px]"
+          />
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
                 height="32"
@@ -96,11 +92,13 @@ const CompanyInformation = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Website"
-              detail="r2s.com.vn"
-            ></RecruitmentItem>
-            <RecruitmentItem
-              icon=<svg
+            }
+            title="Website"
+            detail="r2s.com.vn"
+          ></RecruitmentItem>
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
                 height="28"
@@ -112,11 +110,13 @@ const CompanyInformation = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Email"
-              detail="tuyendung@r2s.com"
-            ></RecruitmentItem>
-            <RecruitmentItem
-              icon=<svg
+            }
+            title="Email"
+            detail="tuyendung@r2s.com"
+          ></RecruitmentItem>
+          <RecruitmentItem
+            icon={
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="31"
                 height="23"
@@ -128,28 +128,29 @@ const CompanyInformation = () => {
                   fill="#FE5656"
                 />
               </svg>
-              title="Quy mô"
-              detail="30 - 100 người"
-            ></RecruitmentItem>
-          </div>
-        </div>
-
-        <div className="mx-[40px] mt-[30px]">
-          <p className="font-[700]">Việc làm khác đang tuyển</p>
-          <div className="flex gap-5 mt-[20px] px-[20px] py-[30px] bg-[#F6F6F6] rounded-[5px] shadow-banner">
-            <div className="w-[50%]">
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-            </div>
-            <div className="w-[50%]">
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-            </div>
-          </div>
+            }
+            title="Quy mô"
+            detail="30 - 100 người"
+          ></RecruitmentItem>
         </div>
       </div>
-    </div>
+
+      <div className="mx-[40px] mt-[30px]">
+        <p className="font-[700]">Việc làm khác đang tuyển</p>
+        <div className="flex gap-5 mt-[20px] px-[20px] py-[30px] bg-[#F6F6F6] rounded-[5px] shadow-banner">
+          <div className="w-[50%]">
+            <JobItem></JobItem>
+            <JobItem></JobItem>
+            <JobItem></JobItem>
+          </div>
+          <div className="w-[50%]">
+            <JobItem></JobItem>
+            <JobItem></JobItem>
+          </div>
+        </div>
+        <Pagination></Pagination>
+      </div>
+    </>
   );
 };
 
