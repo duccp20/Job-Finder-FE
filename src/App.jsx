@@ -23,6 +23,7 @@ import Uploader from "./components/Uploader";
 import { ForgetPass } from "./pages/forgetPassMail/forgetPass";
 import CompanyInformation from "./pages/recruitment/company";
 import Recruitment from "./pages/recruitment/detail";
+import AppliedJob from "./pages/apply/appliedjob";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -124,7 +125,10 @@ const App = () => {
     },
     {
       path: "/upload",
-      element: <Uploader></Uploader>,
+      element: <Uploader></Uploader>,},
+    {
+      path: "/apply",
+      element: <AppliedJob />,
     },
 
     // {
