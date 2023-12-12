@@ -21,8 +21,13 @@ import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
 import Uploader from "./components/Uploader";
 import CompanyInformation from "./pages/recruitment/company";
-import Recruitment from "./pages/recruitment/detail";
 import LoginAs from "./components/LoginAs";
+import Recruitment from "./pages/recruitment/overall";
+import ContactInfor from "./pages/hr/contact";
+import CompanyInfor from "./pages/hr/companyhr";
+import RecruitmentDetail from "./pages/recruitment/detail";
+import RecruitmentOverall from "./pages/recruitment/overall";
+import ContactOverall from "./pages/hr/overall";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -113,15 +118,22 @@ const App = () => {
         },
       ],
     },
-
     {
       path: "/recruitment",
-      element: <Recruitment />,
+      element: <RecruitmentOverall />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <RecruitmentDetail />,
+        },
+        {
+          path: "company",
+          element: <CompanyInformation />,
+        },
+      ],
     },
-    {
-      path: "/company",
-      element: <CompanyInformation />,
-    },
+
     {
       path: "/upload",
       element: <Uploader></Uploader>,
@@ -129,6 +141,22 @@ const App = () => {
     {
       path: "/loginas",
       element: <LoginAs></LoginAs>,
+    },
+
+    {
+      path: "/contact",
+      element: <ContactOverall />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <ContactInfor />,
+        },
+        {
+          path: "company-infor",
+          element: <CompanyInfor />,
+        },
+      ],
     },
 
     // {
