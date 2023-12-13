@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderHome from "../../components/HeaderHome";
 import dropdown from "/public/svg/dropdown.svg";
 import check from "/public/svg/check.svg";
@@ -8,37 +8,39 @@ import useDataFetcher from "../../components/Pagination/useDataFetcher";
 import LoginAs from "../../components/LoginAs";
 import Loading from "../../components/Loading";
 import Checkbox from "../../components/Checkbox/checkbox";
+import Skeleton from "../../components/SkeletonLoader/skeleton";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  const [checkboxes, setCheckboxes] = useState([
-    { id: 1, label: "Full time", checked: false },
-    { id: 2, label: "Part time", checked: false },
-    { id: 3, label: "Remote", checked: false },
-    // Add more options as needed
-  ]);
+  const [major, setMajor] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [checkboxes, setCheckboxes] = useState([]);
+  const data = useSelector((state) => state.baseData.data);
+
+  console.log(data);
+
+  const mapState = (data, checked = false) =>
+    data.map((item) => ({ id: item.id, label: item.name, checked }));
+
+  useEffect(() => {
+    // Chỉ cập nhật trạng thái nếu data có dữ liệu
+    if (data?.majors) {
+      setMajor(mapState(data.majors));
+    }
+    if (data?.positions) {
+      setLocation(mapState(data.positions));
+    }
+    if (data?.schedules) {
+      setCheckboxes(mapState(data.schedules));
+    }
+  }, [data]);
+
   /*
    *
    * @description
    * tạo hàm chứa dữ liệu checkbox
    *
    */
-  const [location, setLocation] = useState([
-    { id: 1, label: "Front end", checked: false },
-    { id: 2, label: "Back end", checked: false },
-    { id: 3, label: "Fullstack", checked: false },
-    { id: 4, label: "Mobile", checked: false },
-    { id: 5, label: "Embedded", checked: false },
-    { id: 6, label: "Tester", checked: false },
-    { id: 7, label: "DevOps", checked: false },
-  ]);
-  const [major, setMajor] = useState([
-    { id: 1, label: "Khoa học máy tính", checked: false },
-    { id: 2, label: "Công nghệ phần mềm", checked: false },
-    { id: 3, label: "Kỹ thuật máy tính", checked: false },
-    { id: 4, label: "Trí tuệ nhân tạo", checked: false },
-    { id: 5, label: "Kỹ thuật mạng", checked: false },
-    { id: 6, label: "Hệ thống thông tin quản lý", checked: false },
-  ]);
 
   const handleCheckboxChange = (id, setState) => {
     setState((prevCheckboxes) =>
@@ -55,7 +57,6 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* <LoginAs></LoginAs> */}
       <div className="mt-[60px]  flex  h-screen w-full gap-[45px]  px-[100px] py-[36px] ">
         <div className=" w-[20%]">
           {[
@@ -76,7 +77,7 @@ const HomePage = () => {
               className="mb-[15px] h-auto rounded-[10px] border-[0.5px] border-[#DEDEDE] px-[18px] pb-[24px] pt-[12px]"
             >
               <div className="relative flex justify-between">
-                <span className="mb-[20px] text-base font-bold not-italic text-[#FE5656]">
+                <span className="text- mb-[20px] font-bold not-italic text-[#FE5656]">
                   {section.title}
                 </span>
               </div>
@@ -210,14 +211,14 @@ const HomePage = () => {
             </div>
             <div className="">
               <button
-                className="rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md"
+                className="text- rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center font-bold not-italic text-white shadow-md"
                 type="submit"
               >
                 Tìm kiếm
               </button>
             </div>
           </form>
-
+          {/* {data} */}
           <div>
             {loading ? (
               <Loading></Loading>

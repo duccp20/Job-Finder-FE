@@ -2,15 +2,15 @@ import React, { useState } from "react";
 
 const JobItem = ({ image, title }) => {
   return (
-    <div className="rounded-[10px] border border-[#DEDEDE] px-[21px] py-[15px] hover:border-[#FE5656] mb-[15px]">
+    <div className="mb-[15px] rounded-[10px] border border-[#DEDEDE] px-[21px] py-[15px] hover:border-[#FE5656]">
       <div className="flex">
         <img
           src={image}
           alt=""
-          className="rounded-[8px] border border-[#7D7D7D] object-cover h-[90px] w-[90px] mr-[20px]"
+          className="mr-[20px] h-[90px] w-[90px] rounded-[8px] border border-[#7D7D7D] object-cover"
         />
-        <div className="flex flex-col justify-between flex-grow">
-          <h3 className="text-red-500 text-xl not-italic font-bold">{title}</h3>
+        <div className="flex flex-grow flex-col justify-between">
+          <h3 className="text-xl font-bold not-italic text-red-500">{title}</h3>
           <span>abc</span>
           <div className="flex items-baseline">
             <svg
@@ -32,12 +32,12 @@ const JobItem = ({ image, title }) => {
                 </clipPath>
               </defs>
             </svg>
-            <span className="text-gray-800 text-base not-italic font-light">
+            <span className="text-base font-light not-italic text-gray-800">
               hcm
             </span>
           </div>
         </div>
-        <div className="border border-[#F1F1F1] px-[15px] py-[12px] h-auto cursor-pointer self-start">
+        <div className="h-auto cursor-pointer self-start border border-[#F1F1F1] px-[15px] py-[12px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -52,12 +52,12 @@ const JobItem = ({ image, title }) => {
           </svg>
         </div>
       </div>
-      <div className="flex justify-between items-end">
+      <div className="flex items-end justify-between">
         <div className="flex items-start gap-[19px]">
-          <span className="inline-block p-[10px] text-gray-600 text-xs not-italic font-semibold bg-[#F3F9FC]">
+          <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
             FE
           </span>
-          <span className="inline-block p-[10px] text-gray-600 text-xs not-italic font-semibold bg-[#F3F9FC]">
+          <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
             KHMT
           </span>
         </div>
@@ -75,7 +75,7 @@ const JobItem = ({ image, title }) => {
                 fill="#FE5656"
               />
             </svg>
-            <span className="text-[#2B3940] text-base not-italic font-light ml-[12px]">
+            <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
               Số lượng ứng viên:
             </span>
           </div>
@@ -92,7 +92,7 @@ const JobItem = ({ image, title }) => {
                 fill="#FE5656"
               />
             </svg>
-            <span className="text-[#2B3940] text-base not-italic font-light ml-[12px]">
+            <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
               1/1/2022
             </span>
           </div>

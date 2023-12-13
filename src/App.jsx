@@ -32,7 +32,14 @@ import { doFetchCandidate } from "./redux/candidate/candidateSlice";
 import PDF from "./pages/pdf/pdf";
 import Recruitment from "./pages/recruitment/detail";
 import NotPermitted from "./components/NotPermitted";
-
+import { getAllMajor } from "./service/major/api";
+import {
+  doSetMajor,
+  doSetPosition,
+  doSetSchedule,
+} from "./redux/basedata/baseDataSlice";
+import { getAllPosition } from "./service/position/api";
+import { getAllSchedule } from "./service/schedule/api";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -52,16 +59,57 @@ const App = () => {
     if (res && res?.data) {
       dispatch(doFetchAccountAction(res.data));
     }
+
+    const resCan = await callFetchCandidateByUserId(res.data.id);
+    if (resCan && resCan?.data) {
+      console.log(resCan.data);
+      dispatch(doFetchCandidate(resCan.data));
+    } else {
+      console.log(resCan?.message);
+    }
+
+    if (res && res?.errors) {
+      console.log(res.errors + " " + res.message);
+    }
   };
+
   useEffect(() => {
+    // Định nghĩa hàm async để sử dụng Promise.all
+    const fetchData = async () => {
+      try {
+        // Tạo một mảng các Promises từ các hàm fetch dữ liệu
+        const fetchPromises = [
+          getAllMajor(),
+          getAllPosition(),
+          getAllSchedule(),
+          // Bạn có thể thêm các fetch khác tại đây
+        ];
+
+        // Sử dụng Promise.all để đợi tất cả các Promises hoàn thành
+        const [resMajor, resPosition, resSchedule] =
+          await Promise.all(fetchPromises);
+
+        // Cập nhật state tương ứng sau khi tất cả Promises hoàn thành
+        if (resMajor?.data) {
+          dispatch(doSetMajor(resMajor.data));
+        }
+        if (resPosition?.data) {
+          dispatch(doSetPosition(resPosition.data));
+        }
+        if (resSchedule?.data) {
+          dispatch(doSetSchedule(resSchedule.data));
+        }
+      } catch (error) {
+        // Xử lý lỗi tại đây
+        console.error("Failed to fetch initial data", error);
+      }
+    };
+
     fetchAccount();
+    fetchData();
   }, []);
 
   const router = createBrowserRouter([
-    {
-      path: "/pdf",
-      element: <PDF />,
-    },
     {
       path: "/",
       element: <Layout />,

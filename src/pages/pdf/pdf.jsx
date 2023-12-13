@@ -44,6 +44,13 @@ export default function PDF(props) {
     if (props.onClose) props.onClose();
   };
 
+  const handleBackdropClick = (event) => {
+    // Chỉ đóng modal khi nhấp vào backdrop, không phải khi nhấp vào modal
+    if (event.currentTarget === event.target) {
+      closeModal();
+    }
+  };
+
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
     setNumPages(nextNumPages);
   }
@@ -58,7 +65,10 @@ export default function PDF(props) {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 top-0 z-[9999] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-4">
+    <div
+      onClick={handleBackdropClick}
+      className="fixed bottom-0 left-0 right-0 top-0 z-[9999] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-4"
+    >
       <div className="relative max-h-[80vh] w-[60%] overflow-auto bg-white p-4">
         <button
           onClick={closeModal}
