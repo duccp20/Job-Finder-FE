@@ -12,6 +12,7 @@ import Popup from "../../components/Popup";
 const Profile = () => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,21 +32,6 @@ const Profile = () => {
     }
   };
 
-  const fetchCandidate = async () => {
-    const res = await callFetchCandidateByUserId(user.id);
-    console.log(res);
-    if (res && res?.data) {
-      console.log(res.data);
-      dispatch(doFetchCandidate(res.data));
-    }
-
-    if (res && res?.errors) {
-      console.log(res.errors + " " + res.message);
-    }
-  };
-  useEffect(() => {
-    fetchCandidate();
-  }, []);
   return (
     <div>
       <HeaderHome />
