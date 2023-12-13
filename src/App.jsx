@@ -28,9 +28,13 @@ import CompanyInfor from "./pages/hr/companyhr";
 import RecruitmentDetail from "./pages/recruitment/detail";
 import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
+import { callFetchCandidateByUserId } from "./service/candidate/api";
+import { doFetchCandidate } from "./redux/candidate/candidateSlice";
+import PDF from "./pages/pdf/pdf";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
+  const user = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
   const fetchAccount = async () => {
     if (
@@ -52,6 +56,10 @@ const App = () => {
   }, []);
 
   const router = createBrowserRouter([
+    {
+      path: "/pdf",
+      element: <PDF />,
+    },
     {
       path: "/",
       element: <Layout />,
