@@ -22,7 +22,6 @@ import JobPersonOverall from "./pages/profile/job-person-overall";
 import Uploader from "./components/Uploader";
 import CompanyInformation from "./pages/recruitment/company";
 import LoginAs from "./components/LoginAs";
-import Recruitment from "./pages/recruitment/overall";
 import ContactInfor from "./pages/hr/contact";
 import CompanyInfor from "./pages/hr/companyhr";
 import RecruitmentDetail from "./pages/recruitment/detail";
@@ -31,6 +30,9 @@ import ContactOverall from "./pages/hr/overall";
 import { callFetchCandidateByUserId } from "./service/candidate/api";
 import { doFetchCandidate } from "./redux/candidate/candidateSlice";
 import PDF from "./pages/pdf/pdf";
+import Recruitment from "./pages/recruitment/detail";
+import NotPermitted from "./components/NotPermitted";
+
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -166,6 +168,15 @@ const App = () => {
         },
       ],
     },
+      {
+
+      path: "/404",
+      element: <NotFound></NotFound>,
+    },
+    {
+      path: "/403",
+      element: <NotPermitted></NotPermitted>
+    },
 
     // {
     //   path: "/admin",
@@ -194,7 +205,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {!isLoading ||
+      {/* {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
@@ -204,10 +215,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )}
+      )} */}
 
       {/* Chưa có api */}
-      {/* <RouterProvider router={router} /> */}
+      <RouterProvider router={router} />
     </>
   );
 };
