@@ -8,6 +8,7 @@ import useDataFetcher from "../../components/Pagination/useDataFetcher";
 import LoginAs from "../../components/LoginAs";
 import Loading from "../../components/Loading";
 import Checkbox from "../../components/Checkbox/checkbox";
+import ProvincesDropdown from "../../components/DropdownProvince";
 
 const HomePage = () => {
   const [checkboxes, setCheckboxes] = useState([
@@ -169,7 +170,8 @@ const HomePage = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              <input
+              <ProvincesDropdown></ProvincesDropdown>
+              {/* <input
                 type="text"
                 name="district"
                 id="district"
@@ -206,7 +208,7 @@ const HomePage = () => {
                     <rect width="16" height="18" fill="white" />
                   </clipPath>
                 </defs>
-              </svg>
+              </svg> */}
             </div>
             <div className="">
               <button

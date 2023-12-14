@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const NotPermitted = () => {
-  
   const navigate = useNavigate();
 
-  const [isHovered, setIsHovered] = useState (false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseOver = () => {
     setIsHovered(true);
@@ -14,34 +13,47 @@ const NotPermitted = () => {
 
   const handleMouseOut = () => {
     setIsHovered(false);
-  };  return (
-    <div className="bg-white flex flex-row justify-center">
-      <div className="bg-white w-[1440px]">
-        <div className="bg-white flex flex-col md:flex-row items-center justify-center h-screen ">
+  };
+  return (
+    <div className="flex flex-row justify-center bg-white">
+      <div className="w-[1440px] bg-white">
+        <div className="flex h-screen flex-col items-center justify-center bg-white md:flex-row ">
           <div className="w-1/2 sm:w-auto">
-            <img alt="Element" src="./assets/images/403.svg" className="w-11/12"/>
+            <img
+              alt="Element"
+              src="./assets/images/403.svg"
+              className="w-11/12"
+            />
           </div>
           <div className="">
-            <div className="text-2xl sm:text-5xl tracking-w font-extrabold text-[#263238] text-center">
+            <div className="tracking-w text-center text-2xl font-extrabold text-[#263238] sm:text-5xl">
               ACCESS DENIED!
             </div>
-            <p className="text-lg md:text-lg font-semibold text-black text-center mt-4">
+            <p className="mt-4 text-center text-lg font-semibold text-black md:text-lg">
               You Don’t Have Permission To Access <br /> This Site
             </p>
-            <div className="mt-10 justify-center px-40 cursor-pointer"
+            <div
+              className="mt-10 cursor-pointer justify-center px-40"
               onClick={() => {
-                navigate("/")
-              }}>
-              <div className={isHovered ? 'bg-transparent border-2 border-[#fe5656] text-[#fe5656] md:text-xl rounded-full p-6 font-bold text-center ' : 'bg-[#fe5656] md:text-xl rounded-full p-6 text-center font-bold text-white border-2 border-[#fe5656]  '}
+                navigate("/");
+              }}
+            >
+              <div
+                className={
+                  isHovered
+                    ? "rounded-full border-2 border-[#fe5656] bg-transparent p-6 text-center font-bold text-[#fe5656] md:text-xl "
+                    : "rounded-full border-2 border-[#fe5656] bg-[#fe5656] p-6 text-center font-bold text-white md:text-xl  "
+                }
                 onMouseOver={handleMouseOver}
-                onMouseOut={handleMouseOut}>
+                onMouseOut={handleMouseOut}
+              >
                 Back To Home
               </div>
             </div>
           </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 
