@@ -31,12 +31,8 @@ import { callFetchCandidateByUserId } from "./service/candidate/api";
 import { doFetchCandidate } from "./redux/candidate/candidateSlice";
 import PDF from "./pages/pdf/pdf";
 import Recruitment from "./pages/recruitment/detail";
-<<<<<<< HEAD
 import AppliedJob from "./pages/apply/appliedjob";
-=======
 import NotPermitted from "./components/NotPermitted";
-
->>>>>>> 6770a18a6898cb512a2e3a98533ba69093d6604c
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -150,7 +146,8 @@ const App = () => {
 
     {
       path: "/upload",
-      element: <Uploader></Uploader>,},
+      element: <Uploader></Uploader>,
+    },
     {
       path: "/apply",
       element: <AppliedJob />,
@@ -175,14 +172,13 @@ const App = () => {
         },
       ],
     },
-      {
-
+    {
       path: "/404",
       element: <NotFound></NotFound>,
     },
     {
       path: "/403",
-      element: <NotPermitted></NotPermitted>
+      element: <NotPermitted></NotPermitted>,
     },
 
     // {
