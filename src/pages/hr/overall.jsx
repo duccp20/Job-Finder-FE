@@ -19,25 +19,25 @@ const ContactOverall = () => {
     <div>
       <HeaderHR></HeaderHR>
 
-      <div className="w-[90%] border border-[#DEDEDE] shadow-banner rounded-[10px] mx-auto my-[30px]">
+      <div className="mx-auto my-[30px] w-[90%] rounded-[10px] border border-[#DEDEDE] shadow-banner">
         <h1 className="px-[30px] pt-[30px] text-[22px] font-bold">
           Thông tin tài khoản
         </h1>
-        <div className="w-full cursor-pointer shadow-banner py-[10px] flex items-center gap-7 text-[16px] font-[600] pl-[40px] mt-[30px]">
+        <div className="mt-[30px] flex w-full cursor-pointer items-center gap-7 py-[10px] pl-[40px] text-[16px] font-[600] shadow-banner">
           <span
-            className={`border-b-[2px] border-transparent hover:text-[#FE5656] hover:border-b-[#FE5656] ${
+            className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
               window.location.pathname == "/contact"
-                ? "text-[#FE5656] border-b-[#FE5656]"
+                ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
-            onClick={() => navigate("")}
+            onClick={() => navigate("/")}
           >
             THÔNG TIN LIÊN HỆ
           </span>
           <span
-            className={`border-b-[2px] border-transparent hover:text-[#FE5656] hover:border-b-[#FE5656] ${
+            className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
               window.location.pathname == "/contact/company-infor"
-                ? "text-[#FE5656] border-b-[#FE5656]"
+                ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
             onClick={() => navigate("company-infor")}

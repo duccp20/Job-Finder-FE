@@ -61,7 +61,7 @@ const HeaderHome = () => {
   return (
     <>
       <div className="border-1 fixed top-0 z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[rgb(209,209,209)] bg-white shadow-custom">
-        <div className=" flex items-center justify-between gap-5 pl-[26.75px] leading-10">
+        <div className=" flex cursor-pointer items-center justify-between gap-5 pl-[26.75px] leading-10">
           <div>
             <span onClick={() => navigate("/")}>
               <img src={logo} alt="" />
@@ -113,11 +113,19 @@ const HeaderHome = () => {
               )}
             </div>
 
-            <span className="hover:text-[#FE5656]">
-              <a href="#">Việc làm đã ứng tuyển</a>
+            <span
+              className={`cursor-pointer hover:text-[#FE5656]
+               ${
+                 window.location.pathname == "/apply"
+                   ? "border-b-[#FE5656] text-[#FE5656]"
+                   : "text-black"
+               }`}
+              onClick={() => navigate("/apply")}
+            >
+              Việc làm đã ứng tuyển
             </span>
             <span className="hover:text-[#FE5656]">
-              <a href="#">Việc làm đã lưu</a>
+              <span>Việc làm đã lưu</span>
             </span>
           </div>
         </div>
