@@ -4,7 +4,6 @@ const Uploader = (props) => {
   const [selectedFile, setSelectedFile] = useState();
   const [isSelected, setIsSelected] = useState(false);
   const [error, setError] = useState("");
-  // const [isFilePicked, setIsFilePicked] = useState(false);
 
   const handleChange = (event) => {
     const file = event.target.files[0];
@@ -22,7 +21,7 @@ const Uploader = (props) => {
   const fileInputRef = React.createRef();
   return (
     <div className="w-screen h-screen relative overflow-hidden">
-      <div className="w-[50%] h-auto absolute top-0 right-0 left-0 mx-auto border-2">
+      <div className="w-[50%] h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mx-auto border">
         <div className="w-full h-[55px] flex rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[0px] rounded-br-[0px] bg-[#FE5656] px-[28px] items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +40,7 @@ const Uploader = (props) => {
           </span>
           <span className="text-xl not-italic text-white items-end">X</span>
         </div>
-        <div className="pt-[22px] pb-[32px] px-[44px]">
+        <div className="pt-[22px] pb-[32px] px-[44px] border-2">
           <div>
             <h2 className="text-black text-sm not-italic font-bold">
               CV đính kèm{" "}
@@ -131,7 +130,7 @@ const Uploader = (props) => {
                 Nộp hồ sơ
               </button>
             </div>
-            <div>
+            <div className="border border-[#BEB9B9] rounded-[4px]">
               <button
                 className="!text-center !text-base !not-italic !font-bold !text-[#7D7D7D] !rounded-[4px] px-[32px] py-[12px] !border-solid !border-black"
                 type="submit"

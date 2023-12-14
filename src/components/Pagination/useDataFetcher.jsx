@@ -14,9 +14,7 @@ const useDataFetcher = () => {
       const page = Math.min(currentPage + 1, totalPages);
       try {
         const result = await axios.get(`${API_URL}?page=${page}`);
-        console.log(result.data);
         setPages(result.data);
-        console.log(pages);
         setLoading(false);
       } catch (err) {
         console.log("Lỗi khi tải dữ liệu:", err);

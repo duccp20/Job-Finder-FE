@@ -5,129 +5,104 @@ import check from "/public/svg/check.svg";
 import JobItem from "../../components/JobItem";
 import Pagination from "../../components/Pagination";
 import useDataFetcher from "../../components/Pagination/useDataFetcher";
+import LoginAs from "../../components/LoginAs";
+import Loading from "../../components/Loading";
+import Checkbox from "../../components/Checkbox/checkbox";
 
 const HomePage = () => {
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
   const [checkboxes, setCheckboxes] = useState([
     { id: 1, label: "Full time", checked: false },
     { id: 2, label: "Part time", checked: false },
     { id: 3, label: "Remote", checked: false },
     // Add more options as needed
   ]);
+  /*
+   *
+   * @description
+   * tạo hàm chứa dữ liệu checkbox
+   *
+   */
+  const [location, setLocation] = useState([
+    { id: 1, label: "Front end", checked: false },
+    { id: 2, label: "Back end", checked: false },
+    { id: 3, label: "Fullstack", checked: false },
+    { id: 4, label: "Mobile", checked: false },
+    { id: 5, label: "Embedded", checked: false },
+    { id: 6, label: "Tester", checked: false },
+    { id: 7, label: "DevOps", checked: false },
+  ]);
+  const [major, setMajor] = useState([
+    { id: 1, label: "Khoa học máy tính", checked: false },
+    { id: 2, label: "Công nghệ phần mềm", checked: false },
+    { id: 3, label: "Kỹ thuật máy tính", checked: false },
+    { id: 4, label: "Trí tuệ nhân tạo", checked: false },
+    { id: 5, label: "Kỹ thuật mạng", checked: false },
+    { id: 6, label: "Hệ thống thông tin quản lý", checked: false },
+  ]);
 
-  const handleCheckboxChange = (id) => {
-    setCheckboxes((prevCheckboxes) =>
+  const handleCheckboxChange = (id, setState) => {
+    setState((prevCheckboxes) =>
       prevCheckboxes.map((checkbox) =>
         checkbox.id === id
           ? { ...checkbox, checked: !checkbox.checked }
-          : checkbox
-      )
+          : checkbox,
+      ),
     );
   };
+
   const { loading, pages, totalPages, currentPage, setCurrentPage } =
     useDataFetcher();
 
   return (
     <div>
-      <div className="flex h-screen w-full px-[100px] py-[36px] gap-[45px]">
+      {/* <LoginAs></LoginAs> */}
+      <div className="mt-[60px]  flex  h-screen w-full gap-[45px]  px-[100px] py-[36px] ">
         <div className=" w-[20%]">
-          <div className="h-auto px-[18px] pt-[12px] pb-[24px] border-[0.5px] border-[#DEDEDE] rounded-[10px]">
-            <div className="flex justify-between relative" onClick={handleOpen}>
-              <span className="text-[#FE5656] text-base not-italic font-bold">
-                Hình thức làm việc
-              </span>
-              <img src={dropdown} alt="" />
-            </div>
-            <div>
-              <ul>
-                {checkboxes.map((checkbox) => (
-                  <li key={checkbox.id} className="mb-2">
-                    <label className="flex items-center relative cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={checkbox.checked}
-                        onChange={() => handleCheckboxChange(checkbox.id)}
-                        className=" appearance-none w-5 h-5 border border-[#FE5656] rounded-md focus:outline-none checked:bg-[#FE5656] hover:ring-1 hover:ring-[#e44d4d] cursor-pointer"
-                      />
-
-                      <i class="fa-solid fa-check absolute text-white left-[3px] top-[3px] cursor-pointer"></i>
-                      <span className="ml-2">{checkbox.label}</span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* {open && (
-              <div className="absolute left-auto w-[105%] pt-[30px]">
-                <div className=" flex">
-                  <input
-                    type="checkbox"
-                    id="fulltime"
-                    className=" appearance-none w-[18px] h-[18px] border border-[#FE5656] rounded-md focus:outline-none checked:bg-[#FE5656] hover:ring-1 hover:ring-[#e44d4d] cursor-pointer"
-                  />
-                  <img
-                    src={check}
-                    alt=""
-                    className="absolute left-[4px]  cursor-pointer"
-                  />
-                  <label
-                    htmlFor="fulltime"
-                    className="text-black not-italic font-semibold font-openSans cursor-pointer"
-                  >
-                    Full time
-                  </label>
-                </div>
-                <div className="flex">
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="parttime"
-                      className="relative appearance-none w-[18px] h-[18px] border border-[#FE5656] rounded-md focus:outline-none checked:bg-[#FE5656] hover:ring-1 hover:ring-[#e44d4d] cursor-pointer"
-                    />
-                  </div>
-                  <img
-                    src={check}
-                    alt=""
-                    className="absolute left-[4px] top-0 cursor-pointer"
-                  />
-                  <label
-                    htmlFor="parttime"
-                    className="text-black not-italic font-semibold font-openSans cursor-pointer"
-                  >
-                    Part time
-                  </label>
-                </div>
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    id="remote"
-                    className=" appearance-none w-[18px] h-[18px] border border-[#FE5656] rounded-md focus:outline-none checked:bg-[#FE5656] hover:ring-1 hover:ring-[#e44d4d] cursor-pointer"
-                  />
-                  <img
-                    src={check}
-                    alt=""
-                    className="absolute left-[4px] cursor-pointer"
-                  />
-                  <label
-                    htmlFor="remote"
-                    className="text-black not-italic font-semibold font-openSans cursor-pointer"
-                  >
-                    Remote
-                  </label>
-                </div>
+          {[
+            {
+              state: checkboxes,
+              setState: setCheckboxes,
+              title: "Hình thức làm việc",
+            },
+            {
+              state: location,
+              setState: setLocation,
+              title: "Vị trí làm việc",
+            },
+            { state: major, setState: setMajor, title: "Chuyên ngành" },
+          ].map((section) => (
+            <div
+              key={section.title}
+              className="mb-[15px] h-auto rounded-[10px] border-[0.5px] border-[#DEDEDE] px-[18px] pb-[24px] pt-[12px]"
+            >
+              <div className="relative flex justify-between">
+                <span className="mb-[20px] text-base font-bold not-italic text-[#FE5656]">
+                  {section.title}
+                </span>
               </div>
-            )} */}
-          </div>
+              <div>
+                <ul>
+                  {section.state.map((checkbox) => (
+                    <li key={checkbox.id} className="mb-2">
+                      <Checkbox
+                        id={checkbox.id}
+                        label={checkbox.label}
+                        checked={checkbox.checked}
+                        onChange={() =>
+                          handleCheckboxChange(checkbox.id, section.setState)
+                        }
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className=" w-[80%] flex flex-col gap-[36px]">
-          <form className="flex justify-between items-center h-auto rounded-[6px] border-[0.5px] border-[#FE5656] py-[12px] px-[18px]">
-            <div className="flex items-end flex-grow">
+        <div className=" flex w-[80%] flex-col gap-[36px]">
+          <form className="flex h-auto items-center justify-between rounded-[6px] border-[0.5px] border-[#FE5656] px-[18px] py-[12px]">
+            <div className="flex flex-grow items-end">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="19"
@@ -164,7 +139,7 @@ const HomePage = () => {
                 name="findjob"
                 id="findjob"
                 placeholder="Tìm kiếm việc làm"
-                className="placeholder:text-[#626262] pl-[10px] w-full"
+                className="w-full pl-[10px] placeholder:text-[#626262]"
               />
             </div>
 
@@ -235,16 +210,17 @@ const HomePage = () => {
             </div>
             <div className="">
               <button
-                className="shadow-md text-center text-base not-italic font-bold text-white rounded-[4px] px-[30px] py-[6px] bg-gradientCustom"
+                className="rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md"
                 type="submit"
               >
                 Tìm kiếm
               </button>
             </div>
           </form>
+
           <div>
             {loading ? (
-              <div className="text-center text-5xl">Loading...</div>
+              <Loading></Loading>
             ) : (
               <>
                 <div>

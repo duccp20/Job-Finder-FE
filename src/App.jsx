@@ -6,7 +6,7 @@ import LoginPage from "./pages/login/login";
 import { Verify } from "./pages/verify";
 
 import Profile from "./pages/profile/profile";
-// import { ForgetPassMail } from "./pages/forgetPassMail/forgetPassMail";
+import { ForgetPass } from "./pages/forgetPass/forgetPass";
 import HeaderHome from "./components/HeaderHome";
 import HomePage from "./pages/home/home";
 import NotFound from "./components/NotFound";
@@ -20,13 +20,27 @@ import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
 import Uploader from "./components/Uploader";
-import { ForgetPass } from "./pages/forgetPassMail/forgetPass";
 import CompanyInformation from "./pages/recruitment/company";
+import LoginAs from "./components/LoginAs";
+import ContactInfor from "./pages/hr/contact";
+import CompanyInfor from "./pages/hr/companyhr";
+import RecruitmentDetail from "./pages/recruitment/detail";
+import RecruitmentOverall from "./pages/recruitment/overall";
+import ContactOverall from "./pages/hr/overall";
+import { callFetchCandidateByUserId } from "./service/candidate/api";
+import { doFetchCandidate } from "./redux/candidate/candidateSlice";
+import PDF from "./pages/pdf/pdf";
 import Recruitment from "./pages/recruitment/detail";
+<<<<<<< HEAD
 import AppliedJob from "./pages/apply/appliedjob";
+=======
+import NotPermitted from "./components/NotPermitted";
+
+>>>>>>> 6770a18a6898cb512a2e3a98533ba69093d6604c
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
+  const user = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
   const fetchAccount = async () => {
     if (
@@ -48,6 +62,10 @@ const App = () => {
   }, []);
 
   const router = createBrowserRouter([
+    {
+      path: "/pdf",
+      element: <PDF />,
+    },
     {
       path: "/",
       element: <Layout />,
@@ -114,21 +132,57 @@ const App = () => {
         },
       ],
     },
-
     {
       path: "/recruitment",
-      element: <Recruitment />,
+      element: <RecruitmentOverall />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <RecruitmentDetail />,
+        },
+        {
+          path: "company",
+          element: <CompanyInformation />,
+        },
+      ],
     },
-    {
-      path: "/company",
-      element: <CompanyInformation />,
-    },
+
     {
       path: "/upload",
       element: <Uploader></Uploader>,},
     {
       path: "/apply",
       element: <AppliedJob />,
+    },
+    {
+      path: "/loginas",
+      element: <LoginAs></LoginAs>,
+    },
+
+    {
+      path: "/contact",
+      element: <ContactOverall />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <ContactInfor />,
+        },
+        {
+          path: "company-infor",
+          element: <CompanyInfor />,
+        },
+      ],
+    },
+      {
+
+      path: "/404",
+      element: <NotFound></NotFound>,
+    },
+    {
+      path: "/403",
+      element: <NotPermitted></NotPermitted>
     },
 
     // {
@@ -163,6 +217,7 @@ const App = () => {
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
       window.location.pathname === "/forgot-password" ||
+      window.location.pathname === "/reset-password" ||
       window.location.pathname === "/verify-email" ? (
         <RouterProvider router={router} />
       ) : (

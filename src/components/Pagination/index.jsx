@@ -36,8 +36,8 @@ const Pagination = () => {
             </span>
           }
           // onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
-          pageCount={20}
+          pageRangeDisplayed={2}
+          pageCount={15}
           previousLabel={
             <span className="w-10 h-10 flex justify-center items-center bg-gra">
               <IoCaretBackSharp />

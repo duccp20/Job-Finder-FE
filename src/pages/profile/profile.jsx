@@ -7,10 +7,12 @@ import { Controller, useForm } from "react-hook-form";
 import Input from "../../components/Input/input";
 import { callFetchCandidateByUserId } from "../../service/candidate/api";
 import { doFetchCandidate } from "../../redux/candidate/candidateSlice";
+import Popup from "../../components/Popup";
 
 const Profile = () => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,26 +32,11 @@ const Profile = () => {
     }
   };
 
-  const fetchCandidate = async () => {
-    const res = await callFetchCandidateByUserId(user.id);
-    console.log(res);
-    if (res && res?.data) {
-      console.log(res.data);
-      dispatch(doFetchCandidate(res.data));
-    }
-
-    if (res && res?.errors) {
-      console.log(res.errors + " " + res.message);
-    }
-  };
-  useEffect(() => {
-    fetchCandidate();
-  }, []);
   return (
     <div>
       <HeaderHome />
-      <div className="flex h-auto w-full px-[100px] gap-[24px] items-start my-[60px]">
-        <div className="border border-[#FE5656] rounded-[10px] w-[40%] h-auto py-[50px] px-[45px] shadow-banner">
+      <div className="my-[100px] flex h-auto w-full flex-col items-start gap-[24px] px-4 lg:flex-row lg:px-[100px]">
+        <div className="h-auto w-full rounded-[10px] border border-[#FE5656] px-6 py-[30px] shadow-banner lg:w-[40%] lg:px-[45px] lg:py-[50px]">
           <Controller
             name="image"
             control={control}
@@ -66,14 +53,14 @@ const Profile = () => {
                 />
                 <label
                   htmlFor="img"
-                  className="cursor-pointer w-full py-2 my-3 rounded-[5px] flex items-center justify-center"
+                  className="my-3 flex w-full cursor-pointer items-center justify-center rounded-[5px] py-2"
                 >
                   {imagePreview && (
                     <div>
                       <img
                         src={imagePreview}
                         alt="Selected Image"
-                        className="aspect-square mx-auto rounded-full object-cover bg-center bg-no-repeat w-[200px] h-[200px]"
+                        className="mx-auto aspect-square h-[200px] w-[200px] rounded-full bg-center bg-no-repeat object-cover"
                       />
                     </div>
                   )}
@@ -83,7 +70,7 @@ const Profile = () => {
                       <img
                         src="https://images.unsplash.com/photo-1701084412727-1f3e01088a5f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Selected Image"
-                        className="aspect-square mx-auto rounded-full object-cover bg-center bg-no-repeat w-[200px] h-[200px]"
+                        className="mx-auto aspect-square h-[200px] w-[200px] rounded-full bg-center bg-no-repeat object-cover"
                       />
                     </div>
                   )}
@@ -92,22 +79,22 @@ const Profile = () => {
             )}
           />
 
-          <h3 className="text-red-500 text-center text-2xl not-italic font-extrabold mt-[35px] mb-[45px]">
+          <h3 className="mb-[45px] mt-[35px] text-center text-2xl font-extrabold not-italic text-red-500">
             {isAuthenticated && user && user.lastName + " " + user.firstName}
           </h3>
           <hr className="mb-[35px] border-[1px]" />
           <div className="flex items-center">
-            <p className="text-red-500 text-base not-italic font-semibold leading-relaxed pr-4">
+            <p className="pr-4 text-base font-semibold not-italic leading-relaxed text-red-500">
               Cho phép nhà tuyển dụng tìm kiếm hồ sơ trực tuyến của bạn
             </p>
             <Toggle></Toggle>
           </div>
-          <p className="text-[#7D7D7D] text-xs italic font-normal pt-3">
+          <p className="pt-3 text-xs font-normal italic text-[#7D7D7D]">
             Cho phép nhà tuyển dụng chủ động tìm kiếm hồ sơ của bạn để có thêm
             nhiều cơ hội việc làm tốt từ IT Jobs.
           </p>
         </div>
-        <Outlet></Outlet>
+        <Outlet className="w-full lg:w-[60%]" />
       </div>
     </div>
   );
