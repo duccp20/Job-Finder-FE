@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import HeaderHome from "../../components/HeaderHome";
 import RecruitmentItem from "../../components/Recruitment/item";
 import SearchBar from "../../components/SearchBatr/search";
-import RecruitmentHeader from "../../components/Recruitment/header";
 
 const ViewRecruitmentDetail = () => {
   return (

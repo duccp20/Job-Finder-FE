@@ -14,39 +14,39 @@ const RecruitmentList = (props) => {
   };
 
   return (
-    <div className="w-full h-screen">
+    <div className="h-screen w-full">
       <PopupHr></PopupHr>
       <HeaderHome></HeaderHome>
-      <div className="border w-[87%] h-full rounded-[10px] shadow-custom mx-auto my-[90px] px-[40px] pt-[30px] pb-[44px]">
-        <h2 className="text-xl not-italic font-bold mb-[20px]">Thống kê tin</h2>
+      <div className="mx-auto my-[90px] h-full w-[87%] rounded-[10px] border px-[40px] pb-[44px] pt-[30px] shadow-custom">
+        <h2 className="mb-[20px] text-xl font-bold not-italic">Thống kê tin</h2>
         <div className="flex justify-between">
-          <div className="flex  w-[59%] mb-[20px]">
-            <div className="bg-[#F1F1F1] p-[20px] mr-[24px] w-[30%] ">
-              <p className="text-[#FE5656] text-2xl not-italic font-bold">
+          <div className="mb-[20px]  flex w-[59%]">
+            <div className="mr-[24px] w-[30%] bg-[#F1F1F1] p-[20px] ">
+              <p className="text-2xl font-bold not-italic text-[#FE5656]">
                 {/* {props.total}  */} 30
               </p>
-              <p className="text-black text-base not-italic font-normal">
+              <p className="text-base font-normal not-italic text-black">
                 Tổng số tin đăng
               </p>
             </div>
-            <div className="bg-[#F1F1F1] p-[20px] mr-[24px] w-[30%]">
-              <p className="text-[#FE5656] text-2xl not-italic font-bold">
+            <div className="mr-[24px] w-[30%] bg-[#F1F1F1] p-[20px]">
+              <p className="text-2xl font-bold not-italic text-[#FE5656]">
                 {/* {props.open}  */} 3
               </p>
-              <p className="text-black text-base not-italic font-normal">
+              <p className="text-base font-normal not-italic text-black">
                 Tin đang mở
               </p>
             </div>
-            <div className="bg-[#F1F1F1] p-[20px] mr-[24px] w-[30%]">
-              <p className="text-[#FE5656] text-2xl not-italic font-bold">
+            <div className="mr-[24px] w-[30%] bg-[#F1F1F1] p-[20px]">
+              <p className="text-2xl font-bold not-italic text-[#FE5656]">
                 {/* {props.closed}  */} 27
               </p>
-              <p className="text-black text-base not-italic font-normal">
+              <p className="text-base font-normal not-italic text-black">
                 Tin đã đóng
               </p>
             </div>
           </div>
-          <div className="bg-[#FE5656]  flex gap-[15px] h-[45px] items-center px-[20px] ">
+          <div className="flex  h-[45px] items-center gap-[15px] bg-[#FE5656] px-[20px] ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -59,17 +59,17 @@ const RecruitmentList = (props) => {
                 fill="white"
               />
             </svg>
-            <span className="text-white text-base not-italic font-bold ">
+            <span className="text-base font-bold not-italic text-white ">
               Đăng tin tuyển dụng mới
             </span>
           </div>
         </div>
 
-        <h2 className="text-xl not-italic font-bold mb-[12px]">
+        <h2 className="mb-[12px] text-xl font-bold not-italic">
           Danh sách tin tuyển dụng
         </h2>
-        <div className="flex w-full gap-[13px] justify-between mb-[30px] ">
-          <div className="px-[13px] py-[12px] items-center flex border rounded w-[40%]">
+        <div className="mb-[30px] flex w-full justify-between gap-[13px] ">
+          <div className="flex w-[40%] items-center rounded border px-[13px] py-[12px]">
             <label htmlFor="find">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,8 +101,8 @@ const RecruitmentList = (props) => {
             />
           </div>
 
-          <div className="w-[45%] flex gap-[13px]">
-            <div className="px-[13px] py-[12px] items-center flex border rounded w-[33%]">
+          <div className="flex w-[45%] gap-[13px]">
+            <div className="flex w-[33%] items-center rounded border px-[13px] py-[12px]">
               <label htmlFor="location">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +139,7 @@ const RecruitmentList = (props) => {
               </svg>
             </div>
 
-            <div className="px-[13px] py-[12px] items-center flex border rounded w-[33%]">
+            <div className="flex w-[33%] items-center rounded border px-[13px] py-[12px]">
               <label htmlFor="deadline">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +176,7 @@ const RecruitmentList = (props) => {
               </svg>
             </div>
 
-            <div className="px-[13px] py-[12px] items-center flex border rounded w-[33%]">
+            <div className="flex w-[33%] items-center rounded border px-[13px] py-[12px]">
               <label htmlFor="opening">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -215,31 +215,31 @@ const RecruitmentList = (props) => {
           </div>
 
           <div className="">
-            <button className="text-white font-bold text-center text-base bg-[#FE5656] px-[30px] py-[12px] rounded ">
+            <button className="rounded bg-[#FE5656] px-[30px] py-[12px] text-center text-base font-bold text-white ">
               Tìm kiếm
             </button>
           </div>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-300">
+          <table className="min-w-full border border-gray-300 bg-white">
             <thead className="bg-[#ECF8EE]">
               <tr>
                 <th
                   scope="col"
-                  className="py-[10px] px-[20px] border text-center text-base not-italic font-semibold"
+                  className="border px-[20px] py-[10px] text-center text-base font-semibold not-italic"
                 >
                   STT
                 </th>
                 <th
                   scope="col"
-                  className="py-[10px] px-[20px] border text-center text-base not-italic font-semibold"
+                  className="border px-[20px] py-[10px] text-center text-base font-semibold not-italic"
                 >
                   Tên tin đăng
                 </th>
                 <th
                   scope="col"
-                  className="py-[10px] px-[10px] flex justify-between text-center text-base not-italic font-semibold"
+                  className="flex justify-between px-[10px] py-[10px] text-center text-base font-semibold not-italic"
                 >
                   Hạn nộp{" "}
                   <svg
@@ -265,25 +265,25 @@ const RecruitmentList = (props) => {
                 </th>
                 <th
                   scope="col"
-                  className="py-[10px] px-[10px] border text-center text-base not-italic font-semibold overflow-x-visible"
+                  className="overflow-x-visible border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
                 >
                   Ứng viên/Lượt xem
                 </th>
                 <th
                   scope="col"
-                  className="py-[10px] px-[10px] border text-center text-base not-italic font-semibold"
+                  className="border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
                 >
                   Người phụ trách
                 </th>
                 <th
                   scope="col"
-                  className="py-[10px] px-[10px] border text-center text-base not-italic font-semibold"
+                  className="border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
                 >
                   Trạng thái
                 </th>
                 <th
                   scope="col"
-                  className="py-[10px] px-[10px] border text-center text-base not-italic font-semibold"
+                  className="border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
                 >
                   Hành động
                 </th>
@@ -293,50 +293,50 @@ const RecruitmentList = (props) => {
               <tr>
                 <td
                   scope="row"
-                  className="py-[15px] px-[18px] border text-center"
+                  className="border px-[18px] py-[15px] text-center"
                 >
                   1
                 </td>
-                <td className="py-[15px] px-[18px] border">
+                <td className="border px-[18px] py-[15px]">
                   <div>
-                    <p className="text-red-500 text-xl not-italic font-semibold overflow-x-auto">
+                    <p className="overflow-x-auto text-xl font-semibold not-italic text-red-500">
                       Thực tập sinh Business Analyst
                     </p>
-                    <p className="text-red-500 text-xl not-italic font-semibold overflow-x-auto">
+                    <p className="overflow-x-auto text-xl font-semibold not-italic text-red-500">
                       chuyên ngành Banking
                     </p>
-                    <p className="text-base not-italic font-normal text-[#333333]">
+                    <p className="text-base font-normal not-italic text-[#333333]">
                       Tạo lúc: 11:20 - 01/03/2023
                     </p>
-                    <p className="text-base not-italic font-normal text-[#333333]">
+                    <p className="text-base font-normal not-italic text-[#333333]">
                       Cập nhật lúc: 09:30 - 04/03/2023
                     </p>
-                    <p className="text-base not-italic font-normal text-[#333333]">
+                    <p className="text-base font-normal not-italic text-[#333333]">
                       Địa điểm làm việc: TP. Hồ Chí Minh
                     </p>
-                    <p className="text-[#C97410] text-base not-italic font-normal cursor-pointer">
+                    <p className="cursor-pointer text-base font-normal not-italic text-[#C97410]">
                       [Xem danh sách ứng viên đã ứng tuyển]
                     </p>
                   </div>
                 </td>
-                <td className="py-[15px] px-[18px] border text-center">
+                <td className="border px-[18px] py-[15px] text-center">
                   01/05/2023
                 </td>
-                <td className="py-[15px] px-[18px] border text-center">
+                <td className="border px-[18px] py-[15px] text-center">
                   <div>
-                    <span className="inline-block bg-[#FCB25F] rounded-[5px] w-[60px] py-[9px] text-center">
+                    <span className="inline-block w-[60px] rounded-[5px] bg-[#FCB25F] py-[9px] text-center">
                       15
                     </span>
                     <span> / </span>
-                    <span className="inline-block bg-[#54ADFF] rounded-[5px] w-[60px] py-[9px] text-center">
+                    <span className="inline-block w-[60px] rounded-[5px] bg-[#54ADFF] py-[9px] text-center">
                       125
                     </span>
                   </div>
                 </td>
-                <td className="py-[15px] px-[18px] border text-center">
+                <td className="border px-[18px] py-[15px] text-center">
                   Người 1
                 </td>
-                <td className="py-[15px] px-[18px] border text-center">
+                <td className="border px-[18px] py-[15px] text-center">
                   <div
                     className={`w-[90px] py-[9px] text-center ${
                       isOpen ? "bg-[#88D4987A]" : "bg-[#FF00005C]"
@@ -345,9 +345,9 @@ const RecruitmentList = (props) => {
                     {isOpen ? "Đang mở" : "Đã đóng"}
                   </div>
                 </td>
-                <td className="py-[15px] px-[18px] border text-center">
+                <td className="border px-[18px] py-[15px] text-center">
                   <div className="flex-col ">
-                    <div className="flex mb-[10px] cursor-pointer">
+                    <div className="mb-[10px] flex cursor-pointer">
                       {" "}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -362,12 +362,12 @@ const RecruitmentList = (props) => {
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="text-black text-base not-italic font-normal ">
+                      <span className="text-base font-normal not-italic text-black ">
                         Chỉnh sửa
                       </span>
                     </div>
                     <div
-                      className="flex mb-[10px] cursor-pointer"
+                      className="mb-[10px] flex cursor-pointer"
                       onClick={toggleState}
                     >
                       <svg
@@ -376,18 +376,18 @@ const RecruitmentList = (props) => {
                         height="20"
                         viewBox="0 0 21 20"
                         fill="none"
-                        className="cursor-pointer mr-[10px]"
+                        className="mr-[10px] cursor-pointer"
                       >
                         <path
                           d="M10.4 11.5L12.5 9.4L14.6 11.5L16 10.1L13.9 8L16 5.9L14.6 4.5L12.5 6.6L10.4 4.5L9 5.9L11.1 8L9 10.1L10.4 11.5ZM6.5 16C5.95 16 5.47933 15.8043 5.088 15.413C4.696 15.021 4.5 14.55 4.5 14V2C4.5 1.45 4.696 0.979 5.088 0.587C5.47933 0.195667 5.95 0 6.5 0H18.5C19.05 0 19.521 0.195667 19.913 0.587C20.3043 0.979 20.5 1.45 20.5 2V14C20.5 14.55 20.3043 15.021 19.913 15.413C19.521 15.8043 19.05 16 18.5 16H6.5ZM2.5 20C1.95 20 1.47933 19.8043 1.088 19.413C0.696 19.021 0.5 18.55 0.5 18V4H2.5V18H16.5V20H2.5Z"
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="text-black text-base not-italic font-normal ">
+                      <span className="text-base font-normal not-italic text-black ">
                         Đóng tin
                       </span>
                     </div>
-                    <div className="flex mb-[5px] cursor-pointer">
+                    <div className="mb-[5px] flex cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="31"
@@ -401,25 +401,25 @@ const RecruitmentList = (props) => {
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="text-black text-base not-italic font-normal ">
+                      <span className="text-base font-normal not-italic text-black ">
                         Nhân bản
                       </span>
                     </div>
-                    <div className="flex mb-[10px] cursor-pointer">
+                    <div className="mb-[10px] flex cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="19"
                         height="19"
                         viewBox="0 0 19 19"
                         fill="none"
-                        className="cursor-pointer mr-[10px]"
+                        className="mr-[10px] cursor-pointer"
                       >
                         <path
                           d="M0.5 2.27L1.78 1L3.5 2.72L3.78 3L4.78 4L16.5 15.72L18.5 17.72L17.23 19L15.77 17.54C15.43 17.83 15 18 14.5 18H6.5C5.4 18 4.5 17.1 4.5 16V6.27L0.5 2.27ZM17.5 1V3H6.32L4.32 1H7L8 0H13L14 1H17.5ZM16.5 4V13.18L7.32 4H16.5Z"
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="text-black text-base not-italic font-normal ">
+                      <span className="text-base font-normal not-italic text-black ">
                         Xóa tin
                       </span>
                     </div>

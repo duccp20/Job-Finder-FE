@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import HeaderHome from "../../components/HeaderHome";
 import RecruitmentItem from "../../components/Recruitment/item";
-import SearchBar from "../../components/SearchBatr/search";
-import RecruitmentHeader from "../../components/Recruitment/header";
 
 const RecruitmentDetail = () => {
   return (
     <>
       <div className="flex">
-        <div className=" w-[60%] flex flex-col gap-[10px] ml-[40px] mr-[10px] mt-[30px] text-inherit">
-          <p className="font-[700] my-[10px]">Mô tả công việc</p>
-          <ul className="list-disc mx-[10px] px-[10px] leading-normal">
+        <div className=" ml-[40px] mr-[10px] mt-[30px] flex w-[60%] flex-col gap-[10px] text-inherit">
+          <p className="my-[10px] font-[700]">Mô tả công việc</p>
+          <ul className="mx-[10px] list-disc px-[10px] leading-normal">
             <li className="mb-[10px]">
               Tham gia vào các dự án thiết kế, phát triển các sản phẩm mới theo
               yêu cầu của khách hàng hoặc từ Leader.
@@ -28,8 +25,8 @@ const RecruitmentDetail = () => {
             </li>
             <li className="mb-[10px]">Báo cáo kết quả công việc cho PM.</li>
           </ul>
-          <p className="font-[700] my-[10px]">Yêu cầu công việc</p>
-          <ul className="list-disc mx-[10px] px-[10px] leading-normal">
+          <p className="my-[10px] font-[700]">Yêu cầu công việc</p>
+          <ul className="mx-[10px] list-disc px-[10px] leading-normal">
             <li className="mb-[10px]">
               Nắm vững kiến thức về HTML/CSS,
               JS/JQuery/AJAX/Bootstrap/Responsive.
@@ -55,8 +52,8 @@ const RecruitmentDetail = () => {
               Chịu được áp lực và hoàn thành công việc đúng deadline.
             </li>
           </ul>
-          <p className="font-[700] my-[10px]">Chế độ phúc lợi</p>
-          <ul className="list-disc mx-[10px] px-[10px] leading-normal">
+          <p className="my-[10px] font-[700]">Chế độ phúc lợi</p>
+          <ul className="mx-[10px] list-disc px-[10px] leading-normal">
             <li className="mb-[10px]">
               Trợ cấp thực tập: 3.000.000 - 5.000.000 đồng/tháng.
             </li>
@@ -69,7 +66,7 @@ const RecruitmentDetail = () => {
             </li>
           </ul>
         </div>
-        <div className="w-[40%] h-full bg-[#FE56561A] border border-[#FE5656] mr-[30px] my-[30px] pb-[40px]">
+        <div className="my-[30px] mr-[30px] h-full w-[40%] border border-[#FE5656] bg-[#FE56561A] pb-[40px]">
           <RecruitmentItem
             icon={
               <svg
@@ -199,8 +196,8 @@ const RecruitmentDetail = () => {
       </div>
 
       <div className="mx-[40px] mt-[20px]">
-        <p className="font-[700] my-[15px]">Địa điểm làm việc</p>
-        <div className="flex items-center gap-3 mb-[30px]">
+        <p className="my-[15px] font-[700]">Địa điểm làm việc</p>
+        <div className="mb-[30px] flex items-center gap-3">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +215,7 @@ const RecruitmentDetail = () => {
           <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
         </div>
 
-        <p className="font-[700] my-[20px]">Cách thức ứng tuyển</p>
+        <p className="my-[20px] font-[700]">Cách thức ứng tuyển</p>
         <p>
           Ứng viên nộp hồ sơ trực tuyến bằng cách bấm nút{" "}
           <a href="#" className="text-[#FE5656]">
@@ -227,13 +224,13 @@ const RecruitmentDetail = () => {
           dưới đây.
         </p>
 
-        <div className="flex gap-[10px] my-[30px]">
-          <button className="px-5 py-2 bg-[#FE5656] text-white text-base not-italic font-bold rounded-[4px] hover:outline hover:outline-[#FE5656] hover:bg-white hover:text-[#FE5656]">
+        <div className="my-[30px] flex gap-[10px]">
+          <button className="rounded-[4px] bg-[#FE5656] px-5 py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]">
             ỨNG TUYỂN NGAY
           </button>
-          <button className="pl-9 pr-16 py-2 text-[#FE5656] text-base not-italic font-bold rounded-[4px] border-[2px] border-solid border-[#FE5656] relative">
+          <button className="relative rounded-[4px] border-[2px] border-solid border-[#FE5656] py-2 pl-9 pr-16 text-base font-bold not-italic text-[#FE5656]">
             LƯU TIN
-            <span className="absolute top-[50%] translate-y-[-50%] right-[15%]">
+            <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
