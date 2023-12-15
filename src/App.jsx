@@ -27,6 +27,10 @@ import CompanyInfor from "./pages/hr/companyhr";
 import RecruitmentDetail from "./pages/recruitment/detail";
 import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
+
+import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
+import PopupHr from "./components/PopupHr";
+
 import { callFetchCandidateByUserId } from "./service/candidate/api";
 import { doFetchCandidate } from "./redux/candidate/candidateSlice";
 import PDF from "./pages/pdf/pdf";
@@ -41,6 +45,7 @@ import {
 } from "./redux/basedata/baseDataSlice";
 import { getAllPosition } from "./service/position/api";
 import { getAllSchedule } from "./service/schedule/api";
+
 
 
 const App = () => {
@@ -195,6 +200,10 @@ const App = () => {
     },
 
     {
+      path: "/recruitmentlist",
+      element: <RecruitmentList></RecruitmentList>,
+    },
+    {
       path: "/upload",
       element: <Uploader></Uploader>,
     },
@@ -205,6 +214,10 @@ const App = () => {
     {
       path: "/loginas",
       element: <LoginAs></LoginAs>,
+    },
+    {
+      path: "/popuphr",
+      element: <PopupHr></PopupHr>,
     },
 
     {
