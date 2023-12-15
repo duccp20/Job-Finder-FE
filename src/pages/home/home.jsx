@@ -8,6 +8,7 @@ import useDataFetcher from "../../components/Pagination/useDataFetcher";
 import LoginAs from "../../components/LoginAs";
 import Loading from "../../components/Loading";
 import Checkbox from "../../components/Checkbox/checkbox";
+import ProvincesDropdown from "../../components/DropdownProvince";
 
 const HomePage = () => {
   const [checkboxes, setCheckboxes] = useState([
@@ -45,8 +46,8 @@ const HomePage = () => {
       prevCheckboxes.map((checkbox) =>
         checkbox.id === id
           ? { ...checkbox, checked: !checkbox.checked }
-          : checkbox
-      )
+          : checkbox,
+      ),
     );
   };
 
@@ -56,7 +57,7 @@ const HomePage = () => {
   return (
     <div>
       {/* <LoginAs></LoginAs> */}
-      <div className="flex h-screen w-full px-[100px] py-[36px] gap-[45px] mt-[60px]">
+      <div className="mt-[60px]  flex  h-screen w-full gap-[45px]  px-[100px] py-[36px] ">
         <div className=" w-[20%]">
           {[
             {
@@ -73,10 +74,10 @@ const HomePage = () => {
           ].map((section) => (
             <div
               key={section.title}
-              className="h-auto px-[18px] pt-[12px] pb-[24px] border-[0.5px] border-[#DEDEDE] rounded-[10px] mb-[15px]"
+              className="mb-[15px] h-auto rounded-[10px] border-[0.5px] border-[#DEDEDE] px-[18px] pb-[24px] pt-[12px]"
             >
-              <div className="flex justify-between relative">
-                <span className="text-[#FE5656] text-base not-italic font-bold mb-[20px]">
+              <div className="relative flex justify-between">
+                <span className="mb-[20px] text-base font-bold not-italic text-[#FE5656]">
                   {section.title}
                 </span>
               </div>
@@ -100,9 +101,9 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className=" w-[80%] flex flex-col gap-[36px]">
-          <form className="flex justify-between items-center h-auto rounded-[6px] border-[0.5px] border-[#FE5656] py-[12px] px-[18px]">
-            <div className="flex items-end flex-grow">
+        <div className=" flex w-[80%] flex-col gap-[36px]">
+          <form className="flex h-auto items-center justify-between rounded-[6px] border-[0.5px] border-[#FE5656] px-[18px] py-[12px]">
+            <div className="flex flex-grow items-end">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="19"
@@ -139,7 +140,7 @@ const HomePage = () => {
                 name="findjob"
                 id="findjob"
                 placeholder="Tìm kiếm việc làm"
-                className="placeholder:text-[#626262] pl-[10px] w-full"
+                className="w-full pl-[10px] placeholder:text-[#626262]"
               />
             </div>
 
@@ -169,7 +170,8 @@ const HomePage = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              <input
+              <ProvincesDropdown></ProvincesDropdown>
+              {/* <input
                 type="text"
                 name="district"
                 id="district"
@@ -206,11 +208,11 @@ const HomePage = () => {
                     <rect width="16" height="18" fill="white" />
                   </clipPath>
                 </defs>
-              </svg>
+              </svg> */}
             </div>
             <div className="">
               <button
-                className="shadow-md text-center text-base not-italic font-bold text-white rounded-[4px] px-[30px] py-[6px] bg-gradientCustom"
+                className="rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md"
                 type="submit"
               >
                 Tìm kiếm

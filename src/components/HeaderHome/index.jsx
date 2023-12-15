@@ -60,21 +60,21 @@ const HeaderHome = () => {
 
   return (
     <>
-      <div className="w-full h-[70px] flex justify-between items-center border-1 border-solid border-[rgb(209,209,209)] shadow-custom fixed z-[999] bg-white top-0">
-        <div className=" flex items-center justify-between pl-[26.75px] leading-10 gap-5">
+      <div className="border-1 fixed top-0 z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[rgb(209,209,209)] bg-white shadow-custom">
+        <div className=" flex cursor-pointer items-center justify-between gap-5 pl-[26.75px] leading-10">
           <div>
-            <a href="http://">
+            <span onClick={() => navigate("/")}>
               <img src={logo} alt="" />
-            </a>
+            </span>
           </div>
 
           <div className="flex items-center justify-center gap-4 text-[16px] font-[700]">
             <div
-              className="flex flex-col relative"
+              className="relative flex flex-col"
               onMouseLeave={leaveDropdown}
             >
               <div
-                className="flex items-center justify-center gap-2 hover:text-[#FE5656] cursor-pointer  z-[2]"
+                className="z-[2] flex cursor-pointer items-center justify-center gap-2  hover:text-[#FE5656]"
                 onMouseOver={() => enterDropdown("jobDropdown")}
               >
                 <span>
@@ -99,12 +99,12 @@ const HeaderHome = () => {
               </div>
 
               {dropdown.jobDropdown && (
-                <div className="absolute right-0 w-[105%] pt-9 px-2 mt-1 rounded-[4px] shadow-custom text-left text-[15px] font-[600] bg-white z-[1]">
+                <div className="absolute right-0 z-[1] mt-1 w-[105%] rounded-[4px] bg-white px-2 pt-9 text-left text-[15px] font-[600] shadow-custom">
                   {jobOptions.map((option) => (
                     <button
                       key={option}
                       onClick={() => selectOption(option)}
-                      className="block w-full text-left pt-1 text-[15px] font-[600] hover:text-[#FE5656]"
+                      className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
                     >
                       {option}
                     </button>
@@ -113,16 +113,24 @@ const HeaderHome = () => {
               )}
             </div>
 
-            <span className="hover:text-[#FE5656]">
-              <a href="#">Việc làm đã ứng tuyển</a>
+            <span
+              className={`cursor-pointer hover:text-[#FE5656]
+               ${
+                 window.location.pathname == "/apply"
+                   ? "border-b-[#FE5656] text-[#FE5656]"
+                   : "text-black"
+               }`}
+              onClick={() => navigate("/apply")}
+            >
+              Việc làm đã ứng tuyển
             </span>
             <span className="hover:text-[#FE5656]">
-              <a href="#">Việc làm đã lưu</a>
+              <span>Việc làm đã lưu</span>
             </span>
           </div>
         </div>
 
-        <div className="w-[18%] flex items-center justify-end pr-[26.75px] gap-3">
+        <div className="flex w-[18%] items-center justify-end gap-3 pr-[26.75px]">
           <a
             href="#
               "
@@ -145,14 +153,14 @@ const HeaderHome = () => {
           </a>
 
           <div
-            className="w-[80%] flex justify-between items-center relative"
+            className="relative flex w-[80%] items-center justify-between"
             onMouseLeave={leaveDropdown}
           >
             <div
-              className="flex flex-col w-full relative z-[2] cursor-pointer hover:text-[#FE5656]"
+              className="relative z-[2] flex w-full cursor-pointer flex-col hover:text-[#FE5656]"
               onMouseOver={() => enterDropdown("userDropdown")}
             >
-              <div className="w-[100%] border-[2px] border-[#C5C5C5] shadow-bannerLighter rounded-[25px] px-[20px] py-[14px] font-[700]">
+              <div className="w-[100%] rounded-[25px] border-[2px] border-[#C5C5C5] px-[20px] py-[14px] font-[700] shadow-bannerLighter">
                 {isAuthenticated && dataUser && dataUser.firstName
                   ? dataUser.firstName
                   : "Khách"}
@@ -166,7 +174,7 @@ const HeaderHome = () => {
                       ? dataUser.avatar
                       : guest
                   }
-                  className="rounded-[50%] w-full h-full"
+                  className="h-full w-full rounded-[50%]"
                 />
               </a>
             </div>
@@ -186,12 +194,12 @@ const HeaderHome = () => {
                   )} */}
 
             {dropdown.userDropdown && (
-              <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px] rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
+              <div className="absolute top-[20px] z-[1] w-[105%] rounded-[4px] bg-white px-[20px] pb-5 pt-8 text-left text-[15px] font-[600] shadow-banner">
                 {authOptions.map((option) => (
                   <button
                     key={option}
                     onClick={() => selectOption(option)}
-                    className="block w-full text-left pt-6 text-[15px] font-[600] hover:text-[#FE5656]"
+                    className="block w-full pt-6 text-left text-[15px] font-[600] hover:text-[#FE5656]"
                   >
                     {option}
                   </button>

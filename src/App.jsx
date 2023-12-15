@@ -22,17 +22,26 @@ import JobPersonOverall from "./pages/profile/job-person-overall";
 import Uploader from "./components/Uploader";
 import CompanyInformation from "./pages/recruitment/company";
 import LoginAs from "./components/LoginAs";
-import Recruitment from "./pages/recruitment/overall";
 import ContactInfor from "./pages/hr/contact";
 import CompanyInfor from "./pages/hr/companyhr";
 import RecruitmentDetail from "./pages/recruitment/detail";
 import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
+
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import PopupHr from "./components/PopupHr";
 
+import { callFetchCandidateByUserId } from "./service/candidate/api";
+import { doFetchCandidate } from "./redux/candidate/candidateSlice";
+import PDF from "./pages/pdf/pdf";
+import Recruitment from "./pages/recruitment/detail";
+import AppliedJob from "./pages/apply/appliedjob";
+import NotPermitted from "./components/NotPermitted";
+
+
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
+  const user = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
   const fetchAccount = async () => {
     if (
@@ -54,6 +63,10 @@ const App = () => {
   }, []);
 
   const router = createBrowserRouter([
+    {
+      path: "/pdf",
+      element: <PDF />,
+    },
     {
       path: "/",
       element: <Layout />,
@@ -145,6 +158,10 @@ const App = () => {
       element: <Uploader></Uploader>,
     },
     {
+      path: "/apply",
+      element: <AppliedJob />,
+    },
+    {
       path: "/loginas",
       element: <LoginAs></LoginAs>,
     },
@@ -167,6 +184,14 @@ const App = () => {
           element: <CompanyInfor />,
         },
       ],
+    },
+    {
+      path: "/404",
+      element: <NotFound></NotFound>,
+    },
+    {
+      path: "/403",
+      element: <NotPermitted></NotPermitted>,
     },
 
     // {
@@ -201,6 +226,7 @@ const App = () => {
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
       window.location.pathname === "/forgot-password" ||
+      window.location.pathname === "/reset-password" ||
       window.location.pathname === "/verify-email" ? (
         <RouterProvider router={router} />
       ) : (
