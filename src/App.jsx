@@ -37,7 +37,9 @@ import PDF from "./pages/pdf/pdf";
 import Recruitment from "./pages/recruitment/detail";
 import AppliedJob from "./pages/apply/appliedjob";
 import NotPermitted from "./components/NotPermitted";
-
+import ViewRecruitmentOverall from "./pages/viewrecruitment/overall";
+import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
+import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -193,7 +195,25 @@ const App = () => {
       path: "/403",
       element: <NotPermitted></NotPermitted>,
     },
-
+    {
+      path: "/viewrecruitment",
+      element: <ViewRecruitmentOverall />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <ViewRecruitmentDetail />,
+        },
+        {
+          path: "viewcompany",
+          element: <ViewCompanyInfor />,
+        },
+      ],
+    },
+    {
+      path: "/t",
+      element: <ViewRecruitmentOverall></ViewRecruitmentOverall>,
+    },
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,
