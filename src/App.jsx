@@ -27,6 +27,7 @@ import CompanyInfor from "./pages/hr/companyhr";
 import RecruitmentDetail from "./pages/recruitment/detail";
 import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
+import PostJob from "./pages/post&editJobs/postJob";
 
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import PopupHr from "./components/PopupHr";
@@ -170,6 +171,11 @@ const App = () => {
     {
       path: "/popuphr",
       element: <PopupHr></PopupHr>,
+    },
+
+    {
+      path: "/post-job",
+      element: <PostJob />,
     },
 
     {

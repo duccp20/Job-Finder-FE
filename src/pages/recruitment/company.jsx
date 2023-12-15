@@ -1,7 +1,4 @@
 import React from "react";
-import HeaderHome from "../../components/HeaderHome";
-import SearchBar from "../../components/SearchBatr/search";
-import RecruitmentHeader from "../../components/Recruitment/header";
 import RecruitmentItem from "../../components/Recruitment/item";
 import JobItem from "../../components/JobItem";
 import Pagination from "../../components/Pagination";
@@ -10,8 +7,8 @@ const CompanyInformation = () => {
   return (
     <>
       <div className="flex">
-        <div className=" w-[65%] flex flex-col gap-[10px] ml-[40px] mr-[10px] pr-[30px] mt-[30px] text-inherit leading-normal">
-          <p className="font-[700] mb-[10px]">
+        <div className=" ml-[40px] mr-[10px] mt-[30px] flex w-[65%] flex-col gap-[10px] pr-[30px] leading-normal text-inherit">
+          <p className="mb-[10px] font-[700]">
             Giới thiệu về Công ty R2S - Cung cấp phương pháp giải quyết phần mềm
           </p>
           <p className="mb-[10px]">
@@ -19,7 +16,7 @@ const CompanyInformation = () => {
             nhân sự CNTT cho doanh nghiệp, phát triển phần mềm và tư vấn giải
             pháp CNTT. R2S ra đời với sứ mệnh:
           </p>
-          <ol className="list-decimal mx-[10px] px-[10px] ">
+          <ol className="mx-[10px] list-decimal px-[10px] ">
             <li>
               Đào tạo nhân sự làm được việc ngay cho doanh nghiệp (Resource)
             </li>
@@ -53,7 +50,7 @@ const CompanyInformation = () => {
             để toàn thể nhân viên R2S cùng hành động.
           </p>
 
-          <p className="font-[700] mt-[15px]">Địa điểm công ty</p>
+          <p className="mt-[15px] font-[700]">Địa điểm công ty</p>
           <div className="flex items-center gap-3">
             <span>
               <svg
@@ -72,11 +69,11 @@ const CompanyInformation = () => {
             <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
           </div>
         </div>
-        <div className="w-[35%] h-full bg-[#FE56561A] border border-[#FE5656] mr-[30px] my-[30px] pb-[40px]">
+        <div className="my-[30px] mr-[30px] h-full w-[35%] border border-[#FE5656] bg-[#FE56561A] pb-[40px]">
           <img
             src="https://source.unsplash.com/random"
             alt=""
-            className="rounded-[8px] border border-[#7D7D7D] object-cover h-[200px] w-[200px] m-auto mt-[50px]"
+            className="m-auto mt-[50px] h-[200px] w-[200px] rounded-[8px] border border-[#7D7D7D] object-cover"
           />
           <RecruitmentItem
             icon={
@@ -137,7 +134,7 @@ const CompanyInformation = () => {
 
       <div className="mx-[40px] mt-[30px]">
         <p className="font-[700]">Việc làm khác đang tuyển</p>
-        <div className="flex gap-5 mt-[20px] px-[20px] py-[30px] bg-[#F6F6F6] rounded-[5px] shadow-banner">
+        <div className="mt-[20px] flex gap-5 rounded-[5px] bg-[#F6F6F6] px-[20px] py-[30px] shadow-banner">
           <div className="w-[50%]">
             <JobItem></JobItem>
             <JobItem></JobItem>

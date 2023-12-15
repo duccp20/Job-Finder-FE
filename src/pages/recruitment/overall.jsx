@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import HeaderHome from "../../components/HeaderHome";
-import RecruitmentItem from "../../components/Recruitment/item";
 import SearchBar from "../../components/SearchBatr/search";
-import RecruitmentHeader from "../../components/Recruitment/header";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -14,17 +12,17 @@ const RecruitmentOverall = () => {
       <HeaderHome />
       <SearchBar />
 
-      <div className="w-[90%] rounded-[6px] border-[2px] border-[#FE5656] py-[45px] my-[10px] m-auto">
-        <div className="flex justify-between items-center px-[40px]">
+      <div className="m-auto my-[10px] w-[90%] rounded-[6px] border-[2px] border-[#FE5656] py-[45px]">
+        <div className="flex items-center justify-between px-[40px]">
           <div className="flex flex-col">
             <div className="flex">
               <img
                 src="https://source.unsplash.com/random"
                 alt=""
-                className="rounded-[8px] border border-[#7D7D7D] object-cover h-[90px] w-[90px] mr-[20px]"
+                className="mr-[20px] h-[90px] w-[90px] rounded-[8px] border border-[#7D7D7D] object-cover"
               />
-              <div className="flex flex-col justify-between flex-grow">
-                <h3 className="text-red-500 text-xl not-italic font-bold">
+              <div className="flex flex-grow flex-col justify-between">
+                <h3 className="text-xl font-bold not-italic text-red-500">
                   Thực tập Java
                 </h3>
                 <span>Công ty R2S</span>
@@ -48,25 +46,25 @@ const RecruitmentOverall = () => {
                       </clipPath>
                     </defs>
                   </svg>
-                  <span className="text-gray-800 text-base not-italic font-light">
+                  <span className="text-base font-light not-italic text-gray-800">
                     Hồ Chí Minh
                   </span>
                 </div>
               </div>
             </div>
-            <div className="flex justify-between items-end mt-[10px]">
-              <span className="inline-block p-[10px] text-gray-600 text-xs not-italic font-semibold bg-[#F3F9FC]">
+            <div className="mt-[10px] flex items-end justify-between">
+              <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
                 Front end
               </span>
             </div>
           </div>
           <div className="flex flex-col justify-center gap-[10px]">
-            <button className="flex-1 px-5 py-2 bg-[#FE5656] text-white text-base not-italic font-bold rounded-[4px] hover:outline hover:outline-[#FE5656] hover:bg-white hover:text-[#FE5656]">
+            <button className="flex-1 rounded-[4px] bg-[#FE5656] px-5 py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]">
               ỨNG TUYỂN NGAY
             </button>
-            <button className="flex-1 pr-5 py-2 text-[#FE5656] text-base not-italic font-bold rounded-[4px]  border-[2px] border-solid border-[#FE5656] relative">
+            <button className="relative flex-1 rounded-[4px] border-[2px] border-solid border-[#FE5656] py-2 pr-5  text-base font-bold not-italic text-[#FE5656]">
               LƯU TIN
-              <span className="absolute top-[50%] translate-y-[-50%] right-[15%]">
+              <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -83,11 +81,11 @@ const RecruitmentOverall = () => {
             </button>
           </div>
         </div>
-        <div className="w-full cursor-pointer shadow-banner py-[10px] flex items-center gap-7 text-[16px] font-[600] pl-[40px] mt-[20px]">
+        <div className="mt-[20px] flex w-full cursor-pointer items-center gap-7 py-[10px] pl-[40px] text-[16px] font-[600] shadow-banner">
           <span
-            className={`border-b-[2px] border-transparent hover:text-[#FE5656] hover:border-b-[#FE5656] ${
+            className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
               window.location.pathname == "/recruitment"
-                ? "text-[#FE5656] border-b-[#FE5656]"
+                ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
             onClick={() => navigate("")}
@@ -95,9 +93,9 @@ const RecruitmentOverall = () => {
             CHI TIẾT
           </span>
           <span
-            className={`border-b-[2px] border-transparent hover:text-[#FE5656] hover:border-b-[#FE5656] ${
+            className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
               window.location.pathname == "/recruitment/company"
-                ? "text-[#FE5656] border-b-[#FE5656]"
+                ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
             onClick={() => navigate("company")}

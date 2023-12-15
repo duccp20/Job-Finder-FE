@@ -60,8 +60,8 @@ const HeaderHR = () => {
 
   return (
     <>
-      <div className="h-[70px] flex justify-between items-center border-1 border-solid border-[rgb(209,209,209)] shadow-custom ">
-        <div className=" flex items-center justify-between pl-[26.75px] leading-10 gap-5">
+      <div className="border-1 flex h-[70px] items-center justify-between border-solid border-[rgb(209,209,209)] shadow-custom ">
+        <div className=" flex items-center justify-between gap-5 pl-[26.75px] leading-10">
           <div>
             <a href="http://">
               <img src={logo} alt="" />
@@ -70,11 +70,11 @@ const HeaderHR = () => {
 
           <div className="flex items-center justify-center gap-6 text-[16px] font-[700]">
             <div
-              className="flex flex-col relative"
+              className="relative flex flex-col"
               onMouseLeave={leaveDropdown}
             >
               <div
-                className="flex items-center justify-center gap-2 hover:text-[#FE5656] cursor-pointer  z-[2]"
+                className="z-[2] flex cursor-pointer items-center justify-center gap-2  hover:text-[#FE5656]"
                 onMouseOver={() => enterDropdown("jobDropdown")}
               >
                 <span>
@@ -99,12 +99,12 @@ const HeaderHR = () => {
               </div>
 
               {dropdown.jobDropdown && (
-                <div className="absolute right-0 w-[105%] pt-9 px-2 mt-1 rounded-[4px] shadow-custom text-left text-[15px] font-[600] bg-white z-[1]">
+                <div className="absolute right-0 z-[1] mt-1 w-[105%] rounded-[4px] bg-white px-2 pt-9 text-left text-[15px] font-[600] shadow-custom">
                   {jobOptions.map((option) => (
                     <button
                       key={option}
                       onClick={() => selectOption(option)}
-                      className="block w-full text-left pt-1 text-[15px] font-[600] hover:text-[#FE5656]"
+                      className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
                     >
                       {option}
                     </button>
@@ -119,8 +119,8 @@ const HeaderHR = () => {
           </div>
         </div>
 
-        <div className="w-[20%] flex items-center justify-end pr-[26.75px] gap-5">
-          <div className="w-[30%] flex items-center justify-center gap-2 cursor-pointer">
+        <div className="flex w-[20%] items-center justify-end gap-5 pr-[26.75px]">
+          <div className="flex w-[30%] cursor-pointer items-center justify-center gap-2">
             <img src={flag} alt="" />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@ const HeaderHR = () => {
             </svg>
           </div>
 
-          <div className="w-[15%] relative">
+          <div className="relative w-[15%]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -145,11 +145,11 @@ const HeaderHR = () => {
               fill="none"
             >
               <path
-                d="M13.1429 1.875V2.92266C16.865 3.59707 19.7143 7.27734 19.7143 11.7188V13.6758C19.7143 16.3359 20.5101 18.9199 21.963 21L22.7279 22.0898C23.0257 22.5117 23.0822 23.0918 22.8768 23.5781C22.6714 24.0645 22.2402 24.375 21.7679 24.375H1.23215C0.758291 24.375 0.326784 24.0645 0.121632 23.5781C-0.0835709 23.0918 -0.0258656 22.5117 0.270054 22.0898L1.03552 21C2.49202 18.9199 3.28572 16.3359 3.28572 13.6758V11.7188C3.28572 7.27734 6.13505 3.59707 9.85715 2.92266V1.875C9.85715 0.839648 10.5913 0 11.5 0C12.4087 0 13.1429 0.839648 13.1429 1.875ZM11.0893 5.625C8.14242 5.625 5.75001 8.35547 5.75001 11.7188V13.6758C5.75001 16.4824 5.03742 19.2188 3.71235 21.5625H19.2882C17.9636 19.2188 17.25 16.4824 17.25 13.6758V11.7188C17.25 8.35547 14.8576 5.625 11.9107 5.625H11.0893ZM14.7857 26.25C14.7857 27.1934 14.4418 28.2012 13.8257 28.9043C13.2096 29.6074 12.3266 30 11.5 30C10.6272 30 9.79041 29.6074 9.17434 28.9043C8.55827 28.2012 8.2143 27.1934 8.2143 26.25H14.7857Z"
-                fill="#00B074"
+                d="M13.1424 1.875V2.92266C16.8645 3.59707 19.7138 7.27734 19.7138 11.7188V13.6758C19.7138 16.3359 20.5096 18.9199 21.9625 21L22.7274 22.0898C23.0252 22.5117 23.0817 23.0918 22.8763 23.5781C22.6709 24.0645 22.2397 24.375 21.7674 24.375H1.23166C0.757802 24.375 0.326296 24.0645 0.121144 23.5781C-0.0840592 23.0918 -0.0263539 22.5117 0.269566 22.0898L1.03503 21C2.49153 18.9199 3.28524 16.3359 3.28524 13.6758V11.7188C3.28524 7.27734 6.13457 3.59707 9.85666 2.92266V1.875C9.85666 0.839648 10.5908 0 11.4995 0C12.4082 0 13.1424 0.839648 13.1424 1.875ZM11.0888 5.625C8.14193 5.625 5.74952 8.35547 5.74952 11.7188V13.6758C5.74952 16.4824 5.03693 19.2188 3.71186 21.5625H19.2877C17.9631 19.2188 17.2495 16.4824 17.2495 13.6758V11.7188C17.2495 8.35547 14.8571 5.625 11.9102 5.625H11.0888ZM14.7852 26.25C14.7852 27.1934 14.4413 28.2012 13.8252 28.9043C13.2091 29.6074 12.3261 30 11.4995 30C10.6268 30 9.78992 29.6074 9.17385 28.9043C8.55778 28.2012 8.21381 27.1934 8.21381 26.25H14.7852Z"
+                fill="#FE5656"
               />
             </svg>
-            <span className="absolute top-0 right-0 w-[50%]">
+            <span className="absolute right-0 top-0 w-[50%]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -169,14 +169,14 @@ const HeaderHR = () => {
           </div>
 
           <div
-            className="w-[80%] flex justify-between items-center relative"
+            className="relative flex w-[80%] items-center justify-between"
             onMouseLeave={leaveDropdown}
           >
             <div
-              className="flex flex-col w-full relative z-[2] cursor-pointer hover:text-[#FE5656]"
+              className="relative z-[2] flex w-full cursor-pointer flex-col hover:text-[#FE5656]"
               onMouseOver={() => enterDropdown("userDropdown")}
             >
-              <div className="w-[100%] border-[2px] border-[#C5C5C5] shadow-bannerLighter rounded-[25px] px-[20px] py-[14px] font-[700]">
+              <div className="w-[100%] rounded-[25px] border-[2px] border-[#C5C5C5] px-[20px] py-[14px] font-[700] shadow-bannerLighter">
                 {isAuthenticated && dataUser && dataUser.firstName
                   ? dataUser.firstName
                   : "Khách"}
@@ -190,18 +190,18 @@ const HeaderHR = () => {
                       ? dataUser.avatar
                       : guest
                   }
-                  className="rounded-[50%] w-full h-full"
+                  className="h-full w-full rounded-[50%]"
                 />
               </a>
             </div>
 
             {dropdown.userDropdown && (
-              <div className="absolute top-[20px] w-[105%] pt-8 pb-5 px-[20px] rounded-[4px] shadow-banner text-left text-[15px] font-[600] bg-white z-[1]">
+              <div className="absolute top-[20px] z-[1] w-[105%] rounded-[4px] bg-white px-[20px] pb-5 pt-8 text-left text-[15px] font-[600] shadow-banner">
                 {authOptions.map((option) => (
                   <button
                     key={option}
                     onClick={() => selectOption(option)}
-                    className="block w-full text-left pt-6 text-[15px] font-[600] hover:text-[#FE5656]"
+                    className="block w-full pt-6 text-left text-[15px] font-[600] hover:text-[#FE5656]"
                   >
                     {option}
                   </button>

@@ -2,9 +2,9 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <div className=" w-full flex flex-col gap-[36px] items-center">
-      <form className="w-[90%] flex justify-between items-center h-auto rounded-[6px] border-[0.5px] border-[#FE5656] py-[12px] px-[18px] my-[40px]">
-        <div className="flex items-end flex-grow">
+    <div className=" mt-[70px] flex w-full flex-col items-center gap-[36px]">
+      <form className="my-[40px] flex h-auto w-[90%] items-center justify-between rounded-[6px] border-[0.5px] border-[#FE5656] px-[18px] py-[12px]">
+        <div className="flex flex-grow items-end">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="19"
@@ -41,7 +41,7 @@ const SearchBar = () => {
             name="findjob"
             id="findjob"
             placeholder="Tìm kiếm việc làm"
-            className="placeholder:text-[#626262] pl-[10px] w-full"
+            className="w-full pl-[10px] placeholder:text-[#626262]"
           />
         </div>
 
@@ -112,7 +112,7 @@ const SearchBar = () => {
         </div>
         <div className="">
           <button
-            className="shadow-md text-center text-base not-italic font-bold text-white rounded-[4px] px-[30px] py-[6px] bg-gradientCustom"
+            className="rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md"
             type="submit"
           >
             Tìm kiếm
