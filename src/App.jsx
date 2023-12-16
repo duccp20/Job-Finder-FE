@@ -51,6 +51,8 @@ import ViewRecruitmentOverall from "./pages/viewrecruitment/overall";
 import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
+import { RegisterHR } from "./pages/registerhr/overall";
+
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
   const user = useSelector((state) => state.account.user);
@@ -197,7 +199,11 @@ const App = () => {
         },
       ],
     },
-
+    {
+      path: "/registerhr",
+      element: <RegisterHR />,
+      errorElement: <NotFound />,
+    },
     {
       path: "/recruitmentlist",
       element: <RecruitmentList></RecruitmentList>,
@@ -262,10 +268,7 @@ const App = () => {
         },
       ],
     },
-    {
-      path: "/t",
-      element: <ViewRecruitmentOverall></ViewRecruitmentOverall>,
-    },
+
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,
