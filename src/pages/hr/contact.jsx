@@ -162,7 +162,7 @@ const ContactInfor = () => {
               type="text"
               id="subName"
               {...register("subName")}
-              bordercolor={
+              borderColor={
                 errors.subName ? "border-red-500" : "border-gray-300"
               }
             />
@@ -316,52 +316,47 @@ const ContactInfor = () => {
             )}
           </div>
         </div>
-        <div className="flex gap-12 w-full mt-6">
-          <div className="flex flex-col w-[50%]">
-            <label htmlFor="city" className="pb-2 ">
-              Tỉnh/ Thành phố <span className="text-red-700">*</span>
-            </label>
-            <Controller
-              name="city"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <select
-                  {...field}
-                  value={watch("city") || ""}
-                  onChange={(e) =>
-                    setValue("city", e.target.value, {
-                      shouldValidate: true,
-                    })
-                  }
-                  className={`py-3 px-2 border-2 ${
-                    errors.city ? "border-red-500" : "border-gray-300"
-                  } rounded-md w-full focus:outline-none`}
-                >
-                  <option value="" disabled hidden>
-                    Chọn tỉnh thành
-                  </option>
-                  {cities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
-              )}
-            />
-            {errors?.city && (
-              <div className="flex items-center ">
-                <span className="pt-1.5 ">
-                  <IconError />
-                </span>
+        <div className="flex flex-col w-full mt-6">
+          {/* <div className="flex flex-col w-[50%]"> */}
+          <label htmlFor="city" className="pb-2 ">
+            Tỉnh/ Thành phố <span className="text-red-700">*</span>
+          </label>
+          <Controller
+            name="city"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <select
+                {...field}
+                className={`py-3 px-2 border-2 ${
+                  errors.city ? "border-red-500" : "border-gray-300"
+                } rounded-md w-full focus:outline-none`}
+              >
+                <option value="" disabled hidden>
+                  Chọn tỉnh thành
+                </option>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
-                  {errors.city?.message}
-                </p>
-              </div>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             )}
-          </div>
-          <div className="flex flex-col w-[50%]">
+          />
+          {errors?.city && (
+            <div className="flex items-center ">
+              <span className="pt-1.5 ">
+                <IconError />
+              </span>
+
+              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                {errors.city?.message}
+              </p>
+            </div>
+          )}
+        </div>
+        {/* <div className="flex flex-col w-[50%]">
             <label htmlFor="district" className="pb-2 ">
               Quận/ Huyện <span className="text-red-700">*</span>
             </label>
@@ -404,8 +399,8 @@ const ContactInfor = () => {
                 </p>
               </div>
             )}
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
         <div className="flex flex-col w-full mt-6">
           <label htmlFor="address" className="pb-2 ">
             Địa chỉ nơi ở

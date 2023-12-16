@@ -27,6 +27,7 @@ import CompanyInfor from "./pages/hr/companyhr";
 import RecruitmentDetail from "./pages/recruitment/detail";
 import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
+import PostJob from "./pages/post&editJobs/postJob";
 
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import PopupHr from "./components/PopupHr";
@@ -46,7 +47,9 @@ import {
 import { getAllPosition } from "./service/position/api";
 import { getAllSchedule } from "./service/schedule/api";
 import MultiSelectDropdown from "./components/MultilSelectTag";
-
+import ViewRecruitmentOverall from "./pages/viewrecruitment/overall";
+import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
+import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -217,6 +220,11 @@ const App = () => {
     },
 
     {
+      path: "/post-job",
+      element: <PostJob />,
+    },
+
+    {
       path: "/contact",
       element: <ContactOverall />,
       errorElement: <NotFound />,
@@ -239,7 +247,25 @@ const App = () => {
       path: "/403",
       element: <NotPermitted></NotPermitted>,
     },
-
+    {
+      path: "/viewrecruitment",
+      element: <ViewRecruitmentOverall />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <ViewRecruitmentDetail />,
+        },
+        {
+          path: "viewcompany",
+          element: <ViewCompanyInfor />,
+        },
+      ],
+    },
+    {
+      path: "/t",
+      element: <ViewRecruitmentOverall></ViewRecruitmentOverall>,
+    },
     // {
     //   path: "/admin",
     //   element: <LayoutAdmin />,

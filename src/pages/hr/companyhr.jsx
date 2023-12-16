@@ -246,18 +246,14 @@ const CompanyInfor = () => {
               render={({ field }) => (
                 <select
                   {...field}
-                  value={watch("city") || ""}
-                  onChange={(e) =>
-                    setValue("city", e.target.value, {
-                      shouldValidate: true,
-                    })
-                  }
-                  className="py-3 px-2 border-2 border-gray-300
-                   rounded-md w-full focus:outline-none"
+                  className={`py-3 px-2 border-2 ${
+                    errors.city ? "border-red-500" : "border-gray-300"
+                  } rounded-md w-full focus:outline-none`}
                 >
                   <option value="" disabled hidden>
                     Chọn tỉnh thành
                   </option>
+
                   {cities.map((city) => (
                     <option key={city} value={city}>
                       {city}

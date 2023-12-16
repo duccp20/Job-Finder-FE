@@ -20,7 +20,7 @@ const NotFound = () => {
       <div className="w-[1440px] bg-white">
         <div className="flex h-screen flex-col items-center justify-center bg-white md:flex-row">
           <div className="w-1/2 sm:w-auto">
-            <img alt="Element" src="./assets/images/404.svg" />
+            <img alt="Element" src="/assets/images/404.svg" />
           </div>
           <div>
             <div className="mt-8 text-center text-2xl font-bold text-[#263238] sm:text-5xl">

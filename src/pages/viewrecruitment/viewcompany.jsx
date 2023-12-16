@@ -1,9 +1,7 @@
 import React from "react";
 import RecruitmentItem from "../../components/Recruitment/item";
-import JobItem from "../../components/JobItem";
-import Pagination from "../../components/Pagination";
 
-const CompanyInformation = () => {
+const ViewCompanyInfor = () => {
   return (
     <>
       <div className="flex">
@@ -53,6 +51,7 @@ const CompanyInformation = () => {
           <p className="mt-[15px] font-[700]">Địa điểm công ty</p>
           <div className="flex items-center gap-3">
             <span>
+              {/* logo location */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="21"
@@ -131,24 +130,8 @@ const CompanyInformation = () => {
           ></RecruitmentItem>
         </div>
       </div>
-
-      <div className="mx-[40px] mt-[30px]">
-        <p className="font-[700]">Việc làm khác đang tuyển</p>
-        <div className="mt-[20px] flex gap-5 rounded-[5px] bg-[#F6F6F6] px-[20px] py-[30px] shadow-banner">
-          <div className="w-[50%]">
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-          </div>
-          <div className="w-[50%]">
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-          </div>
-        </div>
-        <Pagination></Pagination>
-      </div>
     </>
   );
 };
 
-export default CompanyInformation;
+export default ViewCompanyInfor;
