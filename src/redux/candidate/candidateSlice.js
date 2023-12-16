@@ -7,6 +7,9 @@ const initialState = {
     desiredJob: "",
     desiredWorkingProvince: "",
     cv: "",
+    positionDTOs: [],
+    majorDTOs: [],
+    scheduleDTOs: [],
   },
 };
 

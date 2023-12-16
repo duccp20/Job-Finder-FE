@@ -45,7 +45,7 @@ import {
 } from "./redux/basedata/baseDataSlice";
 import { getAllPosition } from "./service/position/api";
 import { getAllSchedule } from "./service/schedule/api";
-
+import MultiSelectDropdown from "./components/MultilSelectTag";
 
 
 const App = () => {
@@ -118,6 +118,10 @@ const App = () => {
 
   const router = createBrowserRouter([
     {
+      path: "/mu",
+      element: <MultiSelectDropdown />,
+    },
+    {
       path: "/",
       element: <Layout />,
       errorElement: <NotFound />,
@@ -156,14 +160,6 @@ const App = () => {
       path: "/reset-password",
       element: <NewPassword />,
     },
-    // {
-    //   path: "/forgetPass-mail",
-    //   element: <ForgetPassMail />,
-    // },
-    // {
-    //   path: "/forgetPass-code",
-    //   element: <ForgetPassCode />,
-    // },
     {
       path: "/profile",
       element: <Profile />,

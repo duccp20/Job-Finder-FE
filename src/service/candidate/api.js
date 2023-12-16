@@ -5,12 +5,19 @@ export const callFetchCandidateByUserId = (id) => {
 };
 
 export const callEditProfile = (id, candidateProfileDTO, fileCV) => {
+  const candidateProfileDTOtoJSON = JSON.stringify(candidateProfileDTO);
   const formData = new FormData();
-  formData.append("candidateProfileDTO", candidateProfileDTO);
+
+  formData.append("candidateProfileDTO", candidateProfileDTOtoJSON);
   formData.append(
     "fileCV",
     new Blob([fileCV], { type: "application/pdf" }),
-    "Java_Backend_NguyenMinhVy.pdf",
+    `${
+      candidateProfileDTO.userProfileDTO.lastName +
+      "_" +
+      candidateProfileDTO.userProfileDTO.firstName +
+      "_"
+    }.pdf`,
   );
   return axios({
     method: "put",

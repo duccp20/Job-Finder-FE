@@ -107,3 +107,17 @@ body {
     background-position-x: -200%;
   }
 }
+
+.dropdown div {
+  cursor: pointer;
+  /* Add more styles for the dropdown items */
+}
+
+.selected-items .tag {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  /* Add more styles for the tags */
+}

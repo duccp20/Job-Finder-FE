@@ -67,6 +67,7 @@ const PersonalDetails = () => {
   const onSubmit = async (data) => {
     console.log(data);
     console.log(dataUser);
+
     const userProfileDTO = {
       userId: dataUser.id,
       firstName: data.name,
@@ -83,12 +84,12 @@ const PersonalDetails = () => {
       university: data.university,
     };
     setIsSubmitting(true);
-    const candidateProfileDTO = JSON.stringify({
+    const candidateProfileDTO = {
       userProfileDTO,
       candidateDTO,
-    });
+    };
     const res = await callEditProfile(dataUser.id, candidateProfileDTO);
-    console.log(res);
+
     setIsSubmitting(false);
     if (res && res?.data) {
       dispatch(doSetProfileData(res.data.showUserDTO));

@@ -113,30 +113,6 @@ const JobPersonOverall = () => {
                   {candidateData && candidateData?.majorDTOs
                     ? candidateData.majorDTOs.map((maj) => maj.name).join(" / ")
                     : "(chưa có dữ liệu)"}
-                  {/* "referenceLetter": "Không có",
-        "searchable": true,
-        "positionDTOs": [
-            {
-                "id": 1,
-                "name": "FE"
-            }
-        ],
-        "majorDTOs": [
-            {
-                "id": 1,
-                "name": "CNTT"
-            }
-        ],
-        "scheduleDTOs": [
-            {
-                "id": 1,
-                "name": null
-            }
-        ],
-        "desiredJob": "Java Dev",
-        "desiredWorkingProvince": "Hồ Chí Minh",
-        "university": "Kinh Tế Luật",
-        "cv": "1702403009585_Java_Backend_NguyenMinhVy.pdf" */}
                 </td>
               </tr>
               <tr>
