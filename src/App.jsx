@@ -58,8 +58,12 @@ import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
+
 import LayoutHr from "./components/Layout/layoutHr";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import HeaderAdmin from "./components/HeaderAdmin";
+import MenuAdmin from "./components/MenuAdmin/menuAdmin";
+
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -360,6 +364,10 @@ const App = () => {
     {
       path: "/403",
       element: <NotPermitted></NotPermitted>,
+    },
+    {
+      path: "/header-admin",
+      element: <MenuAdmin />,
     },
     {
       path: "/viewrecruitment",

@@ -26,7 +26,9 @@ const Header = () => {
     <>
       <div className=" border-1 fixed top-0 z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[#D1D1D1] bg-white px-[26.75px] leading-10 shadow-custom">
         <div>
+
           <div onClick={() => navigate("/")}>
+
             <img src={logo} alt="" />
           </div>
         </div>
@@ -43,10 +45,10 @@ const Header = () => {
             </div>
           </a>
 
-          <span className="font-semibold">
+          <span className="font-semibold hover:text-[#FE5656]">
             <a href="/register">Đăng ký</a>
           </span>
-          <span className="font-semibold">
+          <span className="font-semibold hover:text-[#FE5656]">
             <a href="/login">Đăng nhập</a>
           </span>
         </div>

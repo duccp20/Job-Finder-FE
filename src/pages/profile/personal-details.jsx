@@ -160,7 +160,7 @@ const PersonalDetails = () => {
                 type="text"
                 id="subName"
                 {...register("subName")}
-                bordercolor={
+                borderColor={
                   errors.subName ? "border-red-500" : "border-gray-300"
                 }
                 defaultValue={
@@ -186,7 +186,7 @@ const PersonalDetails = () => {
               <Input
                 type="text"
                 id="name"
-                bordercolor={errors.name ? "border-red-500" : "border-gray-300"}
+                borderColor={errors.name ? "border-red-500" : "border-gray-300"}
                 {...register("name")}
                 defaultValue={
                   isAuthenticated && dataUser ? dataUser.firstName : ""
@@ -214,7 +214,7 @@ const PersonalDetails = () => {
                 disabled={true}
                 type="email"
                 id="email"
-                bordercolor="border-gray-300"
+                borderColor="border-gray-300"
                 defaultValue={isAuthenticated && dataUser ? dataUser.email : ""}
               />
             </div>
@@ -230,7 +230,7 @@ const PersonalDetails = () => {
                     {...field}
                     type="date"
                     id="birthday"
-                    bordercolor={
+                    borderColor={
                       errors.birthday ? "border-red-500" : "border-gray-300"
                     }
                     onChange={(e) => {
@@ -250,7 +250,7 @@ const PersonalDetails = () => {
               <Input
                 type="tel"
                 id="phoneNumber"
-                bordercolor={
+                borderColor={
                   errors.phoneNumber ? "border-red-500" : "border-gray-300"
                 }
                 {...register("phoneNumber")}
@@ -302,7 +302,7 @@ const PersonalDetails = () => {
             <Input
               type="text"
               id="address"
-              bordercolor={
+              borderColor={
                 errors.address ? "border-red-500" : "border-gray-300"
               }
               {...register("address")}
@@ -329,7 +329,7 @@ const PersonalDetails = () => {
             <Input
               type="text"
               id="university"
-              bordercolor="border-gray-300"
+              borderColor="border-gray-300"
               {...register("university")}
               defaultValue={dataCandidate.university || ""}
             />

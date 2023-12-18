@@ -62,10 +62,10 @@ const HeaderHR = () => {
     <>
       <div className="border-1 flex h-[70px] items-center justify-between border-solid border-[rgb(209,209,209)] shadow-custom ">
         <div className=" flex items-center justify-between gap-5 pl-[26.75px] leading-10">
-          <div>
-            <a className="cursor-pointer" onClick={() => navigate("/hr")}>
+          <div className="cursor-pointer">
+            <span onClick={() => navigate("/")}>
               <img src={logo} alt="" />
-            </a>
+            </span>
           </div>
 
           <div className="flex items-center justify-center gap-6 text-[16px] font-[700]">
