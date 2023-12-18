@@ -1,4 +1,5 @@
 import React from "react";
+import ProvincesDropdown from "../DropdownProvince";
 
 const SearchBar = () => {
   return (
@@ -71,44 +72,7 @@ const SearchBar = () => {
               </linearGradient>
             </defs>
           </svg>
-          <input
-            type="text"
-            name="district"
-            id="district"
-            placeholder="Khu vực"
-            className="placeholder:text-[#626262] "
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="18"
-            viewBox="0 0 16 18"
-            fill="none"
-            className="cursor-pointer"
-          >
-            <g clipPath="url(#clip0_937_523)">
-              <path
-                d="M7.99979 13.5C7.65863 13.5 7.31729 13.3901 7.05729 13.1704L0.390625 7.54541C-0.130208 7.10596 -0.130208 6.39404 0.390625 5.95459C0.911458 5.51514 1.75521 5.51514 2.27604 5.95459L7.99979 10.7859L13.7248 5.95547C14.2456 5.51602 15.0894 5.51602 15.6102 5.95547C16.131 6.39492 16.131 7.10684 15.6102 7.54629L8.94354 13.1713C8.68312 13.391 8.34146 13.5 7.99979 13.5Z"
-                fill="url(#paint0_linear_937_523)"
-              />
-            </g>
-            <defs>
-              <linearGradient
-                id="paint0_linear_937_523"
-                x1="8.00042"
-                y1="5.625"
-                x2="8.00042"
-                y2="13.5"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#FFB950" />
-                <stop offset="1" stop-color="#FE5656" />
-              </linearGradient>
-              <clipPath id="clip0_937_523">
-                <rect width="16" height="18" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+          <ProvincesDropdown></ProvincesDropdown>
         </div>
         <div className="">
           <button
