@@ -46,6 +46,7 @@ import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
+import ViewJobList from "./pages/viewjoblist/viewJobList";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -168,6 +169,10 @@ const App = () => {
     {
       path: "/recruitmentlistopen",
       element: <RecruitmentListOpen></RecruitmentListOpen>,
+    },
+    {
+      path: "/viewjoblist",
+      element: <ViewJobList></ViewJobList>,
     },
     {
       path: "/upload",
