@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import HeaderHome from "../../components/HeaderHome";
 import RecruitmentItem from "../../components/Recruitment/item";
+import SearchBar from "../../components/SearchBatr/search";
 
-const RecruitmentDetail = () => {
+const ViewRecruitmentDetail = () => {
   return (
     <>
       <div className="flex">
@@ -214,42 +216,25 @@ const RecruitmentDetail = () => {
           </span>
           <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
         </div>
-
-        <p className="my-[20px] font-[700]">Cách thức ứng tuyển</p>
-        <p>
-          Ứng viên nộp hồ sơ trực tuyến bằng cách bấm nút{" "}
-          <a href="#" className="text-[#FE5656]">
-            ỨNG TUYỂN NGAY
-          </a>{" "}
-          dưới đây.
-        </p>
-
-        <div className="my-[30px] flex gap-[10px]">
-          <button className="rounded-[4px] bg-[#FE5656] px-5 py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]">
-            ỨNG TUYỂN NGAY
-          </button>
-          <button className="relative rounded-[4px] border-[2px] border-solid border-[#FE5656] py-2 pl-9 pr-16 text-base font-bold not-italic text-[#FE5656]">
-            LƯU TIN
-            <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="22"
-                viewBox="0 0 20 22"
-                fill="none"
-              >
-                <path
-                  d="M17.4175 0.9375H2.48821C1.11399 0.9375 0 1.78229 0 2.82442V19.8027C0 20.7737 1.38873 21.3783 2.49443 20.8893L9.95283 17.5896L17.4123 20.8889C18.5164 21.3437 19.9057 20.7737 19.9057 19.8027V2.82442C19.9057 1.78229 18.7912 0.9375 17.4175 0.9375ZM17.4175 18.706L9.95283 15.4039L2.48821 18.706V3.06028C2.48821 2.9278 2.62454 2.82442 2.75258 2.82442H17.0598C17.2827 2.82442 17.4175 2.9278 17.4175 3.06028V18.706Z"
-                  fill="#FE5656"
-                />
-              </svg>
-            </span>
-          </button>
+        <hr />
+        <div className="relative mr-10 flex flex-col">
+          <p className="my-[20px] font-[700]">Thông tin người phụ trách</p>
+          <div className=" flex flex-row justify-between font-[700]">
+            <div>
+              Họ và tên:
+              <span className="pl-1 font-[400]">{""}</span>
+            </div>
+            <div>
+              Email: <span className="pl-1 font-[400]">{""}</span>
+            </div>
+            <div>
+              Số điện thoại: <span className="pl-1 font-[400]">{""}</span>
+            </div>
+          </div>
         </div>
-        <p>Hạn nộp hồ sơ: 28/04/2023</p>
       </div>
     </>
   );
 };
 
-export default RecruitmentDetail;
+export default ViewRecruitmentDetail;

@@ -4,15 +4,17 @@ import SearchBar from "../../components/SearchBatr/search";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const RecruitmentOverall = () => {
+const ViewRecruitmentOverall = () => {
   const navigate = useNavigate();
 
   return (
     <div>
-      <HeaderHome />
-      <SearchBar />
+      <div>
+        <HeaderHome />
+      </div>
+      {/* <SearchBar /> */}
 
-      <div className="m-auto my-[10px] w-[90%] rounded-[6px] border-[2px] border-[#FE5656] py-[45px]">
+      <div className="m-auto mb-[10px] mt-[100px] w-[90%] rounded-[6px] border-[2px] border-[#FE5656] py-[45px]">
         <div className="flex items-center justify-between px-[40px]">
           <div className="flex flex-col">
             <div className="flex">
@@ -53,38 +55,41 @@ const RecruitmentOverall = () => {
               </div>
             </div>
             <div className="mt-[10px] flex items-end justify-between">
-              <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
+              <span className=" bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
                 Front end
               </span>
             </div>
           </div>
-          <div className="flex flex-col justify-center gap-[10px]">
-            <button className="flex-1 rounded-[4px] bg-[#FE5656] px-5 py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]">
-              ỨNG TUYỂN NGAY
-            </button>
-            <button className="relative flex-1 rounded-[4px] border-[2px] border-solid border-[#FE5656] py-2 pr-5  text-base font-bold not-italic text-[#FE5656]">
-              LƯU TIN
-              <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="22"
-                  viewBox="0 0 20 22"
-                  fill="none"
-                >
-                  <path
-                    d="M17.4175 0.9375H2.48821C1.11399 0.9375 0 1.78229 0 2.82442V19.8027C0 20.7737 1.38873 21.3783 2.49443 20.8893L9.95283 17.5896L17.4123 20.8889C18.5164 21.3437 19.9057 20.7737 19.9057 19.8027V2.82442C19.9057 1.78229 18.7912 0.9375 17.4175 0.9375ZM17.4175 18.706L9.95283 15.4039L2.48821 18.706V3.06028C2.48821 2.9278 2.62454 2.82442 2.75258 2.82442H17.0598C17.2827 2.82442 17.4175 2.9278 17.4175 3.06028V18.706Z"
-                    fill="#FE5656"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
+          {/* logo edit recruitment */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="47"
+            height="39"
+            viewBox="0 0 47 39"
+            fill="none"
+            className=" flex flex-col"
+          >
+            <rect
+              x="0.25"
+              y="0.25"
+              width="46.5"
+              height="38.5"
+              rx="4.75"
+              stroke="#7D7D7D"
+              stroke-opacity="0.5"
+              stroke-width="0.5"
+            />
+            <path
+              d="M5.875 16.25H27.4167V19.5H5.875V16.25ZM5.875 13H27.4167V9.75H5.875V13ZM5.875 26H19.5833V22.75H5.875V26ZM35.2696 20.9137L36.66 19.76C36.8412 19.6094 37.0564 19.4898 37.2933 19.4083C37.5302 19.3268 37.7841 19.2848 38.0406 19.2848C38.2971 19.2848 38.5511 19.3268 38.788 19.4083C39.0249 19.4898 39.2401 19.6094 39.4212 19.76L40.8117 20.9137C41.5754 21.5475 41.5754 22.5712 40.8117 23.205L39.4212 24.3587L35.2696 20.9137ZM33.8792 22.0675L23.5 30.68V34.125H27.6517L38.0308 25.5125L33.8792 22.0675Z"
+              fill="#7D7D7D"
+              fill-opacity="0.7"
+            />
+          </svg>
         </div>
         <div className="mt-[20px] flex w-full cursor-pointer items-center gap-7 py-[10px] pl-[40px] text-[16px] font-[600] shadow-banner">
           <span
             className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
-              window.location.pathname == "/recruitment"
+              window.location.pathname == "/viewrecruitment"
                 ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
@@ -94,11 +99,11 @@ const RecruitmentOverall = () => {
           </span>
           <span
             className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
-              window.location.pathname == "/recruitment/company"
+              window.location.pathname == "/viewrecruitment/viewcompany"
                 ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
-            onClick={() => navigate("company")}
+            onClick={() => navigate("viewcompany")}
           >
             TỔNG QUAN CÔNG TY
           </span>
@@ -109,4 +114,4 @@ const RecruitmentOverall = () => {
   );
 };
 
-export default RecruitmentOverall;
+export default ViewRecruitmentOverall;

@@ -47,6 +47,9 @@ const RecruitmentList = (props) => {
   return (
     <div className="h-screen w-full">
       {/* <PopupHr></PopupHr> */}
+
+      <PopupHr></PopupHr>
+
       <HeaderHome></HeaderHome>
       <div className="mx-auto my-[90px] h-full w-[87%] rounded-[10px] border px-[40px] pb-[44px] pt-[30px] shadow-custom">
         <h2 className="mb-[20px] text-xl font-bold not-italic">Thống kê tin</h2>
@@ -235,18 +238,22 @@ const RecruitmentList = (props) => {
                     <span>{selectedOption}</span>
                   </div>
                 </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="13"
-                  height="7"
-                  viewBox="0 0 13 7"
-                  fill="none"
-                >
-                  <path
-                    d="M6.18166 6.60553C5.91803 6.60553 5.65427 6.51338 5.45336 6.32907L0.301847 1.61084C-0.100616 1.24222 -0.100616 0.645072 0.301847 0.276459C0.704309 -0.0921531 1.3563 -0.0921531 1.75876 0.276459L6.18166 4.32898L10.6055 0.277196C11.008 -0.091416 11.66 -0.091416 12.0624 0.277196C12.4649 0.645809 12.4649 1.24296 12.0624 1.61157L6.91092 6.32981C6.70969 6.51412 6.44567 6.60553 6.18166 6.60553Z"
-                    fill="#FE5656"
-                  />
-                </svg>
+              </div>
+              <div className="flex w-[33%] items-center rounded border px-[13px] py-[12px]">
+                <label htmlFor="opening">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13"
+                    height="7"
+                    viewBox="0 0 13 7"
+                    fill="none"
+                  >
+                    <path
+                      d="M6.18166 6.60553C5.91803 6.60553 5.65427 6.51338 5.45336 6.32907L0.301847 1.61084C-0.100616 1.24222 -0.100616 0.645072 0.301847 0.276459C0.704309 -0.0921531 1.3563 -0.0921531 1.75876 0.276459L6.18166 4.32898L10.6055 0.277196C11.008 -0.091416 11.66 -0.091416 12.0624 0.277196C12.4649 0.645809 12.4649 1.24296 12.0624 1.61157L6.91092 6.32981C6.70969 6.51412 6.44567 6.60553 6.18166 6.60553Z"
+                      fill="#FE5656"
+                    />
+                  </svg>
+                </label>
               </div>
               {dropdown.openDropdown && (
                 <div className="absolute right-0 top-[40px] z-[1] mt-1 w-[100%] bg-white px-[10px] pt-[10px] text-left text-[16px] font-[400] shadow-banner">

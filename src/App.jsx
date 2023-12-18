@@ -27,6 +27,7 @@ import CompanyInfor from "./pages/hr/companyhr";
 import RecruitmentDetail from "./pages/recruitment/detail";
 import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
+import PostJob from "./pages/post&editJobs/postJob";
 
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import PopupHr from "./components/PopupHr";
@@ -37,7 +38,14 @@ import PDF from "./pages/pdf/pdf";
 import Recruitment from "./pages/recruitment/detail";
 import AppliedJob from "./pages/apply/appliedjob";
 import NotPermitted from "./components/NotPermitted";
+
 import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
+
+import ViewRecruitmentOverall from "./pages/viewrecruitment/overall";
+import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
+import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
+
+import { RegisterHR } from "./pages/registerhr/overall";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -148,7 +156,11 @@ const App = () => {
         },
       ],
     },
-
+    {
+      path: "/registerhr",
+      element: <RegisterHR />,
+      errorElement: <NotFound />,
+    },
     {
       path: "/recruitmentlist",
       element: <RecruitmentList></RecruitmentList>,
@@ -175,6 +187,11 @@ const App = () => {
     },
 
     {
+      path: "/post-job",
+      element: <PostJob />,
+    },
+
+    {
       path: "/contact",
       element: <ContactOverall />,
       errorElement: <NotFound />,
@@ -196,6 +213,21 @@ const App = () => {
     {
       path: "/403",
       element: <NotPermitted></NotPermitted>,
+    },
+    {
+      path: "/viewrecruitment",
+      element: <ViewRecruitmentOverall />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <ViewRecruitmentDetail />,
+        },
+        {
+          path: "viewcompany",
+          element: <ViewCompanyInfor />,
+        },
+      ],
     },
 
     // {
