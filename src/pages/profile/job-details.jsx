@@ -22,7 +22,7 @@ import {
   doSetMajor,
   doSetPosition,
   doSetSchedule,
-} from "../../redux/basedata/baseDataSlice";
+} from "../../redux/base/baseDataSlice";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 
@@ -30,11 +30,11 @@ const JobDetails = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCV, setShowCV] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedPosition, setSelectedPosition] = useState([]);
-  const [selectedField, setSelectedField] = useState([]);
   const navigate = useNavigate();
   const dataUser = useSelector((state) => state.account.user);
+  console.log("dataUser", dataUser);
   const dispatch = useDispatch();
+  const candidateID = useSelector((state) => state.candidate.id);
   const dataCandidate = useSelector((state) => state.candidate.data);
   const dataMajor = useSelector((state) => state.baseData.data.majors);
   const dataSchedule = useSelector((state) => state.baseData.data.schedules);
@@ -128,19 +128,22 @@ const JobDetails = () => {
   //     })
   //     .catch((error) => console.error("Error fetching data:", error));
   // }, []);
+  console.log(dataUser, "datatUser");
   const onSubmit = async (data) => {
+    console.log(data);
     const userProfileDTO = {
-      userId: dataUser.id,
+      email: dataUser.email,
       firstName: dataUser.firstName,
       lastName: dataUser.lastName,
       phone: dataUser.phone,
       birthDay: dataUser.birthDay,
       gender: dataUser.gender,
-      address: dataUser.address,
+      location: dataUser.location,
       avatar: dataUser.avatar,
     };
 
-    const candidateDTO = {
+    console.log(dataCandidate);
+    const candidateOtherInfoDTO = {
       ...dataCandidate,
       cv: cvFileName,
       referenceLetter: data.referenceLetter,
@@ -153,13 +156,17 @@ const JobDetails = () => {
 
     const candidateProfileDTO = {
       userProfileDTO,
-      candidateDTO,
+      candidateOtherInfoDTO,
     };
 
+    console.log(
+      candidateProfileDTO.candidateOtherInfoDTO,
+      "candidateOtherInfoDTO",
+    );
     setIsSubmitting(true);
     try {
       const res = await callEditProfile(
-        dataUser.id,
+        candidateID,
         candidateProfileDTO,
         data.cv,
       );
@@ -168,8 +175,8 @@ const JobDetails = () => {
       setIsSubmitting(false);
 
       if (res && res?.data) {
-        dispatch(doSetProfileData(res.data.showUserDTO));
-        dispatch(doSetCandidateData(res.data.candidateDTO));
+        dispatch(doSetCandidateData(res.data));
+        dispatch(doSetProfileData(res.data.userDTO));
         setShowPopup(true);
       }
       if (res?.errors) {

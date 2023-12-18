@@ -54,7 +54,7 @@ const HeaderHR = () => {
     }
 
     if (option === "Thông tin cá nhân") {
-      navigate("/profile");
+      navigate("/hr/contact");
     }
   };
 
@@ -63,7 +63,7 @@ const HeaderHR = () => {
       <div className="border-1 flex h-[70px] items-center justify-between border-solid border-[rgb(209,209,209)] shadow-custom ">
         <div className=" flex items-center justify-between gap-5 pl-[26.75px] leading-10">
           <div>
-            <a href="http://">
+            <a className="cursor-pointer" onClick={() => navigate("/hr")}>
               <img src={logo} alt="" />
             </a>
           </div>

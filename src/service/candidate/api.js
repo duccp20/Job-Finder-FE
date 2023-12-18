@@ -21,7 +21,7 @@ export const callEditProfile = (id, candidateProfileDTO, fileCV) => {
   );
   return axios({
     method: "put",
-    url: `/api/v1/candidate/profile/${id}`,
+    url: `/api/v1/candidate/${id}`,
     data: formData,
     headers: {
       "Content-Type": "multipart/form-data",

@@ -64,7 +64,6 @@ const PostJob = (props) => {
 
   return (
     <div>
-      <HeaderHR></HeaderHR>
       <div className="mx-auto my-[30px] w-[90%] px-[20px] py-[20px] shadow-banner">
         <div className="flex items-center justify-center gap-2">
           <span>

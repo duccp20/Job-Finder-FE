@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import pen from "/public/svg/pen.svg";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const JobPersonOverall = () => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
+  console.log("user", user);
   const candidateData = useSelector((state) => state.candidate.data);
+  console.log("candidateData", candidateData);
+
+  useEffect(() => {
+    console.log(candidateData, " candidateData in overall");
+  }, [candidateData]);
+
   const navigate = useNavigate();
   return (
     <div className="flex h-auto w-[60%] flex-col gap-5">
@@ -60,8 +67,8 @@ const JobPersonOverall = () => {
                 <th className="px-[4px] py-[8px]">Địa chỉ </th>
                 <td className="px-[4px] py-[8px]">
                   {" "}
-                  {isAuthenticated && user && user.address
-                    ? user.address
+                  {isAuthenticated && user && user.location
+                    ? user.location
                     : "(chưa có dữ liệu)"}
                 </td>
               </tr>
@@ -92,7 +99,9 @@ const JobPersonOverall = () => {
               <tr className="">
                 <th className="px-[4px] py-[8px]">Công việc mong muốn</th>
                 <td className="px-[4px] py-[8px]">
-                  {candidateData && candidateData?.desiredJob
+                  {candidateData &&
+                  candidateData?.desiredJob &&
+                  candidateData?.desiredJob.length > 0
                     ? candidateData?.desiredJob
                     : "(chưa có dữ liệu)"}
                 </td>
@@ -100,7 +109,9 @@ const JobPersonOverall = () => {
               <tr>
                 <th className="px-[4px] py-[8px]">Vị trí làm việc</th>
                 <td className="px-[4px] py-[8px]">
-                  {candidateData && candidateData?.positionDTOs
+                  {candidateData &&
+                  candidateData?.positionDTOs &&
+                  candidateData?.positionDTOs.length > 0
                     ? candidateData.positionDTOs
                         .map((pos) => pos.name)
                         .join(" / ")
@@ -110,7 +121,9 @@ const JobPersonOverall = () => {
               <tr>
                 <th className="px-[4px] py-[8px]">Chuyên ngành</th>
                 <td className="px-[4px] py-[8px]">
-                  {candidateData && candidateData?.majorDTOs
+                  {candidateData &&
+                  candidateData?.majorDTOs &&
+                  candidateData?.majorDTOs.length > 0
                     ? candidateData.majorDTOs.map((maj) => maj.name).join(" / ")
                     : "(chưa có dữ liệu)"}
                 </td>
@@ -118,7 +131,9 @@ const JobPersonOverall = () => {
               <tr>
                 <th className="px-[4px] py-[8px]">Hình thức làm việc</th>
                 <td className="px-[4px] py-[8px]">
-                  {candidateData && candidateData?.scheduleDTOs
+                  {candidateData &&
+                  candidateData?.scheduleDTOs &&
+                  candidateData?.scheduleDTOs.length > 0
                     ? candidateData.scheduleDTOs
                         .map((schedule) => schedule.name)
                         .join(" / ")

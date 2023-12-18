@@ -13,6 +13,7 @@ import { callLogin } from "../../service/user/api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { doLoginAction } from "../../redux/account/accountSlice";
+import LoginAs from "../../components/LoginAs";
 const schema = yup
   .object({
     email: yup
@@ -29,6 +30,7 @@ const LoginPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showRegisterMethod, setShowRegisterMethod] = useState(false);
   const [showError, setShowError] = useState({
     flag: false,
     type: "",
@@ -59,9 +61,18 @@ const LoginPage = () => {
     if (res.httpCode === 200 && res.message === "Đăng nhập thành công!") {
       localStorage.setItem("access_token", res.accessToken);
       dispatch(doLoginAction(res.data));
-      navigate("/");
+
+      if (res.data.roleDTO.name === "Role_Candidate") {
+        navigate("/");
+      } else if (res.data.roleDTO.name === "Role_HR") {
+        navigate("/hr");
+      } else {
+        navigate("/admin");
+      }
+
       return;
     }
+
     //th1: mat khau hoac email khong hop le
     if (res.message === "DATA INVALID") {
       setShowError({
@@ -78,18 +89,27 @@ const LoginPage = () => {
       });
       return;
     }
+    console.log(res);
     //th3: tai khoan chua active
+    if (res.body.message === "Account Not Active") {
+      setShowError({
+        flag: true,
+        type: "Tài khoản chưa được kích hoạt!",
+      });
+      return;
+    }
     //th4: tai khoan da bi khoa
   };
 
   return (
     <>
-      <div className="w-screen h-screen flex">
+      {showRegisterMethod && <LoginAs></LoginAs>}
+      <div className="flex h-screen w-screen">
         <form
-          className="w-[55%] flex flex-col px-36 py-10"
+          className="flex w-[55%] flex-col px-36 py-10"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="flex justify-center items-center p-10">
+          <div className="flex items-center justify-center p-10">
             <img src={logo} alt="" />
           </div>
           <h1 className="text-center text-[36px] font-bold uppercase">
@@ -98,14 +118,14 @@ const LoginPage = () => {
 
           <div className="flex flex-col gap-[25px]">
             {showError.flag && (
-              <p className=" text-red-600 bg-[#fff6f5] p-2 mt-10">
+              <p className=" mt-10 bg-[#fff6f5] p-2 text-red-600">
                 {showError.type}
               </p>
             )}
             <div>
               <label
                 htmlFor="email"
-                className="font-bold text-[20px] text=[#1C1C1C] leading-normal"
+                className="text=[#1C1C1C] text-[20px] font-bold leading-normal"
               >
                 Email
               </label>
@@ -119,12 +139,12 @@ const LoginPage = () => {
               />
               {errors?.email && (
                 <div className="relative">
-                  <div className="flex items-center absolute">
+                  <div className="absolute flex items-center">
                     <span className="pt-1.5 ">
                       <IconError />
                     </span>
 
-                    <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                       {errors.email?.message}
                     </p>
                   </div>
@@ -134,7 +154,7 @@ const LoginPage = () => {
             <div>
               <label
                 htmlFor="pass"
-                className="font-bold text-[20px] text=[#1C1C1C] leading-normal"
+                className="text=[#1C1C1C] text-[20px] font-bold leading-normal"
               >
                 Mật khẩu
               </label>
@@ -149,7 +169,7 @@ const LoginPage = () => {
                   }
                 />
                 <span
-                  className="absolute top-[50%] -translate-y-1/2 right-0 flex items-center cursor-pointer pr-2"
+                  className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
                   onClick={togglePasswordVisibility}
                 >
                   <svg
@@ -158,7 +178,7 @@ const LoginPage = () => {
                     height="20"
                     viewBox="0 0 22 20"
                     fill="none"
-                    className="w-6 h-6"
+                    className="h-6 w-6"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -178,26 +198,26 @@ const LoginPage = () => {
 
               {errors?.password && (
                 <div className="relative">
-                  <div className="flex items-center absolute">
+                  <div className="absolute flex items-center">
                     <span className="pt-1.5 ">
                       <IconError />
                     </span>
 
-                    <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                    <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                       {errors.password?.message}
                     </p>
                   </div>
                 </div>
               )}
             </div>
-            <span className="text-right text-[#3B6EF2] text-[#15px] underline">
+            <span className="text-right text-[#15px] text-[#3B6EF2] underline">
               <a href="/forgot-password">Quên mật khẩu?</a>
             </span>
           </div>
 
           <div className="mt-6 flex justify-center">
             <button
-              className={`shadow-md text-center text-white rounded-[16px] px-[32px] py-[16px] ${
+              className={`rounded-[16px] px-[32px] py-[16px] text-center text-white shadow-md ${
                 isSubmitting ? "bg-gray-500" : "bg-gradientCustom"
               }`}
               type="submit"
@@ -207,22 +227,22 @@ const LoginPage = () => {
             </button>
           </div>
           <div className="mb-6">
-            <div className="flex justify-center items-center my-6">
-              <div className=" bg-[#F0EDFF] w-40 h-[2px]"></div>
-              <span className="font-bold p-2 text-[#D9D9D9] ">
+            <div className="my-6 flex items-center justify-center">
+              <div className=" h-[2px] w-40 bg-[#F0EDFF]"></div>
+              <span className="p-2 font-bold text-[#D9D9D9] ">
                 Đăng nhập bằng
               </span>
-              <div className="w-40 h-[2px] bg-[#F0EDFF]"></div>
+              <div className="h-[2px] w-40 bg-[#F0EDFF]"></div>
             </div>
             <div className="flex items-center justify-center gap-12">
               <div>
                 <a href="">
-                  <img src={google} alt="" className="w-[50px] h-[50px]" />
+                  <img src={google} alt="" className="h-[50px] w-[50px]" />
                 </a>
               </div>
               <div>
                 <a href="">
-                  <img src={facebook} alt="" className="w-[53px] h-[53px]" />
+                  <img src={facebook} alt="" className="h-[53px] w-[53px]" />
                 </a>
               </div>
             </div>
@@ -232,7 +252,7 @@ const LoginPage = () => {
             Chưa có tài khoản?{" "}
             <span>
               <a
-                href="/register"
+                onClick={() => setShowRegisterMethod(true)}
                 className="text-[16px] font-bold text-[#FE5656]"
               >
                 {" "}
@@ -241,12 +261,12 @@ const LoginPage = () => {
             </span>
           </h6>
         </form>
-        <div className="w-[45%] h-full relative">
+        <div className="relative h-full w-[45%]">
           <img src={rec} alt="" className=" h-full w-full" />
           <img
             src={ava}
             alt=""
-            className="absolute w-full top-1/2 -translate-y-1/2 p-32"
+            className="absolute top-1/2 w-full -translate-y-1/2 p-32"
           />
         </div>
       </div>

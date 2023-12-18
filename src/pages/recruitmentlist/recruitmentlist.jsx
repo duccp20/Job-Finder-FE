@@ -3,6 +3,8 @@ import HeaderHome from "../../components/HeaderHome";
 import Pagination from "../../components/Pagination";
 import useDataFetcher from "../../components/Pagination/useDataFetcher";
 import PopupHr from "../../components/PopupHr";
+import HeaderHR from "../../components/HeaderHR/headerHr";
+import { useNavigate } from "react-router-dom";
 
 const RecruitmentList = (props) => {
   const { loading, pages, totalPages, currentPage, setCurrentPage } =
@@ -44,13 +46,11 @@ const RecruitmentList = (props) => {
     };
   }, [dropdownRef]);
 
+  const navigate = useNavigate();
+
   return (
     <div className="h-screen w-full">
       {/* <PopupHr></PopupHr> */}
-
-      <PopupHr></PopupHr>
-
-      <HeaderHome></HeaderHome>
       <div className="mx-auto my-[90px] h-full w-[87%] rounded-[10px] border px-[40px] pb-[44px] pt-[30px] shadow-custom">
         <h2 className="mb-[20px] text-xl font-bold not-italic">Thống kê tin</h2>
         <div className="flex justify-between">
@@ -93,7 +93,10 @@ const RecruitmentList = (props) => {
                 fill="white"
               />
             </svg>
-            <span className="text-base font-bold not-italic text-white ">
+            <span
+              className="cursor-pointer text-base font-bold not-italic text-white"
+              onClick={() => navigate("/hr/job/create")}
+            >
               Đăng tin tuyển dụng mới
             </span>
           </div>

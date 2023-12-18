@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  id: "",
   data: {
     university: "",
     referenceLetter: "",
@@ -18,14 +19,13 @@ export const candidateSlice = createSlice({
   initialState,
   reducers: {
     doFetchCandidate: (state, action) => {
-      state.data = action.payload;
+      state.id = action.payload.id;
+      state.data = action.payload.candidateOtherInfoDTO;
     },
 
     doSetCandidateData: (state, action) => {
-      state.data = {
-        ...state.data,
-        ...action.payload,
-      };
+      state.id = action.payload.id;
+      state.data = action.payload.candidateOtherInfoDTO;
     },
   },
 });

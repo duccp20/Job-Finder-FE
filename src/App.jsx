@@ -15,7 +15,10 @@ import NewPassword from "./pages/newpass/newpass";
 import Loading from "./components/Loading";
 import { callFetchUserProfile } from "./service/user/api";
 import { useDispatch, useSelector } from "react-redux";
-import { doFetchAccountAction } from "./redux/account/accountSlice";
+import {
+  doFetchAccountAction,
+  doLogoutAction,
+} from "./redux/account/accountSlice";
 import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
@@ -44,7 +47,7 @@ import {
   doSetMajor,
   doSetPosition,
   doSetSchedule,
-} from "./redux/basedata/baseDataSlice";
+} from "./redux/base/baseDataSlice";
 import { getAllPosition } from "./service/position/api";
 import { getAllSchedule } from "./service/schedule/api";
 import MultiSelectDropdown from "./components/MultilSelectTag";
@@ -55,6 +58,8 @@ import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
+import LayoutHr from "./components/Layout/layoutHr";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -73,6 +78,8 @@ const App = () => {
 
     if (res && res?.data) {
       dispatch(doFetchAccountAction(res.data));
+    } else {
+      dispatch(doLogoutAction(false));
     }
 
     const resCan = await callFetchCandidateByUserId(res.data.id);
@@ -126,18 +133,141 @@ const App = () => {
 
   const router = createBrowserRouter([
     {
-      path: "/mu",
-      element: <MultiSelectDropdown />,
-    },
-    {
       path: "/",
       element: <Layout />,
       errorElement: <NotFound />,
       children: [
         {
           index: true,
-          element: <HomePage />,
+          element: (
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          ),
         },
+        {
+          path: "profile",
+          element: (
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          ),
+          errorElement: <NotFound />,
+          children: [
+            {
+              index: true,
+              element: (
+                <ProtectedRoute>
+                  <JobPersonOverall />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "personal",
+              element: (
+                <ProtectedRoute>
+                  <PersonalDetails />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "job",
+              element: (
+                <ProtectedRoute>
+                  <JobDetails />
+                </ProtectedRoute>
+              ),
+            },
+          ],
+        },
+        {
+          path: "/recruitment",
+          element: <RecruitmentOverall />,
+          errorElement: <NotFound />,
+          children: [
+            {
+              index: true,
+              element: <RecruitmentDetail />,
+            },
+            {
+              path: "company",
+              element: <CompanyInformation />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: "/hr",
+      element: <LayoutHr />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ProtectedRoute>
+              <RecruitmentList />
+            </ProtectedRoute>
+          ),
+          errorElement: <NotFound />,
+        },
+        {
+          path: "contact",
+          element: (
+            <ProtectedRoute>
+              <ContactOverall />
+            </ProtectedRoute>
+          ),
+          errorElement: <NotFound />,
+          children: [
+            {
+              index: true,
+              element: (
+                <ProtectedRoute>
+                  <ContactInfor />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "company",
+              element: (
+                <ProtectedRoute>
+                  <CompanyInfor />
+                </ProtectedRoute>
+              ),
+            },
+          ],
+        },
+        {
+          path: "job/create",
+          element: (
+            <ProtectedRoute>
+              <PostJob />
+            </ProtectedRoute>
+          ),
+        },
+        // {
+        //   path: "recruitment",
+        //   element: <RecruitmentOverall />,
+        //   errorElement: <NotFound />,
+        //   children: [
+        //     {
+        //       index: true,
+        //       element: (
+        //         <ProtectedRoute>
+        //           <RecruitmentDetail />
+        //         </ProtectedRoute>
+        //       ),
+        //     },
+        //     {
+        //       path: "company",
+        //       element: (
+        //         <ProtectedRoute>
+        //           <CompanyInformation />,
+        //         </ProtectedRoute>
+        //       ),
+        //     },
+        //   ],
+        // },
       ],
     },
     {
@@ -145,8 +275,12 @@ const App = () => {
       element: <LoginPage />,
     },
     {
-      path: "/register",
+      path: "/register/candidate",
       element: <RegisterCandidate />,
+    },
+    {
+      path: "/register/recruiter",
+      element: <RegisterHR />,
     },
     {
       path: "/verify-email",
@@ -168,40 +302,7 @@ const App = () => {
       path: "/reset-password",
       element: <NewPassword />,
     },
-    {
-      path: "/profile",
-      element: <Profile />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          index: true,
-          element: <JobPersonOverall />,
-        },
-        {
-          path: "personal",
-          element: <PersonalDetails />,
-        },
-        {
-          path: "job",
-          element: <JobDetails />,
-        },
-      ],
-    },
-    {
-      path: "/recruitment",
-      element: <RecruitmentOverall />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          index: true,
-          element: <RecruitmentDetail />,
-        },
-        {
-          path: "company",
-          element: <CompanyInformation />,
-        },
-      ],
-    },
+
     {
       path: "/registerhr",
       element: <RegisterHR />,

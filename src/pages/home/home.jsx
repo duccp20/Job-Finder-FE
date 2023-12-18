@@ -11,12 +11,16 @@ import Checkbox from "../../components/Checkbox/checkbox";
 import Skeleton from "../../components/SkeletonLoader/skeleton";
 import { useSelector } from "react-redux";
 import ProvincesDropdown from "../../components/DropdownProvince";
+import { doSetRoleGuest } from "../../redux/account/accountSlice";
 
 const HomePage = () => {
   const [major, setMajor] = useState([]);
   const [location, setLocation] = useState([]);
   const [checkboxes, setCheckboxes] = useState([]);
   const data = useSelector((state) => state.baseData.data);
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+
+  if (!isAuthenticated) doSetRoleGuest({ name: "Role_Guest", id: 0 });
 
   console.log(data);
 
