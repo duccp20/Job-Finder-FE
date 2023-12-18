@@ -1,16 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import HeaderHome from "../../components/HeaderHome";
-import Pagination from "../../components/Pagination";
-import useDataFetcher from "../../components/Pagination/useDataFetcher";
-import PopupHr from "../../components/PopupHr";
-import HeaderHR from "../../components/HeaderHR/headerHr";
 import { useNavigate } from "react-router-dom";
+import useDataFetcher from "../../components/Pagination/useDataFetcher";
 
-const RecruitmentList = (props) => {
+const OverallHr = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const { loading, pages, totalPages, currentPage, setCurrentPage } =
     useDataFetcher();
-  const [isOpen, setIsOpen] = useState(false);
-
   const buttonState = () => {
     setIsOpen(!isOpen);
   };
@@ -46,40 +42,13 @@ const RecruitmentList = (props) => {
     };
   }, [dropdownRef]);
 
-  const navigate = useNavigate();
-
   return (
-    <div className="h-screen w-full">
-      {/* <PopupHr></PopupHr> */}
+    <div>
       <div className="mx-auto my-[90px] h-full w-[87%] rounded-[10px] border px-[40px] pb-[44px] pt-[30px] shadow-custom">
-        <h2 className="mb-[20px] text-xl font-bold not-italic">Thống kê tin</h2>
-        <div className="flex justify-between">
-          <div className="mb-[20px]  flex w-[59%]">
-            <div className="mr-[24px] w-[30%] bg-[#F1F1F1] p-[20px] ">
-              <p className="text-2xl font-bold not-italic text-[#FE5656]">
-                {/* {props.total}  */} 30
-              </p>
-              <p className="text-base font-normal not-italic text-black">
-                Tổng số tin đăng
-              </p>
-            </div>
-            <div className="mr-[24px] w-[30%] bg-[#F1F1F1] p-[20px]">
-              <p className="text-2xl font-bold not-italic text-[#FE5656]">
-                {/* {props.open}  */} 3
-              </p>
-              <p className="text-base font-normal not-italic text-black">
-                Tin đang mở
-              </p>
-            </div>
-            <div className="mr-[24px] w-[30%] bg-[#F1F1F1] p-[20px]">
-              <p className="text-2xl font-bold not-italic text-[#FE5656]">
-                {/* {props.closed}  */} 27
-              </p>
-              <p className="text-base font-normal not-italic text-black">
-                Tin đã đóng
-              </p>
-            </div>
-          </div>
+        <div className="mb-[36px] flex justify-between">
+          <h2 className="mb-[12px] text-xl font-bold not-italic">
+            Danh sách tin tuyển dụng
+          </h2>
           <div className="flex  h-[45px] items-center gap-[15px] bg-[#FE5656] px-[20px] ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +63,7 @@ const RecruitmentList = (props) => {
               />
             </svg>
             <span
-              className="cursor-pointer text-base font-bold not-italic text-white"
+              className="cursor-pointer text-base font-bold not-italic text-white "
               onClick={() => navigate("/hr/job/create")}
             >
               Đăng tin tuyển dụng mới
@@ -102,9 +71,6 @@ const RecruitmentList = (props) => {
           </div>
         </div>
 
-        <h2 className="mb-[12px] text-xl font-bold not-italic">
-          Danh sách tin tuyển dụng
-        </h2>
         <div className="mb-[30px] flex w-full justify-between gap-[13px] ">
           <div className="flex w-[40%] items-center rounded border px-[13px] py-[12px]">
             <label htmlFor="find">
@@ -180,8 +146,8 @@ const RecruitmentList = (props) => {
               <label htmlFor="deadline">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="22"
+                  width="15"
+                  height="19"
                   viewBox="0 0 20 22"
                   fill="none"
                   className="mr-[10px]"
@@ -241,22 +207,18 @@ const RecruitmentList = (props) => {
                     <span>{selectedOption}</span>
                   </div>
                 </div>
-              </div>
-              <div className="flex w-[33%] items-center rounded border px-[13px] py-[12px]">
-                <label htmlFor="opening">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13"
-                    height="7"
-                    viewBox="0 0 13 7"
-                    fill="none"
-                  >
-                    <path
-                      d="M6.18166 6.60553C5.91803 6.60553 5.65427 6.51338 5.45336 6.32907L0.301847 1.61084C-0.100616 1.24222 -0.100616 0.645072 0.301847 0.276459C0.704309 -0.0921531 1.3563 -0.0921531 1.75876 0.276459L6.18166 4.32898L10.6055 0.277196C11.008 -0.091416 11.66 -0.091416 12.0624 0.277196C12.4649 0.645809 12.4649 1.24296 12.0624 1.61157L6.91092 6.32981C6.70969 6.51412 6.44567 6.60553 6.18166 6.60553Z"
-                      fill="#FE5656"
-                    />
-                  </svg>
-                </label>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="7"
+                  viewBox="0 0 13 7"
+                  fill="none"
+                >
+                  <path
+                    d="M6.18166 6.60553C5.91803 6.60553 5.65427 6.51338 5.45336 6.32907L0.301847 1.61084C-0.100616 1.24222 -0.100616 0.645072 0.301847 0.276459C0.704309 -0.0921531 1.3563 -0.0921531 1.75876 0.276459L6.18166 4.32898L10.6055 0.277196C11.008 -0.091416 11.66 -0.091416 12.0624 0.277196C12.4649 0.645809 12.4649 1.24296 12.0624 1.61157L6.91092 6.32981C6.70969 6.51412 6.44567 6.60553 6.18166 6.60553Z"
+                    fill="#FE5656"
+                  />
+                </svg>
               </div>
               {dropdown.openDropdown && (
                 <div className="absolute right-0 top-[40px] z-[1] mt-1 w-[100%] bg-white px-[10px] pt-[10px] text-left text-[16px] font-[400] shadow-banner">
@@ -489,7 +451,6 @@ const RecruitmentList = (props) => {
             </tbody>
           </table>
         </div>
-
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
@@ -500,4 +461,4 @@ const RecruitmentList = (props) => {
   );
 };
 
-export default RecruitmentList;
+export default OverallHr;

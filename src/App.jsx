@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   doFetchAccountAction,
   doLogoutAction,
+  doSetRoleGuest,
 } from "./redux/account/accountSlice";
 import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
@@ -32,7 +33,7 @@ import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
 import PostJob from "./pages/post&editJobs/postJob";
 
-import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
+import RecruitmentList from "./pages/recruitmentlist/news";
 import PopupHr from "./components/PopupHr";
 
 import { callFetchCandidateByUserId } from "./service/candidate/api";
@@ -52,7 +53,6 @@ import { getAllPosition } from "./service/position/api";
 import { getAllSchedule } from "./service/schedule/api";
 import MultiSelectDropdown from "./components/MultilSelectTag";
 
-import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
 import ViewRecruitmentOverall from "./pages/viewrecruitment/overall";
 import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
@@ -61,14 +61,17 @@ import { RegisterHR } from "./pages/registerhr/overall";
 
 import LayoutHr from "./components/Layout/layoutHr";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
 import HeaderAdmin from "./components/HeaderAdmin";
 import MenuAdmin from "./components/MenuAdmin/menuAdmin";
 
+import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
   const user = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
+
   const fetchAccount = async () => {
     if (
       window.location.pathname === "/register" ||
@@ -90,8 +93,6 @@ const App = () => {
     if (resCan && resCan?.data) {
       console.log(resCan.data);
       dispatch(doFetchCandidate(resCan.data));
-    } else {
-      console.log(resCan?.message);
     }
 
     if (res && res?.errors) {
@@ -144,9 +145,9 @@ const App = () => {
         {
           index: true,
           element: (
-            <ProtectedRoute>
+            <RoleBasedHome>
               <HomePage />
-            </ProtectedRoute>
+            </RoleBasedHome>
           ),
         },
         {
@@ -209,10 +210,18 @@ const App = () => {
           index: true,
           element: (
             <ProtectedRoute>
-              <RecruitmentList />
+              <HomeHr></HomeHr>
             </ProtectedRoute>
           ),
           errorElement: <NotFound />,
+        },
+        {
+          path: "news",
+          element: (
+            <ProtectedRoute>
+              <NewsHr></NewsHr>
+            </ProtectedRoute>
+          ),
         },
         {
           path: "contact",
@@ -275,6 +284,10 @@ const App = () => {
       ],
     },
     {
+      path: "/1",
+      element: <OverallHr></OverallHr>,
+    },
+    {
       path: "/login",
       element: <LoginPage />,
     },
@@ -316,10 +329,7 @@ const App = () => {
       path: "/recruitmentlist",
       element: <RecruitmentList></RecruitmentList>,
     },
-    {
-      path: "/recruitmentlistopen",
-      element: <RecruitmentListOpen></RecruitmentListOpen>,
-    },
+
     {
       path: "/upload",
       element: <Uploader></Uploader>,
@@ -412,7 +422,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {/* {!isLoading ||
+      {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
@@ -422,10 +432,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )} */}
+      )}
 
       {/* Chưa có api */}
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
     </>
   );
 };

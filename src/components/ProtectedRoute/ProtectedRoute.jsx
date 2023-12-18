@@ -34,11 +34,8 @@ const ProtectedRoute = ({ children }) => {
       {isAuthenticated ? (
         <RoleBasedRoute>{children}</RoleBasedRoute>
       ) : (
-        alert("éo có quyền")
+        <Navigate to="/login" />
       )}
-      {/* ({
-          <Navigate to="/login" /> 
-        }) */}
     </>
   );
 };

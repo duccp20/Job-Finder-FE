@@ -10,7 +10,10 @@ const initialState = {
     lastName: "",
     gender: "",
     birthDay: "",
-    RoleDTO: {},
+    roleDTO: {
+      name: null,
+      id: "",
+    },
     avatar: "",
     id: "",
     location: "",
