@@ -232,7 +232,7 @@ const HomePage = () => {
                       <JobItem key={page.id} {...page}></JobItem>
                     ))
                   ) : (
-                    <p>Không có dữ liệu :{"("}</p>
+                    <p className="text-center">Không có dữ liệu :{"("}</p>
                   )}
                 </div>
                 <Pagination
