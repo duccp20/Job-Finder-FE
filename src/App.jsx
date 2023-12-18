@@ -46,6 +46,9 @@ import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
+
+import ViewJobList from "./pages/viewjoblist/viewJobList";
+
 import HeaderAdmin from "./components/HeaderAdmin";
 import MenuAdmin from "./components/MenuAdmin/menuAdmin";
 
@@ -170,6 +173,10 @@ const App = () => {
     {
       path: "/recruitmentlistopen",
       element: <RecruitmentListOpen></RecruitmentListOpen>,
+    },
+    {
+      path: "/viewjoblist",
+      element: <ViewJobList></ViewJobList>,
     },
     {
       path: "/upload",
