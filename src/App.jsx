@@ -38,6 +38,9 @@ import PDF from "./pages/pdf/pdf";
 import Recruitment from "./pages/recruitment/detail";
 import AppliedJob from "./pages/apply/appliedjob";
 import NotPermitted from "./components/NotPermitted";
+
+import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
+
 import ViewRecruitmentOverall from "./pages/viewrecruitment/overall";
 import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
@@ -161,6 +164,10 @@ const App = () => {
     {
       path: "/recruitmentlist",
       element: <RecruitmentList></RecruitmentList>,
+    },
+    {
+      path: "/recruitmentlistopen",
+      element: <RecruitmentListOpen></RecruitmentListOpen>,
     },
     {
       path: "/upload",
