@@ -37,7 +37,7 @@ import PDF from "./pages/pdf/pdf";
 import Recruitment from "./pages/recruitment/detail";
 import AppliedJob from "./pages/apply/appliedjob";
 import NotPermitted from "./components/NotPermitted";
-
+import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -152,6 +152,10 @@ const App = () => {
     {
       path: "/recruitmentlist",
       element: <RecruitmentList></RecruitmentList>,
+    },
+    {
+      path: "/recruitmentlistopen",
+      element: <RecruitmentListOpen></RecruitmentListOpen>,
     },
     {
       path: "/upload",
