@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import HeaderAdmin from "../HeaderAdmin";
 import arrowUp from "/svg/arrow-up.svg";
 import arrowDown from "/svg/arrow-down.svg";
+import HeaderAdmin from "../../components/HeaderAdmin";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const MenuAdmin = () => {
+  const navigate = useNavigate();
+
   const [dropdown, setDropdown] = useState({
     accountDropdown: false,
     postDropdown: false,
@@ -15,6 +18,7 @@ const MenuAdmin = () => {
     "Ứng viên",
   ];
   const postOptions = ["Tin tuyển dụng", "Đợt thực tập", "Hồ sơ ứng viên"];
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const handleDropdown = (nameDropdown) => {
     setDropdown((prev) => ({
@@ -23,11 +27,46 @@ const MenuAdmin = () => {
     }));
   };
 
+  const selectOption = (option) => {
+    setSelectedOption(option);
+    setDropdown(false);
+
+    if (option === "Admin") {
+      navigate("/");
+    }
+    if (option === "Nhà tuyển dụng") {
+      navigate("/");
+    }
+
+    if (option === "Cộng tác viên") {
+      navigate("/");
+    }
+
+    if (option === "Ứng viên") {
+      navigate("/");
+    }
+
+    if (option === "Tin tuyển dụng") {
+      navigate("/");
+    }
+
+    if (option === "Đợt thực tập") {
+      navigate("/");
+    }
+
+    if (option === "Hồ sơ ứng viên") {
+      navigate("/");
+    }
+  };
+
   return (
     <div>
       <HeaderAdmin></HeaderAdmin>
       <div className="mt-[90px] flex h-screen w-[17%] flex-col shadow-banner">
-        <div className="mt-[10px] flex cursor-pointer items-center gap-2 py-[12px] pl-[22px] hover:bg-[#FE5656] hover:text-white">
+        <div
+          className="mt-[10px] flex cursor-pointer items-center gap-2 py-[12px] pl-[22px] hover:bg-[#FE5656] hover:text-white"
+          onClick={() => navigate("/")}
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +204,10 @@ const MenuAdmin = () => {
             ))}
           </div>
         )}
-        <div className="flex cursor-pointer items-center gap-2 px-[20px] py-[12px] hover:bg-[#FE5656] hover:text-white">
+        <div
+          className="flex cursor-pointer items-center gap-2 px-[20px] py-[12px] hover:bg-[#FE5656] hover:text-white"
+          onClick={() => navigate("/")}
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -184,6 +226,7 @@ const MenuAdmin = () => {
           <p className="text-[16px] font-bold">Công ty</p>
         </div>
       </div>
+      <Outlet></Outlet>
     </div>
   );
 };
