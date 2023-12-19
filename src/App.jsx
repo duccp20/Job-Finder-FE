@@ -46,15 +46,8 @@ import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
-<<<<<<< Updated upstream
-
 import ViewJobList from "./pages/viewjoblist/viewJobList";
-
-import HeaderAdmin from "./components/HeaderAdmin";
-import MenuAdmin from "./components/MenuAdmin/menuAdmin";
-=======
 import MenuAdmin from "./pages/admin/overall";
->>>>>>> Stashed changes
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
