@@ -58,10 +58,10 @@ const SideBar = () => {
     }
   };
   return (
-    <div className=" flex h-auto w-[15%] flex-col shadow-banner">
+    <div className=" flex h-auto w-[15%] flex-col bg-white">
       <div
         className="mt-[10px] flex cursor-pointer items-center gap-2 py-[12px] pl-[22px] hover:bg-[#FE5656] hover:text-white"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/admin")}
       >
         <span>
           <svg
