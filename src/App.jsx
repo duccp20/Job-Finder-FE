@@ -48,6 +48,7 @@ import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 import { RegisterHR } from "./pages/registerhr/overall";
 import ViewJobList from "./pages/viewjoblist/viewJobList";
 import MenuAdmin from "./pages/admin/overall";
+import DashBoard from "./pages/admin/dashboard";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -223,6 +224,17 @@ const App = () => {
     {
       path: "/admin",
       element: <MenuAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <DashBoard />,
+        },
+        // {
+        //   path: "",
+        //   element: </>,
+        // },
+      ],
     },
     {
       path: "/viewrecruitment",
