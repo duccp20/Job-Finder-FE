@@ -49,6 +49,7 @@ import { RegisterHR } from "./pages/registerhr/overall";
 import ViewJobList from "./pages/viewjoblist/viewJobList";
 import MenuAdmin from "./pages/admin/overall";
 import DashBoard from "./pages/admin/dashboard";
+import ChangeAdminPassword from "./pages/changeadminpassword/changeadminpassword";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -250,6 +251,10 @@ const App = () => {
           element: <ViewCompanyInfor />,
         },
       ],
+    },
+    {
+      path: "/change-admin-password",
+      element: <ChangeAdminPassword />,
     },
 
     // {
