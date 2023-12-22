@@ -82,7 +82,7 @@ export const ForgetPass = () => {
         </div>
 
         <form
-          className="in-md:w-3/5 absolute left-1/2 top-1/2 mx-auto my-0 h-auto w-2/5 -translate-x-1/2 -translate-y-1/2 transform rounded-[46px] bg-white px-9 py-11 shadow-2xl  shadow-black sm:w-4/5 "
+          className="tablet-range:w-3/5 absolute left-1/2 top-1/2 mx-auto my-0 h-auto w-2/5 -translate-x-1/2 -translate-y-1/2 transform rounded-[46px] bg-white px-9 py-11 shadow-2xl  shadow-black sm:w-4/5 "
           onSubmit={handleSubmit(onSubmit)}
         >
           <h3 className="mb-4 text-center font-sans text-3xl font-extrabold uppercase not-italic text-black">

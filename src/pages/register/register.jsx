@@ -126,8 +126,8 @@ export const RegisterCandidate = () => {
         <div className="lg:hidden">
           <Header></Header>
         </div>
-        <div className=" my-[110px] flex justify-center  md:my-0">
-          <div className="flex h-full w-[75%] justify-center rounded-xl border-2 shadow-lg md:w-full ">
+        <div className=" my-[110px] flex justify-center  sm:my-0">
+          <div className="flex h-full w-[75%] justify-center rounded-xl border-2 shadow-lg sm:w-full ">
             <div className=" relative w-[40%] md:hidden">
               {/* cam lè */}
               <img src={rec} alt="" className="h-full rounded-l-lg  " />
@@ -139,7 +139,7 @@ export const RegisterCandidate = () => {
               />
             </div>
             <form
-              className="w-[60%] rounded-r-lg p-[53px]   lg:w-full"
+              className="w-[60%] rounded-r-lg p-[53px]   sm:pt-2 md:w-full "
               onSubmit={handleSubmit(onSubmit)}
             >
               <h1 className="my-8 text-center text-[28px] font-extrabold uppercase text-[#FE5656]">
@@ -170,8 +170,8 @@ export const RegisterCandidate = () => {
                   Tài khoản đã tồn tại!
                 </p>
               )}
-              <div className="mt-6 flex w-full gap-4 md:flex-col">
-                <div className=" flex w-[50%] flex-col md:w-full">
+              <div className="mt-6 flex w-full gap-4 sm:flex-col">
+                <div className=" flex w-[50%] flex-col sm:w-full">
                   <label htmlFor="sub-name" className="pb-1 font-bold">
                     Họ và tên lót <span className="text-red-600">*</span>
                   </label>
@@ -204,7 +204,7 @@ export const RegisterCandidate = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex w-[50%]  flex-col md:w-full md:pt-5">
+                <div className="flex w-[50%]  flex-col sm:w-full sm:pt-5">
                   <label htmlFor="name" className="pb-1 font-bold">
                     Tên <span className="text-red-700">*</span>
                   </label>
@@ -275,8 +275,8 @@ export const RegisterCandidate = () => {
                 )}
               </div>
 
-              <div className=" mt-10 flex w-full gap-4 md:flex-col">
-                <div className="flex w-[50%] flex-col  md:w-full">
+              <div className=" mt-10 flex w-full gap-4 sm:flex-col">
+                <div className="flex w-[50%] flex-col  sm:w-full">
                   <label htmlFor="passWord" className="pb-1 font-bold">
                     Mật khẩu <span className="text-red-600">*</span>
                   </label>
@@ -333,7 +333,7 @@ export const RegisterCandidate = () => {
                   )}
                 </div>
 
-                <div className=" relative flex w-[50%] flex-col md:w-full">
+                <div className=" relative flex w-[50%] flex-col sm:w-full">
                   <label htmlFor="confirmPassword" className="pb-1 font-bold">
                     Xác nhận mật khẩu <span className="text-red-700">*</span>
                   </label>
@@ -400,7 +400,7 @@ export const RegisterCandidate = () => {
                 </div>
               )}
 
-              <div className="mt-10 flex w-[100%] flex-col md:mt-12">
+              <div className="mt-10 flex w-[100%] flex-col sm:mt-12">
                 <label htmlFor="confirmPassword" className="pb-1 font-bold">
                   Số điện thoại <span className="text-red-700">*</span>
                 </label>
@@ -434,7 +434,7 @@ export const RegisterCandidate = () => {
                 )}
               </div>
 
-              <p className="mt-10  text-[13px] font-normal leading-normal md:mt-12">
+              <p className="mt-10  text-[13px] font-normal leading-normal sm:mt-12">
                 Bằng việc ấn vào nút “Đăng ký”, tôi đồng ý với
                 <span className="text-red-600"> Thỏa thuận sử dụng </span>
                 và <span className="text-red-600"> Quy định bảo mật</span> của
@@ -453,7 +453,7 @@ export const RegisterCandidate = () => {
               </div>
               <p className="mt-6 text-center font-normal">
                 Bạn đã có tài khoản?{" "}
-                <span className=" font-extrabold text-[#FE5656] md:inline-block md:pt-2">
+                <span className=" font-extrabold text-[#FE5656] sm:inline-block sm:pt-2">
                   <a href="/login">Trở về đăng nhập</a>
                 </span>
               </p>
