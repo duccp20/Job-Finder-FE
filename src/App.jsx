@@ -59,11 +59,15 @@ import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
 
+
 import LayoutHr from "./components/Layout/layoutHr";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import HeaderAdmin from "./components/HeaderAdmin";
 import MenuAdmin from "./components/MenuAdmin/menuAdmin";
+import ViewJobList from "./pages/viewjoblist/viewJobList";
+import MenuAdmin from "./pages/admin/overall";
+
 
 import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 
@@ -331,6 +335,10 @@ const App = () => {
     },
 
     {
+      path: "/viewjoblist",
+      element: <ViewJobList></ViewJobList>,
+    },
+    {
       path: "/upload",
       element: <Uploader></Uploader>,
     },
@@ -376,7 +384,7 @@ const App = () => {
       element: <NotPermitted></NotPermitted>,
     },
     {
-      path: "/header-admin",
+      path: "/admin",
       element: <MenuAdmin />,
     },
     {

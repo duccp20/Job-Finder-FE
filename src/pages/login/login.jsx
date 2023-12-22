@@ -104,28 +104,28 @@ const LoginPage = () => {
   return (
     <>
       {showRegisterMethod && <LoginAs></LoginAs>}
-      <div className="flex h-screen w-screen">
+      <div className="flex h-screen w-screen ">
         <form
-          className="flex w-[55%] flex-col px-36 py-10"
+          className="flex w-[55%] flex-col px-36 py-10 sm:py-10 md:px-3 lg:w-full in-md:pt-40 "
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="flex items-center justify-center p-10">
+          <div className=" flex items-center justify-center p-10 md:pt-0 ">
             <img src={logo} alt="" />
           </div>
-          <h1 className="text-center text-[36px] font-bold uppercase">
+          <h1 className="text-center text-[36px] font-bold uppercase ">
             Đăng nhập
           </h1>
 
-          <div className="flex flex-col gap-[25px]">
+          <div className="flex flex-col gap-[25px] md:mt-5">
             {showError.flag && (
               <p className=" mt-10 bg-[#fff6f5] p-2 text-red-600">
                 {showError.type}
               </p>
             )}
-            <div>
+            <div className="md:px-10 ">
               <label
                 htmlFor="email"
-                className="text=[#1C1C1C] text-[20px] font-bold leading-normal"
+                className="text-[20px] font-bold leading-normal text-[#1C1C1C] "
               >
                 Email
               </label>
@@ -151,10 +151,10 @@ const LoginPage = () => {
                 </div>
               )}
             </div>
-            <div>
+            <div className="md:px-10">
               <label
                 htmlFor="pass"
-                className="text=[#1C1C1C] text-[20px] font-bold leading-normal"
+                className="text-[20px] font-bold leading-normal text-[#1C1C1C] "
               >
                 Mật khẩu
               </label>
@@ -210,7 +210,7 @@ const LoginPage = () => {
                 </div>
               )}
             </div>
-            <span className="text-right text-[#15px] text-[#3B6EF2] underline">
+            <span className="text-right text-[#15px] text-[#3B6EF2] underline  md:pr-10">
               <a href="/forgot-password">Quên mật khẩu?</a>
             </span>
           </div>
@@ -227,12 +227,12 @@ const LoginPage = () => {
             </button>
           </div>
           <div className="mb-6">
-            <div className="my-6 flex items-center justify-center">
-              <div className=" h-[2px] w-40 bg-[#F0EDFF]"></div>
+            <div className="my-6 flex items-center justify-center ">
+              <div className=" h-[2px] w-40 bg-[#F0EDFF] sx:w-20"></div>
               <span className="p-2 font-bold text-[#D9D9D9] ">
                 Đăng nhập bằng
               </span>
-              <div className="h-[2px] w-40 bg-[#F0EDFF]"></div>
+              <div className="h-[2px] w-40 bg-[#F0EDFF] sx:w-20"></div>
             </div>
             <div className="flex items-center justify-center gap-12">
               <div>
@@ -261,7 +261,7 @@ const LoginPage = () => {
             </span>
           </h6>
         </form>
-        <div className="relative h-full w-[45%]">
+        <div className="relative  h-full  w-[45%] md:hidden ">
           <img src={rec} alt="" className=" h-full w-full" />
           <img
             src={ava}
