@@ -9,9 +9,9 @@ const JobPersonOverall = () => {
   const candidateData = useSelector((state) => state.candidate.data);
   console.log("candidateData", candidateData);
 
-  useEffect(() => {
-    console.log(candidateData, " candidateData in overall");
-  }, [candidateData]);
+  // useEffect(() => {
+  //   console.log(candidateData, " candidateData in overall");
+  // }, [candidateData]);
 
   const navigate = useNavigate();
   return (
@@ -46,7 +46,7 @@ const JobPersonOverall = () => {
                 <th className="py-[8px] pl-[50px]">Ngày sinh </th>
                 <td className="px-[4px] py-[8px]">
                   {isAuthenticated && user && user.birthDay
-                    ? user.birthDay
+                     ? user.birthDay
                     : "(chưa có dữ liệu)"}
                 </td>
               </tr>

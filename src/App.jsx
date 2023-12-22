@@ -33,7 +33,6 @@ import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
 import PostJob from "./pages/post&editJobs/postJob";
 
-import RecruitmentList from "./pages/recruitmentlist/news";
 import PopupHr from "./components/PopupHr";
 
 import { callFetchCandidateByUserId } from "./service/candidate/api";
@@ -59,21 +58,21 @@ import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
 
-
 import LayoutHr from "./components/Layout/layoutHr";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import HeaderAdmin from "./components/HeaderAdmin";
-import MenuAdmin from "./components/MenuAdmin/menuAdmin";
 import ViewJobList from "./pages/viewjoblist/viewJobList";
 import MenuAdmin from "./pages/admin/overall";
 
-
 import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
+import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
+import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
   const user = useSelector((state) => state.account.user);
+  console.log("user", user);
   const dispatch = useDispatch();
 
   const fetchAccount = async () => {
@@ -86,21 +85,17 @@ const App = () => {
       return;
 
     const res = await callFetchUserProfile();
-
+    console.log(res);
     if (res && res?.data) {
       dispatch(doFetchAccountAction(res.data));
+      console.log("res.data.id", res.data.id);
+      const resCan = await callFetchCandidateByUserId(user.id);
+      console.log(resCan.data);
+      if (resCan && resCan?.data) {
+        dispatch(doFetchCandidate(resCan.data));
+      }
     } else {
       dispatch(doLogoutAction(false));
-    }
-
-    const resCan = await callFetchCandidateByUserId(res.data.id);
-    if (resCan && resCan?.data) {
-      console.log(resCan.data);
-      dispatch(doFetchCandidate(resCan.data));
-    }
-
-    if (res && res?.errors) {
-      console.log(res.errors + " " + res.message);
     }
   };
 
@@ -148,11 +143,7 @@ const App = () => {
       children: [
         {
           index: true,
-          element: (
-            <RoleBasedHome>
-              <HomePage />
-            </RoleBasedHome>
-          ),
+          element: <HomePage />,
         },
         {
           path: "profile",
@@ -212,20 +203,12 @@ const App = () => {
       children: [
         {
           index: true,
-          element: (
-            <ProtectedRoute>
-              <HomeHr></HomeHr>
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute>{/* <HomeHr></HomeHr> */}</ProtectedRoute>,
           errorElement: <NotFound />,
         },
         {
           path: "news",
-          element: (
-            <ProtectedRoute>
-              <NewsHr></NewsHr>
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute>{/* <NewsHr></NewsHr> */}</ProtectedRoute>,
         },
         {
           path: "contact",
@@ -287,10 +270,7 @@ const App = () => {
         // },
       ],
     },
-    {
-      path: "/1",
-      element: <OverallHr></OverallHr>,
-    },
+
     {
       path: "/login",
       element: <LoginPage />,
@@ -328,6 +308,14 @@ const App = () => {
       path: "/registerhr",
       element: <RegisterHR />,
       errorElement: <NotFound />,
+    },
+    {
+      path: "/recruitmentlist",
+      element: <RecruitmentList></RecruitmentList>,
+    },
+    {
+      path: "/recruitmentlistopen",
+      element: <RecruitmentListOpen></RecruitmentListOpen>,
     },
     {
       path: "/recruitmentlist",
@@ -430,7 +418,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {!isLoading ||
+      {/* {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
@@ -440,10 +428,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )}
+      )} */}
 
       {/* Chưa có api */}
-      {/* <RouterProvider router={router} /> */}
+      <RouterProvider router={router} />
     </>
   );
 };

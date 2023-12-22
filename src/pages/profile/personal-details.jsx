@@ -24,6 +24,7 @@ const PersonalDetails = () => {
   const dataUser = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
   const candidateID = useSelector((state) => state.candidate.id);
+  console.log("candidateID", candidateID);
   const dataCandidate = useSelector((state) => state.candidate.data);
   console.log("dataCandidate", dataCandidate);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
