@@ -1,15 +1,71 @@
 import React from "react";
 import ParameterAdmin from "../../components/Admin/parameterAdmin";
+import google from "/images/google.jpg";
 
 import pie from "/images/Pie-chart.jpg";
 import area from "/images/Area-chart.jpg";
 import bar from "/images/Bar-chart.jpg";
 
 const DashBoard = () => {
+  const companies = [
+    {
+      image: google,
+      name: "Công ty TNHH Intel Products Việt Nam",
+      candidates: 125,
+    },
+    {
+      image: google,
+      name: "Công ty TNHH Phần mềm FPT - FPT Software",
+      candidates: 117,
+    },
+    {
+      image: google,
+      name: "CMC Saigon Technology and Solution",
+      candidates: 105,
+    },
+    {
+      image: google,
+      name: "Tập đoàn Bưu chính Viễn thông Việt Nam",
+      candidates: 92,
+    },
+    {
+      image: google,
+      name: "Tập đoàn Công nghiệp - Viễn thông Quân đội",
+      candidates: 90,
+    },
+  ];
+  const positions = [
+    {
+      name: "Business Analyst ",
+      posts: 151,
+    },
+    {
+      name: "Business Analyst ",
+      posts: 151,
+    },
+    {
+      name: "Business Analyst ",
+      posts: 151,
+    },
+    {
+      name: "Business Analyst ",
+      posts: 151,
+    },
+    {
+      name: "Business Analyst ",
+      posts: 151,
+    },
+    {
+      name: "Business Analyst ",
+      posts: 151,
+    },
+  ];
   return (
-    <div className="flex w-[80%] flex-col gap-[20px]">
-      <div className=" px-[10px] py-[10px] shadow-banner">Dashboard</div>
-      <div className="flex flex-col gap-[30px]">
+    <div className="flex w-[83%] flex-col  pt-[20px]">
+      <div className=" ml-[20px] bg-white px-[20px] py-[15px] text-[20px] font-bold text-[#FE5656]">
+        Dashboard
+      </div>
+      <div className="my-[50px] flex flex-col gap-[30px] bg-white px-[20px] py-[40px]">
         <div className="flex gap-[30px]">
           <ParameterAdmin
             icon={
@@ -97,7 +153,9 @@ const DashBoard = () => {
 
         <div className="flex w-full gap-[30px]">
           <div className="flex w-[50%] flex-col rounded-[10px] shadow-banner">
-            <h1 className="my-[20px] ml-[20px]">Tổng tài khoản người dùng</h1>
+            <h1 className="my-[20px] ml-[20px] text-[20px] font-semibold">
+              Tổng tài khoản người dùng
+            </h1>
             <hr className=" w-full border-t-2 border-[#DEDEDE]" />
             <div className="flex">
               <div className="mx-[10px] my-[20px] w-[30%] rounded-[10px] py-[20px] pl-[20px] shadow-banner">
@@ -122,9 +180,11 @@ const DashBoard = () => {
             <img className="mx-auto" src={pie} alt="" />
           </div>
           <div className="flex w-[50%] flex-col rounded-[10px] shadow-banner">
-            <div className="my-[20px] flex items-center justify-between gap-[10px]">
-              <h1 className=" ml-[20px] ">Tài khoản người dùng mới</h1>
-              <div className="mr-[10px] flex gap-[10px]">
+            <div className="relative my-[20px] flex items-center justify-between gap-[10px]">
+              <h1 className=" ml-[20px] w-[50%] text-[20px] font-semibold leading-[25px]">
+                Tài khoản người dùng mới
+              </h1>
+              <div className="absolute right-2 top-[50%] mr-[10px] flex translate-y-[-50%] gap-[10px]">
                 <div className="flex cursor-pointer items-center gap-[15px] rounded-[5px] bg-[#FE5656] px-[15px] py-[10px] text-white">
                   <p>Tất cả</p>
                   <span>
@@ -169,7 +229,9 @@ const DashBoard = () => {
         </div>
 
         <div className="relative flex flex-col items-center shadow-banner">
-          <h1 className=" py-[30px]">Thống kê bài đăng</h1>
+          <h1 className=" py-[30px] text-[20px] font-semibold">
+            Thống kê bài đăng
+          </h1>
           <div className="absolute right-3 top-3 flex cursor-pointer items-center gap-[15px] rounded-[5px] bg-[#FE5656] px-[15px] py-[10px] text-white">
             <p>Tháng</p>
             <span>
@@ -190,6 +252,94 @@ const DashBoard = () => {
           <hr className=" w-full border-t-2 border-[#DEDEDE]" />
           <div className="flex h-full  justify-center">
             <img src={bar} alt="" />
+          </div>
+        </div>
+
+        <div className="flex gap-[30px]">
+          <div className="flex w-[50%] flex-col pb-[30px]  shadow-banner">
+            <h1 className=" ml-[20px] py-[30px] text-[20px] font-semibold">
+              Top 10 công ty được ứng tuyển nhiều nhất
+            </h1>
+            <hr className=" w-full border-t-2 border-[#DEDEDE]" />
+
+            <table className="mx-[30px] mt-[30px] ">
+              <thead>
+                <tr className="border-b-solid border-b-2 border-[#DEDEDE]">
+                  <th className="px-[10px] py-[10px] text-[15px] font-[600]">
+                    STT
+                  </th>
+                  <th className="py-[10px] text-left text-[15px] font-[600]">
+                    Công ty
+                  </th>
+                  <th className="whitespace-nowrap py-[10px] text-[15px] font-[600]">
+                    Ứng viên
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {companies.map((company, index) => (
+                  <tr
+                    key={index}
+                    className={`${
+                      index === companies.length - 1
+                        ? ""
+                        : "border-b-solid border-b-2 border-[#DEDEDE]"
+                    } py-[20px] text-[15px] font-[400] leading-[20px]`}
+                  >
+                    <td className="py-[10px] text-center">{index + 1}</td>
+                    <td className="relative flex gap-[10px] py-[10px] pl-[50px]">
+                      <img
+                        src={company.image}
+                        alt=""
+                        className=" absolute left-0 top-[50%] h-9 translate-y-[-50%] rounded-[8px] border border-solid border-[#7D7D7D66]"
+                      />
+                      {company.name}
+                    </td>
+                    <td className="py-[10px] text-center">
+                      {company.candidates}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex w-[50%] flex-col shadow-banner">
+            <h1 className=" ml-[20px] py-[30px] text-[20px] font-semibold">
+              Top 10 vị trí làm việc được ứng tuyển nhiều nhất
+            </h1>
+            <hr className=" w-full border-t-2 border-[#DEDEDE]" />
+
+            <table className="mx-[30px] mt-[30px]">
+              <thead>
+                <tr className="border-b-solid border-b-2 border-[#DEDEDE] ">
+                  <th className="px-[10px] py-[10px] text-[15px] font-[600]">
+                    STT
+                  </th>
+                  <th className="py-[10px] text-left text-[15px] font-[600]">
+                    Vị trí làm việc
+                  </th>
+                  <th className=" py-[10px] text-[15px] font-[600]">
+                    Tin tuyển dụng
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {positions.map((position, index) => (
+                  <tr
+                    key={index}
+                    className={`${
+                      index === positions.length - 1
+                        ? ""
+                        : "border-b-solid border-b-2 border-[#DEDEDE]"
+                    } py-[20px] text-[15px] font-[400] leading-[20px]`}
+                  >
+                    <td className="py-[10px] text-center">{index + 1}</td>
+                    <td className=" py-[10px] ">{position.name}</td>
+                    <td className="py-[10px] text-center">{position.posts}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
