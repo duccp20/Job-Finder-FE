@@ -5,9 +5,9 @@ import SideBar from "../../components/Admin/sideBar/sidebar";
 
 const MenuAdmin = () => {
   return (
-    <div>
+    <div className="bg-[#F6F6F6]">
       <HeaderAdmin></HeaderAdmin>
-      <div className="mt-[90px] flex gap-[20px]">
+      <div className="flex pt-[70px]">
         <SideBar></SideBar>
         <Outlet></Outlet>
       </div>
