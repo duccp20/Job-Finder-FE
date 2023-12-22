@@ -20,17 +20,14 @@ export default {
 
       "2xl": { min: "1536px" },
       // => @media (min-width: 1536px) { ... }
+      //   "max-sm": { max: "767px" },
+      //   "max-md": { max: "1023px" },
+      "tablet-range": { min: "768px", max: "1023px" },
+      "desktop-up": { min: "1024px" },
+      "in-lg": { min: "1024px", max: "1280px" },
+      //   "max-xl": { max: "1535px" },
     },
     extend: {
-      screens: {
-        //   "max-sm": { max: "767px" },
-        //   "max-md": { max: "1023px" },
-        "in-md": { min: "768px", max: "1023px" },
-        "min-lg": { min: "1024px" },
-        "in-lg": { min: "1024px", max: "1280px" },
-
-        //   "max-xl": { max: "1535px" },
-      },
       boxShadow: {
         custom: "0px 4px 4px 0px rgba(0, 0, 0, 0.05)",
         blur: "0px 4px 15px 7px rgba(0,0,0,0.44)",
