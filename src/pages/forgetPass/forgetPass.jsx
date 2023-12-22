@@ -16,7 +16,7 @@ const schema = yup
       .email("Email không đúng định dạng")
       .matches(
         /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-        "Email không đúng định dạng"
+        "Email không đúng định dạng",
       )
       .required("Email không đúng định dạng"),
   })
@@ -75,20 +75,22 @@ export const ForgetPass = () => {
 
   return (
     <>
-      <div className="h-screen relative">
+      <div className="relative h-screen ">
         {status && <Popup text={text} redirect={"login"} />}
-        <Header></Header>
+        <div className="sm:hidden">
+          <Header></Header>
+        </div>
 
         <form
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/5 h-auto py-11 px-9 my-0 mx-auto bg-white shadow-2xl shadow-black rounded-[46px]"
+          className="in-md:w-3/5 absolute left-1/2 top-1/2 mx-auto my-0 h-auto w-2/5 -translate-x-1/2 -translate-y-1/2 transform rounded-[46px] bg-white px-9 py-11 shadow-2xl  shadow-black sm:w-4/5 "
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h3 className="text-black text-3xl not-italic font-sans font-extrabold uppercase text-center mb-4">
+          <h3 className="mb-4 text-center font-sans text-3xl font-extrabold uppercase not-italic text-black">
             Quên mật khẩu
           </h3>
           {showPopup.status && (
             <p
-              className={`rounded-lg  w-full -top-[27px] text-white bg-gradientCustom p-2 ${
+              className={`-top-[27px]  w-full rounded-lg bg-gradientCustom p-2 text-white ${
                 showPopup ? "animate-fade-in-up" : ""
               }`}
             >
@@ -98,10 +100,10 @@ export const ForgetPass = () => {
           <div className="relative h-auto">
             <label
               htmlFor="email"
-              className="text-gray-900 text-xl not-italic font-extrabold font-sans leading-[2.0]"
+              className="font-sans text-xl font-extrabold not-italic leading-[2.0] text-gray-900"
             >
               Nhập Email{" "}
-              <span className="text-red-700 text-xl not-italic font-normal font-sans">
+              <span className="font-sans text-xl font-normal not-italic text-red-700">
                 *
               </span>
             </label>
@@ -115,19 +117,19 @@ export const ForgetPass = () => {
 
             {errors?.email && (
               <div className="relative">
-                <div className="flex justify-center items-center absolute">
-                  <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <div className="absolute flex items-center justify-center">
+                  <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                     {errors.email?.message}
                   </p>
                 </div>
               </div>
             )}
           </div>
-          <p className="text-gray-900 text-xl not-italic font-extrabold font-sans mb-4"></p>
+          <p className="mb-4 font-sans text-xl font-extrabold not-italic text-gray-900"></p>
 
-          <div className="mt-9 flex justify-center mb-7">
+          <div className="mb-7 mt-9 flex justify-center">
             <button
-              className={`shadow-md text-center text-white rounded-[16px] px-[32px] py-[16px] ${
+              className={`rounded-[16px] px-[32px] py-[16px] text-center text-white shadow-md ${
                 isSubmitting ? "bg-gray-500" : "bg-gradientCustom"
               }`}
               type="submit"
@@ -136,7 +138,7 @@ export const ForgetPass = () => {
               {isSubmitting ? "Đang xử lý..." : "Lấy lại mật khẩu"}
             </button>
           </div>
-          <p className="text-black text-center font-open-sans text-12 font-extrabold">
+          <p className="font-open-sans text-12 text-center font-extrabold text-black">
             <a href="/login">Quay về trang đăng nhập</a>
           </p>
         </form>
