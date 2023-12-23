@@ -35,7 +35,8 @@ const Profile = () => {
   return (
     <div>
       <HeaderHome />
-      <div className="my-[100px] flex h-auto w-full flex-col items-start gap-[24px] px-4 ">
+
+      <div className="my-[100px] flex h-auto w-full  items-start gap-[24px] px-4 ">
         <div className="h-auto w-full rounded-[10px] border border-[#FE5656] px-6 py-[30px] shadow-banner ">
           <Controller
             name="image"
@@ -94,7 +95,7 @@ const Profile = () => {
             nhiều cơ hội việc làm tốt từ IT Jobs.
           </p>
         </div>
-        <Outlet className="w-full lg:w-[60%]" />
+        <Outlet className="w-full" />
       </div>
     </div>
   );

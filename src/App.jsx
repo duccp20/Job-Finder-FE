@@ -148,28 +148,16 @@ const App = () => {
         },
         {
           path: "profile",
-          element: (
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          ),
+          element: <Profile />,
           errorElement: <NotFound />,
           children: [
             {
               index: true,
-              element: (
-                <ProtectedRoute>
-                  <JobPersonOverall />
-                </ProtectedRoute>
-              ),
+              element: <JobPersonOverall />,
             },
             {
               path: "personal",
-              element: (
-                <ProtectedRoute>
-                  <PersonalDetails />
-                </ProtectedRoute>
-              ),
+              element: <PersonalDetails />,
             },
             {
               path: "job",
