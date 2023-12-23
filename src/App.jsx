@@ -29,7 +29,6 @@ import RecruitmentOverall from "./pages/recruitment/overall";
 import ContactOverall from "./pages/hr/overall";
 import PostJob from "./pages/post&editJobs/postJob";
 
-import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import PopupHr from "./components/PopupHr";
 
 import { callFetchCandidateByUserId } from "./service/candidate/api";
@@ -46,7 +45,14 @@ import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
 import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
+
 import ViewJobList from "./pages/viewjoblist/viewJobList";
+
+import HeaderAdmin from "./components/HeaderAdmin";
+
+import RecruitmentListPage from "./pages/recruitmentlist/recruitmentlist";
+import RecruitmentList from "./components/RecruitmentList";
+import SearchBar from "./components/SearchBatr/search";
 import MenuAdmin from "./pages/admin/overall";
 import DashBoard from "./pages/admin/dashboard";
 import ChangeAdminPassword from "./pages/changeadminpassword/changeadminpassword";
@@ -166,13 +172,17 @@ const App = () => {
       errorElement: <NotFound />,
     },
     {
-      path: "/recruitmentlist",
-      element: <RecruitmentList></RecruitmentList>,
+      path: "/recruitmentlistpage",
+      element: <RecruitmentListPage></RecruitmentListPage>,
     },
     {
       path: "/recruitmentlistopen",
       element: <RecruitmentListOpen></RecruitmentListOpen>,
     },
+    // {
+    //   path: "/search",
+    //   element: <SearchBar></SearchBar>,
+    // },
     {
       path: "/viewjoblist",
       element: <ViewJobList></ViewJobList>,
@@ -223,19 +233,8 @@ const App = () => {
       element: <NotPermitted></NotPermitted>,
     },
     {
-      path: "/admin",
-      element: <MenuAdmin />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          index: true,
-          element: <DashBoard />,
-        },
-        // {
-        //   path: "",
-        //   element: </>,
-        // },
-      ],
+      path: "/header-admin",
+      element: <MenuAdmin></MenuAdmin>,
     },
     {
       path: "/viewrecruitment",
@@ -255,6 +254,22 @@ const App = () => {
     {
       path: "/change-admin-password",
       element: <ChangeAdminPassword />,
+    },
+
+    {
+      path: "/admin",
+      element: <MenuAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <DashBoard />,
+        },
+        // {
+        //   path: "",
+        //   element: </>,
+        // },
+      ],
     },
 
     // {
