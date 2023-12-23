@@ -49,7 +49,7 @@ import { RegisterHR } from "./pages/registerhr/overall";
 import ViewJobList from "./pages/viewjoblist/viewJobList";
 
 import HeaderAdmin from "./components/HeaderAdmin";
-import MenuAdmin from "./components/MenuAdmin/menuAdmin";
+
 import RecruitmentListPage from "./pages/recruitmentlist/recruitmentlist";
 import RecruitmentList from "./components/RecruitmentList";
 import SearchBar from "./components/SearchBatr/search";
