@@ -17,32 +17,29 @@ const schema = yup
   .object({
     subName: yup
       .string()
+      .required("Hãy nhập họ và tên lót ")
       .matches(
         /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
         "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
-      )
-      .required(),
+      ),
     name: yup
       .string()
+      .required("Hãy nhập tên")
       .matches(
         /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
         "Tên không được phép là số hoặc ký tự đặc biệt",
-      )
-      .required(),
-
+      ),
     email: yup
       .string()
-      .email("Email không đúng định dạng")
-      .matches(
-        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-        "Email không đúng định dạng",
-      )
-      .required("Email không đúng định dạng"),
+      .required("Hãy nhập email")
+      .email("Email không đúng định dạng"),
+    // .matches(
+    //   /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+    //   "Email không đúng định dạng",
+    // )
     passWord: yup
       .string()
-      .required(
-        "Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt",
-      )
+      .required("Hãy nhập mật khẩu")
       .min(8, "Ít nhất 8 ký tự")
       .matches(
         /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]*$/,
@@ -54,11 +51,11 @@ const schema = yup
       .required("Mật khẩu không khớp"),
     phoneNumber: yup
       .string()
+      .required("Hãy nhập số điện thoại")
       .matches(
         /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
         "Số điện thoại không đúng định dạng",
-      )
-      .required(),
+      ),
   })
   .required();
 

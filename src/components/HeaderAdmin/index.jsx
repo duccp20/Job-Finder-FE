@@ -51,7 +51,10 @@ const HeaderAdmin = () => {
     }
 
     if (option === "Thông tin cá nhân") {
-      navigate("/profile");
+      navigate("/adminprofile");
+    }
+    if (option === "Thay đổi mật khẩu") {
+      navigate("/change-admin-password");
     }
   };
   return (
@@ -133,5 +136,4 @@ const HeaderAdmin = () => {
     </>
   );
 };
-
 export default HeaderAdmin;
