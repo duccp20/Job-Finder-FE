@@ -53,6 +53,7 @@ import HeaderAdmin from "./components/HeaderAdmin";
 import RecruitmentListPage from "./pages/recruitmentlist/recruitmentlist";
 import RecruitmentList from "./components/RecruitmentList";
 import SearchBar from "./components/SearchBatr/search";
+import MenuAdmin from "./pages/admin/overall";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -231,7 +232,7 @@ const App = () => {
     },
     {
       path: "/header-admin",
-      element: <MenuAdmin />,
+      element: <MenuAdmin></MenuAdmin>,
     },
     {
       path: "/viewrecruitment",

@@ -150,7 +150,7 @@ const ProvincesDropdown = (props) => {
   );
 
   return (
-    <div className="flex">
+    <div className=" flex items-center">
       <div>
         <label htmlFor="province" className="border-transparent">
           {/* {searchTerm || ""} */}
@@ -166,7 +166,7 @@ const ProvincesDropdown = (props) => {
         {showDropdown && (
           <ul
             ref={dropdownRef}
-            className="absolute z-[1] mt-2 max-h-48 w-[15vw] overflow-y-auto border border-solid border-gray-300 bg-[white]"
+            className="absolute z-[1] mt-2 max-h-48 w-auto overflow-y-auto border border-solid border-gray-300 bg-[white]"
           >
             {filteredProvinces.map((province) => (
               <li
