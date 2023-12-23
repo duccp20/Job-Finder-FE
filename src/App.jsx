@@ -54,6 +54,7 @@ import RecruitmentListPage from "./pages/recruitmentlist/recruitmentlist";
 import RecruitmentList from "./components/RecruitmentList";
 import SearchBar from "./components/SearchBatr/search";
 import MenuAdmin from "./pages/admin/overall";
+import DashBoard from "./pages/admin/dashboard";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -247,6 +248,22 @@ const App = () => {
           path: "viewcompany",
           element: <ViewCompanyInfor />,
         },
+      ],
+    },
+
+    {
+      path: "/admin",
+      element: <MenuAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <DashBoard />,
+        },
+        // {
+        //   path: "",
+        //   element: </>,
+        // },
       ],
     },
 
