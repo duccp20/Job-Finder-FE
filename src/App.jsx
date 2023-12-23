@@ -64,6 +64,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import HeaderAdmin from "./components/HeaderAdmin";
 import ViewJobList from "./pages/viewjoblist/viewJobList";
 import MenuAdmin from "./pages/admin/overall";
+import DashBoard from "./pages/admin/dashboard";
 
 import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
@@ -374,6 +375,17 @@ const App = () => {
     {
       path: "/admin",
       element: <MenuAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <DashBoard />,
+        },
+        // {
+        //   path: "",
+        //   element: </>,
+        // },
+      ],
     },
     {
       path: "/viewrecruitment",

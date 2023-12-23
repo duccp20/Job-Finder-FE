@@ -35,8 +35,8 @@ const Profile = () => {
   return (
     <div>
       <HeaderHome />
-      <div className="my-[100px] flex h-auto w-full flex-col items-start gap-[24px] px-4 lg:flex-row lg:px-[100px]">
-        <div className="h-auto w-full rounded-[10px] border border-[#FE5656] px-6 py-[30px] shadow-banner lg:w-[40%] lg:px-[45px] lg:py-[50px]">
+      <div className="my-[100px] flex h-auto w-full flex-col items-start gap-[24px] px-4 ">
+        <div className="h-auto w-full rounded-[10px] border border-[#FE5656] px-6 py-[30px] shadow-banner ">
           <Controller
             name="image"
             control={control}

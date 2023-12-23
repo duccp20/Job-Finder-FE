@@ -106,7 +106,7 @@ const LoginPage = () => {
       {showRegisterMethod && <LoginAs></LoginAs>}
       <div className="flex h-screen w-screen ">
         <form
-          className="flex w-[55%] flex-col px-36 py-10 sm:py-10 md:px-3 lg:w-full in-md:pt-40 "
+          className="flex w-[55%] flex-col px-36 py-10 sm:py-10 md:px-3 lg:w-full tablet-range:pt-40 "
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className=" flex items-center justify-center p-10 md:pt-0 ">
