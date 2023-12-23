@@ -3,6 +3,30 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   mode: "jit",
   theme: {
+    screens: {
+      sx: { max: "639px" },
+
+      sm: { max: "767px" },
+      // => @media (min-width: 640px and max-width: 767px) { ... }
+
+      md: { max: "1023px" },
+      // => @media (min-width: 768px and max-width: 1023px) { ... }
+
+      lg: { max: "1280px" },
+      // => @media (min-width: 1024px and max-width: 1279px) { ... }
+
+      xl: { max: "1535px" },
+      // => @media (min-width: 1280px and max-width: 1535px) { ... }
+
+      "2xl": { min: "1536px" },
+      // => @media (min-width: 1536px) { ... }
+      //   "max-sm": { max: "767px" },
+      //   "max-md": { max: "1023px" },
+      "tablet-range": { min: "768px", max: "1023px" },
+      "desktop-up": { min: "1024px" },
+      "in-lg": { min: "1024px", max: "1280px" },
+      //   "max-xl": { max: "1535px" },
+    },
     extend: {
       boxShadow: {
         custom: "0px 4px 4px 0px rgba(0, 0, 0, 0.05)",

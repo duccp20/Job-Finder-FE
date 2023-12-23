@@ -19,14 +19,14 @@ const schema = yup
       .string()
       .matches(
         /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-        "Họ và tên lót không được phép là số hoặc ký tự đặc biệt"
+        "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
       )
       .required(),
     name: yup
       .string()
       .matches(
         /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-        "Tên không được phép là số hoặc ký tự đặc biệt"
+        "Tên không được phép là số hoặc ký tự đặc biệt",
       )
       .required(),
 
@@ -35,18 +35,18 @@ const schema = yup
       .email("Email không đúng định dạng")
       .matches(
         /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-        "Email không đúng định dạng"
+        "Email không đúng định dạng",
       )
       .required("Email không đúng định dạng"),
     passWord: yup
       .string()
       .required(
-        "Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt"
+        "Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt",
       )
       .min(8, "Ít nhất 8 ký tự")
       .matches(
         /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]*$/,
-        "Ít nhất 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt"
+        "Ít nhất 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt",
       ),
     confirmPassword: yup
       .string()
@@ -56,7 +56,7 @@ const schema = yup
       .string()
       .matches(
         /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
-        "Số điện thoại không đúng định dạng"
+        "Số điện thoại không đúng định dạng",
       )
       .required(),
   })
@@ -96,7 +96,7 @@ export const RegisterCandidate = () => {
         data.email,
         data.passWord,
         data.phoneNumber,
-        "2" // roleID : 2 is Candidate
+        "2", // roleID : 2 is Candidate
       );
 
       if (res.httpCode === 201 && res.message === "Register Successfully") {
@@ -122,54 +122,56 @@ export const RegisterCandidate = () => {
 
   return (
     <>
-      <div className="h-full">
-        <>
+      <div className=" h-full">
+        <div className="lg:hidden">
           <Header></Header>
-        </>
-        <div className=" my-[110px] flex justify-center">
-          <div className="flex justify-center rounded-xl w-[75%] shadow-lg border-2">
-            <div className="w-[40%] h-full relative">
-              <img src={rec} alt="" className="rounded-l-lg h-full" />
+        </div>
+        <div className=" my-[110px] flex justify-center  sm:my-0">
+          <div className="flex h-full w-[75%] justify-center rounded-xl border-2 shadow-lg sm:w-full ">
+            <div className=" relative w-[40%] md:hidden">
+              {/* cam lè */}
+              <img src={rec} alt="" className="h-full rounded-l-lg  " />
+              {/* hình tuyển dụng  */}
               <img
                 src={ava}
                 alt=""
-                className=" absolute w-full top-1/2 -translate-y-1/2 p-10"
+                className=" absolute top-1/2 w-full -translate-y-1/2 p-10 md:hidden"
               />
             </div>
             <form
-              className="w-[60%] rounded-r-lg p-[53px]"
+              className="w-[60%] rounded-r-lg p-[53px]   sm:pt-2 md:w-full "
               onSubmit={handleSubmit(onSubmit)}
             >
-              <h1 className="text-[28px] text-[#FE5656] font-extrabold uppercase text-center my-8">
+              <h1 className="my-8 text-center text-[28px] font-extrabold uppercase text-[#FE5656]">
                 Đăng ký tài khoản ứng viên
               </h1>
-              <div className="flex gap-4 text-center text-white">
-                <div className="w-[50%] leading-[42px] flex justify-center items-center">
-                  <button className="w-full bg-[#ec3727] rounded-[4px] uppercase text-[13px]">
-                    <i className="fa-brands fa-google tracking-[5px] text-[16px]"></i>
+              <div className="flex  items-center justify-center gap-4 text-center text-white sm:flex-col">
+                <div className="flex w-[50%] leading-[42px]  sm:w-full">
+                  <button className="w-full rounded-[4px] bg-[#ec3727] text-[13px] uppercase">
+                    <i className="fa-brands fa-google text-[16px] tracking-[5px]"></i>
                     Tiếp tục với Google
                   </button>
                 </div>
-                <div className="w-[50%]  rounded-lg  leading-[42px] ">
-                  <button className="bg-[#375899] w-full text-[13px] rounded-[4px] uppercase flex justify-center items-center ">
-                    <i className="fa-brands fa-facebook-f tracking-[5px] text-[16px]"></i>{" "}
+                <div className="w-[50%] rounded-lg leading-[42px]  sm:w-full ">
+                  <button className=" w-full  rounded-[4px] bg-[#375899] text-[13px] uppercase ">
+                    <i className="fa-brands fa-facebook-f text-[16px] tracking-[5px]"></i>{" "}
                     Tiếp tục với Facebook
                   </button>
                 </div>
               </div>
-              <div className="flex justify-center items-center mt-6">
-                <div className=" bg-[#CFD0D4] w-40 h-[2px]"></div>
-                <span className="font-bold p-2 text-[#CFD0D4] ">Hoặc</span>
-                <div className="w-40 h-[2px] bg-[#CFD0D4]"></div>
+              <div className="mt-6 flex items-center justify-center">
+                <div className=" h-[2px] w-40 bg-[#CFD0D4]"></div>
+                <span className="p-2 font-bold text-[#CFD0D4] ">Hoặc</span>
+                <div className="h-[2px] w-40 bg-[#CFD0D4]"></div>
               </div>
 
               {showPopup && (
-                <p className=" text-red-600 bg-[#fff6f5] p-2">
+                <p className=" bg-[#fff6f5] p-2 text-red-600">
                   Tài khoản đã tồn tại!
                 </p>
               )}
-              <div className="flex gap-4 w-full mt-6">
-                <div className="flex flex-col w-[50%]">
+              <div className="mt-6 flex w-full gap-4 sm:flex-col">
+                <div className=" flex w-[50%] flex-col sm:w-full">
                   <label htmlFor="sub-name" className="pb-1 font-bold">
                     Họ và tên lót <span className="text-red-600">*</span>
                   </label>
@@ -183,12 +185,12 @@ export const RegisterCandidate = () => {
                   />
                   {errors?.subName && (
                     <div className="relative">
-                      <div className="flex justify-center items-center absolute">
+                      <div className="absolute flex items-center justify-center">
                         <span>
                           <IconError />
                         </span>
 
-                        <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                        <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                           {errors.subName?.message}
                         </p>
                       </div>
@@ -196,13 +198,13 @@ export const RegisterCandidate = () => {
                   )}
                   {!errors?.subName && (
                     <div className="relative">
-                      <span className="text-[12px] italic px-2 pt-2 font-thin absolute">
+                      <span className="absolute px-2 pt-2 text-[12px] font-thin italic">
                         Nhập họ và tên lót
                       </span>
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col w-[50%]">
+                <div className="flex w-[50%]  flex-col sm:w-full sm:pt-5">
                   <label htmlFor="name" className="pb-1 font-bold">
                     Tên <span className="text-red-700">*</span>
                   </label>
@@ -217,12 +219,12 @@ export const RegisterCandidate = () => {
 
                   {errors?.name && (
                     <div className="relative">
-                      <div className="flex items-center justify-center absolute">
+                      <div className="absolute flex items-center justify-center">
                         <span>
                           <IconError />
                         </span>
 
-                        <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                        <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                           {errors.name?.message}
                         </p>
                       </div>
@@ -230,7 +232,7 @@ export const RegisterCandidate = () => {
                   )}
                   {!errors?.name && (
                     <div className="relative">
-                      <span className="text-[12px] italic px-2 pt-2  font-thin absolute">
+                      <span className="absolute px-2 pt-2 text-[12px]  font-thin italic">
                         Nhập tên
                       </span>
                     </div>
@@ -238,7 +240,7 @@ export const RegisterCandidate = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col mt-10">
+              <div className="mt-10 flex flex-col">
                 <label htmlFor="email" className="pb-1 font-bold">
                   Email <span className="text-red-600">*</span>
                 </label>
@@ -253,12 +255,12 @@ export const RegisterCandidate = () => {
 
                 {errors?.email && (
                   <div className="relative">
-                    <div className="flex items-center absolute">
+                    <div className="absolute flex items-center">
                       <span className="pt-1.5 ">
                         <IconError />
                       </span>
 
-                      <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                      <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                         {errors.email?.message}
                       </p>
                     </div>
@@ -266,15 +268,15 @@ export const RegisterCandidate = () => {
                 )}
                 {!errors?.email && (
                   <div className="relative">
-                    <span className="text-[12px] px-2 italic pt-2 font-thin absolute">
+                    <span className="absolute px-2 pt-2 text-[12px] font-thin italic">
                       Sử dụng email có thật để xác thực
                     </span>
                   </div>
                 )}
               </div>
 
-              <div className="flex gap-4 w-full mt-10">
-                <div className="flex flex-col w-[50%]">
+              <div className=" mt-10 flex w-full gap-4 sm:flex-col">
+                <div className="flex w-[50%] flex-col  sm:w-full">
                   <label htmlFor="passWord" className="pb-1 font-bold">
                     Mật khẩu <span className="text-red-600">*</span>
                   </label>
@@ -289,7 +291,7 @@ export const RegisterCandidate = () => {
                       }
                     />
                     <span
-                      className="absolute top-[50%] -translate-y-1/2 right-0 flex items-center cursor-pointer pr-2"
+                      className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
                       onClick={togglePasswordVisibility}
                     >
                       <svg
@@ -298,7 +300,7 @@ export const RegisterCandidate = () => {
                         height="20"
                         viewBox="0 0 22 20"
                         fill="none"
-                        className="w-6 h-6"
+                        className="h-6 w-6"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -318,12 +320,12 @@ export const RegisterCandidate = () => {
 
                   {errors?.passWord && (
                     <div className="relative">
-                      <div className="flex items-center absolute">
+                      <div className="absolute flex items-center">
                         <span className="pt-1.5 ">
                           <IconError />
                         </span>
 
-                        <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                        <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                           {errors.passWord?.message}
                         </p>
                       </div>
@@ -331,7 +333,7 @@ export const RegisterCandidate = () => {
                   )}
                 </div>
 
-                <div className="flex flex-col w-[50%] relative">
+                <div className=" relative flex w-[50%] flex-col sm:w-full">
                   <label htmlFor="confirmPassword" className="pb-1 font-bold">
                     Xác nhận mật khẩu <span className="text-red-700">*</span>
                   </label>
@@ -348,7 +350,7 @@ export const RegisterCandidate = () => {
                     />
 
                     <span
-                      className="absolute top-[50%] -translate-y-1/2 right-0 flex items-center cursor-pointer pr-2"
+                      className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
                       onClick={toggleConfirmPasswordVisibility}
                     >
                       <svg
@@ -357,7 +359,7 @@ export const RegisterCandidate = () => {
                         height="20"
                         viewBox="0 0 22 20"
                         fill="none"
-                        className="w-6 h-6"
+                        className="h-6 w-6"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -376,11 +378,11 @@ export const RegisterCandidate = () => {
                   </div>
                   {errors?.confirmPassword && (
                     <div className="relative">
-                      <div className="flex items-center absolute">
+                      <div className="absolute flex items-center">
                         <span className="pt-1.5">
                           <IconError />
                         </span>
-                        <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                        <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                           {errors.confirmPassword?.message}
                         </p>
                       </div>
@@ -391,14 +393,14 @@ export const RegisterCandidate = () => {
 
               {!errors?.passWord && !errors?.confirmPassword && (
                 <div className="relative">
-                  <span className="absolute text-[12px] px-2 italic pt-2 font-thin">
+                  <span className="absolute px-2 pt-2 text-[12px] font-thin italic leading-normal">
                     Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc
                     biệt
                   </span>
                 </div>
               )}
 
-              <div className="flex flex-col w-[100%] mt-10">
+              <div className="mt-10 flex w-[100%] flex-col sm:mt-12">
                 <label htmlFor="confirmPassword" className="pb-1 font-bold">
                   Số điện thoại <span className="text-red-700">*</span>
                 </label>
@@ -412,12 +414,12 @@ export const RegisterCandidate = () => {
                 />
                 {errors?.phoneNumber && (
                   <div className="relative">
-                    <div className="flex items-center absolute">
+                    <div className="absolute flex items-center">
                       <span className="pt-1.5 ">
                         <IconError />
                       </span>
 
-                      <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                      <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                         {errors.phoneNumber?.message}
                       </p>
                     </div>
@@ -425,14 +427,14 @@ export const RegisterCandidate = () => {
                 )}
                 {!errors?.phoneNumber && (
                   <div className="relative">
-                    <span className="absolute text-[12px] px-2 italic pt-2 font-thin">
+                    <span className="absolute px-2 pt-2 text-[12px] font-thin italic leading-normal">
                       Có thể bắt đầu với đầu số 03, 05, 07, 08, 09, 84, +84
                     </span>
                   </div>
                 )}
               </div>
 
-              <p className="mt-10 text-[13px] font-normal">
+              <p className="mt-10  text-[13px] font-normal leading-normal sm:mt-12">
                 Bằng việc ấn vào nút “Đăng ký”, tôi đồng ý với
                 <span className="text-red-600"> Thỏa thuận sử dụng </span>
                 và <span className="text-red-600"> Quy định bảo mật</span> của
@@ -440,7 +442,7 @@ export const RegisterCandidate = () => {
               </p>
               <div className="mt-6 flex justify-center">
                 <button
-                  className={`shadow-md text-center text-white rounded-[16px] px-[32px] py-[16px] ${
+                  className={`rounded-[16px] px-[32px] py-[16px] text-center text-white shadow-md ${
                     isSubmitting ? "bg-gray-500" : "bg-gradientCustom"
                   }`}
                   type="submit"
@@ -449,9 +451,9 @@ export const RegisterCandidate = () => {
                   {isSubmitting ? "Đang đăng ký..." : "Đăng ký"}
                 </button>
               </div>
-              <p className="text-center font-normal mt-6">
+              <p className="mt-6 text-center font-normal">
                 Bạn đã có tài khoản?{" "}
-                <span className="text-[#FE5656] font-extrabold">
+                <span className=" font-extrabold text-[#FE5656] sm:inline-block sm:pt-2">
                   <a href="/login">Trở về đăng nhập</a>
                 </span>
               </p>
