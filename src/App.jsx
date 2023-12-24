@@ -234,10 +234,10 @@ const App = () => {
       element: <NotPermitted></NotPermitted>,
     },
     {
-<<<<<<< Updated upstream
       path: "/header-admin",
       element: <MenuAdmin></MenuAdmin>,
-=======
+    },
+    {
       path: "/adminprofile",
       element: <ProfileAdmin />,
     },
@@ -255,7 +255,6 @@ const App = () => {
         //   element: </>,
         // },
       ],
->>>>>>> Stashed changes
     },
 
     {
