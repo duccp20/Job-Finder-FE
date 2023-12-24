@@ -95,12 +95,6 @@ const App = () => {
     console.log(res);
     if (res && res?.data) {
       dispatch(doFetchAccountAction(res.data));
-      console.log("res.data.id", res.data.id);
-      const resCan = await callFetchCandidateByUserId(user.id);
-      console.log(resCan.data);
-      if (resCan && resCan?.data) {
-        dispatch(doFetchCandidate(resCan.data));
-      }
     } else {
       dispatch(doLogoutAction(false));
     }
@@ -457,7 +451,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {/* {!isLoading ||
+      {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
@@ -467,10 +461,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )} */}
+      )}
 
       {/* Chưa có api */}
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
     </>
   );
 };

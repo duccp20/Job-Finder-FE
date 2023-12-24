@@ -32,6 +32,18 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("user in profile", user);
+      const res = await callFetchCandidateByUserId(user.id);
+      if (res && res?.data) {
+        console.log("res in profile", res);
+        dispatch(doFetchCandidate(res.data));
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <HeaderHome />

@@ -207,7 +207,7 @@ const PersonalDetails = () => {
             </div>
           </div>
           <div className="mt-6 flex w-full gap-5">
-            <div className="flex w-[50%] flex-col">
+            <div className="flex w-[50%] flex-col ">
               <label htmlFor="email" className="pb-2 ">
                 Email <span className="text-red-700">*</span>
               </label>
@@ -215,6 +215,7 @@ const PersonalDetails = () => {
                 disabled={true}
                 type="email"
                 id="email"
+                // className="bg-slate-600"
                 borderColor="border-gray-300"
                 defaultValue={isAuthenticated && dataUser ? dataUser.email : ""}
               />
