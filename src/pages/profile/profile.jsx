@@ -35,8 +35,8 @@ const Profile = () => {
   return (
     <div>
       <HeaderHome />
-      <div className="my-[100px] flex h-auto w-full flex-col items-start gap-[24px] px-4 ">
-        <div className="h-auto w-full rounded-[10px] border border-[#FE5656] px-6 py-[30px] shadow-banner ">
+      <div className="my-[100px] flex h-auto w-full items-start justify-center  gap-[24px] px-4 ">
+        <div className="h-auto w-[30%] rounded-[10px] border border-[#FE5656] px-6 py-[30px] shadow-banner ">
           <Controller
             name="image"
             control={control}
@@ -56,7 +56,47 @@ const Profile = () => {
                   className="my-3 flex w-full cursor-pointer items-center justify-center rounded-[5px] py-2"
                 >
                   {imagePreview && (
-                    <div>
+                    <div className="group relative inline-block">
+                      <div className=" absolute  bottom-0    hidden  group-hover:block">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="auto"
+                          height="auto"
+                          viewBox="0 0 100 100"
+                          fill="none"
+                        >
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="50"
+                            fill="#D9D9D9"
+                            fill-opacity="0.5"
+                          />
+                          <mask
+                            id="mask0_1975_2076"
+                            className="mask-type:alpha"
+                            maskUnits="userSpaceOnUse"
+                            x="38"
+                            y="38"
+                            width="50"
+                            height="50"
+                          >
+                            <rect
+                              x="38"
+                              y="38"
+                              width="50"
+                              height="50"
+                              fill="#D9D9D9"
+                            />
+                          </mask>
+                          <g mask="url(#mask0_1975_2076)">
+                            <path
+                              d="M50 55.5C51.25 55.5 52.3125 55.0625 53.1875 54.1875C54.0625 53.3125 54.5 52.25 54.5 51C54.5 49.75 54.0625 48.6875 53.1875 47.8125C52.3125 46.9375 51.25 46.5 50 46.5C48.75 46.5 47.6875 46.9375 46.8125 47.8125C45.9375 48.6875 45.5 49.75 45.5 51C45.5 52.25 45.9375 53.3125 46.8125 54.1875C47.6875 55.0625 48.75 55.5 50 55.5ZM50 53.5C49.3 53.5 48.7083 53.2583 48.225 52.775C47.7417 52.2917 47.5 51.7 47.5 51C47.5 50.3 47.7417 49.7083 48.225 49.225C48.7083 48.7417 49.3 48.5 50 48.5C50.7 48.5 51.2917 48.7417 51.775 49.225C52.2583 49.7083 52.5 50.3 52.5 51C52.5 51.7 52.2583 52.2917 51.775 52.775C51.2917 53.2583 50.7 53.5 50 53.5ZM42 59C41.45 59 40.9792 58.8042 40.5875 58.4125C40.1958 58.0208 40 57.55 40 57V45C40 44.45 40.1958 43.9792 40.5875 43.5875C40.9792 43.1958 41.45 43 42 43H45.15L47 41H53L54.85 43H58C58.55 43 59.0208 43.1958 59.4125 43.5875C59.8042 43.9792 60 44.45 60 45V57C60 57.55 59.8042 58.0208 59.4125 58.4125C59.0208 58.8042 58.55 59 58 59H42ZM42 57H58V45H53.95L52.125 43H47.875L46.05 45H42V57Z"
+                              fill="white"
+                            />
+                          </g>
+                        </svg>
+                      </div>
                       <img
                         src={imagePreview}
                         alt="Selected Image"
@@ -66,7 +106,47 @@ const Profile = () => {
                   )}
 
                   {!imagePreview && (
-                    <div>
+                    <div className="group relative inline-block">
+                      <div className=" absolute  bottom-0    hidden  group-hover:block">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="auto"
+                          height="auto"
+                          viewBox="0 0 100 100"
+                          fill="none"
+                        >
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="50"
+                            fill="#D9D9D9"
+                            fill-opacity="0.5"
+                          />
+                          <mask
+                            id="mask0_1975_2076"
+                            className="mask-type:alpha"
+                            maskUnits="userSpaceOnUse"
+                            x="38"
+                            y="38"
+                            width="50"
+                            height="50"
+                          >
+                            <rect
+                              x="38"
+                              y="38"
+                              width="50"
+                              height="50"
+                              fill="#D9D9D9"
+                            />
+                          </mask>
+                          <g mask="url(#mask0_1975_2076)">
+                            <path
+                              d="M50 55.5C51.25 55.5 52.3125 55.0625 53.1875 54.1875C54.0625 53.3125 54.5 52.25 54.5 51C54.5 49.75 54.0625 48.6875 53.1875 47.8125C52.3125 46.9375 51.25 46.5 50 46.5C48.75 46.5 47.6875 46.9375 46.8125 47.8125C45.9375 48.6875 45.5 49.75 45.5 51C45.5 52.25 45.9375 53.3125 46.8125 54.1875C47.6875 55.0625 48.75 55.5 50 55.5ZM50 53.5C49.3 53.5 48.7083 53.2583 48.225 52.775C47.7417 52.2917 47.5 51.7 47.5 51C47.5 50.3 47.7417 49.7083 48.225 49.225C48.7083 48.7417 49.3 48.5 50 48.5C50.7 48.5 51.2917 48.7417 51.775 49.225C52.2583 49.7083 52.5 50.3 52.5 51C52.5 51.7 52.2583 52.2917 51.775 52.775C51.2917 53.2583 50.7 53.5 50 53.5ZM42 59C41.45 59 40.9792 58.8042 40.5875 58.4125C40.1958 58.0208 40 57.55 40 57V45C40 44.45 40.1958 43.9792 40.5875 43.5875C40.9792 43.1958 41.45 43 42 43H45.15L47 41H53L54.85 43H58C58.55 43 59.0208 43.1958 59.4125 43.5875C59.8042 43.9792 60 44.45 60 45V57C60 57.55 59.8042 58.0208 59.4125 58.4125C59.0208 58.8042 58.55 59 58 59H42ZM42 57H58V45H53.95L52.125 43H47.875L46.05 45H42V57Z"
+                              fill="white"
+                            />
+                          </g>
+                        </svg>
+                      </div>
                       <img
                         src="https://images.unsplash.com/photo-1701084412727-1f3e01088a5f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Selected Image"
@@ -94,7 +174,7 @@ const Profile = () => {
             nhiều cơ hội việc làm tốt từ IT Jobs.
           </p>
         </div>
-        <Outlet className="w-full lg:w-[60%]" />
+        <Outlet className="w-full" />
       </div>
     </div>
   );

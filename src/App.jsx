@@ -55,6 +55,8 @@ import RecruitmentList from "./components/RecruitmentList";
 import SearchBar from "./components/SearchBatr/search";
 import MenuAdmin from "./pages/admin/overall";
 import DashBoard from "./pages/admin/dashboard";
+import ChangeAdminPassword from "./pages/changeadminpassword/changeadminpassword";
+import ProfileAdmin from "./pages/profileadmin/profileadmin";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -236,6 +238,26 @@ const App = () => {
       element: <MenuAdmin></MenuAdmin>,
     },
     {
+      path: "/adminprofile",
+      element: <ProfileAdmin />,
+    },
+    {
+      path: "/admin",
+      element: <MenuAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <DashBoard />,
+        },
+        // {
+        //   path: "",
+        //   element: </>,
+        // },
+      ],
+    },
+
+    {
       path: "/viewrecruitment",
       element: <ViewRecruitmentOverall />,
       errorElement: <NotFound />,
@@ -249,6 +271,10 @@ const App = () => {
           element: <ViewCompanyInfor />,
         },
       ],
+    },
+    {
+      path: "/change-admin-password",
+      element: <ChangeAdminPassword />,
     },
 
     {
