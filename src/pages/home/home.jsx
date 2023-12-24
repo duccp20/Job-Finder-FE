@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
 import HeaderHome from "../../components/HeaderHome";
 import dropdown from "/public/svg/dropdown.svg";
 import check from "/public/svg/check.svg";
@@ -175,7 +176,7 @@ const HomePage = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              <ProvincesDropdown></ProvincesDropdown>
+              <ProvincesDropdown placeholder="Khu vực"></ProvincesDropdown>
               {/* <input
                 type="text"
                 name="district"

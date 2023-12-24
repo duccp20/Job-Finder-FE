@@ -2,13 +2,13 @@ import React from "react";
 
 const Input = React.forwardRef((props, ref) => {
   return (
-    <div>
+    <div className={` rounded-md ${props.bgColor}`}>
       <input
         name={props.name}
         ref={ref}
         type={props.type}
         id={props.id}
-        className={`py-3 px-2 border-2 ${props.className} ${props.borderColor} rounded-md w-full focus:outline-none focus:border-blue-500 focus:ring-blue-500`}
+        className={`border-2 px-2 py-3 ${props.className} ${props.borderColor} w-full rounded-md font-[400] focus:border-blue-500 focus:outline-none focus:ring-blue-500`}
         {...props}
       />
     </div>

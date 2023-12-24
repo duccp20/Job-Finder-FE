@@ -632,6 +632,10 @@ export const RegisterHR = () => {
                         errors?.gender ? "border-red-500" : "border-gray-300"
                       } px-2 py-3 focus:outline-none`}
                     >
+                      <option value="" disabled hidden>
+                        Chọn giới tính
+                      </option>
+
                       <option value="male">Nam</option>
                       <option value="female">Nữ</option>
                     </select>

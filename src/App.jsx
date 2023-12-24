@@ -61,10 +61,16 @@ import { RegisterHR } from "./pages/registerhr/overall";
 import LayoutHr from "./components/Layout/layoutHr";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
-import HeaderAdmin from "./components/HeaderAdmin";
 import ViewJobList from "./pages/viewjoblist/viewJobList";
+
+import HeaderAdmin from "./components/HeaderAdmin";
+
+import RecruitmentListPage from "./pages/recruitmentlist/recruitmentlist";
+import SearchBar from "./components/SearchBatr/search";
 import MenuAdmin from "./pages/admin/overall";
 import DashBoard from "./pages/admin/dashboard";
+import ChangeAdminPassword from "./pages/changeadminpassword/changeadminpassword";
+import ProfileAdmin from "./pages/profileadmin/profileadmin";
 
 import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
@@ -299,13 +305,17 @@ const App = () => {
       errorElement: <NotFound />,
     },
     {
-      path: "/recruitmentlist",
-      element: <RecruitmentList></RecruitmentList>,
+      path: "/recruitmentlistpage",
+      element: <RecruitmentListPage></RecruitmentListPage>,
     },
     {
       path: "/recruitmentlistopen",
       element: <RecruitmentListOpen></RecruitmentListOpen>,
     },
+    // {
+    //   path: "/search",
+    //   element: <SearchBar></SearchBar>,
+    // },
     {
       path: "/recruitmentlist",
       element: <RecruitmentList></RecruitmentList>,
@@ -361,6 +371,14 @@ const App = () => {
       element: <NotPermitted></NotPermitted>,
     },
     {
+      path: "/header-admin",
+      element: <MenuAdmin></MenuAdmin>,
+    },
+    {
+      path: "/adminprofile",
+      element: <ProfileAdmin />,
+    },
+    {
       path: "/admin",
       element: <MenuAdmin />,
       errorElement: <NotFound />,
@@ -375,6 +393,7 @@ const App = () => {
         // },
       ],
     },
+
     {
       path: "/viewrecruitment",
       element: <ViewRecruitmentOverall />,
@@ -388,6 +407,26 @@ const App = () => {
           path: "viewcompany",
           element: <ViewCompanyInfor />,
         },
+      ],
+    },
+    {
+      path: "/change-admin-password",
+      element: <ChangeAdminPassword />,
+    },
+
+    {
+      path: "/admin",
+      element: <MenuAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <DashBoard />,
+        },
+        // {
+        //   path: "",
+        //   element: </>,
+        // },
       ],
     },
 
