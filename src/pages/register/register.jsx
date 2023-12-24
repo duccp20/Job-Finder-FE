@@ -32,11 +32,11 @@ const schema = yup
     email: yup
       .string()
       .required("Hãy nhập email")
-      .email("Email không đúng định dạng"),
-    // .matches(
-    //   /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-    //   "Email không đúng định dạng",
-    // )
+      .email("Email không đúng định dạng")
+      .matches(
+        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+        "Email không đúng định dạng",
+      ),
     passWord: yup
       .string()
       .required("Hãy nhập mật khẩu")
