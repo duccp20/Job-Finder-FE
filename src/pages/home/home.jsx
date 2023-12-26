@@ -11,6 +11,27 @@ import Checkbox from "../../components/Checkbox/checkbox";
 import ProvincesDropdown from "../../components/DropdownProvince";
 
 const HomePage = () => {
+  const [dropdown, setDropdown] = useState({
+    checkboxesDropdown: false,
+    locationDropdown: false,
+    majorDropdown: false,
+  });
+  const handleDropdown = (nameDropdown) => {
+    setDropdown((prev) => {
+      const newDropdown = { ...prev };
+
+      if (newDropdown[nameDropdown] === false) {
+        Object.keys(newDropdown).forEach((key) => {
+          newDropdown[key] = key === nameDropdown;
+        });
+      } else {
+        newDropdown[nameDropdown] = !newDropdown[nameDropdown];
+      }
+
+      return newDropdown;
+    });
+  };
+
   const [checkboxes, setCheckboxes] = useState([
     { id: 1, label: "Full time", checked: false },
     { id: 2, label: "Part time", checked: false },
@@ -57,31 +78,88 @@ const HomePage = () => {
   return (
     <div>
       {/* <LoginAs></LoginAs> */}
-      <div className="mt-[60px]  flex  h-screen w-full gap-[45px]  px-[100px] py-[36px] ">
-        <div className=" w-[20%]">
+      <div className="mt-[60px] flex h-screen w-full py-[36px] sm:px-[20px] md:flex-col md:gap-[20px] tablet-range:px-[50px] desktop-up:gap-[45px] desktop-up:px-[100px]">
+        <div className=" sm:flex-col sm:gap-[20px] md:flex md:w-full md:justify-between desktop-up:w-[20%]">
           {[
             {
               state: checkboxes,
               setState: setCheckboxes,
               title: "Hình thức làm việc",
+              name: "checkboxesDropdown",
             },
             {
               state: location,
               setState: setLocation,
               title: "Vị trí làm việc",
+              name: "locationDropdown",
             },
-            { state: major, setState: setMajor, title: "Chuyên ngành" },
+            {
+              state: major,
+              setState: setMajor,
+              title: "Chuyên ngành",
+              name: "majorDropdown",
+            },
           ].map((section) => (
             <div
               key={section.title}
-              className="mb-[15px] h-auto rounded-[10px] border-[0.5px] border-[#DEDEDE] px-[18px] pb-[24px] pt-[12px]"
+              className=" relative h-auto rounded-[10px] border-[0.5px] border-[#DEDEDE] px-[18px] pt-[12px] md:cursor-pointer md:pb-[12px] desktop-up:mb-[15px] desktop-up:pb-[24px]"
             >
-              <div className="relative flex justify-between">
-                <span className="mb-[20px] text-base font-bold not-italic text-[#FE5656]">
+              <div
+                className=" flex items-center justify-between md:gap-[20px]"
+                onClick={() => handleDropdown(section.name)}
+              >
+                <span className="text-base font-bold not-italic text-[#FE5656] desktop-up:mb-[20px]">
                   {section.title}
                 </span>
+                <span className="desktop-up:hidden">
+                  {dropdown[section.name] ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="6"
+                      viewBox="0 0 18 6"
+                      fill="none"
+                    >
+                      <path
+                        d="M17.6604 0.904457L9.06507 6L0.469726 0.904458L1.9954 -6.66893e-08L9.06507 4.19108L16.1347 -6.8474e-07L17.6604 0.904457Z"
+                        fill="#FE5656"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="7"
+                      height="18"
+                      viewBox="0 0 7 18"
+                      fill="none"
+                    >
+                      <path
+                        d="M0.969401 0.404518L6.06494 8.99987L0.969399 17.5952L0.0649415 16.0695L4.25602 8.99987L0.0649428 1.93019L0.969401 0.404518Z"
+                        fill="#FE5656"
+                      />
+                    </svg>
+                  )}
+                </span>
               </div>
-              <div>
+              {dropdown[section.name] && (
+                <div className="absolute left-0 top-[70%] w-full rounded-b-[10px] border border-t-0 border-[#DEDEDE] bg-white px-[10px] pb-[10px] pt-[20px] sm:z-[2] desktop-up:hidden">
+                  <ul className="w-full">
+                    {section.state.map((checkbox) => (
+                      <li key={checkbox.id} className="mb-2 w-full">
+                        <Checkbox
+                          id={checkbox.id}
+                          label={checkbox.label}
+                          checked={checkbox.checked}
+                          onChange={() =>
+                            handleCheckboxChange(checkbox.id, section.setState)
+                          }
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className="md:hidden">
                 <ul>
                   {section.state.map((checkbox) => (
                     <li key={checkbox.id} className="mb-2">
@@ -101,9 +179,9 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className=" flex w-[80%] flex-col gap-[36px]">
-          <form className="flex h-auto items-center justify-between rounded-[6px] border-[0.5px] border-[#FE5656] px-[18px] py-[12px]">
-            <div className="flex flex-grow items-end">
+        <div className=" flex flex-col gap-[36px] md:w-full in-lg:w-[80%]">
+          <form className="flex h-auto items-center justify-between rounded-[6px] sm:flex-col sm:gap-[15px] tablet-up:border-[0.5px] tablet-up:border-[#FE5656] tablet-up:px-[18px] tablet-up:py-[12px] ">
+            <div className="flex flex-grow items-end sm:w-full sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="19"
@@ -144,7 +222,7 @@ const HomePage = () => {
               />
             </div>
 
-            <div className="flex items-end pr-[30px]">
+            <div className="flex sm:w-full sm:items-center sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px] tablet-up:items-end tablet-up:pr-[30px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -171,48 +249,10 @@ const HomePage = () => {
                 </defs>
               </svg>
               <ProvincesDropdown placeholder="Khu vực"></ProvincesDropdown>
-              {/* <input
-                type="text"
-                name="district"
-                id="district"
-                placeholder="Khu vực"
-                className="placeholder:text-[#626262] "
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="18"
-                viewBox="0 0 16 18"
-                fill="none"
-                className="cursor-pointer"
-              >
-                <g clip-path="url(#clip0_937_523)">
-                  <path
-                    d="M7.99979 13.5C7.65863 13.5 7.31729 13.3901 7.05729 13.1704L0.390625 7.54541C-0.130208 7.10596 -0.130208 6.39404 0.390625 5.95459C0.911458 5.51514 1.75521 5.51514 2.27604 5.95459L7.99979 10.7859L13.7248 5.95547C14.2456 5.51602 15.0894 5.51602 15.6102 5.95547C16.131 6.39492 16.131 7.10684 15.6102 7.54629L8.94354 13.1713C8.68312 13.391 8.34146 13.5 7.99979 13.5Z"
-                    fill="url(#paint0_linear_937_523)"
-                  />
-                </g>
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_937_523"
-                    x1="8.00042"
-                    y1="5.625"
-                    x2="8.00042"
-                    y2="13.5"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="#FFB950" />
-                    <stop offset="1" stop-color="#FE5656" />
-                  </linearGradient>
-                  <clipPath id="clip0_937_523">
-                    <rect width="16" height="18" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg> */}
             </div>
             <div className="">
               <button
-                className="rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md"
+                className="whitespace-nowrap rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md"
                 type="submit"
               >
                 Tìm kiếm
