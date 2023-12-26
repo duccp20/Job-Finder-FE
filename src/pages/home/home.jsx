@@ -17,7 +17,7 @@ import { doSetRoleGuest } from "../../redux/account/accountSlice";
 const HomePage = () => {
   const [major, setMajor] = useState([]);
   const [location, setLocation] = useState([]);
-  // const [checkboxes, setCheckboxes] = useState([]);
+  const [checkboxes, setCheckboxes] = useState([]);
   const data = useSelector((state) => state.baseData.data);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
@@ -25,21 +25,21 @@ const HomePage = () => {
 
   console.log(data);
 
-  // const mapState = (data, checked = false) =>
-  //   data.map((item) => ({ id: item.id, label: item.name, checked }));
+  const mapState = (data, checked = false) =>
+    data.map((item) => ({ id: item.id, label: item.name, checked }));
 
-  // useEffect(() => {
-  //   // Chỉ cập nhật trạng thái nếu data có dữ liệu
-  //   if (data?.majors) {
-  //     setMajor(mapState(data.majors));
-  //   }
-  //   if (data?.positions) {
-  //     setLocation(mapState(data.positions));
-  //   }
-  //   if (data?.schedules) {
-  //     setCheckboxes(mapState(data.schedules));
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    // Chỉ cập nhật trạng thái nếu data có dữ liệu
+    if (data?.majors) {
+      setMajor(mapState(data.majors));
+    }
+    if (data?.positions) {
+      setLocation(mapState(data.positions));
+    }
+    if (data?.schedules) {
+      setCheckboxes(mapState(data.schedules));
+    }
+  }, [data]);
 
   const [dropdown, setDropdown] = useState({
     checkboxesDropdown: false,
@@ -62,12 +62,12 @@ const HomePage = () => {
     });
   };
 
-  const [checkboxes, setCheckboxes] = useState([
-    { id: 1, label: "Full time", checked: false },
-    { id: 2, label: "Part time", checked: false },
-    { id: 3, label: "Remote", checked: false },
-    // Add more options as needed
-  ]);
+  // const [checkboxes, setCheckboxes] = useState([
+  //   { id: 1, label: "Full time", checked: false },
+  //   { id: 2, label: "Part time", checked: false },
+  //   { id: 3, label: "Remote", checked: false },
+  //   // Add more options as needed
+  // ]);
 
   /*
    *

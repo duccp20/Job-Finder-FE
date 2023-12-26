@@ -5,14 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import Input from "../../components/Input/input";
-import { callFetchCandidateByUserId } from "../../service/candidate/api";
+import {
+  callFetchCandidateByUserId,
+  callUpdateAvatar,
+} from "../../service/candidate/api";
 import { doFetchCandidate } from "../../redux/candidate/candidateSlice";
-import Popup from "../../components/Popup";
+import Spinner from "../../components/Spinner/spinnner";
+import { doSetProfileData } from "../../redux/account/accountSlice";
 
 const Profile = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [fileAvatar, setFileAvatar] = useState(null);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
-
+  const dataCandidate = useSelector((state) => state.candidate.data);
+  const candidateID = useSelector((state) => state.candidate.id);
+  console.log("dataCandidate in profile", dataCandidate);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -29,6 +38,29 @@ const Profile = () => {
       };
 
       reader.readAsDataURL(file);
+      setFileAvatar(file);
+      console.log("file", file);
+      setShowButton(true);
+    }
+  };
+
+  const handleSubmitAvatar = async () => {
+    setIsSubmitting(true);
+    try {
+      const res = await callUpdateAvatar(candidateID, fileAvatar);
+      setIsSubmitting(false);
+      if (res && res.httpCode === 200) {
+        console.log("Ảnh đã được cập nhật");
+
+        setImagePreview(
+          `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${res.data}?alt=media`,
+        );
+        alert("Cấp nhật ảnh thành công");
+      }
+    } catch (error) {
+      alert("Cấp nhật ảnh thất bại", error);
+      console.log("Error in ava", error);
+      setIsSubmitting(false);
     }
   };
 
@@ -36,6 +68,7 @@ const Profile = () => {
     const fetchData = async () => {
       console.log("user in profile", user);
       const res = await callFetchCandidateByUserId(user.id);
+      dispatch(doSetProfileData(res.data.userDTO));
       if (res && res?.data) {
         console.log("res in profile", res);
         dispatch(doFetchCandidate(res.data));
@@ -161,7 +194,7 @@ const Profile = () => {
                         </svg>
                       </div>
                       <img
-                        src="https://images.unsplash.com/photo-1701084412727-1f3e01088a5f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${user?.avatar}?alt=media`}
                         alt="Selected Image"
                         className="mx-auto aspect-square h-[200px] w-[200px] rounded-full bg-center bg-no-repeat object-cover"
                       />
@@ -186,6 +219,24 @@ const Profile = () => {
             Cho phép nhà tuyển dụng chủ động tìm kiếm hồ sơ của bạn để có thêm
             nhiều cơ hội việc làm tốt từ IT Jobs.
           </p>
+          {showButton && (
+            <button
+              onClick={handleSubmitAvatar}
+              className={`mt-3 w-full rounded-[4px] px-[22px] py-[12px] text-center text-[15px] font-bold text-white  ${
+                isSubmitting ? "bg-gray-500" : "  bg-[#FE5656]"
+              } `}
+              type="submit"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center gap-2">
+                  <Spinner />
+                  <span>Đang Cập nhật</span>
+                </span>
+              ) : (
+                "Cập nhật"
+              )}
+            </button>
+          )}
         </div>
         <Outlet className="w-full" />
       </div>

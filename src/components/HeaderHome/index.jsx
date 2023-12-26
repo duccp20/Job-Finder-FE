@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { doLogoutAction } from "../../redux/account/accountSlice";
 import LoginAs from "../LoginAs";
-const HeaderHome = () => {
+const HeaderHome = (props) => {
   const dataUser = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const HeaderHome = () => {
   const [showPopup, setShowPopupLogin] = useState(false);
 
   const jobOptions = ["Tìm việc làm", "Tìm thực tập"];
+  const hrOptions = ["Tìm việc làm 1", "Tìm thực tập 2"];
   // const userOptions = ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"];
   const authOptions = isAuthenticated
     ? ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"]
@@ -103,15 +104,16 @@ const HeaderHome = () => {
 
               {dropdown.jobDropdown && (
                 <div className="absolute right-0 z-[1] mt-1 w-[105%] rounded-[4px] bg-white px-2 pt-9 text-left text-[15px] font-[600] shadow-custom">
-                  {jobOptions.map((option) => (
-                    <button
-                      key={option}
-                      onClick={() => selectOption(option)}
-                      className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
-                    >
-                      {option}
-                    </button>
-                  ))}
+                  {props.role === "hr" &&
+                    jobOptions.map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => selectOption(option)}
+                        className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
+                      >
+                        {option}
+                      </button>
+                    ))}
                 </div>
               )}
             </div>

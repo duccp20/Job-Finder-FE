@@ -23,6 +23,7 @@ import {
   doSetPosition,
   doSetSchedule,
 } from "../../redux/base/baseDataSlice";
+import { getRawFile } from "../../service/file/api";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 
@@ -39,10 +40,12 @@ const JobDetails = () => {
   const dataMajor = useSelector((state) => state.baseData.data.majors);
   const dataSchedule = useSelector((state) => state.baseData.data.schedules);
   const dataPosition = useSelector((state) => state.baseData.data.positions);
+
   console.log("dataMajor", dataMajor);
   console.log("dataSchedule", dataSchedule);
   console.log("dataPosition", dataPosition);
   console.log("dataCandidate", dataCandidate);
+
   const schema = yup
     .object({
       job: yup.string().required("Công việc không được để trống"),
@@ -72,11 +75,13 @@ const JobDetails = () => {
     const file = e.target.files[0];
     if (file) {
       setCVFileName(file.name);
+
       setValue("cv", file);
       const reader = new FileReader();
 
       reader.onload = function (e) {
         const cvUrl = e.target.result;
+        console.log("cvUrl", cvUrl);
         setCVPreview(cvUrl);
       };
 
@@ -107,12 +112,11 @@ const JobDetails = () => {
   useEffect(() => {
     if (dataCandidate) {
       setValue("job", dataCandidate.desiredJob || "");
+      setValue("cv", cvPreview || "");
       setValue("location", dataCandidate.desiredWorkingProvince || "");
       setValue("selectPosition", dataCandidate.positionDTOs || []);
       setValue("selectField", dataCandidate.majorDTOs || []);
       setValue("selectType", dataCandidate.scheduleDTOs || []);
-
-      // Cập nhật các trường khác theo cùng cách này
     }
   }, [dataCandidate, setValue]);
 
@@ -145,7 +149,7 @@ const JobDetails = () => {
     console.log(dataCandidate);
     const candidateOtherInfoDTO = {
       ...dataCandidate,
-      cv: cvFileName,
+      cv: data.cv.name, //if no change cv, just get by default name
       referenceLetter: data.referenceLetter,
       desiredJob: data.job,
       desiredWorkingProvince: data.location,
@@ -168,10 +172,10 @@ const JobDetails = () => {
       const res = await callEditProfile(
         candidateID,
         candidateProfileDTO,
-        data.cv,
+        data.cv || null,
       );
 
-      console.log(res);
+      console.log("res in onSubmit", res);
       setIsSubmitting(false);
 
       if (res && res?.data) {
@@ -187,16 +191,29 @@ const JobDetails = () => {
     }
   };
 
-  const handleShowCV = (e) => {
+  const handleShowCV = async (e) => {
     e.preventDefault(); //chặn mở upload file popup
     e.stopPropagation(); //chặn bubbling lên thằng cha
-    setShowCV(true);
+
+    if (cvFileName) {
+      setShowCV(true);
+    }
+
+    if (!cvFileName && dataCandidate.cv) {
+      const encodedFileName = encodeURIComponent(dataCandidate.cv);
+      try {
+        const base64Data = await getRawFile(encodedFileName); // Gọi API
+        console.log("base64Data", base64Data);
+        setCVPreview(base64Data);
+        setShowCV(true);
+      } catch (error) {
+        console.error("Có lỗi xảy ra khi tải file:", error);
+      }
+    }
   };
 
-  function convertDate(inputDate) {
-    const parts = inputDate.split("-");
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-  }
+
+
   const handleCloseCV = () => {
     setShowCV(false);
   };
@@ -472,7 +489,7 @@ const JobDetails = () => {
                     htmlFor="cv"
                     className="flex w-full cursor-pointer items-center justify-center rounded-[5px] border-2 border-gray-300 py-1"
                   >
-                    {cvFileName ? (
+                    {cvFileName || dataCandidate?.cv ? (
                       <div className="flex items-center gap-2 p-[10px]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -486,7 +503,7 @@ const JobDetails = () => {
                             fill="#0FA958"
                           />
                         </svg>
-                        <span>{cvFileName}</span>
+                        <span>{cvFileName || dataCandidate?.cv}</span>
                         <span
                           onClick={(e) => handleShowCV(e)}
                           className="font-weight-400 cursor-pointer font-light italic text-[#7D7D7D]"
@@ -539,6 +556,11 @@ const JobDetails = () => {
               type="text"
               id="referenceLetter"
               {...register("referenceLetter")}
+              defaultValue={
+                dataCandidate && dataCandidate?.referenceLetter
+                  ? dataCandidate.referenceLetter
+                  : ""
+              }
               className="h-[180px] w-full rounded-[4px] border-2 border-gray-300 px-4 py-3 leading-normal focus:outline-none"
               placeholder="Viết giới thiệu ngắn gọn về bản thân (điểm mạnh và điểm yếu) và nêu rõ mong muốn, lý do làm việc tại công ty này."
             />
