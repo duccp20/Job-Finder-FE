@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import HeaderHome from "../../components/HeaderHome";
 import dropdown from "/public/svg/dropdown.svg";
 import check from "/public/svg/check.svg";
@@ -8,9 +9,38 @@ import useDataFetcher from "../../components/Pagination/useDataFetcher";
 import LoginAs from "../../components/LoginAs";
 import Loading from "../../components/Loading";
 import Checkbox from "../../components/Checkbox/checkbox";
+import Skeleton from "../../components/SkeletonLoader/skeleton";
+import { useSelector } from "react-redux";
 import ProvincesDropdown from "../../components/DropdownProvince";
+import { doSetRoleGuest } from "../../redux/account/accountSlice";
 
 const HomePage = () => {
+  const [major, setMajor] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [checkboxes, setCheckboxes] = useState([]);
+  const data = useSelector((state) => state.baseData.data);
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+
+  if (!isAuthenticated) doSetRoleGuest({ name: "Role_Guest", id: 0 });
+
+  console.log(data);
+
+  const mapState = (data, checked = false) =>
+    data.map((item) => ({ id: item.id, label: item.name, checked }));
+
+  useEffect(() => {
+    // Chỉ cập nhật trạng thái nếu data có dữ liệu
+    if (data?.majors) {
+      setMajor(mapState(data.majors));
+    }
+    if (data?.positions) {
+      setLocation(mapState(data.positions));
+    }
+    if (data?.schedules) {
+      setCheckboxes(mapState(data.schedules));
+    }
+  }, [data]);
+
   const [dropdown, setDropdown] = useState({
     checkboxesDropdown: false,
     locationDropdown: false,
@@ -32,35 +62,19 @@ const HomePage = () => {
     });
   };
 
-  const [checkboxes, setCheckboxes] = useState([
-    { id: 1, label: "Full time", checked: false },
-    { id: 2, label: "Part time", checked: false },
-    { id: 3, label: "Remote", checked: false },
-    // Add more options as needed
-  ]);
+  // const [checkboxes, setCheckboxes] = useState([
+  //   { id: 1, label: "Full time", checked: false },
+  //   { id: 2, label: "Part time", checked: false },
+  //   { id: 3, label: "Remote", checked: false },
+  //   // Add more options as needed
+  // ]);
+
   /*
    *
    * @description
    * tạo hàm chứa dữ liệu checkbox
    *
    */
-  const [location, setLocation] = useState([
-    { id: 1, label: "Front end", checked: false },
-    { id: 2, label: "Back end", checked: false },
-    { id: 3, label: "Fullstack", checked: false },
-    { id: 4, label: "Mobile", checked: false },
-    { id: 5, label: "Embedded", checked: false },
-    { id: 6, label: "Tester", checked: false },
-    { id: 7, label: "DevOps", checked: false },
-  ]);
-  const [major, setMajor] = useState([
-    { id: 1, label: "Khoa học máy tính", checked: false },
-    { id: 2, label: "Công nghệ phần mềm", checked: false },
-    { id: 3, label: "Kỹ thuật máy tính", checked: false },
-    { id: 4, label: "Trí tuệ nhân tạo", checked: false },
-    { id: 5, label: "Kỹ thuật mạng", checked: false },
-    { id: 6, label: "Hệ thống thông tin quản lý", checked: false },
-  ]);
 
   const handleCheckboxChange = (id, setState) => {
     setState((prevCheckboxes) =>
@@ -180,7 +194,7 @@ const HomePage = () => {
         </div>
 
         <div className=" flex flex-col gap-[36px] md:w-full in-lg:w-[80%]">
-          <form className="flex h-auto items-center justify-between rounded-[6px] sm:flex-col sm:gap-[15px] tablet-up:border-[0.5px] tablet-up:border-[#FE5656] tablet-up:px-[18px] tablet-up:py-[12px] ">
+          <form className="tablet-up:border-[0.5px] tablet-up:border-[#FE5656] tablet-up:px-[18px] tablet-up:py-[12px] flex h-auto items-center justify-between rounded-[6px] sm:flex-col sm:gap-[15px] ">
             <div className="flex flex-grow items-end sm:w-full sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +236,7 @@ const HomePage = () => {
               />
             </div>
 
-            <div className="flex sm:w-full sm:items-center sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px] tablet-up:items-end tablet-up:pr-[30px]">
+            <div className="tablet-up:items-end tablet-up:pr-[30px] flex sm:w-full sm:items-center sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -259,7 +273,7 @@ const HomePage = () => {
               </button>
             </div>
           </form>
-
+          {/* {data} */}
           <div>
             {loading ? (
               <Loading></Loading>

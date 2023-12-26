@@ -17,8 +17,6 @@ const ContactOverall = () => {
 
   return (
     <div>
-      <HeaderHR></HeaderHR>
-
       <div className="mx-auto my-[30px] w-[90%] rounded-[10px] border border-[#DEDEDE] shadow-banner">
         <h1 className="px-[30px] pt-[30px] text-[22px] font-bold">
           Thông tin tài khoản
@@ -26,21 +24,21 @@ const ContactOverall = () => {
         <div className="mt-[30px] flex w-full cursor-pointer items-center gap-7 py-[10px] pl-[40px] text-[16px] font-[600] shadow-banner">
           <span
             className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
-              window.location.pathname == "/contact"
+              window.location.pathname == "/hr/contact"
                 ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("")}
           >
             THÔNG TIN LIÊN HỆ
           </span>
           <span
             className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
-              window.location.pathname == "/contact/company-infor"
+              window.location.pathname == "/hr/contact/company"
                 ? "border-b-[#FE5656] text-[#FE5656]"
                 : "text-black"
             }`}
-            onClick={() => navigate("company-infor")}
+            onClick={() => navigate("company")}
           >
             THÔNG TIN CÔNG TY
           </span>

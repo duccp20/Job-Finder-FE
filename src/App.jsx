@@ -15,7 +15,11 @@ import NewPassword from "./pages/newpass/newpass";
 import Loading from "./components/Loading";
 import { callFetchUserProfile } from "./service/user/api";
 import { useDispatch, useSelector } from "react-redux";
-import { doFetchAccountAction } from "./redux/account/accountSlice";
+import {
+  doFetchAccountAction,
+  doLogoutAction,
+  doSetRoleGuest,
+} from "./redux/account/accountSlice";
 import PersonalDetails from "./pages/profile/personal-details";
 import JobDetails from "./pages/profile/job-details";
 import JobPersonOverall from "./pages/profile/job-person-overall";
@@ -38,7 +42,15 @@ import Recruitment from "./pages/recruitment/detail";
 import AppliedJob from "./pages/apply/appliedjob";
 import NotPermitted from "./components/NotPermitted";
 
-import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
+import { getAllMajor } from "./service/major/api";
+import {
+  doSetMajor,
+  doSetPosition,
+  doSetSchedule,
+} from "./redux/base/baseDataSlice";
+import { getAllPosition } from "./service/position/api";
+import { getAllSchedule } from "./service/schedule/api";
+import MultiSelectDropdown from "./components/MultilSelectTag";
 
 import ViewRecruitmentOverall from "./pages/viewrecruitment/overall";
 import ViewCompanyInfor from "./pages/viewrecruitment/viewcompany";
@@ -46,22 +58,30 @@ import ViewRecruitmentDetail from "./pages/viewrecruitment/viewdetail";
 
 import { RegisterHR } from "./pages/registerhr/overall";
 
+import LayoutHr from "./components/Layout/layoutHr";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
 import ViewJobList from "./pages/viewjoblist/viewJobList";
 
 import HeaderAdmin from "./components/HeaderAdmin";
 
 import RecruitmentListPage from "./pages/recruitmentlist/recruitmentlist";
-import RecruitmentList from "./components/RecruitmentList";
 import SearchBar from "./components/SearchBatr/search";
 import MenuAdmin from "./pages/admin/overall";
 import DashBoard from "./pages/admin/dashboard";
 import ChangeAdminPassword from "./pages/changeadminpassword/changeadminpassword";
 import ProfileAdmin from "./pages/profileadmin/profileadmin";
 
+import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
+import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
+import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
+
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
   const user = useSelector((state) => state.account.user);
+  console.log("user", user);
   const dispatch = useDispatch();
+
   const fetchAccount = async () => {
     if (
       window.location.pathname === "/register" ||
@@ -72,20 +92,51 @@ const App = () => {
       return;
 
     const res = await callFetchUserProfile();
-
+    console.log(res);
     if (res && res?.data) {
       dispatch(doFetchAccountAction(res.data));
+    } else {
+      dispatch(doLogoutAction(false));
     }
   };
+
   useEffect(() => {
+    // Định nghĩa hàm async để sử dụng Promise.all
+    const fetchData = async () => {
+      try {
+        // Tạo một mảng các Promises từ các hàm fetch dữ liệu
+        const fetchPromises = [
+          getAllMajor(),
+          getAllPosition(),
+          getAllSchedule(),
+          // Bạn có thể thêm các fetch khác tại đây
+        ];
+
+        // Sử dụng Promise.all để đợi tất cả các Promises hoàn thành
+        const [resMajor, resPosition, resSchedule] =
+          await Promise.all(fetchPromises);
+
+        // Cập nhật state tương ứng sau khi tất cả Promises hoàn thành
+        if (resMajor?.data) {
+          dispatch(doSetMajor(resMajor.data));
+        }
+        if (resPosition?.data) {
+          dispatch(doSetPosition(resPosition.data));
+        }
+        if (resSchedule?.data) {
+          dispatch(doSetSchedule(resSchedule.data));
+        }
+      } catch (error) {
+        // Xử lý lỗi tại đây
+        console.error("Failed to fetch initial data", error);
+      }
+    };
+
     fetchAccount();
+    fetchData();
   }, []);
 
   const router = createBrowserRouter([
-    {
-      path: "/pdf",
-      element: <PDF />,
-    },
     {
       path: "/",
       element: <Layout />,
@@ -95,15 +146,131 @@ const App = () => {
           index: true,
           element: <HomePage />,
         },
+        {
+          path: "profile",
+          element: <Profile />,
+          errorElement: <NotFound />,
+          children: [
+            {
+              index: true,
+              element: <JobPersonOverall />,
+            },
+            {
+              path: "personal",
+              element: <PersonalDetails />,
+            },
+            {
+              path: "job",
+              element: (
+                <ProtectedRoute>
+                  <JobDetails />
+                </ProtectedRoute>
+              ),
+            },
+          ],
+        },
+        {
+          path: "/recruitment",
+          element: <RecruitmentOverall />,
+          errorElement: <NotFound />,
+          children: [
+            {
+              index: true,
+              element: <RecruitmentDetail />,
+            },
+            {
+              path: "company",
+              element: <CompanyInformation />,
+            },
+          ],
+        },
       ],
     },
+    {
+      path: "/hr",
+      element: <LayoutHr />,
+      children: [
+        {
+          index: true,
+          element: <ProtectedRoute>{/* <HomeHr></HomeHr> */}</ProtectedRoute>,
+          errorElement: <NotFound />,
+        },
+        {
+          path: "news",
+          element: <ProtectedRoute>{/* <NewsHr></NewsHr> */}</ProtectedRoute>,
+        },
+        {
+          path: "contact",
+          element: (
+            <ProtectedRoute>
+              <ContactOverall />
+            </ProtectedRoute>
+          ),
+          errorElement: <NotFound />,
+          children: [
+            {
+              index: true,
+              element: (
+                <ProtectedRoute>
+                  <ContactInfor />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "company",
+              element: (
+                <ProtectedRoute>
+                  <CompanyInfor />
+                </ProtectedRoute>
+              ),
+            },
+          ],
+        },
+        {
+          path: "job/create",
+          element: (
+            <ProtectedRoute>
+              <PostJob />
+            </ProtectedRoute>
+          ),
+        },
+        // {
+        //   path: "recruitment",
+        //   element: <RecruitmentOverall />,
+        //   errorElement: <NotFound />,
+        //   children: [
+        //     {
+        //       index: true,
+        //       element: (
+        //         <ProtectedRoute>
+        //           <RecruitmentDetail />
+        //         </ProtectedRoute>
+        //       ),
+        //     },
+        //     {
+        //       path: "company",
+        //       element: (
+        //         <ProtectedRoute>
+        //           <CompanyInformation />,
+        //         </ProtectedRoute>
+        //       ),
+        //     },
+        //   ],
+        // },
+      ],
+    },
+
     {
       path: "/login",
       element: <LoginPage />,
     },
     {
-      path: "/register",
+      path: "/register/candidate",
       element: <RegisterCandidate />,
+    },
+    {
+      path: "/register/recruiter",
+      element: <RegisterHR />,
     },
     {
       path: "/verify-email",
@@ -125,48 +292,7 @@ const App = () => {
       path: "/reset-password",
       element: <NewPassword />,
     },
-    // {
-    //   path: "/forgetPass-mail",
-    //   element: <ForgetPassMail />,
-    // },
-    // {
-    //   path: "/forgetPass-code",
-    //   element: <ForgetPassCode />,
-    // },
-    {
-      path: "/profile",
-      element: <Profile />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          index: true,
-          element: <JobPersonOverall />,
-        },
-        {
-          path: "personal",
-          element: <PersonalDetails />,
-        },
-        {
-          path: "job",
-          element: <JobDetails />,
-        },
-      ],
-    },
-    {
-      path: "/recruitment",
-      element: <RecruitmentOverall />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          index: true,
-          element: <RecruitmentDetail />,
-        },
-        {
-          path: "company",
-          element: <CompanyInformation />,
-        },
-      ],
-    },
+
     {
       path: "/registerhr",
       element: <RegisterHR />,
@@ -184,6 +310,11 @@ const App = () => {
     //   path: "/search",
     //   element: <SearchBar></SearchBar>,
     // },
+    {
+      path: "/recruitmentlist",
+      element: <RecruitmentList></RecruitmentList>,
+    },
+
     {
       path: "/viewjoblist",
       element: <ViewJobList></ViewJobList>,
@@ -320,7 +451,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {/* {!isLoading ||
+      {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
@@ -330,10 +461,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )} */}
+      )}
 
       {/* Chưa có api */}
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
     </>
   );
 };

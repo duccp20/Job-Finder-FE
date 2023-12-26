@@ -18,14 +18,14 @@ const CompanyInfor = () => {
         .string()
         .matches(
           /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-          "Tên không được phép là số hoặc ký tự đặc biệt"
+          "Tên không được phép là số hoặc ký tự đặc biệt",
         )
         .required(),
       taxNumber: yup
         .string()
         .matches(
           /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-          "Họ và tên lót không được phép là số hoặc ký tự đặc biệt"
+          "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
         )
         .required(),
       email: yup
@@ -33,14 +33,14 @@ const CompanyInfor = () => {
         .email("Email không đúng định dạng")
         .matches(
           /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-          "Email không đúng định dạng"
+          "Email không đúng định dạng",
         )
         .required("Email không đúng định dạng"),
       phoneNumber: yup
         .string()
         .matches(
           /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
-          "Số điện thoại không đúng định dạng"
+          "Số điện thoại không đúng định dạng",
         )
         .required(),
     })
@@ -79,7 +79,7 @@ const CompanyInfor = () => {
   return (
     <div>
       <form
-        className="py-[30px] px-[40px] font-[600] text-[15px]"
+        className="px-[40px] py-[30px] text-[15px] font-[600]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="birthday" className="pb-1 ">
@@ -101,14 +101,14 @@ const CompanyInfor = () => {
               />
               <label
                 htmlFor="img"
-                className="cursor-pointer w-full py-2 my-3 rounded-[5px] flex items-center justify-center"
+                className="m-auto my-3 flex w-fit cursor-pointer items-center justify-center rounded-[5px] py-2"
               >
                 {imagePreview && (
                   <div>
                     <img
                       src={imagePreview}
                       alt="Selected Image"
-                      className="rounded-[8px] border border-[#7D7D7D] object-cover h-[200px] w-[200px] mx-auto"
+                      className="mx-auto h-[200px] w-[200px] rounded-[8px] border border-[#7D7D7D] object-cover"
                     />
                   </div>
                 )}
@@ -118,7 +118,7 @@ const CompanyInfor = () => {
                     <img
                       src="https://source.unsplash.com/random"
                       alt=""
-                      className="rounded-[8px] border border-[#7D7D7D] object-cover h-[200px] w-[200px] mx-auto"
+                      className="mx-auto h-[200px] w-[200px] rounded-[8px] border border-[#7D7D7D] object-cover"
                     />
                   </div>
                 )}
@@ -127,8 +127,8 @@ const CompanyInfor = () => {
             </>
           )}
         />
-        <div className="flex gap-12 w-full mt-7">
-          <div className="flex flex-col w-[50%]">
+        <div className="mt-7 flex w-full gap-12">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="name" className="pb-2 ">
               Tên công ty <span className="text-red-700">*</span>
             </label>
@@ -144,13 +144,13 @@ const CompanyInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.name?.message}
                 </p>
               </div>
             )}
           </div>
-          <div className="flex flex-col w-[50%]">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="taxNumber" className="pb-2 ">
               Mã số thuế <span className="text-red-700">*</span>
             </label>
@@ -168,15 +168,15 @@ const CompanyInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.taxNumber?.message}
                 </p>
               </div>
             )}
           </div>
         </div>
-        <div className="flex gap-12 w-full mt-6">
-          <div className="flex flex-col w-[50%]">
+        <div className="mt-6 flex w-full gap-12">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="email" className="pb-2 ">
               Email công ty<span className="text-red-700">*</span>
             </label>
@@ -192,13 +192,13 @@ const CompanyInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.email?.message}
                 </p>
               </div>
             )}
           </div>
-          <div className="flex flex-col w-[50%]">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="phoneNumber" className="pb-2 ">
               Số điện thoại công ty <span className="text-red-700">*</span>
             </label>
@@ -216,15 +216,15 @@ const CompanyInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.phoneNumber?.message}
                 </p>
               </div>
             )}
           </div>
         </div>
-        <div className="flex gap-12 w-full mt-6">
-          <div className="flex flex-col w-[50%]">
+        <div className="mt-6 flex w-full gap-12">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="personel" className="pb-2 ">
               Quy mô nhân sự
             </label>
@@ -235,7 +235,7 @@ const CompanyInfor = () => {
               {...register("personel")}
             />
           </div>
-          <div className="flex flex-col w-[50%]">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="city" className="pb-2 ">
               Tỉnh/ Thành phố
             </label>
@@ -246,9 +246,9 @@ const CompanyInfor = () => {
               render={({ field }) => (
                 <select
                   {...field}
-                  className={`py-3 px-2 border-2 ${
+                  className={`border-2 px-2 py-3 ${
                     errors.city ? "border-red-500" : "border-gray-300"
-                  } rounded-md w-full focus:outline-none`}
+                  } w-full rounded-md focus:outline-none`}
                 >
                   <option value="" disabled hidden>
                     Chọn tỉnh thành
@@ -264,7 +264,7 @@ const CompanyInfor = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="website" className="pb-2 ">
             Website công ty
           </label>
@@ -275,7 +275,7 @@ const CompanyInfor = () => {
             {...register("website")}
           />
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="address" className="pb-2 ">
             Địa điểm làm việc
           </label>
@@ -286,7 +286,7 @@ const CompanyInfor = () => {
             {...register("address")}
           />
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="introduction" className="pb-2 ">
             Giới thiệu về công ty
           </label>
@@ -294,18 +294,18 @@ const CompanyInfor = () => {
             type="text"
             id="introduction"
             {...register("introduction")}
-            className="h-[180px] leading-normal py-3 px-4 border-2 border-gray-300 rounded-[4px] w-full focus:outline-none"
+            className="h-[180px] w-full rounded-[4px] border-2 border-gray-300 px-4 py-3 leading-normal focus:outline-none"
           />
         </div>
-        <div className="mt-6 gap-4 flex justify-center">
+        <div className="mt-6 flex justify-center gap-4">
           <button
-            className="text-center text-[15px] font-bold text-white rounded-[4px] px-[22px] py-[12px] bg-[#FE5656] hover:outline hover:outline-[#FE5656] hover:bg-white hover:text-[#FE5656]"
+            className="rounded-[4px] bg-[#FE5656] px-[22px] py-[12px] text-center text-[15px] font-bold text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]"
             type="submit"
           >
             Cập nhật
           </button>
           <button
-            className="text-center text-[15px] font-bold text-[#7D7D7D] rounded-[4px] px-[36px] py-[12px] bg-gray-200 hover:outline hover:outline-[#7D7D7D] hover:bg-white"
+            className="rounded-[4px] bg-gray-200 px-[36px] py-[12px] text-center text-[15px] font-bold text-[#7D7D7D] hover:bg-white hover:outline hover:outline-[#7D7D7D]"
             type=""
           >
             Hủy

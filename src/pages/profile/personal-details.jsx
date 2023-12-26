@@ -23,7 +23,10 @@ const PersonalDetails = () => {
   const navigate = useNavigate();
   const dataUser = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
+  const candidateID = useSelector((state) => state.candidate.id);
+  console.log("candidateID", candidateID);
   const dataCandidate = useSelector((state) => state.candidate.data);
+  console.log("dataCandidate", dataCandidate);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const schema = yup
     .object({
@@ -65,34 +68,40 @@ const PersonalDetails = () => {
   });
 
   const onSubmit = async (data) => {
+    console.log("data id:", dataUser.id);
+    console.log("data mail", dataUser.email);
     console.log(data);
     console.log(dataUser);
+    const formattedBirthday = formatDateToISO(data.birthday);
     const userProfileDTO = {
-      userId: dataUser.id,
+      email: dataUser.email,
       firstName: data.name,
       lastName: data.subName,
       phone: data.phoneNumber,
-      birthDay: convertDate(data.birthday),
+      birthDay: formattedBirthday,
       gender: data.gender,
-      address: data.address,
+      location: data.address,
       avatar: dataUser.avatar,
     };
 
-    const candidateDTO = {
+    const candidateOtherInfoDTO = {
       ...dataCandidate,
       university: data.university,
     };
     setIsSubmitting(true);
-    const candidateProfileDTO = JSON.stringify({
+    const candidateProfileDTO = {
       userProfileDTO,
-      candidateDTO,
-    });
-    const res = await callEditProfile(dataUser.id, candidateProfileDTO);
-    console.log(res);
+      candidateOtherInfoDTO,
+    };
+    const res = await callEditProfile(candidateID, candidateProfileDTO, null);
+
     setIsSubmitting(false);
     if (res && res?.data) {
-      dispatch(doSetProfileData(res.data.showUserDTO));
-      dispatch(doSetCandidateData(res.data.candidateDTO));
+      console.log(res.data);
+      dispatch(doSetProfileData(res.data.userDTO));
+      console.log("res candidate", res.data);
+      dispatch(doSetCandidateData(res.data));
+      console.log("candidate data after update", dataCandidate);
       setShowPopup(true);
     }
 
@@ -105,23 +114,26 @@ const PersonalDetails = () => {
     setValue("university", dataCandidate?.university || "");
   }, [dataCandidate?.university, setValue]);
 
-  function convertDate(inputDate) {
-    const parts = inputDate.split("-");
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-  }
-  function convertDateToYYYYMMDD(inputDate) {
-    const parts = inputDate.split("/");
-    return `${parts[2]}-${parts[1]}-${parts[0]}`;
-  }
-
   // ...
 
   useEffect(() => {
     if (isAuthenticated && dataUser && dataUser.birthDay) {
-      const convertedDate = convertDateToYYYYMMDD(dataUser.birthDay);
-      setValue("birthday", convertedDate);
+      setValue("birthday", formatDateToDDMMYYYY(dataUser.birthDay));
     }
   }, [isAuthenticated, dataUser, setValue]);
+
+  function formatDateToDDMMYYYY(dateStr) {
+    if (!dateStr) return "";
+    const [year, month, day] = dateStr.split("-");
+    return `${day}-${month}-${year}`;
+  }
+
+  function formatDateToISO(dateStr) {
+    if (!dateStr) return "";
+    const [day, month, year] = dateStr.split("-");
+    return `${year}-${month}-${day}`;
+  }
+
   return (
     <>
       {showPopup && (
@@ -195,7 +207,7 @@ const PersonalDetails = () => {
             </div>
           </div>
           <div className="mt-6 flex w-full gap-5">
-            <div className="flex w-[50%] flex-col">
+            <div className="flex w-[50%] flex-col ">
               <label htmlFor="email" className="pb-2 ">
                 Email <span className="text-red-700">*</span>
               </label>
@@ -203,6 +215,7 @@ const PersonalDetails = () => {
                 disabled={true}
                 type="email"
                 id="email"
+                // className="bg-slate-600"
                 borderColor="border-gray-300"
                 defaultValue={isAuthenticated && dataUser ? dataUser.email : ""}
               />
@@ -222,6 +235,9 @@ const PersonalDetails = () => {
                     borderColor={
                       errors.birthday ? "border-red-500" : "border-gray-300"
                     }
+                    onChange={(e) => {
+                      formatDate(e.target.value);
+                    }}
                     {...register("birthday")}
                   />
                 )}
@@ -292,7 +308,9 @@ const PersonalDetails = () => {
                 errors.address ? "border-red-500" : "border-gray-300"
               }
               {...register("address")}
-              defaultValue={isAuthenticated && dataUser ? dataUser.address : ""}
+              defaultValue={
+                isAuthenticated && dataUser ? dataUser.location : ""
+              }
             />
             {errors?.address && (
               <div className="flex items-center ">

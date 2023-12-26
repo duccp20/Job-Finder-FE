@@ -8,13 +8,13 @@ import { doLogoutAction } from "../../redux/account/accountSlice";
 
 const HeaderAdmin = () => {
   const dataUser = useSelector((state) => state.account.user);
-  const isAuthenticated = true;
-  // const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const dispatch = useDispatch();
   const [dropdown, setDropdown] = useState({
     jobDropdown: false,
     userDropdown: false,
   });
+
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState(null);
   const authOptions = isAuthenticated

@@ -1,32 +1,40 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import NotPermitted from "../NotPermitted";
-import { useSelector } from "react-redux";
 
-const RoleBaseRoute = (props) => {
-  const isAdminRoute = window.location.pathname.startsWith("/admin");
-  const role = useSelector((state) => state.account.user.role);
+const RoleBasedRoute = ({ children }) => {
+  const role = useSelector((state) => state.account.user.roleDTO.name);
+  const path = window.location.pathname;
 
-  if (isAdminRoute && role === "ADMIN") {
-    return <>{props.children}</>;
-  } else {
-    return (
-      <>
-        <NotPermitted />
-      </>
-    );
+  const isAuthorized = (routePrefix, requiredRole) => {
+    return path.startsWith(routePrefix) && role === requiredRole;
+  };
+
+  if (
+    isAuthorized("/admin", "Role_Admin") ||
+    isAuthorized("/hr", "Role_HR") ||
+    isAuthorized("/candidate", "Role_Candidate") ||
+    isAuthorized("/", "Role_Candidate") ||
+    isAuthorized("/", "Role_Guest")
+  ) {
+    return <>{children}</>;
   }
+
+  return <NotPermitted />;
 };
-const ProtectedRoute = (props) => {
+
+const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
   console.log(isAuthenticated, "isAuthenticated trong ProtectedRoute");
+
   return (
     <>
       {isAuthenticated ? (
-        <RoleBaseRoute>{props.children}</RoleBaseRoute>
+        <RoleBasedRoute>{children}</RoleBasedRoute>
       ) : (
-        <Navigate to="/login"></Navigate>
+        <Navigate to="/login" />
       )}
     </>
   );
