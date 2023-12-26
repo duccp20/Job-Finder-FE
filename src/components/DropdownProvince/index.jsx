@@ -166,7 +166,8 @@ const ProvincesDropdown = (props) => {
         {showDropdown && (
           <ul
             ref={dropdownRef}
-            className="absolute z-[1] mt-2 max-h-48 w-auto overflow-y-auto border border-solid border-gray-300 bg-[white]"
+            className="absolute z-[1] mt-2 max-h-48 w-[15vw] overflow-y-auto border border-solid border-gray-300 bg-[white]"
+            style={props.style}
           >
             {filteredProvinces.map((province) => (
               <li

@@ -4,7 +4,10 @@ import { IoCaretBackSharp, IoCaretForwardSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
 import axios from "axios";
 
-const Pagination = () => {
+const Pagination = ({ setCurrentPage, currentPage, totalPages }) => {
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
   const paginationVariants = {
     hidden: {
       opacity: 0,
@@ -21,6 +24,8 @@ const Pagination = () => {
       },
     },
   };
+  const showNextButton = currentPage !== totalPages - 1;
+  const showPrevButton = currentPage !== 0;
   return (
     <motion.div
       variants={paginationVariants}
@@ -31,17 +36,21 @@ const Pagination = () => {
         <ReactPaginate
           breakLabel={<span className="mr-[12px]">...</span>}
           nextLabel={
-            <span className="w-10 h-10 flex justify-center items-center">
-              <IoCaretForwardSharp />
-            </span>
+            showNextButton ? (
+              <span className="flex h-10 w-10 items-center justify-center">
+                <IoCaretForwardSharp />
+              </span>
+            ) : null
           }
-          // onPageChange={handlePageClick}
+          onPageChange={handlePageClick}
           pageRangeDisplayed={2}
-          pageCount={15}
+          pageCount={totalPages}
           previousLabel={
-            <span className="w-10 h-10 flex justify-center items-center bg-gra">
-              <IoCaretBackSharp />
-            </span>
+            showPrevButton ? (
+              <span className="bg-gra flex h-10 w-10 items-center justify-center">
+                <IoCaretBackSharp />
+              </span>
+            ) : null
           }
           renderOnZeroPageCount={null}
           containerClassName="flex justify-center items-center mb-[20px] mt-[20px]"

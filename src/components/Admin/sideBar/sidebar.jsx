@@ -31,7 +31,7 @@ const SideBar = () => {
     setDropdown(false);
 
     if (option === "Admin") {
-      navigate("/");
+      navigate("account");
     }
     if (option === "Nhà tuyển dụng") {
       navigate("/");

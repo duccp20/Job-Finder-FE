@@ -69,6 +69,9 @@ import RecruitmentListPage from "./pages/recruitmentlist/recruitmentlist";
 import SearchBar from "./components/SearchBatr/search";
 import MenuAdmin from "./pages/admin/overall";
 import DashBoard from "./pages/admin/dashboard";
+
+import AdminAccount from "./pages/adminAccount/adminAccount";
+
 import ChangeAdminPassword from "./pages/changeadminpassword/changeadminpassword";
 import ProfileAdmin from "./pages/profileadmin/profileadmin";
 
@@ -417,10 +420,10 @@ const App = () => {
           index: true,
           element: <DashBoard />,
         },
-        // {
-        //   path: "",
-        //   element: </>,
-        // },
+        {
+          path: "account",
+          element: <AdminAccount />,
+        },
       ],
     },
 

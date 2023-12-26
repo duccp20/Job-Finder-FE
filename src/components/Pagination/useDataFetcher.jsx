@@ -1,10 +1,10 @@
-import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 const useDataFetcher = () => {
   const API_URL = "https://fakestoreapi.com/products";
-  const totalPages = 300;
+  const totalPages = 15;
+  const itemsPerPage = 5;
   const [loading, setLoading] = useState(true);
   const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
