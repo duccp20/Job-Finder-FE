@@ -55,6 +55,7 @@ import RecruitmentList from "./components/RecruitmentList";
 import SearchBar from "./components/SearchBatr/search";
 import MenuAdmin from "./pages/admin/overall";
 import DashBoard from "./pages/admin/dashboard";
+import AdminAccount from "./pages/adminAccount/adminAccount";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -260,10 +261,10 @@ const App = () => {
           index: true,
           element: <DashBoard />,
         },
-        // {
-        //   path: "",
-        //   element: </>,
-        // },
+        {
+          path: "account",
+          element: <AdminAccount />,
+        },
       ],
     },
 
