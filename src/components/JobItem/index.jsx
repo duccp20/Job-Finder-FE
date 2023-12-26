@@ -1,24 +1,34 @@
 import React, { useState } from "react";
 
 const JobItem = ({ image, title }) => {
+  const maxTitleLength = 18;
+
+  const truncatedTitle =
+    title.length > maxTitleLength
+      ? title.slice(0, maxTitleLength) + "..."
+      : title;
   return (
     <div className="mb-[15px] rounded-[10px] border border-[#DEDEDE] px-[21px] py-[15px] hover:border-[#FE5656]">
       <div className="flex">
         <img
           src={image}
           alt=""
-          className="mr-[20px] h-[90px] w-[90px] rounded-[8px] border border-[#7D7D7D] object-cover"
+          className="tablet-up:h-[90px] tablet-up:w-[90px] mr-[20px] rounded-[8px] border border-[#7D7D7D] object-cover sm:h-[60px] sm:w-[60px]"
         />
         <div className="flex flex-grow flex-col justify-between">
-          <h3 className="text-xl font-bold not-italic text-red-500">{title}</h3>
-          <span>abc</span>
-          <div className="flex items-baseline">
+          <h3 className="tablet-up:text-xl font-bold not-italic text-red-500 sm:whitespace-nowrap sm:text-sm ">
+            <span className="tablet-up:hidden"> {truncatedTitle}</span>
+            <span className="sm:hidden">{title}</span>
+          </h3>
+          <span className="sm:text-[10px] sm:font-[400]">abc</span>
+          <div className="tablet-up:items-baseline flex sm:items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="19"
               height="16"
               viewBox="0 0 19 16"
               fill="none"
+              className="sm:h-4 sm:w-3"
             >
               <g clip-path="url(#clip0_194_975)">
                 <path
@@ -32,12 +42,12 @@ const JobItem = ({ image, title }) => {
                 </clipPath>
               </defs>
             </svg>
-            <span className="text-base font-light not-italic text-gray-800">
+            <span className="tablet-up:text-base font-light not-italic text-gray-800 sm:text-[10px]">
               hcm
             </span>
           </div>
         </div>
-        <div className="h-auto cursor-pointer self-start border border-[#F1F1F1] px-[15px] py-[12px]">
+        <div className="tablet-up:px-[15px] tablet-up:py-[12px] h-auto cursor-pointer self-start border border-[#F1F1F1] sm:px-[7px] sm:py-[5px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -52,16 +62,16 @@ const JobItem = ({ image, title }) => {
           </svg>
         </div>
       </div>
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between sm:mt-[10px]">
         <div className="flex items-start gap-[19px]">
-          <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
+          <span className="tablet-up:p-[10px] inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px]">
             FE
           </span>
-          <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
+          <span className="tablet-up:p-[10px] inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px]">
             KHMT
           </span>
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col sm:hidden">
           <div className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"

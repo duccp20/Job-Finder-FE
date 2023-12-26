@@ -150,8 +150,8 @@ const ProvincesDropdown = (props) => {
   );
 
   return (
-    <div className=" flex items-center">
-      <div>
+    <div className=" flex w-full items-center">
+      <div className="w-full">
         <label htmlFor="province" className="border-transparent">
           {/* {searchTerm || ""} */}
         </label>
