@@ -13,6 +13,7 @@ import { callLogin } from "../../service/user/api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { doLoginAction } from "../../redux/account/accountSlice";
+import LoginAs from "../../components/LoginAs";
 const schema = yup
   .object({
     email: yup
@@ -29,6 +30,7 @@ const LoginPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showRegisterMethod, setShowRegisterMethod] = useState(false);
   const [showError, setShowError] = useState({
     flag: false,
     type: "",
@@ -59,9 +61,18 @@ const LoginPage = () => {
     if (res.httpCode === 200 && res.message === "Đăng nhập thành công!") {
       localStorage.setItem("access_token", res.accessToken);
       dispatch(doLoginAction(res.data));
-      navigate("/");
+
+      if (res.data.roleDTO.name === "Role_Candidate") {
+        navigate("/");
+      } else if (res.data.roleDTO.name === "Role_HR") {
+        navigate("/hr");
+      } else {
+        navigate("/admin");
+      }
+
       return;
     }
+
     //th1: mat khau hoac email khong hop le
     if (res.message === "DATA INVALID") {
       setShowError({
@@ -78,15 +89,24 @@ const LoginPage = () => {
       });
       return;
     }
+    console.log(res);
     //th3: tai khoan chua active
+    if (res.body.message === "Account Not Active") {
+      setShowError({
+        flag: true,
+        type: "Tài khoản chưa được kích hoạt!",
+      });
+      return;
+    }
     //th4: tai khoan da bi khoa
   };
 
   return (
     <>
+      {showRegisterMethod && <LoginAs></LoginAs>}
       <div className="flex h-screen w-screen ">
         <form
-          className="tablet-range:pt-40 flex w-[55%] flex-col px-36 py-10 sm:py-10 md:px-3 lg:w-full "
+          className="flex w-[55%] flex-col px-36 py-10 sm:py-10 md:px-3 lg:w-full tablet-range:pt-40 "
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className=" flex items-center justify-center p-10 md:pt-0 ">
@@ -105,7 +125,7 @@ const LoginPage = () => {
             <div className="md:px-10 ">
               <label
                 htmlFor="email"
-                className="text=[#1C1C1C] text-[20px] font-bold leading-normal "
+                className="text-[20px] font-bold leading-normal text-[#1C1C1C] "
               >
                 Email
               </label>
@@ -134,7 +154,7 @@ const LoginPage = () => {
             <div className="md:px-10">
               <label
                 htmlFor="pass"
-                className="text=[#1C1C1C] text-[20px] font-bold leading-normal "
+                className="text-[20px] font-bold leading-normal text-[#1C1C1C] "
               >
                 Mật khẩu
               </label>
@@ -152,14 +172,20 @@ const LoginPage = () => {
                   className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
                   onClick={togglePasswordVisibility}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="20"
-                    viewBox="0 0 22 20"
-                    fill="none"
-                    className="h-6 w-6"
-                  >
+                  {showPassword ? (
+                    <svg
+                      width="22"
+                      height="15"
+                      viewBox="0 0 22 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11 0C6 0 1.73 3.11 0 7.5C1.73 11.89 6 15 11 15C16 15 20.27 11.89 22 7.5C20.27 3.11 16 0 11 0ZM11 12.5C8.24 12.5 6 10.26 6 7.5C6 4.74 8.24 2.5 11 2.5C13.76 2.5 16 4.74 16 7.5C16 10.26 13.76 12.5 11 12.5ZM11 4.5C9.34 4.5 8 5.84 8 7.5C8 9.16 9.34 10.5 11 10.5C12.66 10.5 14 9.16 14 7.5C14 5.84 12.66 4.5 11 4.5Z"
+                        fill="black"
+                      />
+                    </svg>
+                  ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="22"
@@ -172,7 +198,7 @@ const LoginPage = () => {
                         fill="black"
                       />
                     </svg>
-                  </svg>
+                  )}
                 </span>
               </div>
 
@@ -208,11 +234,11 @@ const LoginPage = () => {
           </div>
           <div className="mb-6">
             <div className="my-6 flex items-center justify-center ">
-              <div className=" sx:w-20 h-[2px] w-40 bg-[#F0EDFF]"></div>
+              <div className=" h-[2px] w-40 bg-[#F0EDFF] sx:w-20"></div>
               <span className="p-2 font-bold text-[#D9D9D9] ">
                 Đăng nhập bằng
               </span>
-              <div className="sx:w-20 h-[2px] w-40 bg-[#F0EDFF]"></div>
+              <div className="h-[2px] w-40 bg-[#F0EDFF] sx:w-20"></div>
             </div>
             <div className="flex items-center justify-center gap-12">
               <div>
@@ -232,7 +258,7 @@ const LoginPage = () => {
             Chưa có tài khoản?{" "}
             <span>
               <a
-                href="/register"
+                onClick={() => setShowRegisterMethod(true)}
                 className="text-[16px] font-bold text-[#FE5656]"
               >
                 {" "}

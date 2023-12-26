@@ -25,7 +25,7 @@ const ProvincesDropdown = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useClickOutside(() => setShowDropdown(false));
-
+  console.log("dropdownRef", dropdownRef);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -150,8 +150,8 @@ const ProvincesDropdown = (props) => {
   );
 
   return (
-    <div className=" flex items-center">
-      <div>
+    <div className=" flex w-full items-center">
+      <div className="w-full">
         <label htmlFor="province" className="border-transparent">
           {/* {searchTerm || ""} */}
         </label>

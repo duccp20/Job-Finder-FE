@@ -10,7 +10,10 @@ const initialState = {
     lastName: "",
     gender: "",
     birthDay: "",
-    role: "",
+    roleDTO: {
+      name: null,
+      id: "",
+    },
     avatar: "",
     id: "",
     location: "",
@@ -32,6 +35,14 @@ export const accountSlice = createSlice({
       state.user = action.payload;
     },
 
+    doSetRoleGuest: (state, action) => {
+      state.isAuthenticated = false;
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
+    },
+
     doRedirectLogin: (state, action) => {
       state.isLoading = action.payload;
     },
@@ -42,7 +53,7 @@ export const accountSlice = createSlice({
     doSetProfileData: (state, action) => {
       state.user = {
         ...state.data,
-        ...action.payload,
+        ...(state.user.RoleDTO = action.payload),
       };
     },
   },
@@ -54,5 +65,6 @@ export const {
   doRedirectLogin,
   doLogoutAction,
   doSetProfileData,
+  doSetRoleGuest,
 } = accountSlice.actions;
 export default accountSlice.reducer;

@@ -5,7 +5,8 @@ import guest from "/images/guest-logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { doLogoutAction } from "../../redux/account/accountSlice";
-const HeaderHome = () => {
+import LoginAs from "../LoginAs";
+const HeaderHome = (props) => {
   const dataUser = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const dispatch = useDispatch();
@@ -16,8 +17,10 @@ const HeaderHome = () => {
   const navigate = useNavigate();
 
   const [selectedOption, setSelectedOption] = useState(null);
+  const [showPopup, setShowPopupLogin] = useState(false);
 
   const jobOptions = ["Tìm việc làm", "Tìm thực tập"];
+  const hrOptions = ["Tìm việc làm 1", "Tìm thực tập 2"];
   // const userOptions = ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"];
   const authOptions = isAuthenticated
     ? ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"]
@@ -41,7 +44,7 @@ const HeaderHome = () => {
     setDropdown(false);
 
     if (option === "Đăng ký") {
-      navigate("/register");
+      setShowPopupLogin(true);
     }
     if (option === "Đăng nhập") {
       navigate("/login");
@@ -60,6 +63,7 @@ const HeaderHome = () => {
 
   return (
     <>
+      {showPopup && <LoginAs></LoginAs>}
       <div className="border-1 fixed top-0 z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[rgb(209,209,209)] bg-white shadow-custom">
         <div className=" flex cursor-pointer items-center justify-between gap-5 pl-[26.75px] leading-10">
           <div>
@@ -100,15 +104,16 @@ const HeaderHome = () => {
 
               {dropdown.jobDropdown && (
                 <div className="absolute right-0 z-[1] mt-1 w-[105%] rounded-[4px] bg-white px-2 pt-9 text-left text-[15px] font-[600] shadow-custom">
-                  {jobOptions.map((option) => (
-                    <button
-                      key={option}
-                      onClick={() => selectOption(option)}
-                      className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
-                    >
-                      {option}
-                    </button>
-                  ))}
+                  {props.role === "hr" &&
+                    jobOptions.map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => selectOption(option)}
+                        className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
+                      >
+                        {option}
+                      </button>
+                    ))}
                 </div>
               )}
             </div>

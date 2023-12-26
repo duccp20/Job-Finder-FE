@@ -23,6 +23,7 @@ export default {
       //   "max-sm": { max: "767px" },
       //   "max-md": { max: "1023px" },
       "tablet-range": { min: "768px", max: "1023px" },
+      "tablet-up": { min: "768px" },
       "desktop-up": { min: "1024px" },
       "in-lg": { min: "1024px", max: "1280px" },
       //   "max-xl": { max: "1535px" },

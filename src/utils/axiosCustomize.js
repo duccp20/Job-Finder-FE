@@ -17,7 +17,7 @@ instance.interceptors.request.use(
   function (error) {
     // Do something with request error
     return Promise.reject(error);
-  }
+  },
 );
 const NO_RETRY_HEADER = "x-no-retry";
 const handleRefreshToken = async () => {
@@ -60,7 +60,7 @@ instance.interceptors.response.use(
     }
 
     return error?.response?.data ?? Promise.reject(error);
-  }
+  },
 );
 
 export default instance;

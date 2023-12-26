@@ -54,7 +54,7 @@ const HeaderHR = () => {
     }
 
     if (option === "Thông tin cá nhân") {
-      navigate("/profile");
+      navigate("/hr/contact");
     }
   };
 

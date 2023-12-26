@@ -2,7 +2,9 @@ import React from "react";
 import logo from "/images/logo-user.jpg";
 import flag from "/svg/flag.svg";
 import arrow from "/svg/arrow.svg";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
   // const dispatch = useDispatch();
   // const handleLogout = async () => {
   //   const logout = await callLogout();
@@ -19,26 +21,14 @@ const Header = () => {
   //   } else {
   //   }
   // };
-  // const items = [
-  //   {
-  //     label: <Link to="/login">Đăng nhập</Link>,
-  //     key: "0",
-  //   },
-  //   {
-  //     label: <Link onClick={handleLogout}>Đăng xuất</Link>,
-  //     key: "1",
-  //   },
-  // ];
-  // const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
-  // const userName = useSelector((state) => state.account.user.fullName);
 
   return (
     <>
       <div className=" border-1 fixed top-0 z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[#D1D1D1] bg-white px-[26.75px] leading-10 shadow-custom">
         <div>
-          <a href="/">
+          <div onClick={() => navigate("/")}>
             <img src={logo} alt="" />
-          </a>
+          </div>
         </div>
 
         <div className="flex items-center justify-center gap-9">

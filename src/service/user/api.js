@@ -6,7 +6,7 @@ export const callRegister = (
   email,
   password,
   phone,
-  role
+  role,
 ) => {
   return axios.post("/api/v1/auth/register", {
     firstName,
@@ -15,6 +15,22 @@ export const callRegister = (
     password,
     phone,
     role,
+  });
+};
+
+export const callRegisterHR = (hrCreationDTO) => {
+  const formData = new FormData();
+  const hrCreationDTOString = JSON.stringify(hrCreationDTO);
+
+  formData.append(
+    "hrCreationDTO",
+    new Blob([hrCreationDTOString], { type: "application/json" }),
+  );
+
+  return axios({
+    method: "post",
+    url: "http://localhost:8080/api/v1/hr",
+    data: formData,
   });
 };
 

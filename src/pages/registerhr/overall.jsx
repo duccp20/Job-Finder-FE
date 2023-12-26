@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import rec from "/images/rec.jpg";
 import Input from "../../components/Input/input";
@@ -7,151 +7,180 @@ import ava from "/svg/Group.svg";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { callActiveMail, callRegister } from "../../service/user/api";
+import {
+  callActiveMail,
+  callRegister,
+  callRegisterHR,
+} from "../../service/user/api";
 import Popup from "../../components/Popup";
 import { Outlet, useNavigate } from "react-router-dom";
 import IconError from "../../components/IconError";
 import { useDispatch, useSelector } from "react-redux";
-
-// Step 2: Define your validation schema using Yup
-
-const schema = yup
-  .object({
-    subName: yup
-      .string()
-      .matches(
-        /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-        "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
-      )
-      .required("Hãy nhập họ và tên lót"),
-    name: yup
-      .string()
-      .matches(
-        /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-        "Tên không được phép là số hoặc ký tự đặc biệt",
-      )
-      .required("Hãy nhập tên của bạn"),
-
-    email: yup
-      .string()
-      .email("Email không đúng định dạng")
-      .matches(
-        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-        "Email không đúng định dạng",
-      )
-      .required("Hãy nhập email của bạn"),
-    passWord: yup
-      .string()
-      .required("Hãy nhập mật khẩu")
-      .min(8, "Ít nhất 8 ký tự")
-      .matches(
-        /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]*$/,
-        "Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt",
-      ),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("passWord"), null], "Mật khẩu không khớp")
-      .required("Hãy xác nhận lại mật khẩu"),
-    phoneNumber: yup
-      .string()
-      .matches(
-        /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
-        "Số điện thoại không đúng định dạng",
-      )
-      .required("Hãy nhập số điện thoại"),
-    gender: yup
-      .string()
-      .required("Hãy chọn giới tính")
-      .oneOf(["male", "female"], "Hãy chọn giới tính"),
-    position: yup
-      .string()
-      .required("Hãy nhập chức vụ của bạn tại công ty")
-      .matches(
-        /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-        "Tên chức vụ không được phép là số hoặc ký tự đặc biệt",
-      ),
-    companyName: yup
-      .string()
-      .matches(
-        /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-        "Tên công ty không được phép là số hoặc ký tự đặc biệt",
-      )
-      .required("Hãy nhập tên công ty"),
-    taxCode: yup
-      .string()
-      .matches(/^[0-9]+/, "Mã số thuế không được phép là chữ và ký tự đặc biệt")
-      .length(10, "Mã số thuế phải có đúng 10 chữ số")
-      .required("Hãy nhập mã số thuế"),
-    companyEmail: yup
-      .string()
-      .email("Email không đúng định dạng")
-      .matches(
-        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-        "Email không đúng định dạng",
-      )
-      .required("Hãy nhập email của công ty"),
-    telComp: yup
-      .string()
-      .matches(
-        /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
-        "Số điện thoại không đúng định dạng",
-      )
-      .required("Hãy nhập số điện thoại"),
-    address: yup.string(),
-  })
-
-  .required();
+import { callGetAllCompanyActive } from "../../service/company/api";
+import { doFetchCompany } from "../../redux/company/companySlice";
 
 export const RegisterHR = () => {
+  const [validationSchema, setValidationSchema] = useState(
+    yup
+      .object({
+        subName: yup
+          .string()
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
+          )
+          .required("Hãy nhập họ và tên lót"),
+        name: yup
+          .string()
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Tên không được phép là số hoặc ký tự đặc biệt",
+          )
+          .required("Hãy nhập tên của bạn"),
+
+        email: yup
+          .string()
+          .email("Email không đúng định dạng")
+          .matches(
+            /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+            "Email không đúng định dạng",
+          )
+          .required("Hãy nhập email của bạn"),
+        passWord: yup
+          .string()
+          .required("Hãy nhập mật khẩu")
+          .min(8, "Ít nhất 8 ký tự")
+          .matches(
+            /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]*$/,
+            "Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt",
+          ),
+        confirmPassword: yup
+          .string()
+          .oneOf([yup.ref("passWord"), null], "Mật khẩu không khớp")
+          .required("Hãy xác nhận lại mật khẩu"),
+        phoneNumber: yup
+          .string()
+          .matches(
+            /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
+            "Số điện thoại không đúng định dạng",
+          )
+          .required("Hãy nhập số điện thoại"),
+        gender: yup
+          .string()
+          .required("Hãy chọn giới tính")
+          .oneOf(["male", "female"], "Hãy chọn giới tính"),
+        position: yup
+          .string()
+          .required("Hãy nhập chức vụ của bạn tại công ty")
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Tên chức vụ không được phép là số hoặc ký tự đặc biệt",
+          ),
+        companyName: yup
+          .string()
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Tên công ty không được phép là số hoặc ký tự đặc biệt",
+          )
+          .required("Hãy nhập tên công ty"),
+        taxCode: yup
+          .string()
+          .matches(
+            /^[0-9]+/,
+            "Mã số thuế không được phép là chữ và ký tự đặc biệt",
+          )
+          .length(10, "Mã số thuế phải có đúng 10 chữ số")
+          .required("Hãy nhập mã số thuế"),
+        companyEmail: yup
+          .string()
+          .email("Email không đúng định dạng")
+          .matches(
+            /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+            "Email không đúng định dạng",
+          )
+          .required("Hãy nhập email của công ty"),
+        telComp: yup
+          .string()
+          .matches(
+            /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
+            "Số điện thoại không đúng định dạng",
+          )
+          .required("Hãy nhập số điện thoại"),
+        address: yup.string(),
+      })
+
+      .required(),
+  );
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [listCompany, setListCompany] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const dataUser = useSelector((state) => state.account.user);
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.account.user);
-  const [showDropdown, setShowDropdown] = useState(false);
-  // const { control } = useForm();
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  // const [displayType, setDisplayType] = useState(false);
+
   const handleButtonClick = (event) => {
     event.stopPropagation();
     setShowDropdown(!showDropdown);
-    // setDisplayType(!displayType);
   };
 
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
-  // Step 3: Use the useForm hook with yupResolver
+
   const {
     control,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(validationSchema),
   });
 
   // Step 4: Form submission handler
 
   const onSubmit = async (data) => {
+    console.log("123");
+    console.log(data);
     setIsSubmitting(true);
     try {
       setShowPopup(false);
-      const res = await callRegister(
-        data.name,
-        data.subName,
-        data.email,
-        data.passWord,
-        data.phoneNumber,
-        "2", // roleID : 2 is Candidate
-      );
+      const userCreationDTO = {
+        email: data.email,
+        password: data.passWord,
+        lastName: data.subName,
+        firstName: data.name,
+        gender: data.gender === "male" ? 1 : 0,
+        phone: data.phoneNumber,
+      };
+      const hrOtherInfoDTO = {
+        position: data.position,
+        companyDTO: {
+          name: data.companyName,
+          email: data.companyEmail,
+          phone: data.telComp,
+          tax: data.taxCode,
+          location: data.address,
+        },
+      };
 
-      if (res.httpCode === 201 && res.message === "Register Successfully") {
+      const hrCreationDTO = {
+        userCreationDTO,
+        hrOtherInfoDTO,
+      };
+      const res = await callRegisterHR(hrCreationDTO);
+
+      if (res && res.httpCode === 201) {
         const res = await callActiveMail(data.email);
 
         if (res.httpCode === 200 && res.message === "SEND MAIL") {
@@ -163,7 +192,7 @@ export const RegisterHR = () => {
         }
       }
 
-      if (res.message === "DATA EXISTING" && res?.errors) {
+      if (res && res?.errors) {
         setShowPopup(true);
       }
     } catch (error) {
@@ -171,6 +200,120 @@ export const RegisterHR = () => {
     }
     setIsSubmitting(false);
   };
+
+  useEffect(() => {
+    setValidationSchema(
+      yup.object().shape({
+        subName: yup
+          .string()
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
+          )
+          .required("Hãy nhập họ và tên lót"),
+        name: yup
+          .string()
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Tên không được phép là số hoặc ký tự đặc biệt",
+          )
+          .required("Hãy nhập tên của bạn"),
+
+        email: yup
+          .string()
+          .email("Email không đúng định dạng")
+          .matches(
+            /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+            "Email không đúng định dạng",
+          )
+          .required("Hãy nhập email của bạn"),
+        passWord: yup
+          .string()
+          .required("Hãy nhập mật khẩu")
+          .min(8, "Ít nhất 8 ký tự")
+          .matches(
+            /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]*$/,
+            "Ít nhất 8 ký tự, 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt",
+          ),
+        confirmPassword: yup
+          .string()
+          .oneOf([yup.ref("passWord"), null], "Mật khẩu không khớp")
+          .required("Hãy xác nhận lại mật khẩu"),
+        phoneNumber: yup
+          .string()
+          .matches(
+            /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
+            "Số điện thoại không đúng định dạng",
+          )
+          .required("Hãy nhập số điện thoại"),
+        gender: yup
+          .string()
+          .required("Hãy chọn giới tính")
+          .oneOf(["male", "female"]),
+        position: yup
+          .string()
+          .required("Hãy nhập chức vụ của bạn tại công ty")
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Tên chức vụ không được phép là số hoặc ký tự đặc biệt",
+          ),
+        companyName: yup
+          .string()
+          .matches(
+            /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
+            "Tên công ty không được phép là số hoặc ký tự đặc biệt",
+          )
+          .required("Hãy nhập tên công ty"),
+        taxCode: yup
+          .string()
+          .matches(
+            /^[0-9]+/,
+            "Mã số thuế không được phép là chữ và ký tự đặc biệt",
+          )
+          .length(10, "Mã số thuế phải có đúng 10 chữ số")
+          .required("Hãy nhập mã số thuế"),
+        // Điều chỉnh các trường dựa trên giá trị của showDropdown
+        companyEmail:
+          showDropdown === false
+            ? yup.string() // không áp dụng xác thực khi showDropdown là true
+            : yup
+                .string()
+                .email("Email không đúng định dạng")
+                .required("Hãy nhập email của công ty"),
+        telComp:
+          showDropdown === false
+            ? yup.string()
+            : yup
+                .string()
+                .matches(
+                  /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
+                  "Số điện thoại không đúng định dạng",
+                )
+                .required("Hãy nhập số điện thoại"),
+        address:
+          showDropdown === false
+            ? yup.string()
+            : yup.string().required("Hãy nhập địa chỉ"),
+        // ...
+      }),
+    );
+  }, [showDropdown]);
+
+  useEffect(() => {
+    async function fetchCompanies() {
+      try {
+        const res = await callGetAllCompanyActive();
+        if (res && res.data) {
+          setListCompany(res.data);
+          dispatch(doFetchCompany(res.data));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchCompanies();
+  }, []);
 
   return (
     <div className="h-full">
@@ -258,27 +401,43 @@ export const RegisterHR = () => {
                     className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
                     onClick={togglePasswordVisibility}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="20"
-                      viewBox="0 0 22 20"
-                      fill="none"
-                      className="h-6 w-6"
-                    >
+                    {showPassword ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22"
+                        height="16"
+                        viewBox="0 0 22 16"
+                        fill="none"
+                        // className="hidden"
+                      >
+                        <path
+                          d="M11 0.5C6 0.5 1.73 3.61 0 8C1.73 12.39 6 15.5 11 15.5C16 15.5 20.27 12.39 22 8C20.27 3.61 16 0.5 11 0.5ZM11 13C8.24 13 6 10.76 6 8C6 5.24 8.24 3 11 3C13.76 3 16 5.24 16 8C16 10.76 13.76 13 11 13ZM11 5C9.34 5 8 6.34 8 8C8 9.66 9.34 11 11 11C12.66 11 14 9.66 14 8C14 6.34 12.66 5 11 5Z"
+                          fill="black"
+                        />
+                      </svg>
+                    ) : (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="22"
                         height="20"
                         viewBox="0 0 22 20"
                         fill="none"
+                        className="h-6 w-6"
                       >
-                        <path
-                          d="M10.83 6.5L14 9.66V9.5C14 8.70435 13.6839 7.94129 13.1213 7.37868C12.5587 6.81607 11.7956 6.5 11 6.5H10.83ZM6.53 7.3L8.08 8.85C8.03 9.06 8 9.27 8 9.5C8 10.2956 8.31607 11.0587 8.87868 11.6213C9.44129 12.1839 10.2044 12.5 11 12.5C11.22 12.5 11.44 12.47 11.65 12.42L13.2 13.97C12.53 14.3 11.79 14.5 11 14.5C9.67392 14.5 8.40215 13.9732 7.46447 13.0355C6.52678 12.0979 6 10.8261 6 9.5C6 8.71 6.2 7.97 6.53 7.3ZM1 1.77L3.28 4.05L3.73 4.5C2.08 5.8 0.78 7.5 0 9.5C1.73 13.89 6 17 11 17C12.55 17 14.03 16.7 15.38 16.16L15.81 16.58L18.73 19.5L20 18.23L2.27 0.5M11 4.5C12.3261 4.5 13.5979 5.02678 14.5355 5.96447C15.4732 6.90215 16 8.17392 16 9.5C16 10.14 15.87 10.76 15.64 11.32L18.57 14.25C20.07 13 21.27 11.36 22 9.5C20.27 5.11 16 2 11 2C9.6 2 8.26 2.25 7 2.7L9.17 4.85C9.74 4.63 10.35 4.5 11 4.5Z"
-                          fill="black"
-                        />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="22"
+                          height="20"
+                          viewBox="0 0 22 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M10.83 6.5L14 9.66V9.5C14 8.70435 13.6839 7.94129 13.1213 7.37868C12.5587 6.81607 11.7956 6.5 11 6.5H10.83ZM6.53 7.3L8.08 8.85C8.03 9.06 8 9.27 8 9.5C8 10.2956 8.31607 11.0587 8.87868 11.6213C9.44129 12.1839 10.2044 12.5 11 12.5C11.22 12.5 11.44 12.47 11.65 12.42L13.2 13.97C12.53 14.3 11.79 14.5 11 14.5C9.67392 14.5 8.40215 13.9732 7.46447 13.0355C6.52678 12.0979 6 10.8261 6 9.5C6 8.71 6.2 7.97 6.53 7.3ZM1 1.77L3.28 4.05L3.73 4.5C2.08 5.8 0.78 7.5 0 9.5C1.73 13.89 6 17 11 17C12.55 17 14.03 16.7 15.38 16.16L15.81 16.58L18.73 19.5L20 18.23L2.27 0.5M11 4.5C12.3261 4.5 13.5979 5.02678 14.5355 5.96447C15.4732 6.90215 16 8.17392 16 9.5C16 10.14 15.87 10.76 15.64 11.32L18.57 14.25C20.07 13 21.27 11.36 22 9.5C20.27 5.11 16 2 11 2C9.6 2 8.26 2.25 7 2.7L9.17 4.85C9.74 4.63 10.35 4.5 11 4.5Z"
+                            fill="black"
+                          />
+                        </svg>
                       </svg>
-                    </svg>
+                    )}
                   </span>
                 </div>
 
@@ -317,27 +476,43 @@ export const RegisterHR = () => {
                     className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
                     onClick={toggleConfirmPasswordVisibility}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="20"
-                      viewBox="0 0 22 20"
-                      fill="none"
-                      className="h-6 w-6"
-                    >
+                    {showConfirmPassword ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22"
+                        height="16"
+                        viewBox="0 0 22 16"
+                        fill="none"
+                        // className="hidden"
+                      >
+                        <path
+                          d="M11 0.5C6 0.5 1.73 3.61 0 8C1.73 12.39 6 15.5 11 15.5C16 15.5 20.27 12.39 22 8C20.27 3.61 16 0.5 11 0.5ZM11 13C8.24 13 6 10.76 6 8C6 5.24 8.24 3 11 3C13.76 3 16 5.24 16 8C16 10.76 13.76 13 11 13ZM11 5C9.34 5 8 6.34 8 8C8 9.66 9.34 11 11 11C12.66 11 14 9.66 14 8C14 6.34 12.66 5 11 5Z"
+                          fill="black"
+                        />
+                      </svg>
+                    ) : (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="22"
                         height="20"
                         viewBox="0 0 22 20"
                         fill="none"
+                        className="h-6 w-6"
                       >
-                        <path
-                          d="M10.83 6.5L14 9.66V9.5C14 8.70435 13.6839 7.94129 13.1213 7.37868C12.5587 6.81607 11.7956 6.5 11 6.5H10.83ZM6.53 7.3L8.08 8.85C8.03 9.06 8 9.27 8 9.5C8 10.2956 8.31607 11.0587 8.87868 11.6213C9.44129 12.1839 10.2044 12.5 11 12.5C11.22 12.5 11.44 12.47 11.65 12.42L13.2 13.97C12.53 14.3 11.79 14.5 11 14.5C9.67392 14.5 8.40215 13.9732 7.46447 13.0355C6.52678 12.0979 6 10.8261 6 9.5C6 8.71 6.2 7.97 6.53 7.3ZM1 1.77L3.28 4.05L3.73 4.5C2.08 5.8 0.78 7.5 0 9.5C1.73 13.89 6 17 11 17C12.55 17 14.03 16.7 15.38 16.16L15.81 16.58L18.73 19.5L20 18.23L2.27 0.5M11 4.5C12.3261 4.5 13.5979 5.02678 14.5355 5.96447C15.4732 6.90215 16 8.17392 16 9.5C16 10.14 15.87 10.76 15.64 11.32L18.57 14.25C20.07 13 21.27 11.36 22 9.5C20.27 5.11 16 2 11 2C9.6 2 8.26 2.25 7 2.7L9.17 4.85C9.74 4.63 10.35 4.5 11 4.5Z"
-                          fill="black"
-                        />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="22"
+                          height="20"
+                          viewBox="0 0 22 20"
+                          fill="none"
+                        >
+                          <path
+                            d="M10.83 6.5L14 9.66V9.5C14 8.70435 13.6839 7.94129 13.1213 7.37868C12.5587 6.81607 11.7956 6.5 11 6.5H10.83ZM6.53 7.3L8.08 8.85C8.03 9.06 8 9.27 8 9.5C8 10.2956 8.31607 11.0587 8.87868 11.6213C9.44129 12.1839 10.2044 12.5 11 12.5C11.22 12.5 11.44 12.47 11.65 12.42L13.2 13.97C12.53 14.3 11.79 14.5 11 14.5C9.67392 14.5 8.40215 13.9732 7.46447 13.0355C6.52678 12.0979 6 10.8261 6 9.5C6 8.71 6.2 7.97 6.53 7.3ZM1 1.77L3.28 4.05L3.73 4.5C2.08 5.8 0.78 7.5 0 9.5C1.73 13.89 6 17 11 17C12.55 17 14.03 16.7 15.38 16.16L15.81 16.58L18.73 19.5L20 18.23L2.27 0.5M11 4.5C12.3261 4.5 13.5979 5.02678 14.5355 5.96447C15.4732 6.90215 16 8.17392 16 9.5C16 10.14 15.87 10.76 15.64 11.32L18.57 14.25C20.07 13 21.27 11.36 22 9.5C20.27 5.11 16 2 11 2C9.6 2 8.26 2.25 7 2.7L9.17 4.85C9.74 4.63 10.35 4.5 11 4.5Z"
+                            fill="black"
+                          />
+                        </svg>
                       </svg>
-                    </svg>
+                    )}
                   </span>
                 </div>
                 {errors?.confirmPassword && (
@@ -489,7 +664,10 @@ export const RegisterHR = () => {
                         errors?.gender ? "border-red-500" : "border-gray-300"
                       } px-2 py-3 focus:outline-none`}
                     >
-                      <option value="">Chọn giới tính</option>
+                      <option value="" disabled hidden>
+                        Chọn giới tính
+                      </option>
+
                       <option value="male">Nam</option>
                       <option value="female">Nữ</option>
                     </select>
@@ -588,13 +766,18 @@ export const RegisterHR = () => {
                     <Controller
                       name="companyName"
                       control={control}
-                      defaultValue={
-                        isAuthenticated && dataUser ? dataUser.companyName : ""
-                      }
                       render={({ field: { onChange, value, ref } }) => (
                         <select
                           ref={ref}
-                          onChange={(e) => onChange(e.target.value)}
+                          onChange={(e) => {
+                            const selectedCompanyName = e.target.value;
+                            onChange(selectedCompanyName);
+                            const company = listCompany.find(
+                              (c) => c.name === selectedCompanyName,
+                            );
+                            setSelectedCompany(company ? company.tax : "");
+                            setValue("taxCode", company ? company.tax : ""); // setValue is from useForm
+                          }}
                           value={value}
                           className={`w-full rounded-md border-2 ${
                             errors?.companyName
@@ -603,8 +786,11 @@ export const RegisterHR = () => {
                           } px-2 py-3 font-normal text-black/50 focus:outline-none`}
                         >
                           <option value="">Chọn công ty</option>
-                          <option value="male">Nam</option>
-                          <option value="female">Nữ</option>
+                          {listCompany.map((company) => (
+                            <option key={company.id} value={company.name}>
+                              {company.name}
+                            </option>
+                          ))}
                         </select>
                       )}
                     />
@@ -637,40 +823,15 @@ export const RegisterHR = () => {
                   Mã số thuế <span className="text-red-700">*</span>
                 </label>
                 <div className="relative">
-                  {showDropdown ? (
-                    <Input
-                      type="text"
-                      id="taxCode"
-                      {...register("taxCode")}
-                      borderColor={
-                        errors.taxCode ? "border-red-500" : "border-gray-300"
-                      }
-                    />
-                  ) : (
-                    <Controller
-                      name="taxCode"
-                      control={control}
-                      defaultValue={
-                        isAuthenticated && dataUser ? dataUser.taxCode : ""
-                      }
-                      render={({ field: { onChange, value, ref } }) => (
-                        <select
-                          ref={ref}
-                          onChange={(e) => onChange(e.target.value)}
-                          value={value}
-                          className={`w-full rounded-md border-2 ${
-                            errors?.taxCode
-                              ? "border-red-500"
-                              : "border-gray-300"
-                          } px-2 py-3 focus:outline-none`}
-                        >
-                          <option value=""></option>
-                          <option value="male">Nam</option>
-                          <option value="female">Nữ</option>
-                        </select>
-                      )}
-                    />
-                  )}
+                  <Input
+                    type="text"
+                    id="taxCode"
+                    {...register("taxCode")}
+                    readOnly={!showDropdown}
+                    borderColor={
+                      errors.taxCode ? "border-red-500" : "border-gray-300"
+                    }
+                  />
                 </div>
                 {errors?.taxCode && (
                   <div className="relative">
@@ -693,7 +854,7 @@ export const RegisterHR = () => {
                 )}
               </div>
             </div>
-            {!showDropdown && (
+            {showDropdown && (
               <div>
                 <div className=" mt-10 flex w-full gap-4">
                   <div className="flex w-[65%] flex-col">

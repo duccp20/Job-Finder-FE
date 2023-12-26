@@ -23,14 +23,14 @@ const ContactInfor = () => {
         .string()
         .matches(
           /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-          "Họ và tên lót không được phép là số hoặc ký tự đặc biệt"
+          "Họ và tên lót không được phép là số hoặc ký tự đặc biệt",
         )
         .required(),
       name: yup
         .string()
         .matches(
           /^[A-Za-zÀ-Ỹà-ỹ\s]+$/,
-          "Tên không được phép là số hoặc ký tự đặc biệt"
+          "Tên không được phép là số hoặc ký tự đặc biệt",
         )
         .required(),
       email: yup
@@ -38,7 +38,7 @@ const ContactInfor = () => {
         .email("Email không đúng định dạng")
         .matches(
           /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-          "Email không đúng định dạng"
+          "Email không đúng định dạng",
         )
         .required("Email không đúng định dạng"),
       birthday: yup
@@ -49,7 +49,7 @@ const ContactInfor = () => {
         .string()
         .matches(
           /^(03|05|07|08|09|84|\+84)[0-9]{8,9}$/,
-          "Số điện thoại không đúng định dạng"
+          "Số điện thoại không đúng định dạng",
         )
         .required(),
       gender: yup.string().required("Vui lòng chọn giới tính"),
@@ -93,7 +93,7 @@ const ContactInfor = () => {
   return (
     <div>
       <form
-        className="py-[30px] px-[40px] font-[600] text-[15px]"
+        className="px-[40px] py-[30px] text-[15px] font-[600]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="birthday" className="pb-2 ">
@@ -115,14 +115,14 @@ const ContactInfor = () => {
               />
               <label
                 htmlFor="img"
-                className="cursor-pointer w-full py-2 my-3 rounded-[5px] flex items-center justify-center"
+                className="m-auto my-3 flex w-fit cursor-pointer items-center justify-center rounded-[5px] py-2"
               >
                 {imagePreview && (
                   <div>
                     <img
                       src={imagePreview}
                       alt="Selected Image"
-                      className="aspect-square mx-auto rounded-full object-cover bg-center bg-no-repeat w-[200px] h-[200px]"
+                      className="mx-auto aspect-square h-[200px] w-[200px] rounded-full bg-center bg-no-repeat object-cover"
                     />
                   </div>
                 )}
@@ -132,7 +132,7 @@ const ContactInfor = () => {
                     <img
                       src="https://images.unsplash.com/photo-1701084412727-1f3e01088a5f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="Selected Image"
-                      className="aspect-square mx-auto rounded-full object-cover bg-center bg-no-repeat w-[200px] h-[200px]"
+                      className="mx-auto aspect-square h-[200px] w-[200px] rounded-full bg-center bg-no-repeat object-cover"
                     />
                   </div>
                 )}
@@ -142,19 +142,19 @@ const ContactInfor = () => {
             </>
           )}
         />
-        <div className="w-full p-[20px] my-[30px] border border-[#00000033]">
+        <div className="my-[30px] w-full border border-[#00000033] p-[20px]">
           <div className="flex items-center gap-10">
-            <p className="text-[16px] text-[#FE5656] font-[600]">
+            <p className="text-[16px] font-[600] text-[#FE5656]">
               Nhận thông báo về email
             </p>
             <Toggle></Toggle>
           </div>
-          <p className="text-[12px] text-[#7D7D7D] font-[400] italic mt-[15px]">
+          <p className="mt-[15px] text-[12px] font-[400] italic text-[#7D7D7D]">
             Hãy bật thông báo để bạn không bỏ lỡ bất kỳ thông tin nào.
           </p>
         </div>
-        <div className="flex gap-12 w-full mt-4">
-          <div className="flex flex-col w-[50%]">
+        <div className="mt-4 flex w-full gap-12">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="subName" className="pb-2 ">
               Họ và tên lót <span className="text-red-700">*</span>
             </label>
@@ -172,13 +172,13 @@ const ContactInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.subName?.message}
                 </p>
               </div>
             )}
           </div>
-          <div className="flex flex-col w-[50%]">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="name" className="pb-2 ">
               Tên <span className="text-red-700">*</span>
             </label>
@@ -194,15 +194,15 @@ const ContactInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.name?.message}
                 </p>
               </div>
             )}
           </div>
         </div>
-        <div className="flex gap-12 w-full mt-6">
-          <div className="flex flex-col w-[50%]">
+        <div className="mt-6 flex w-full gap-12">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="email" className="pb-2 ">
               Email <span className="text-red-700">*</span>
             </label>
@@ -218,13 +218,13 @@ const ContactInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.email?.message}
                 </p>
               </div>
             )}
           </div>
-          <div className="flex flex-col w-[50%]">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="gender" className="pb-2 ">
               Giới tính <span className="text-red-700">*</span>
             </label>
@@ -235,9 +235,9 @@ const ContactInfor = () => {
               render={({ field }) => (
                 <select
                   {...field}
-                  className={`py-3 px-2 border-2 ${
+                  className={`border-2 px-2 py-3 ${
                     errors.gender ? "border-red-500" : "border-gray-300"
-                  } rounded-md w-full focus:outline-none`}
+                  } w-full rounded-md focus:outline-none`}
                 >
                   <option value="" disabled hidden>
                     Chọn giới tính
@@ -253,15 +253,15 @@ const ContactInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.gender?.message}
                 </p>
               </div>
             )}
           </div>
         </div>
-        <div className="flex gap-12 w-full mt-6">
-          <div className="flex flex-col w-[50%]">
+        <div className="mt-6 flex w-full gap-12">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="phoneNumber" className="pb-2 ">
               Số điện thoại <span className="text-red-700">*</span>
             </label>
@@ -279,13 +279,13 @@ const ContactInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.phoneNumber?.message}
                 </p>
               </div>
             )}
           </div>
-          <div className="flex flex-col w-[50%]">
+          <div className="flex w-[50%] flex-col">
             <label htmlFor="birthday" className="pb-2 ">
               Ngày sinh <span className="text-red-700">*</span>
             </label>
@@ -309,14 +309,14 @@ const ContactInfor = () => {
                   <IconError />
                 </span>
 
-                <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                   {errors.birthday?.message}
                 </p>
               </div>
             )}
           </div>
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           {/* <div className="flex flex-col w-[50%]"> */}
           <label htmlFor="city" className="pb-2 ">
             Tỉnh/ Thành phố <span className="text-red-700">*</span>
@@ -328,9 +328,9 @@ const ContactInfor = () => {
             render={({ field }) => (
               <select
                 {...field}
-                className={`py-3 px-2 border-2 ${
+                className={`border-2 px-2 py-3 ${
                   errors.city ? "border-red-500" : "border-gray-300"
-                } rounded-md w-full focus:outline-none`}
+                } w-full rounded-md focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Chọn tỉnh thành
@@ -350,7 +350,7 @@ const ContactInfor = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.city?.message}
               </p>
             </div>
@@ -401,7 +401,7 @@ const ContactInfor = () => {
             )}
           </div> */}
         {/* </div> */}
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="address" className="pb-2 ">
             Địa chỉ nơi ở
           </label>
@@ -412,7 +412,7 @@ const ContactInfor = () => {
             {...register("address")}
           />
         </div>
-        <div className="flex flex-col w-full mt-6">
+        <div className="mt-6 flex w-full flex-col">
           <label htmlFor="position" className="pb-2 ">
             Chức vụ tại công ty <span className="text-red-700">*</span>
           </label>
@@ -428,21 +428,21 @@ const ContactInfor = () => {
                 <IconError />
               </span>
 
-              <p className="font-nunito text-[10px] text-[#F00] font-[400] px-2 pt-2 leading-normal">
+              <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
                 {errors.position?.message}
               </p>
             </div>
           )}
         </div>
-        <div className="mt-6 gap-4 flex justify-center">
+        <div className="mt-6 flex justify-center gap-4">
           <button
-            className="text-center text-[15px] font-bold text-white rounded-[4px] px-[22px] py-[12px] bg-[#FE5656] hover:outline hover:outline-[#FE5656] hover:bg-white hover:text-[#FE5656]"
+            className="rounded-[4px] bg-[#FE5656] px-[22px] py-[12px] text-center text-[15px] font-bold text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]"
             type="submit"
           >
             Cập nhật
           </button>
           <button
-            className="text-center text-[15px] font-bold text-[#7D7D7D] rounded-[4px] px-[36px] py-[12px] bg-gray-200 hover:outline hover:outline-[#7D7D7D] hover:bg-white"
+            className="rounded-[4px] bg-gray-200 px-[36px] py-[12px] text-center text-[15px] font-bold text-[#7D7D7D] hover:bg-white hover:outline hover:outline-[#7D7D7D]"
             type=""
           >
             Hủy

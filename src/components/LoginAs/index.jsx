@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginAs = (props) => {
+  const navigate = useNavigate();
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -10,13 +12,13 @@ const LoginAs = (props) => {
   }, []);
 
   return (
-    <div className="w-screen h-screen overflow-hidden transparent flex items-center justify-center bg-black bg-opacity-30  shadow-custom absolute z-[100000] top-0">
-      <div className="w-[45%] h-auto px-[50px] py-[40px] backdrop-blur-[6.800000190734863px] bg-gradientCustom rounded-[40px] ">
-        <h1 className="text-[30px] font-[800] uppercase text-center mb-[30px] leading-normal text-white">
-          BẠN {/* {props.text}  */} VỚI VAI TRÒ LÀ
+    <div className="transparent absolute top-0 z-[100000] flex h-screen w-screen items-center justify-center  overflow-hidden bg-black bg-opacity-30 shadow-custom">
+      <div className="h-auto w-[45%] rounded-[40px] bg-gradientCustom px-[50px] py-[40px] backdrop-blur-[6.800000190734863px] ">
+        <h1 className="mb-[30px] text-center text-[30px] font-[800] uppercase leading-normal text-white">
+          BẠN ĐĂNG KÝ VỚI VAI TRÒ LÀ
         </h1>
-        <div className="flex gap-[20px] mb-[20px]">
-          <div className="bg-[#FFFFFF] bg-opacity-50 rounded-[40px] pt-[30px] pb-[50px] px-[30px] flex-col flex items-center w-[50%]">
+        <div className="mb-[20px] flex gap-[20px]">
+          <div className="flex w-[50%] flex-col items-center rounded-[40px] bg-[#FFFFFF] bg-opacity-50 px-[30px] pb-[50px] pt-[30px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="200"
@@ -34,15 +36,15 @@ const LoginAs = (props) => {
               />
             </svg>
             <button
-              className="shadow-button text-center text-[#FE5656] rounded-[40px] px-[20px] py-[10px] bg-white text-[29px] font-[800]"
+              className="rounded-[40px] bg-white px-[20px] py-[10px] text-center text-[29px] font-[800] text-[#FE5656] shadow-button"
               type="button"
-              onClick={() => handleNavigate()}
+              onClick={() => navigate("/register/candidate")}
             >
               Người Ứng Tuyển
             </button>
           </div>
 
-          <div className="bg-[#FFFFFF] bg-opacity-50 rounded-[40px] pt-[30px] pb-[50px] px-[30px] flex-col flex items-center w-[50%]">
+          <div className="flex w-[50%] flex-col items-center rounded-[40px] bg-[#FFFFFF] bg-opacity-50 px-[30px] pb-[50px] pt-[30px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="200"
@@ -60,9 +62,9 @@ const LoginAs = (props) => {
               />
             </svg>
             <button
-              className="shadow-button text-center text-[#FFB950] rounded-[40px] px-[20px] py-[10px] bg-white text-[29px] font-[800]"
+              className="rounded-[40px] bg-white px-[20px] py-[10px] text-center text-[29px] font-[800] text-[#FFB950] shadow-button"
               type="button"
-              onClick={() => handleNavigate()}
+              onClick={() => navigate("/register/recruiter")}
             >
               Nhà Tuyển Dụng
             </button>
