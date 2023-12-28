@@ -27,8 +27,6 @@ const modules = {
 
 const PostJob = (props) => {
   const [descriptionValue, setDescriptionValue] = useState("");
-  const [requirementValue, setRequirementValue] = useState("");
-  const [welfareValue, setWelfareValue] = useState("");
 
   const schema = yup
     .object({
@@ -47,10 +45,6 @@ const PostJob = (props) => {
       city: yup.string().required("Vui lòng chọn tỉnh thành"),
       address: yup.string().required("Địa chỉ không được để trống"),
       description: yup.string().required("Mô tả không được để trống"),
-      // requirement: yup
-      //   .string()
-      //   .required("Yêu cầu công việc không được để trống"),
-      // welfare: yup.string().required("Chế độ phúc lợi không được để trống"),
     })
     .required();
 
@@ -67,6 +61,7 @@ const PostJob = (props) => {
   const handleQuillChange = (name, value) => {
     setValue(name, value, { shouldValidate: true });
   };
+
   const onSubmit = (data) => console.log("data", data);
 
   return (
@@ -396,18 +391,13 @@ const PostJob = (props) => {
                 theme="snow"
                 id="description"
                 name="description"
-                onChange={(value) => setValue("description", value)}
+                onChange={(value) => {
+                  setDescriptionValue(value);
+                  handleQuillChange("description", value);
+                }}
                 modules={modules}
-
-                // placeholder="Nhập thông tin cho vị trí công việc yêu cầu, trách nhiệm mà ứng viên có thể đảm nhận khi làm việc ở công ty"
-              />
-              {/* <ReactQuill
-                className="h-[78%]"
-                theme="snow"
-                modules={modules}
-                onChange={(value) => setValue("description", value)}
                 placeholder="Nhập thông tin cho vị trí công việc yêu cầu, trách nhiệm mà ứng viên có thể đảm nhận khi làm việc ở công ty"
-              /> */}
+              />
             </div>
             {errors?.description && (
               <div className="flex items-center ">

@@ -458,7 +458,7 @@ const App = () => {
   return (
     <>
       {/* Có API */}
-      {/* {!isLoading ||
+      {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
       window.location.pathname.startsWith("/register") ||
@@ -470,10 +470,10 @@ const App = () => {
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>
-      )} */}
+      )}
 
       {/* Chưa có api */}
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
     </>
   );
 };

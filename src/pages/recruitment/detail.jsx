@@ -33,13 +33,13 @@ const RecruitmentDetail = () => {
     <>
       {/* <PopupHr></PopupHr> */}
       <div className="flex md:flex-col-reverse">
-        <div className=" flex flex-col gap-[10px] sm:mx-[20px] sm:text-[8px] tablet-up:ml-[40px] tablet-up:mr-[10px] tablet-up:text-inherit desktop-up:mt-[30px]  desktop-up:w-[60%]">
+        <div className=" flex flex-col sm:mx-[20px] sm:gap-[5px] sm:text-[8px] tablet-up:ml-[40px] tablet-up:mr-[10px] tablet-up:gap-[10px] tablet-up:text-inherit desktop-up:mt-[30px]  desktop-up:w-[60%]">
           <p className="font-[700] sm:my-[5px] tablet-up:my-[10px]">
             Mô tả công việc
           </p>
           <div
             dangerouslySetInnerHTML={{ __html: jobData.description }}
-            className="jobDescription mx-[10px] list-disc px-[10px] leading-normal"
+            className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
           />
           {/* <ul className="">
             <p> </p>
@@ -64,7 +64,10 @@ const RecruitmentDetail = () => {
           <p className="font-[700] sm:my-[5px] tablet-up:my-[10px]">
             Yêu cầu công việc
           </p>
-          <div dangerouslySetInnerHTML={{ __html: jobData.requirement }}></div>
+          <div
+            dangerouslySetInnerHTML={{ __html: jobData.requirement }}
+            className="leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
+          ></div>
           {/* <ul className="mx-[10px] list-disc px-[10px] leading-normal">
             {}
             <li className="sm:mb-[5px] tablet-up:mb-[10px]">
@@ -115,7 +118,10 @@ const RecruitmentDetail = () => {
               nghiệm.
             </li>
           </ul> */}
-          <div dangerouslySetInnerHTML={{ __html: jobData.otherInfo }}></div>
+          <div
+            dangerouslySetInnerHTML={{ __html: jobData.otherInfo }}
+            className="leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
+          ></div>
         </div>
         <div className="mx-auto h-full border border-[#FE5656] bg-[#FE56561A] sm:my-[20px] sm:pb-[20px] md:flex md:w-[90%] tablet-up:my-[30px] tablet-up:pb-[40px] desktop-up:mr-[30px] desktop-up:w-[40%]">
           <div className="md:w-[45%] ">
@@ -263,11 +269,9 @@ const RecruitmentDetail = () => {
         </div>
       </div>
 
-      <div className="mt-[20px] sm:mx-[20px] sm:text-[8px] tablet-up:mx-[40px]">
-        <p className="font-[700] sm:my-[5px] tablet-up:my-[15px]">
-          Địa điểm làm việc
-        </p>
-        <div className="flex items-center sm:mb-[15px] sm:gap-1 tablet-up:mb-[30px] tablet-up:gap-3">
+      <div className="sm:mx-[20px] sm:mt-[15px] sm:text-[8px] tablet-up:mx-[40px] tablet-up:mt-[25px]">
+        <p className="font-[700] tablet-up:my-[15px]">Địa điểm làm việc</p>
+        <div className="flex items-center sm:mb-[10px] sm:gap-1 tablet-up:mb-[30px] tablet-up:gap-3">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -275,7 +279,7 @@ const RecruitmentDetail = () => {
               height="26"
               viewBox="0 0 21 26"
               fill="none"
-              className="w-2"
+              className="sm:w-2"
             >
               <path
                 d="M9.20391 25.4158C6.34922 22.1472 0 14.2251 0 9.7753C0 4.37648 4.70094 0 10.5 0C16.2969 0 21 4.37648 21 9.7753C21 14.2251 14.6016 22.1472 11.7961 25.4158C11.1234 26.1947 9.87656 26.1947 9.20391 25.4158ZM10.5 13.0337C12.4305 13.0337 14 11.5725 14 9.7753C14 7.97807 12.4305 6.51686 10.5 6.51686C8.56953 6.51686 7 7.97807 7 9.7753C7 11.5725 8.56953 13.0337 10.5 13.0337Z"
@@ -287,7 +291,7 @@ const RecruitmentDetail = () => {
           <p>{jobData.location}</p>
         </div>
 
-        <p className="font-[700] sm:my-[10px] tablet-up:my-[20px] ">
+        <p className="font-[700] sm:my-[15px] tablet-up:my-[25px] ">
           Cách thức ứng tuyển
         </p>
         <p>
@@ -298,9 +302,9 @@ const RecruitmentDetail = () => {
           dưới đây.
         </p>
 
-        <div className="flex gap-[10px] sm:my-[20px] tablet-up:my-[30px]">
+        <div className="flex gap-[10px] sm:my-[10px] tablet-up:my-[30px]">
           <button
-            className="rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:px-2 sm:text-[8px] tablet-up:px-5 tablet-up:text-base"
+            className="rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base"
             onClick={handleApply}
           >
             ỨNG TUYỂN NGAY
@@ -312,7 +316,7 @@ const RecruitmentDetail = () => {
               onCancel={handleCancel}
             ></PopupHr>
           )}
-          <button className="hover:shadow-upper relative rounded-[4px] border-solid border-[#FE5656] py-2  font-bold not-italic text-[#FE5656] sm:border sm:pl-3 sm:pr-8 sm:text-[8px] tablet-up:border-[2px] tablet-up:pl-9 tablet-up:pr-16 tablet-up:text-base">
+          <button className="relative rounded-[4px] border-solid border-[#FE5656] py-2 font-bold  not-italic text-[#FE5656] hover:shadow-upper sm:border sm:pl-3 sm:pr-8 sm:text-[8px] tablet-up:border-[2px] tablet-up:pl-9 tablet-up:pr-16 tablet-up:text-base">
             LƯU TIN
             <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
               <svg

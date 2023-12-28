@@ -75,7 +75,7 @@ const RecruitmentOverall = () => {
                   <img
                     src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${data?.companyDTO?.logo}?alt=media`}
                     alt=""
-                    className="mr-[20px] rounded-[8px] border border-[#7D7D7D] object-cover sm:h-[70px] sm:w-[70px] tablet-up:h-[90px] tablet-up:w-[90px]"
+                    className="mr-[20px] rounded-[8px] border border-[#7D7D7D] object-cover sm:h-[60px] sm:w-[60px] tablet-up:h-[90px] tablet-up:w-[90px]"
                   />
                   <div className="flex flex-grow flex-col justify-between sm:py-[5px]">
                     <h3 className="font-bold not-italic text-red-500 sm:text-[12px] tablet-up:text-xl">
@@ -141,11 +141,11 @@ const RecruitmentOverall = () => {
               <div className="flex flex-col justify-center gap-[10px]">
                 <button
                   onClick={handleApply}
-                  className="flex-1 rounded-[4px] bg-[#FE5656] py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:px-2 sm:text-[8px] tablet-up:px-5 tablet-up:text-base"
+                  className=" flex-1 rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:whitespace-nowrap sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base"
                 >
                   ỨNG TUYỂN NGAY
                 </button>
-                <button className="hover:shadow-upper relative flex-1 rounded-[4px] border-solid border-[#FE5656] py-2 pr-5 font-bold not-italic text-[#FE5656] sm:border sm:text-[8px] tablet-up:border-[2px] tablet-up:text-base">
+                <button className="relative flex-1 rounded-[4px] border-solid border-[#FE5656] py-2 pr-5 font-bold not-italic text-[#FE5656] hover:shadow-upper sm:border sm:text-[8px] tablet-up:border-[2px] tablet-up:text-base">
                   LƯU TIN
                   <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
                     <svg
