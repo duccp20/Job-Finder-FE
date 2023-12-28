@@ -35,6 +35,7 @@ export default {
         button: "0px 8px 21px 0px rgba(0, 0, 0, 0.16)",
         banner: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
         bannerLighter: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+        upper: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
       },
       backgroundImage: {
         gradientCustom:

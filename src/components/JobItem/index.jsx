@@ -1,27 +1,42 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { convertDateFormat } from "../../utils/formatDate";
 
-const JobItem = ({ image, title }) => {
+const JobItem = (props) => {
+  const navigate = useNavigate();
   const maxTitleLength = 18;
 
   const truncatedTitle =
-    title.length > maxTitleLength
-      ? title.slice(0, maxTitleLength) + "..."
-      : title;
+    props?.name.length > maxTitleLength
+      ? props.name.slice(0, maxTitleLength) + "..."
+      : props.name;
+
+  const handleNavigateJobDetail = (id) => {
+    console.log("job ID", id);
+    navigate("/job-detail/" + id);
+  };
   return (
     <div className="mb-[15px] rounded-[10px] border border-[#DEDEDE] px-[21px] py-[15px] hover:border-[#FE5656]">
       <div className="flex">
         <img
-          src={image}
+          src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${
+            props && props?.companyDTO?.logo
+          }?alt=media`}
           alt=""
-          className="tablet-up:h-[90px] tablet-up:w-[90px] mr-[20px] rounded-[8px] border border-[#7D7D7D] object-cover sm:h-[60px] sm:w-[60px]"
+          className="mr-[20px] rounded-[8px] border border-[#7D7D7D] object-cover sm:h-[60px] sm:w-[60px] tablet-up:h-[90px] tablet-up:w-[90px]"
         />
         <div className="flex flex-grow flex-col justify-between">
-          <h3 className="tablet-up:text-xl font-bold not-italic text-red-500 sm:whitespace-nowrap sm:text-sm ">
-            <span className="tablet-up:hidden"> {truncatedTitle}</span>
-            <span className="sm:hidden">{title}</span>
+          <h3
+            onClick={() => handleNavigateJobDetail(props.id)}
+            className="cursor-pointer font-bold not-italic text-red-500 sm:whitespace-nowrap sm:text-sm tablet-up:text-xl "
+          >
+            <span className="tablet-up:hidden"> {truncatedTitle} </span>
+            <span className="sm:hidden">{props.name}</span>
           </h3>
-          <span className="sm:text-[10px] sm:font-[400]">abc</span>
-          <div className="tablet-up:items-baseline flex sm:items-center">
+          <span className="sm:text-[10px] sm:font-[400]">
+            {props.companyDTO.name}
+          </span>
+          <div className="flex sm:items-center tablet-up:items-baseline">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="19"
@@ -42,34 +57,54 @@ const JobItem = ({ image, title }) => {
                 </clipPath>
               </defs>
             </svg>
-            <span className="tablet-up:text-base font-light not-italic text-gray-800 sm:text-[10px]">
-              hcm
+            <span className="font-light not-italic text-gray-800 sm:text-[10px] tablet-up:text-base">
+              {props.province}
             </span>
           </div>
         </div>
-        <div className="tablet-up:px-[15px] tablet-up:py-[12px] h-auto cursor-pointer self-start border border-[#F1F1F1] sm:px-[7px] sm:py-[5px]">
+        <div className="hover:shadow-upper h-auto  cursor-pointer self-start rounded-md border border-[#F1F1F1] sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
             height="21"
             viewBox="0 0 15 21"
             fill="none"
+            className=""
           >
             <path
               d="M12.7734 0.65625H2.22656C1.25574 0.65625 0.46875 1.48267 0.46875 2.50215V19.1114C0.46875 20.0613 1.44983 20.6527 2.23096 20.1743L7.5 16.9463L12.7698 20.1739C13.5498 20.6189 14.5312 20.0613 14.5312 19.1114V2.50215C14.5312 1.48267 13.7439 0.65625 12.7734 0.65625ZM12.7734 18.0385L7.5 14.8081L2.22656 18.0385V2.73289C2.22656 2.60329 2.32288 2.50215 2.41333 2.50215H12.5208C12.6782 2.50215 12.7734 2.60329 12.7734 2.73289V18.0385Z"
               fill="#7D7D7D"
+              className="fill-[#FE5656]"
             />
           </svg>
         </div>
       </div>
       <div className="flex items-end justify-between sm:mt-[10px]">
         <div className="flex items-start gap-[19px]">
-          <span className="tablet-up:p-[10px] inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px]">
-            FE
-          </span>
-          <span className="tablet-up:p-[10px] inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px]">
-            KHMT
-          </span>
+          {props.positionDTOs.map((position) => (
+            <span
+              key={position.id}
+              className="inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px] tablet-up:p-[10px]"
+            >
+              {position.name}
+            </span>
+          ))}
+          {props.scheduleDTOs.map((schedule) => (
+            <span
+              key={schedule.id}
+              className="inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px] tablet-up:p-[10px]"
+            >
+              {schedule.name}
+            </span>
+          ))}
+          {props.majorDTOs.map((major) => (
+            <span
+              key={major.id}
+              className="inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px] tablet-up:p-[10px]"
+            >
+              {major.name}
+            </span>
+          ))}
         </div>
         <div className="flex flex-col sm:hidden">
           <div className="flex items-center">
@@ -86,7 +121,7 @@ const JobItem = ({ image, title }) => {
               />
             </svg>
             <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
-              Số lượng ứng viên:
+              Số lượng ứng viên: {props.amount}
             </span>
           </div>
           <div className="flex items-center">
@@ -103,7 +138,8 @@ const JobItem = ({ image, title }) => {
               />
             </svg>
             <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
-              1/1/2022
+              {convertDateFormat(props.startDate.substring(0, 10))} -{" "}
+              {convertDateFormat(props.endDate.substring(0, 10))}
             </span>
           </div>
         </div>

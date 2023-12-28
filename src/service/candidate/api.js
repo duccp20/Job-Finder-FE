@@ -54,3 +54,7 @@ export const callUpdateAvatar = (id, fileAvatar) => {
     },
   });
 };
+
+export const callChangeSearchable = (id) => {
+  return axios.put(`/api/v1/candidate/searchable/${id}`);
+};

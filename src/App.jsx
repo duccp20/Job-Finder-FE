@@ -90,7 +90,8 @@ const App = () => {
       window.location.pathname === "/register" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/forgot-password" ||
-      window.location.pathname === "/verify-email"
+      window.location.pathname === "/verify-email" ||
+      window.location.pathname === "/recruitment"
     )
       return;
 
@@ -148,6 +149,7 @@ const App = () => {
         {
           index: true,
           element: <HomePage />,
+          errorElement: <NotFound />,
         },
         {
           path: "profile",
@@ -173,22 +175,24 @@ const App = () => {
           ],
         },
         {
-          path: "/recruitment",
+          path: "job-detail",
           element: <RecruitmentOverall />,
           errorElement: <NotFound />,
           children: [
             {
+              path: ":id",
               index: true,
               element: <RecruitmentDetail />,
             },
             {
-              path: "company",
+              path: "company/:id",
               element: <CompanyInformation />,
             },
           ],
         },
       ],
     },
+
     {
       path: "/hr",
       element: <LayoutHr />,
@@ -391,21 +395,21 @@ const App = () => {
       ],
     },
 
-    {
-      path: "/viewrecruitment",
-      element: <ViewRecruitmentOverall />,
-      errorElement: <NotFound />,
-      children: [
-        {
-          index: true,
-          element: <ViewRecruitmentDetail />,
-        },
-        {
-          path: "viewcompany",
-          element: <ViewCompanyInfor />,
-        },
-      ],
-    },
+    // {
+    //   path: "/viewrecruitment",
+    //   element: <ViewRecruitmentOverall />,
+    //   errorElement: <NotFound />,
+    //   children: [
+    //     {
+    //       index: true,
+    //       element: <ViewRecruitmentDetail />,
+    //     },
+    //     {
+    //       path: "viewcompany",
+    //       element: <ViewCompanyInfor />,
+    //     },
+    //   ],
+    // },
     {
       path: "/change-admin-password",
       element: <ChangeAdminPassword />,
@@ -457,10 +461,12 @@ const App = () => {
       {!isLoading ||
       window.location.pathname === "/" ||
       window.location.pathname === "/login" ||
-      window.location.pathname === "/register" ||
+      window.location.pathname.startsWith("/register") ||
       window.location.pathname === "/forgot-password" ||
       window.location.pathname === "/reset-password" ||
-      window.location.pathname === "/verify-email" ? (
+      window.location.pathname === "/verify-email" ||
+      window.location.pathname.startsWith("/job-detail") ||
+      "/recruitment" ? (
         <RouterProvider router={router} />
       ) : (
         <Loading></Loading>

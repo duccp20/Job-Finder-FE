@@ -1,16 +1,48 @@
 import React, { useState } from "react";
 import RecruitmentItem from "../../components/Recruitment/item";
+import { useSelector } from "react-redux";
+import { convertDateFormat } from "../../utils/formatDate";
+import Popup from "../../components/Popup";
+import PopupHr from "../../components/PopupHr";
+import { useNavigate } from "react-router-dom";
 
 const RecruitmentDetail = () => {
+  const navigate = useNavigate();
+  const jobData = useSelector((state) => state.job.data);
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  const [isShowModalLogin, setIsShowModalLogin] = useState(false);
+  console.log("jobData", jobData);
+
+  const handleApply = () => {
+    if (isAuthenticated) {
+      alert("Đã đăng nhập");
+    } else {
+      setIsShowModalLogin(true);
+    }
+  };
+
+  const handleConfirm = () => {
+    setIsShowModalLogin(false);
+    navigate("/login");
+  };
+
+  const handleCancel = () => {
+    setIsShowModalLogin(false);
+  };
   return (
     <>
+      {/* <PopupHr></PopupHr> */}
       <div className="flex">
         <div className=" ml-[40px] mr-[10px] mt-[30px] flex w-[60%] flex-col gap-[10px] text-inherit">
           <p className="my-[10px] font-[700]">Mô tả công việc</p>
-          <ul className="mx-[10px] list-disc px-[10px] leading-normal">
+          <div
+            dangerouslySetInnerHTML={{ __html: jobData.description }}
+            className="jobDescription mx-[10px] list-disc px-[10px] leading-normal"
+          />
+          {/* <ul className="">
+            <p> </p>
+
             <li className="mb-[10px]">
-              Tham gia vào các dự án thiết kế, phát triển các sản phẩm mới theo
-              yêu cầu của khách hàng hoặc từ Leader.
             </li>
             <li className="mb-[10px]">
               Tham gia bảo trì, nâng cấp chức năng, giao diện theo yêu cầu của
@@ -24,9 +56,11 @@ const RecruitmentDetail = () => {
               Nghiên cứu và ứng dụng các công nghệ mới vào phát triển sản phẩm.
             </li>
             <li className="mb-[10px]">Báo cáo kết quả công việc cho PM.</li>
-          </ul>
+          </ul> */}
           <p className="my-[10px] font-[700]">Yêu cầu công việc</p>
-          <ul className="mx-[10px] list-disc px-[10px] leading-normal">
+          <div dangerouslySetInnerHTML={{ __html: jobData.requirement }}></div>
+          {/* <ul className="mx-[10px] list-disc px-[10px] leading-normal">
+            {}
             <li className="mb-[10px]">
               Nắm vững kiến thức về HTML/CSS,
               JS/JQuery/AJAX/Bootstrap/Responsive.
@@ -51,9 +85,9 @@ const RecruitmentDetail = () => {
             <li className="mb-[10px]">
               Chịu được áp lực và hoàn thành công việc đúng deadline.
             </li>
-          </ul>
+          </ul> */}
           <p className="my-[10px] font-[700]">Chế độ phúc lợi</p>
-          <ul className="mx-[10px] list-disc px-[10px] leading-normal">
+          {/* <ul className="mx-[10px] list-disc px-[10px] leading-normal">
             <li className="mb-[10px]">
               Trợ cấp thực tập: 3.000.000 - 5.000.000 đồng/tháng.
             </li>
@@ -64,7 +98,8 @@ const RecruitmentDetail = () => {
               Cơ hội học hỏi và làm việc trực tiếp cùng các Leader đầy kinh
               nghiệm.
             </li>
-          </ul>
+          </ul> */}
+          <div dangerouslySetInnerHTML={{ __html: jobData.otherInfo }}></div>
         </div>
         <div className="my-[30px] mr-[30px] h-full w-[40%] border border-[#FE5656] bg-[#FE56561A] pb-[40px]">
           <RecruitmentItem
@@ -83,7 +118,11 @@ const RecruitmentDetail = () => {
               </svg>
             }
             title="Vị trí làm việc"
-            detail="Front end"
+            detail={
+              (jobData.positionDTOs.length > 0 &&
+                jobData.positionDTOs.map((p) => p.name).join(" / ")) ||
+              "Không xác định"
+            }
           ></RecruitmentItem>
 
           <RecruitmentItem
@@ -102,7 +141,11 @@ const RecruitmentDetail = () => {
               </svg>
             }
             title="Hình thức làm việc"
-            detail="Full time / Part time"
+            detail={
+              (jobData.scheduleDTOs.length > 0 &&
+                jobData.scheduleDTOs.map((sc) => sc.name).join(" / ")) ||
+              "Không xác định"
+            }
           ></RecruitmentItem>
 
           <RecruitmentItem
@@ -133,7 +176,7 @@ const RecruitmentDetail = () => {
               </svg>
             }
             title="Số lượng cần tuyển"
-            detail="3"
+            detail={jobData.amount}
           ></RecruitmentItem>
 
           <RecruitmentItem
@@ -152,7 +195,12 @@ const RecruitmentDetail = () => {
               </svg>
             }
             title="Trợ cấp"
-            detail="3.000.000  - 5.000.0000 VNĐ"
+            detail={
+              jobData.salaryMin.toLocaleString("vi-VN") +
+              " - " +
+              jobData.salaryMax.toLocaleString("vi-VN") +
+              " vnđ"
+            }
           ></RecruitmentItem>
 
           <RecruitmentItem
@@ -171,7 +219,7 @@ const RecruitmentDetail = () => {
               </svg>
             }
             title="Ngày đăng tuyển"
-            detail="02/03/2023"
+            detail={convertDateFormat(jobData.startDate.substring(0, 10))}
           ></RecruitmentItem>
 
           <RecruitmentItem
@@ -190,7 +238,7 @@ const RecruitmentDetail = () => {
               </svg>
             }
             title="Hạn nộp hồ sơ"
-            detail="28/04/2023"
+            detail={convertDateFormat(jobData.endDate.substring(0, 10))}
           ></RecruitmentItem>
         </div>
       </div>
@@ -212,7 +260,8 @@ const RecruitmentDetail = () => {
               />
             </svg>
           </span>
-          <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
+          {/* <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p> */}
+          <p>{jobData.location}</p>
         </div>
 
         <p className="my-[20px] font-[700]">Cách thức ứng tuyển</p>
@@ -225,10 +274,20 @@ const RecruitmentDetail = () => {
         </p>
 
         <div className="my-[30px] flex gap-[10px]">
-          <button className="rounded-[4px] bg-[#FE5656] px-5 py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]">
+          <button
+            className="rounded-[4px] bg-[#FE5656] px-5 py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]"
+            onClick={handleApply}
+          >
             ỨNG TUYỂN NGAY
           </button>
-          <button className="relative rounded-[4px] border-[2px] border-solid border-[#FE5656] py-2 pl-9 pr-16 text-base font-bold not-italic text-[#FE5656]">
+          {isShowModalLogin && (
+            <PopupHr
+              type="require-login"
+              onConfirm={handleConfirm}
+              onCancel={handleCancel}
+            ></PopupHr>
+          )}
+          <button className="hover:shadow-upper relative rounded-[4px] border-[2px] border-solid border-[#FE5656] py-2 pl-9 pr-16 text-base font-bold not-italic text-[#FE5656]">
             LƯU TIN
             <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
               <svg
@@ -246,7 +305,10 @@ const RecruitmentDetail = () => {
             </span>
           </button>
         </div>
-        <p>Hạn nộp hồ sơ: 28/04/2023</p>
+        {/* <p>28/04/2023</p> */}
+        <p>
+          Hạn nộp hồ sơ: {convertDateFormat(jobData.endDate.substring(0, 10))}
+        </p>
       </div>
     </>
   );

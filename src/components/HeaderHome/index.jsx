@@ -21,7 +21,7 @@ const HeaderHome = (props) => {
 
   const jobOptions = ["Tìm việc làm", "Tìm thực tập"];
   const hrOptions = ["Tìm việc làm 1", "Tìm thực tập 2"];
-  // const userOptions = ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"];
+  const userOptions = ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"];
   const authOptions = isAuthenticated
     ? ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"]
     : ["Đăng ký", "Đăng nhập"];
@@ -172,16 +172,16 @@ const HeaderHome = (props) => {
               </div>
             </div>
             <div className="absolute -right-[15px] z-[10]">
-              <a href="#">
+              <div className="h-[55px] w-[55px] rounded-[50%] border shadow-bannerLighter">
                 <img
                   src={
                     isAuthenticated && dataUser && dataUser.avatar
-                      ? dataUser.avatar
+                      ? `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${dataUser.avatar}?alt=media`
                       : guest
                   }
                   className="h-full w-full rounded-[50%]"
                 />
-              </a>
+              </div>
             </div>
 
             {/* {dropdown.userDropdown && (

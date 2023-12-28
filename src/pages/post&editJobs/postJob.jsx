@@ -47,6 +47,10 @@ const PostJob = (props) => {
       city: yup.string().required("Vui lòng chọn tỉnh thành"),
       address: yup.string().required("Địa chỉ không được để trống"),
       description: yup.string().required("Mô tả không được để trống"),
+      // requirement: yup
+      //   .string()
+      //   .required("Yêu cầu công việc không được để trống"),
+      // welfare: yup.string().required("Chế độ phúc lợi không được để trống"),
     })
     .required();
 
@@ -60,7 +64,10 @@ const PostJob = (props) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => console.log(data);
+  const handleQuillChange = (name, value) => {
+    setValue(name, value, { shouldValidate: true });
+  };
+  const onSubmit = (data) => console.log("data", data);
 
   return (
     <div>
@@ -389,11 +396,16 @@ const PostJob = (props) => {
                 theme="snow"
                 id="description"
                 name="description"
-                // onChange={(value) => setValue("description", value)}
+                onChange={(value) => setValue("description", value)}
                 modules={modules}
-                {...register("description")}
-                placeholder="Nhập thông tin cho vị trí công việc yêu cầu, trách nhiệm mà ứng viên có thể đảm nhận khi làm việc ở công ty"
               />
+              {/* <ReactQuill
+                className="h-[78%]"
+                theme="snow"
+                modules={modules}
+                onChange={(value) => setValue("description", value)}
+                placeholder="Nhập thông tin cho vị trí công việc yêu cầu, trách nhiệm mà ứng viên có thể đảm nhận khi làm việc ở công ty"
+              /> */}
             </div>
             {errors?.description && (
               <div className="flex items-center ">
@@ -417,7 +429,7 @@ const PostJob = (props) => {
                 className="h-[78%]"
                 theme="snow"
                 id="requirement"
-                {...register("requirement")}
+                onChange={(value) => setValue("requirement", value)}
                 modules={modules}
                 placeholder="Nhập kỹ năng chuyên môn hoặc kỹ năng mềm cần thiết với công việc mà ứng viên cần quan tâm"
               />
@@ -432,7 +444,7 @@ const PostJob = (props) => {
                 className="h-[78%]"
                 theme="snow"
                 id="welfare"
-                {...register("welfare")}
+                onChange={(value) => setValue("welfare", value)}
                 modules={modules}
                 placeholder="Nhập những quyền lợi, lợi ích với công việc cho ứng viên với vị trí đăng tuyển"
               />

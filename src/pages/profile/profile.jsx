@@ -4,19 +4,33 @@ import HeaderHome from "../../components/HeaderHome";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
+import guest from "/images/guest-logo.jpg";
 import Input from "../../components/Input/input";
 import {
+  callChangeSearchable,
   callFetchCandidateByUserId,
   callUpdateAvatar,
 } from "../../service/candidate/api";
-import { doFetchCandidate } from "../../redux/candidate/candidateSlice";
+import {
+  doFetchCandidate,
+  doSetSearchable,
+} from "../../redux/candidate/candidateSlice";
 import Spinner from "../../components/Spinner/spinnner";
-import { doSetProfileData } from "../../redux/account/accountSlice";
+import {
+  doLoginAction,
+  doSetAvatarProfile,
+  doSetProfileData,
+} from "../../redux/account/accountSlice";
+import Notification from "../../components/Notification";
 
 const Profile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [fileAvatar, setFileAvatar] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const searchable = useSelector((state) => state.candidate.data.searchable);
+  const [pendingToggle, setPendingToggle] = useState(searchable);
+  console.log("searchable in profile", searchable);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
   const dataCandidate = useSelector((state) => state.candidate.data);
@@ -51,17 +65,46 @@ const Profile = () => {
       setIsSubmitting(false);
       if (res && res.httpCode === 200) {
         console.log("Ảnh đã được cập nhật");
-
+        dispatch(doSetAvatarProfile(res.data));
         setImagePreview(
           `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${res.data}?alt=media`,
         );
+        setShowButton(false);
         alert("Cấp nhật ảnh thành công");
       }
     } catch (error) {
       alert("Cấp nhật ảnh thất bại", error);
       console.log("Error in ava", error);
       setIsSubmitting(false);
+      setShowButton(false);
     }
+  };
+
+  const handleToggle = (newState) => {
+    setPendingToggle(newState);
+    setShowNotification(true);
+  };
+
+  const handleConfirmToggle = async () => {
+    setShowNotification(false);
+    try {
+      const res = await callChangeSearchable(candidateID);
+      if (res && res.httpCode === 200) {
+        dispatch(doSetSearchable(pendingToggle));
+        alert("Thông báo: " + res.message);
+      }
+    } catch (error) {
+      alert("Thông báo: " + error);
+    }
+  };
+
+  useEffect(() => {
+    setPendingToggle(searchable);
+  }, [searchable]);
+
+  const handleCancelToggle = () => {
+    setShowNotification(false);
+    setPendingToggle(searchable); // Reset lại trạng thái toggle
   };
 
   useEffect(() => {
@@ -79,9 +122,20 @@ const Profile = () => {
   }, []);
   return (
     <div>
-      <HeaderHome />
-
-      <div className="my-[100px] flex h-auto w-full items-start justify-center  gap-[24px] px-4 ">
+      {showNotification && (
+        <Notification
+          action="Xác nhận"
+          title={
+            pendingToggle
+              ? "Bạn có muốn cho Nhà Tuyển Dụng tìm kiếm hồ sơ của bạn không?"
+              : "Bạn có muốn 'không cho' Nhà Tuyển Dụng tìm kiếm hồ sơ của bạn không?"
+          }
+          des="Nhấn Đồng ý để xác nhận."
+          onConfirm={handleConfirmToggle}
+          onCancel={handleCancelToggle}
+        />
+      )}
+      <div className="mt-[100px] flex h-auto w-full items-start justify-center  gap-[24px] px-4 ">
         <div className="h-auto w-[30%] rounded-[10px] border border-[#FE5656] px-6 py-[30px] shadow-banner ">
           <Controller
             name="image"
@@ -194,7 +248,11 @@ const Profile = () => {
                         </svg>
                       </div>
                       <img
-                        src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${user?.avatar}?alt=media`}
+                        src={
+                          user.avatar
+                            ? `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${user.avatar}?alt=media`
+                            : guest
+                        }
                         alt="Selected Image"
                         className="mx-auto aspect-square h-[200px] w-[200px] rounded-full bg-center bg-no-repeat object-cover"
                       />
@@ -213,7 +271,7 @@ const Profile = () => {
             <p className="pr-4 text-base font-semibold not-italic leading-relaxed text-red-500">
               Cho phép nhà tuyển dụng tìm kiếm hồ sơ trực tuyến của bạn
             </p>
-            <Toggle></Toggle>
+            <Toggle state={pendingToggle} onToggleChange={handleToggle} />
           </div>
           <p className="pt-3 text-xs font-normal italic text-[#7D7D7D]">
             Cho phép nhà tuyển dụng chủ động tìm kiếm hồ sơ của bạn để có thêm
@@ -228,7 +286,7 @@ const Profile = () => {
               type="submit"
             >
               {isSubmitting ? (
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center gap-2">
                   <Spinner />
                   <span>Đang Cập nhật</span>
                 </span>

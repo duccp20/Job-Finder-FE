@@ -212,8 +212,6 @@ const JobDetails = () => {
     }
   };
 
-
-
   const handleCloseCV = () => {
     setShowCV(false);
   };
@@ -222,7 +220,7 @@ const JobDetails = () => {
       {showPopup && (
         <Popup text="Cập nhật thành công" redirect="profile"></Popup>
       )}
-      <div className=" flex h-auto w-[60%] flex-col rounded-[10px] shadow-banner">
+      <div className="mb-[50px] flex h-auto w-[60%]  flex-col  rounded-[10px] shadow-banner">
         {showCV && <PDF file={cvPreview} onClose={handleCloseCV}></PDF>}
         <div className=" flex h-[55px] w-full justify-between rounded-bl-[0px] rounded-br-[0px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FE5656] px-[44px] py-[14px] shadow-banner">
           <span className="text-xl font-bold not-italic text-white ">

@@ -27,8 +27,16 @@ export const candidateSlice = createSlice({
       state.id = action.payload.id;
       state.data = action.payload.candidateOtherInfoDTO;
     },
+
+    doSetSearchable: (state, action) => {
+      state.data = {
+        ...state.data,
+        ...(state.data.searchable = action.payload),
+      };
+    },
   },
 });
 
-export const { doFetchCandidate, doSetCandidateData } = candidateSlice.actions;
+export const { doFetchCandidate, doSetCandidateData, doSetSearchable } =
+  candidateSlice.actions;
 export default candidateSlice.reducer;

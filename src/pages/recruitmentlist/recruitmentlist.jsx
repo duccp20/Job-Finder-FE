@@ -9,8 +9,7 @@ const RecruitmentListPage = (props) => {
     useDataFetcher();
   return (
     <div className="h-screen w-full">
-      {/* <PopupHr></PopupHr> */}
-
+      <PopupHr></PopupHr>
 
       <HeaderHR></HeaderHR>
       <div className="mx-auto my-[90px] h-full w-[87%] rounded-[10px] border px-[40px] pb-[44px] pt-[30px] shadow-banner">
