@@ -23,8 +23,6 @@ const HomePage = () => {
 
   if (!isAuthenticated) doSetRoleGuest({ name: "Role_Guest", id: 0 });
 
-  console.log(data);
-
   const mapState = (data, checked = false) =>
     data.map((item) => ({ id: item.id, label: item.name, checked }));
 
@@ -62,20 +60,6 @@ const HomePage = () => {
     });
   };
 
-  // const [checkboxes, setCheckboxes] = useState([
-  //   { id: 1, label: "Full time", checked: false },
-  //   { id: 2, label: "Part time", checked: false },
-  //   { id: 3, label: "Remote", checked: false },
-  //   // Add more options as needed
-  // ]);
-
-  /*
-   *
-   * @description
-   * tạo hàm chứa dữ liệu checkbox
-   *
-   */
-
   const handleCheckboxChange = (id, setState) => {
     setState((prevCheckboxes) =>
       prevCheckboxes.map((checkbox) =>
@@ -86,9 +70,10 @@ const HomePage = () => {
     );
   };
 
-  const { loading, pages, totalPages, currentPage, setCurrentPage } =
+  const { loading, dataJob, totalPages, currentPage, setCurrentPage } =
     useDataFetcher();
 
+  console.log("data quantity", dataJob.length);
   return (
     <div>
       {/* <LoginAs></LoginAs> */}
@@ -194,7 +179,7 @@ const HomePage = () => {
         </div>
 
         <div className=" flex flex-col gap-[36px] md:w-full in-lg:w-[80%]">
-          <form className="tablet-up:border-[0.5px] tablet-up:border-[#FE5656] tablet-up:px-[18px] tablet-up:py-[12px] flex h-auto items-center justify-between rounded-[6px] sm:flex-col sm:gap-[15px] ">
+          <form className="flex h-auto items-center justify-between rounded-[6px] sm:flex-col sm:gap-[15px] tablet-up:border-[0.5px] tablet-up:border-[#FE5656] tablet-up:px-[18px] tablet-up:py-[12px] ">
             <div className="flex flex-grow items-end sm:w-full sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -236,7 +221,7 @@ const HomePage = () => {
               />
             </div>
 
-            <div className="tablet-up:items-end tablet-up:pr-[30px] flex sm:w-full sm:items-center sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px]">
+            <div className="flex sm:w-full sm:items-center sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px] tablet-up:items-end tablet-up:pr-[30px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -273,16 +258,15 @@ const HomePage = () => {
               </button>
             </div>
           </form>
-          {/* {data} */}
           <div>
             {loading ? (
               <Loading></Loading>
             ) : (
               <>
                 <div>
-                  {pages && pages.length > 0 ? (
-                    pages.map((page) => (
-                      <JobItem key={page.id} {...page}></JobItem>
+                  {dataJob && dataJob.length > 0 ? (
+                    dataJob.map((data) => (
+                      <JobItem key={data.id} {...data}></JobItem>
                     ))
                   ) : (
                     <p className="text-center">Không có dữ liệu :{"("}</p>

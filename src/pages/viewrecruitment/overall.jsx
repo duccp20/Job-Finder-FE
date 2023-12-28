@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const ViewRecruitmentOverall = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   return (

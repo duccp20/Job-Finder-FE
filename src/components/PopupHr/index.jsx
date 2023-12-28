@@ -9,32 +9,42 @@ const PopupHr = (props) => {
     };
   }, []);
   return (
-    <div className=" top-0 w-screen h-full overflow-hidden bg-black bg-opacity-30 flex items-center justify-center shadow-custom absolute z-[100000]">
-      <div className=" w-[35%] h-auto px-[25px] py-[25px] bg-white rounded-[10px]  backdrop-blur-[6.800000190734863px] text-center justify-center items-center">
-        <p className="cursor-pointer text-right text-black text-base not-italic font-semibold">
-          X
-        </p>
-        <div>
-          <p className="text-black text-center text-xl not-italic font-bold mb-[8px]">
-            {props.action} Đóng tin tuyển dụng
-          </p>
-          <p className="text-base not-italic font-normal text-[#000000B2] mb-[8px]">
-            Bạn có muốn đóng tin tuyển dụng
-          </p>
-          <p className="text-[#FE5656] text-base not-italic font-bold mb-[8px]">
-            Thực tập sinh Business Analyst chuyên ngành Banking {props.job}
-          </p>
-        </div>
+    <div className="fixed bottom-0 left-0 right-0 top-0 z-[100000] flex h-full w-full items-center justify-center overflow-hidden bg-black bg-opacity-30 shadow-custom">
+      <div className=" h-auto w-[35%] items-center justify-center rounded-[10px] bg-white  px-[25px] py-[25px] text-center backdrop-blur-[6.800000190734863px]">
+        {props.type === "require-login" ? (
+          <>
+            <h1 className="my-[30px] text-center text-[25px] font-[800] uppercase leading-normal	">
+              Bạn phải đăng nhập để ứng tuyển
+            </h1>
+          </>
+        ) : (
+          <>
+            <p className="cursor-pointer text-right text-base font-semibold not-italic text-black">
+              X
+            </p>
+            <p className="mb-[8px] text-center text-xl font-bold not-italic text-black">
+              {props.action} Đóng tin tuyển dụng
+            </p>
+            <p className="mb-[8px] text-base font-normal not-italic text-[#000000B2]">
+              Bạn có muốn đóng tin tuyển dụng
+            </p>
+            <p className="mb-[8px] text-base font-bold not-italic text-[#FE5656]">
+              Thực tập sinh Business Analyst chuyên ngành Banking {props.job}
+            </p>
+          </>
+        )}
 
-        <div className="mt-[16px] flex gap-[20px] mb-[9px] justify-center px-[100px]">
+        <div className="mb-[9px] mt-[16px] flex justify-center gap-[20px] px-[100px]">
           <button
-            className="text-center text-white rounded px-[15px] py-[12px] bg-gradientCustom text-[15px] font-[700] flex-1 "
+            onClick={props.onConfirm}
+            className="flex-1 rounded bg-gradientCustom px-[15px] py-[12px] text-center text-[15px] font-[700] text-white "
             type="submit"
           >
-            Đồng ý
+            {props.type === "require-login" ? "Đăng nhập" : "Đồng ý"}
           </button>
           <button
-            className="text-center text-[#7D7D7D] rounded px-[15px] py-[12px] bg-white border-solid border border-[#7D7D7D] text-[15px] font-[700] flex-1 "
+            onClick={props.onCancel}
+            className="flex-1 rounded border border-solid border-[#7D7D7D] bg-white px-[15px] py-[12px] text-center text-[15px] font-[700] text-[#7D7D7D] "
             type="submit"
           >
             Hủy

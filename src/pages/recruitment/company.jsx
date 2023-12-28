@@ -2,8 +2,14 @@ import React from "react";
 import RecruitmentItem from "../../components/Recruitment/item";
 import JobItem from "../../components/JobItem";
 import Pagination from "../../components/Pagination";
+import Loading from "../../components/Loading";
+import { useParams } from "react-router-dom";
+import useDataFetcher from "../../components/Pagination/useDataFetcher";
 
 const CompanyInformation = () => {
+  const { id } = useParams();
+  const { loading, dataJob, totalPages, currentPage, setCurrentPage } =
+    useDataFetcher();
   return (
     <>
       <div className="flex">
@@ -27,7 +33,8 @@ const CompanyInformation = () => {
             </li>
           </ol>
           <p className="my-[10px]">
-            Với 03 nhiệm vụ trên, R2S đã cho ra đời R2S Academy với nhiều chương
+            Với 03 nhiệm vụ trên, R2S đã cho ra đời R2S Academy với nhiều chươ
+            <ng></ng>
             trình đào tạo dành cho lập trình viên, dành cho Tester, dành cho BA,
             dành cho DevOps,…nhằm giúp các bạn trang bị những kinh nghiệm làm
             việc như quản lý source code, viết code sạch, làm việc nhóm, cách
@@ -134,18 +141,34 @@ const CompanyInformation = () => {
 
       <div className="mx-[40px] mt-[30px]">
         <p className="font-[700]">Việc làm khác đang tuyển</p>
-        <div className="mt-[20px] flex gap-5 rounded-[5px] bg-[#F6F6F6] px-[20px] py-[30px] shadow-banner">
-          <div className="w-[50%]">
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-          </div>
-          <div className="w-[50%]">
-            <JobItem></JobItem>
-            <JobItem></JobItem>
-          </div>
+        <div className="mt-[20px] flex flex-col gap-5 rounded-[5px] bg-[#F6F6F6] px-[20px] py-[30px] shadow-banner">
+          {loading ? (
+            <Loading></Loading>
+          ) : (
+            <>
+              <div className="flex flex-wrap justify-start   gap-4">
+                {dataJob && dataJob.length > 0 ? (
+                  dataJob
+                    .filter((data) => data.id != id)
+                    .map((data) => (
+                      <>
+                        <div style={{ width: "calc(50% - 10px)" }}>
+                          <JobItem key={data.id} {...data}></JobItem>
+                        </div>
+                      </>
+                    ))
+                ) : (
+                  <p className="text-center">Không có dữ liệu :{"("}</p>
+                )}
+              </div>
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              ></Pagination>
+            </>
+          )}
         </div>
-        <Pagination></Pagination>
       </div>
     </>
   );

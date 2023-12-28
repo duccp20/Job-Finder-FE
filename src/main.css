@@ -47,6 +47,13 @@ body {
   }
 }
 
+.jobDescription ul {
+  @apply list-inside list-decimal;
+}
+
+.jobDescription li {
+  @apply mb-2;
+}
 /* nổi lên */
 @keyframes fadeInUp {
   from {
@@ -120,4 +127,32 @@ body {
   border: 1px solid grey;
   border-radius: 5px;
   /* Add more styles for the tags */
+}
+
+/* For Chrome, Safari, and Opera */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For Firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+/* For IE and Edge */
+body {
+  -ms-overflow-style: auto;
 }
