@@ -61,7 +61,7 @@ const RecruitmentOverall = () => {
         <>
           <HeaderHome />
           <SearchBar />
-          <div className="m-auto my-[10px] w-[90%] rounded-[6px] border-[2px] border-[#FE5656] py-[45px]">
+          <div className="mx-auto w-[90%] rounded-[6px] border-[2px] border-[#FE5656] sm:mb-[10px] sm:mt-[90px] sm:py-[30px] tablet-up:my-[10px] tablet-up:py-[45px]">
             {isShowModalLogin && (
               <PopupHr
                 type="require-login"
@@ -69,26 +69,29 @@ const RecruitmentOverall = () => {
                 onCancel={handleCancel}
               ></PopupHr>
             )}
-            <div className="flex items-center justify-between px-[40px]">
+            <div className="flex items-center justify-between sm:px-[20px] tablet-up:px-[40px]">
               <div className="flex flex-col">
                 <div className="flex">
                   <img
                     src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${data?.companyDTO?.logo}?alt=media`}
                     alt=""
-                    className="mr-[20px] h-[90px] w-[90px] rounded-[8px] border border-[#7D7D7D] object-cover"
+                    className="mr-[20px] rounded-[8px] border border-[#7D7D7D] object-cover sm:h-[70px] sm:w-[70px] tablet-up:h-[90px] tablet-up:w-[90px]"
                   />
-                  <div className="flex flex-grow flex-col justify-between">
-                    <h3 className="text-xl font-bold not-italic text-red-500">
+                  <div className="flex flex-grow flex-col justify-between sm:py-[5px]">
+                    <h3 className="font-bold not-italic text-red-500 sm:text-[12px] tablet-up:text-xl">
                       {data?.name}
                     </h3>
-                    <span>{data?.companyDTO?.name}</span>
-                    <div className="flex items-baseline">
+                    <span className="sm:text-[8px]">
+                      {data?.companyDTO?.name}
+                    </span>
+                    <div className="flex sm:items-center tablet-up:items-baseline">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="19"
                         height="16"
                         viewBox="0 0 19 16"
                         fill="none"
+                        className="sm:h-3 sm:w-3"
                       >
                         <g clip-path="url(#clip0_194_975)">
                           <path
@@ -102,17 +105,17 @@ const RecruitmentOverall = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                      <span className="text-base font-light not-italic text-gray-800">
+                      <span className="font-light not-italic text-gray-800 sm:text-[8px] tablet-up:text-base">
                         {data?.province}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="mt-[10px] flex items-start gap-[19px]">
+                <div className="mt-[10px] flex items-start gap-[19px] ">
                   {data?.positionDTOs.map((position) => (
                     <span
                       key={position.id}
-                      className="inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px] tablet-up:p-[10px]"
+                      className="inline-block bg-[#F3F9FC]  font-semibold not-italic text-gray-600 sm:p-[5px] sm:text-[8px] tablet-up:p-[10px] tablet-up:text-xs"
                     >
                       {position.name}
                     </span>
@@ -120,7 +123,7 @@ const RecruitmentOverall = () => {
                   {data?.scheduleDTOs.map((schedule) => (
                     <span
                       key={schedule.id}
-                      className="inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px] tablet-up:p-[10px]"
+                      className="inline-block bg-[#F3F9FC]  font-semibold not-italic text-gray-600 sm:p-[5px] sm:text-[8px] tablet-up:p-[10px] tablet-up:text-xs"
                     >
                       {schedule.name}
                     </span>
@@ -128,7 +131,7 @@ const RecruitmentOverall = () => {
                   {data?.majorDTOs.map((major) => (
                     <span
                       key={major.id}
-                      className="inline-block bg-[#F3F9FC] text-xs font-semibold not-italic text-gray-600 sm:p-[5px] tablet-up:p-[10px]"
+                      className="inline-block bg-[#F3F9FC]  font-semibold not-italic text-gray-600 sm:p-[5px] sm:text-[8px] tablet-up:p-[10px] tablet-up:text-xs"
                     >
                       {major.name}
                     </span>
@@ -138,11 +141,11 @@ const RecruitmentOverall = () => {
               <div className="flex flex-col justify-center gap-[10px]">
                 <button
                   onClick={handleApply}
-                  className="flex-1 rounded-[4px] bg-[#FE5656] px-5 py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]"
+                  className="flex-1 rounded-[4px] bg-[#FE5656] py-2 text-base font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:px-2 sm:text-[8px] tablet-up:px-5 tablet-up:text-base"
                 >
                   ỨNG TUYỂN NGAY
                 </button>
-                <button className="hover:shadow-upper relative flex-1 rounded-[4px] border-[2px] border-solid border-[#FE5656] py-2 pr-5  text-base font-bold not-italic text-[#FE5656]">
+                <button className="hover:shadow-upper relative flex-1 rounded-[4px] border-solid border-[#FE5656] py-2 pr-5 font-bold not-italic text-[#FE5656] sm:border sm:text-[8px] tablet-up:border-[2px] tablet-up:text-base">
                   LƯU TIN
                   <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
                     <svg
@@ -151,6 +154,7 @@ const RecruitmentOverall = () => {
                       height="22"
                       viewBox="0 0 20 22"
                       fill="none"
+                      className="sm:h-3 sm:w-3"
                     >
                       <path
                         d="M17.4175 0.9375H2.48821C1.11399 0.9375 0 1.78229 0 2.82442V19.8027C0 20.7737 1.38873 21.3783 2.49443 20.8893L9.95283 17.5896L17.4123 20.8889C18.5164 21.3437 19.9057 20.7737 19.9057 19.8027V2.82442C19.9057 1.78229 18.7912 0.9375 17.4175 0.9375ZM17.4175 18.706L9.95283 15.4039L2.48821 18.706V3.06028C2.48821 2.9278 2.62454 2.82442 2.75258 2.82442H17.0598C17.2827 2.82442 17.4175 2.9278 17.4175 3.06028V18.706Z"
@@ -161,7 +165,7 @@ const RecruitmentOverall = () => {
                 </button>
               </div>
             </div>
-            <div className="mt-[20px] flex w-full cursor-pointer items-center gap-7 py-[10px] pl-[40px] text-[16px] font-[600] shadow-banner">
+            <div className="flex w-full cursor-pointer items-center py-[10px] font-[600] shadow-banner sm:mt-[10px] sm:gap-5 sm:pl-[20px] sm:text-[10px] tablet-up:mt-[20px] tablet-up:gap-7 tablet-up:pl-[40px] tablet-up:text-[16px]">
               <span
                 className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
                   location.pathname === `/job-detail/${data.id}`

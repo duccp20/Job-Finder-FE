@@ -398,6 +398,8 @@ const PostJob = (props) => {
                 name="description"
                 onChange={(value) => setValue("description", value)}
                 modules={modules}
+
+                // placeholder="Nhập thông tin cho vị trí công việc yêu cầu, trách nhiệm mà ứng viên có thể đảm nhận khi làm việc ở công ty"
               />
               {/* <ReactQuill
                 className="h-[78%]"

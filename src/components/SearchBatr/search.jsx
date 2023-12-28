@@ -3,7 +3,7 @@ import ProvincesDropdown from "../DropdownProvince";
 
 const SearchBar = () => {
   return (
-    <div className=" mt-[70px] flex w-full flex-col items-center gap-[36px]">
+    <div className=" mt-[70px] flex w-full flex-col items-center gap-[36px] sm:hidden">
       <form className="my-[40px] flex h-auto w-[90%] items-center justify-between rounded-[6px] border-[0.5px] border-[#FE5656] px-[18px] py-[12px]">
         <div className="flex flex-grow items-end">
           <svg
@@ -72,7 +72,7 @@ const SearchBar = () => {
               </linearGradient>
             </defs>
           </svg>
-          <ProvincesDropdown></ProvincesDropdown>
+          <ProvincesDropdown placeholder="Khu vực"></ProvincesDropdown>
         </div>
         <div className="">
           <button
