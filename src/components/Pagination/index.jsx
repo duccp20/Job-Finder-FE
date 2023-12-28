@@ -34,6 +34,7 @@ const Pagination = ({ setCurrentPage, currentPage, totalPages }) => {
       <div>
         <ReactPaginate
           breakLabel={<span className="mr-[12px]">...</span>}
+          // breakLabel={currentPage + 1}
           nextLabel={
             showNextButton ? (
               <span className="flex h-10 w-10 items-center justify-center">
@@ -42,8 +43,9 @@ const Pagination = ({ setCurrentPage, currentPage, totalPages }) => {
             ) : null
           }
           onPageChange={handlePageClick}
-          pageRangeDisplayed={2}
+          pageRangeDisplayed={5}
           pageCount={totalPages}
+          marginPagesDisplayed={0}
           previousLabel={
             showPrevButton ? (
               <span className="bg-gra flex h-10 w-10 items-center justify-center">
