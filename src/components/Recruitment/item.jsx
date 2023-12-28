@@ -3,14 +3,18 @@ import React from "react";
 const RecruitmentItem = (props) => {
   return (
     <div>
-      <div className="flex gap-5 items-center px-[10%] pt-[10%]">
-        <span>{props.icon}</span>
+      <div className="flex items-center sm:gap-2 sm:px-[15px] sm:pt-[20px] sm:text-[8px] tablet-up:gap-5 tablet-up:px-[30px] tablet-up:pt-[35px]">
+        <span className="sm:w-5">{props.icon}</span>
         <div>
-          <p className="text-[#333333B2] my-[10px]">{props.title}</p>
-          <p className="font-[600] mt-[10px]">{props.detail}</p>
+          <p className="text-[#333333B2] sm:my-[5px] tablet-up:my-[10px]">
+            {props.title}
+          </p>
+          <p className="font-[600] sm:my-[2px] sm:leading-[12px] tablet-up:mt-[10px] tablet-up:leading-[22px]">
+            {props.detail}
+          </p>
         </div>
       </div>
-      <div className=" border-t border-gray-500 mx-[10%] mt-[20px]"></div>
+      <div className=" mx-[10%] mt-[20px] border-t border-gray-500 md:hidden"></div>
     </div>
   );
 };
