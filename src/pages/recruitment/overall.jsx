@@ -69,7 +69,7 @@ const RecruitmentOverall = () => {
                 onCancel={handleCancel}
               ></PopupHr>
             )}
-            <div className="flex items-center justify-between sm:px-[20px] tablet-up:px-[40px]">
+            <div className="taler flex items-center justify-between sm:px-[20px] tablet-up:px-[40px]">
               <div className="flex flex-col">
                 <div className="flex">
                   <img
@@ -138,7 +138,7 @@ const RecruitmentOverall = () => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col justify-center gap-[10px]">
+              <div className="flex flex-col justify-center gap-[10px] ">
                 <button
                   onClick={handleApply}
                   className=" flex-1 rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:whitespace-nowrap sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base"
@@ -177,13 +177,13 @@ const RecruitmentOverall = () => {
                 CHI TIẾT
               </span>
               <span
-                onClick={() => navigate(`company/${data.id}`)}
                 className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
                   location.pathname ===
                   `/job-detail/company/${data.companyDTO.id}`
                     ? "border-b-[#FE5656] text-[#FE5656]"
                     : "text-black"
                 }`}
+                onClick={() => navigate(`company/${data.id}`)}
               >
                 TỔNG QUAN CÔNG TY
               </span>
