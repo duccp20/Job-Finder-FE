@@ -93,7 +93,7 @@ const PersonalDetails = () => {
       userProfileDTO,
       candidateOtherInfoDTO,
     };
-    const res = await callEditProfile(candidateID, candidateProfileDTO, null);
+    const res = await callEditProfile(candidateID, candidateProfileDTO);
 
     setIsSubmitting(false);
     if (res && res?.data) {
