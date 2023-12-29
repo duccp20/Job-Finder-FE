@@ -2,10 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import useDataFetcher from "../Pagination/useDataFetcher";
 import Pagination from "../Pagination";
 import ProvincesDropdown from "../DropdownProvince";
+import fetchJobActiveByCompany from "./fetchJobActiveByCompany";
+import { convertDateFormat } from "../../utils/formatDate";
 
 const RecruitmentList = () => {
-  const { loading, pages, totalPages, currentPage, setCurrentPage } =
-    useDataFetcher();
+  const { loading, data, totalPages, currentPage, setCurrentPage } =
+    fetchJobActiveByCompany();
+
+  console.log("pages", data);
   const [isOpen, setIsOpen] = useState(false);
 
   const buttonState = () => {
@@ -331,143 +335,136 @@ const RecruitmentList = () => {
               </th>
             </tr>
           </thead>
+
           <tbody>
-            <tr>
-              <td
-                scope="row"
-                className="border px-[18px] py-[15px] text-center"
-              >
-                1
-              </td>
-              <td className="border px-[18px] py-[15px]">
-                <div>
-                  <p className="overflow-x-auto text-xl font-semibold not-italic text-red-500">
-                    Thực tập sinh Business Analyst
-                  </p>
-                  <p className="overflow-x-auto text-xl font-semibold not-italic text-red-500">
-                    chuyên ngành Banking
-                  </p>
-                  <p className="text-base font-normal not-italic text-[#333333]">
-                    Tạo lúc: 11:20 - 01/03/2023
-                  </p>
-                  <p className="text-base font-normal not-italic text-[#333333]">
-                    Cập nhật lúc: 09:30 - 04/03/2023
-                  </p>
-                  <p className="text-base font-normal not-italic text-[#333333]">
-                    Địa điểm làm việc: TP. Hồ Chí Minh
-                  </p>
-                  <p className="cursor-pointer text-base font-normal not-italic text-[#C97410]">
-                    [Xem danh sách ứng viên đã ứng tuyển]
-                  </p>
-                </div>
-              </td>
-              <td className="border px-[18px] py-[15px] text-center">
-                01/05/2023
-              </td>
-              <td className="border px-[18px] py-[15px] text-center">
-                <div>
-                  <span className="inline-block w-[60px] rounded-[5px] bg-[#FCB25F] py-[9px] text-center">
-                    15
-                  </span>
-                  <span> / </span>
-                  <span className="inline-block w-[60px] rounded-[5px] bg-[#54ADFF] py-[9px] text-center">
-                    125
-                  </span>
-                </div>
-              </td>
-              <td className="border px-[18px] py-[15px] text-center">
-                Người 1
-              </td>
-              <td className="border px-[18px] py-[15px] text-center">
-                <div
-                  className={`w-[90px] py-[9px] text-center ${
-                    isOpen ? "bg-[#88D4987A]" : "bg-[#FF00005C]"
-                  } rounded-[5px]`}
+            {data.map((item) => (
+              <tr key={item.id}>
+                <td
+                  scope="row"
+                  className="border px-[18px] py-[15px] text-center"
                 >
-                  {isOpen ? "Đang mở" : "Đã đóng"}
-                </div>
-              </td>
-              <td className="border px-[18px] py-[15px] text-center">
-                <div className="flex-col ">
-                  <div className="mb-[10px] flex cursor-pointer">
-                    {" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="21"
-                      height="20"
-                      viewBox="0 0 21 20"
-                      fill="none"
-                      className=" mr-[10px]"
-                    >
-                      <path
-                        d="M18.363 6.76712L13.7055 2.16438L15.2397 0.630137C15.6598 0.210046 16.176 0 16.7882 0C17.3997 0 17.9155 0.210046 18.3356 0.630137L19.8699 2.16438C20.29 2.58447 20.5091 3.09151 20.5274 3.68548C20.5457 4.27872 20.3448 4.78539 19.9247 5.20548L18.363 6.76712ZM16.774 8.38356L5.15753 20H0.5V15.3425L12.1164 3.72603L16.774 8.38356Z"
-                        fill="#FE5656"
-                      />
-                    </svg>
-                    <span className="text-base font-normal not-italic text-black ">
-                      Chỉnh sửa
+                  1
+                </td>
+                <td className="border px-[18px] py-[15px]">
+                  <div>
+                    <p className="overflow-x-auto text-xl font-semibold not-italic text-red-500">
+                      {item.name}
+                    </p>
+                    <p className="overflow-x-auto text-xl font-semibold not-italic text-red-500">
+                      {item.major}
+                    </p>
+                    <p className="text-base font-normal not-italic text-[#333333]">
+                      Tạo lúc: {convertDateFormat(item.startDate)}
+                    </p>
+                    <p className="text-base font-normal not-italic text-[#333333]">
+                      Cập nhật lúc: 09:30 - 04/03/2023
+                    </p>
+                    <p className="text-base font-normal not-italic text-[#333333]">
+                      Địa điểm làm việc: TP. Hồ Chí Minh
+                    </p>
+                    <p className="cursor-pointer text-base font-normal not-italic text-[#C97410]">
+                      [Xem danh sách ứng viên đã ứng tuyển]
+                    </p>
+                  </div>
+                </td>
+                <td className="border px-[18px] py-[15px] text-center">
+                  01/05/2023
+                </td>
+                <td className="border px-[18px] py-[15px] text-center">
+                  <div>
+                    <span className="inline-block w-[60px] rounded-[5px] bg-[#FCB25F] py-[9px] text-center">
+                      15
+                    </span>
+                    <span> / </span>
+                    <span className="inline-block w-[60px] rounded-[5px] bg-[#54ADFF] py-[9px] text-center">
+                      125
                     </span>
                   </div>
+                </td>
+                <td className="border px-[18px] py-[15px] text-center">
+                  Người 1
+                </td>
+                <td className="border px-[18px] py-[15px] text-center">
                   <div
-                    className="mb-[10px] flex cursor-pointer"
-                    onClick={buttonState}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="21"
-                      height="20"
-                      viewBox="0 0 21 20"
-                      fill="none"
-                      className="mr-[10px] cursor-pointer"
+                  div
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="21"
+                        height="20"
+                        viewBox="0 0 21 20"
+                        fill="none"
+                        className=" mr-[10px]"
+                      >
+                        <path
+                          d="M18.363 6.76712L13.7055 2.16438L15.2397 0.630137C15.6598 0.210046 16.176 0 16.7882 0C17.3997 0 17.9155 0.210046 18.3356 0.630137L19.8699 2.16438C20.29 2.58447 20.5091 3.09151 20.5274 3.68548C20.5457 4.27872 20.3448 4.78539 19.9247 5.20548L18.363 6.76712ZM16.774 8.38356L5.15753 20H0.5V15.3425L12.1164 3.72603L16.774 8.38356Z"
+                          fill="#FE5656"
+                        />
+                      </svg>
+                      <span className="text-base font-normal not-italic text-black ">
+                        Chỉnh sửa
+                      </span>
+                    </div>
+                    <div
+                      className="mb-[10px] flex cursor-pointer"
+                      onClick={buttonState}
                     >
-                      <path
-                        d="M10.4 11.5L12.5 9.4L14.6 11.5L16 10.1L13.9 8L16 5.9L14.6 4.5L12.5 6.6L10.4 4.5L9 5.9L11.1 8L9 10.1L10.4 11.5ZM6.5 16C5.95 16 5.47933 15.8043 5.088 15.413C4.696 15.021 4.5 14.55 4.5 14V2C4.5 1.45 4.696 0.979 5.088 0.587C5.47933 0.195667 5.95 0 6.5 0H18.5C19.05 0 19.521 0.195667 19.913 0.587C20.3043 0.979 20.5 1.45 20.5 2V14C20.5 14.55 20.3043 15.021 19.913 15.413C19.521 15.8043 19.05 16 18.5 16H6.5ZM2.5 20C1.95 20 1.47933 19.8043 1.088 19.413C0.696 19.021 0.5 18.55 0.5 18V4H2.5V18H16.5V20H2.5Z"
-                        fill="#FE5656"
-                      />
-                    </svg>
-                    <span className="text-base font-normal not-italic text-black ">
-                      Đóng tin
-                    </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="21"
+                        height="20"
+                        viewBox="0 0 21 20"
+                        fill="none"
+                        className="mr-[10px] cursor-pointer"
+                      >
+                        <path
+                          d="M10.4 11.5L12.5 9.4L14.6 11.5L16 10.1L13.9 8L16 5.9L14.6 4.5L12.5 6.6L10.4 4.5L9 5.9L11.1 8L9 10.1L10.4 11.5ZM6.5 16C5.95 16 5.47933 15.8043 5.088 15.413C4.696 15.021 4.5 14.55 4.5 14V2C4.5 1.45 4.696 0.979 5.088 0.587C5.47933 0.195667 5.95 0 6.5 0H18.5C19.05 0 19.521 0.195667 19.913 0.587C20.3043 0.979 20.5 1.45 20.5 2V14C20.5 14.55 20.3043 15.021 19.913 15.413C19.521 15.8043 19.05 16 18.5 16H6.5ZM2.5 20C1.95 20 1.47933 19.8043 1.088 19.413C0.696 19.021 0.5 18.55 0.5 18V4H2.5V18H16.5V20H2.5Z"
+                          fill="#FE5656"
+                        />
+                      </svg>
+                      <span className="text-base font-normal not-italic text-black ">
+                        Đóng tin
+                      </span>
+                    </div>
+                    <div className="mb-[5px] flex cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="31"
+                        height="30"
+                        viewBox="0 0 31 30"
+                        fill="none"
+                        className="cursor-pointer"
+                      >
+                        <path
+                          d="M3 23C2.45 23 1.97933 22.8132 1.588 22.4397C1.196 22.0655 1 21.6159 1 21.0909V7.72727H3V21.0909H14V23H3ZM7 19.1818C6.45 19.1818 5.97933 18.995 5.588 18.6215C5.196 18.2473 5 17.7977 5 17.2727V3.90909C5 3.38409 5.196 2.9345 5.588 2.56032C5.97933 2.18677 6.45 2 7 2H14L20 7.72727V17.2727C20 17.7977 19.8043 18.2473 19.413 18.6215C19.021 18.995 18.55 19.1818 18 19.1818H7ZM13 8.68182H18L13 3.90909V8.68182Z"
+                          fill="#FE5656"
+                        />
+                      </svg>
+                      <span className="text-base font-normal not-italic text-black ">
+                        Nhân bản
+                      </span>
+                    </div>
+                    <div className="mb-[10px] flex cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 19 19"
+                        fill="none"
+                        className="mr-[10px] cursor-pointer"
+                      >
+                        <path
+                          d="M0.5 2.27L1.78 1L3.5 2.72L3.78 3L4.78 4L16.5 15.72L18.5 17.72L17.23 19L15.77 17.54C15.43 17.83 15 18 14.5 18H6.5C5.4 18 4.5 17.1 4.5 16V6.27L0.5 2.27ZM17.5 1V3H6.32L4.32 1H7L8 0H13L14 1H17.5ZM16.5 4V13.18L7.32 4H16.5Z"
+                          fill="#FE5656"
+                        />
+                      </svg>
+                      <span className="text-base font-normal not-italic text-black ">
+                        Xóa tin
+                      </span>
+                    </div>
                   </div>
-                  <div className="mb-[5px] flex cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="31"
-                      height="30"
-                      viewBox="0 0 31 30"
-                      fill="none"
-                      className="cursor-pointer"
-                    >
-                      <path
-                        d="M3 23C2.45 23 1.97933 22.8132 1.588 22.4397C1.196 22.0655 1 21.6159 1 21.0909V7.72727H3V21.0909H14V23H3ZM7 19.1818C6.45 19.1818 5.97933 18.995 5.588 18.6215C5.196 18.2473 5 17.7977 5 17.2727V3.90909C5 3.38409 5.196 2.9345 5.588 2.56032C5.97933 2.18677 6.45 2 7 2H14L20 7.72727V17.2727C20 17.7977 19.8043 18.2473 19.413 18.6215C19.021 18.995 18.55 19.1818 18 19.1818H7ZM13 8.68182H18L13 3.90909V8.68182Z"
-                        fill="#FE5656"
-                      />
-                    </svg>
-                    <span className="text-base font-normal not-italic text-black ">
-                      Nhân bản
-                    </span>
-                  </div>
-                  <div className="mb-[10px] flex cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="19"
-                      height="19"
-                      viewBox="0 0 19 19"
-                      fill="none"
-                      className="mr-[10px] cursor-pointer"
-                    >
-                      <path
-                        d="M0.5 2.27L1.78 1L3.5 2.72L3.78 3L4.78 4L16.5 15.72L18.5 17.72L17.23 19L15.77 17.54C15.43 17.83 15 18 14.5 18H6.5C5.4 18 4.5 17.1 4.5 16V6.27L0.5 2.27ZM17.5 1V3H6.32L4.32 1H7L8 0H13L14 1H17.5ZM16.5 4V13.18L7.32 4H16.5Z"
-                        fill="#FE5656"
-                      />
-                    </svg>
-                    <span className="text-base font-normal not-italic text-black ">
-                      Xóa tin
-                    </span>
-                  </div>
-                </div>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

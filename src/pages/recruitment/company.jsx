@@ -5,16 +5,22 @@ import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
 import { useParams } from "react-router-dom";
 import useDataFetcher from "../../components/Pagination/useDataFetcher";
+import { useSelector } from "react-redux";
 
 const CompanyInformation = () => {
   const { id } = useParams();
+  const companyData = useSelector((state) => state.job.data.companyDTO);
+
   const { loading, dataJob, totalPages, currentPage, setCurrentPage } =
     useDataFetcher();
+
+  console.log(companyData, "datajob");
+
   return (
     <>
       <div className="flex">
         <div className=" ml-[40px] mr-[10px] mt-[30px] flex w-[65%] flex-col gap-[10px] pr-[30px] leading-normal text-inherit">
-          <p className="mb-[10px] font-[700]">
+          {/* <p className="mb-[10px] font-[700]">
             Giới thiệu về Công ty R2S - Cung cấp phương pháp giải quyết phần mềm
           </p>
           <p className="mb-[10px]">
@@ -55,7 +61,11 @@ const CompanyInformation = () => {
             phục vụ KHÁCH HÀNG, tạo NIỀM TIN với ĐỐI TÁC, CHĂM LO đời sống NHÂN
             VIÊN, ĐÓNG GÓP thiết thực cho CỘNG ĐỒNG“. Đây chính là kim chỉ nam
             để toàn thể nhân viên R2S cùng hành động.
-          </p>
+          </p> */}
+          <div
+            dangerouslySetInnerHTML={{ __html: companyData.description }}
+            className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
+          />
 
           <p className="mt-[15px] font-[700]">Địa điểm công ty</p>
           <div className="flex items-center gap-3">
@@ -73,12 +83,12 @@ const CompanyInformation = () => {
                 />
               </svg>
             </span>
-            <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
+            <p>{companyData.location || "Chưa cập nhật"}</p>
           </div>
         </div>
         <div className="my-[30px] mr-[30px] h-full w-[35%] border border-[#FE5656] bg-[#FE56561A] pb-[40px]">
           <img
-            src="https://source.unsplash.com/random"
+            src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${companyData.logo}?alt=media`}
             alt=""
             className="m-auto mt-[50px] h-[200px] w-[200px] rounded-[8px] border border-[#7D7D7D] object-cover"
           />
@@ -98,7 +108,7 @@ const CompanyInformation = () => {
               </svg>
             }
             title="Website"
-            detail="r2s.com.vn"
+            detail={companyData.website || "Chưa cập nhật"}
           ></RecruitmentItem>
           <RecruitmentItem
             icon={
@@ -116,7 +126,7 @@ const CompanyInformation = () => {
               </svg>
             }
             title="Email"
-            detail="tuyendung@r2s.com"
+            detail={companyData.email || "Chưa cập nhật"}
           ></RecruitmentItem>
           <RecruitmentItem
             icon={
@@ -134,7 +144,7 @@ const CompanyInformation = () => {
               </svg>
             }
             title="Quy mô"
-            detail="30 - 100 người"
+            detail={companyData.personnelSize || "Chưa cập nhật"}
           ></RecruitmentItem>
         </div>
       </div>
