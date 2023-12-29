@@ -199,12 +199,20 @@ const App = () => {
       children: [
         {
           index: true,
-          element: <ProtectedRoute>{/* <HomeHr></HomeHr> */}</ProtectedRoute>,
+          element: (
+            <ProtectedRoute>
+              <RecruitmentListOpen></RecruitmentListOpen>
+            </ProtectedRoute>
+          ),
           errorElement: <NotFound />,
         },
         {
           path: "news",
-          element: <ProtectedRoute>{/* <NewsHr></NewsHr> */}</ProtectedRoute>,
+          element: (
+            <ProtectedRoute>
+              <RecruitmentListOpen></RecruitmentListOpen>
+            </ProtectedRoute>
+          ),
         },
         {
           path: "contact",

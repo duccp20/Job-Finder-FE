@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { convertDateFormat } from "../../utils/formatDate";
 
-<<<<<<< Updated upstream
 const JobItem = (props) => {
   const navigate = useNavigate();
   const maxTitleLength = 18;
@@ -16,9 +15,6 @@ const JobItem = (props) => {
     console.log("job ID", id);
     navigate("/job-detail/" + id);
   };
-=======
-const JobItem = ({ image, title, currentItems }) => {
->>>>>>> Stashed changes
   return (
     <div className="mb-[15px] rounded-[10px] border border-[#DEDEDE] px-[21px] py-[15px] hover:border-[#FE5656]">
       <div className="flex">
@@ -27,7 +23,6 @@ const JobItem = ({ image, title, currentItems }) => {
             props && props?.companyDTO?.logo
           }?alt=media`}
           alt=""
-<<<<<<< Updated upstream
           className="mr-[20px] rounded-[8px] border border-[#7D7D7D] object-cover sm:h-[60px] sm:w-[60px] tablet-up:h-[90px] tablet-up:w-[90px]"
         />
         <div className="flex flex-grow flex-col justify-between">
@@ -42,20 +37,13 @@ const JobItem = ({ image, title, currentItems }) => {
             {props.companyDTO.name}
           </span>
           <div className="flex sm:items-center tablet-up:items-baseline">
-=======
-          className="mr-[20px] h-[90px] w-[90px] rounded-[8px] border border-[#7D7D7D] object-cover"
-        />
-        <div className="flex flex-grow flex-col justify-between">
-          <h3 className="text-xl font-bold not-italic text-red-500">{title}</h3>
-          <span>abc</span>
-          <div className="flex items-baseline">
->>>>>>> Stashed changes
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="19"
               height="16"
               viewBox="0 0 19 16"
               fill="none"
+              className="sm:h-4 sm:w-3"
             >
               <g clip-path="url(#clip0_194_975)">
                 <path
@@ -69,21 +57,12 @@ const JobItem = ({ image, title, currentItems }) => {
                 </clipPath>
               </defs>
             </svg>
-<<<<<<< Updated upstream
             <span className="font-light not-italic text-gray-800 sm:text-[10px] tablet-up:text-base">
               {props.province}
             </span>
           </div>
         </div>
-        <div className="hover:shadow-upper h-auto  cursor-pointer self-start rounded-md border border-[#F1F1F1] sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]">
-=======
-            <span className="text-base font-light not-italic text-gray-800">
-              hcm
-            </span>
-          </div>
-        </div>
-        <div className="h-auto cursor-pointer self-start border border-[#F1F1F1] px-[15px] py-[12px]">
->>>>>>> Stashed changes
+        <div className="h-auto cursor-pointer  self-start rounded-md border border-[#F1F1F1] hover:shadow-upper sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -100,9 +79,8 @@ const JobItem = ({ image, title, currentItems }) => {
           </svg>
         </div>
       </div>
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between sm:mt-[10px]">
         <div className="flex items-start gap-[19px]">
-<<<<<<< Updated upstream
           {props.positionDTOs.map((position) => (
             <span
               key={position.id}
@@ -127,16 +105,8 @@ const JobItem = ({ image, title, currentItems }) => {
               {major.name}
             </span>
           ))}
-=======
-          <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
-            FE
-          </span>
-          <span className="inline-block bg-[#F3F9FC] p-[10px] text-xs font-semibold not-italic text-gray-600">
-            KHMT
-          </span>
->>>>>>> Stashed changes
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col sm:hidden">
           <div className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -168,8 +138,8 @@ const JobItem = ({ image, title, currentItems }) => {
               />
             </svg>
             <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
-              {convertDateFormat(props.startDate.substring(0, 10))} -{" "}
-              {convertDateFormat(props.endDate.substring(0, 10))}
+              {convertDateFormat(props.startDate)} -{" "}
+              {convertDateFormat(props.endDate)}
             </span>
           </div>
         </div>
