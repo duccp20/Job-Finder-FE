@@ -244,7 +244,7 @@ const RecruitmentDetail = () => {
                 </svg>
               }
               title="Ngày đăng tuyển"
-              detail={convertDateFormat(jobData.startDate.substring(0, 10))}
+              detail={convertDateFormat(jobData.startDate)}
             ></RecruitmentItem>
 
             <RecruitmentItem
@@ -263,7 +263,7 @@ const RecruitmentDetail = () => {
                 </svg>
               }
               title="Hạn nộp hồ sơ"
-              detail={convertDateFormat(jobData.endDate.substring(0, 10))}
+              detail={convertDateFormat(jobData.endDate)}
             ></RecruitmentItem>
           </div>
         </div>
@@ -336,9 +336,7 @@ const RecruitmentDetail = () => {
           </button>
         </div>
         {/* <p>28/04/2023</p> */}
-        <p>
-          Hạn nộp hồ sơ: {convertDateFormat(jobData.endDate.substring(0, 10))}
-        </p>
+        <p>Hạn nộp hồ sơ: {convertDateFormat(jobData.endDate)}</p>
       </div>
     </>
   );

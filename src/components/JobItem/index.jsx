@@ -62,7 +62,7 @@ const JobItem = (props) => {
             </span>
           </div>
         </div>
-        <div className="hover:shadow-upper h-auto  cursor-pointer self-start rounded-md border border-[#F1F1F1] sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]">
+        <div className="h-auto cursor-pointer  self-start rounded-md border border-[#F1F1F1] hover:shadow-upper sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="15"
@@ -138,8 +138,8 @@ const JobItem = (props) => {
               />
             </svg>
             <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
-              {convertDateFormat(props.startDate.substring(0, 10))} -{" "}
-              {convertDateFormat(props.endDate.substring(0, 10))}
+              {convertDateFormat(props.startDate)} -{" "}
+              {convertDateFormat(props.endDate)}
             </span>
           </div>
         </div>
