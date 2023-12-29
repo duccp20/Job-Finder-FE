@@ -16,7 +16,7 @@ const JobItem = (props) => {
     navigate("/job-detail/" + id);
   };
   return (
-    <div className="mb-[15px] rounded-[10px] border border-[#DEDEDE] px-[21px] py-[15px] hover:border-[#FE5656]">
+    <div className="mb-[15px] rounded-[10px] border border-[#DEDEDE] bg-white px-[21px] py-[15px] hover:border-[#FE5656]">
       <div className="flex">
         <img
           src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${
