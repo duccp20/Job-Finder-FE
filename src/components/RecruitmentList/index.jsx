@@ -386,17 +386,7 @@ const RecruitmentList = () => {
                 </td>
                 <td className="border px-[18px] py-[15px] text-center">
                   <div
-                    className={`w-[90px] py-[9px] text-center ${
-                      isOpen ? "bg-[#88D4987A]" : "bg-[#FF00005C]"
-                    } rounded-[5px]`}
-                  >
-                    {isOpen ? "Đang mở" : "Đã đóng"}
-                  </div>
-                </td>
-                <td className="border px-[18px] py-[15px] text-center">
-                  <div className="flex-col ">
-                    <div className="mb-[10px] flex cursor-pointer">
-                      {" "}
+                  div
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="21"
