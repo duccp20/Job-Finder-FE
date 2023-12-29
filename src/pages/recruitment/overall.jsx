@@ -70,8 +70,8 @@ const RecruitmentOverall = () => {
                 onCancel={handleCancel}
               ></PopupHr>
             )}
-            <div className="taler flex items-center justify-between sm:px-[20px] tablet-up:px-[40px]">
-              <div className="flex flex-col">
+            <div className="taler flex items-start justify-between sm:px-[20px] tablet-up:px-[40px]">
+              <div className="desktop-up:flex desktop-up:flex-col">
                 <div className="flex">
                   <img
                     src={`https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${data?.companyDTO?.logo}?alt=media`}
@@ -112,7 +112,7 @@ const RecruitmentOverall = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-[10px] flex items-start gap-[19px] ">
+                <div className="mt-[10px] flex items-start gap-[19px] sm:w-full">
                   {data?.positionDTOs.map((position) => (
                     <span
                       key={position.id}

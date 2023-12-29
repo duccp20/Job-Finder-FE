@@ -18,7 +18,7 @@ const CompanyInformation = () => {
 
   return (
     <div className="flex sm:flex-col-reverse tablet-range:flex-col-reverse">
-      <div className="ml-[40px] flex w-[65%] flex-col gap-[10px] pr-[30px] leading-normal text-inherit tablet-up:ml-[40px] tablet-up:mr-[10px] tablet-up:w-auto desktop-up:mr-[10px] desktop-up:mt-[30px] ">
+      <div className="ml-[40px] flex w-[65%] flex-col gap-[10px] pr-[30px] leading-normal text-inherit sm:w-full sm:px-[24px] sm:text-[8px] tablet-up:ml-[40px] tablet-up:mr-[10px] tablet-up:w-auto desktop-up:ml-[40px] desktop-up:mr-[10px] desktop-up:mt-[30px] ">
         <p className="mb-[10px] font-[700]">
           Giới thiệu về Công ty R2S - Cung cấp phương pháp giải quyết phần mềm
         </p>
@@ -27,7 +27,7 @@ const CompanyInformation = () => {
           nhân sự CNTT cho doanh nghiệp, phát triển phần mềm và tư vấn giải pháp
           CNTT. R2S ra đời với sứ mệnh:
         </p>
-        <ol className="mx-[10px] list-decimal px-[10px] ">
+        <ol className="mx-[10px] list-decimal px-[10px] tablet-up:mx-[10px]">
           <li>
             Đào tạo nhân sự làm được việc ngay cho doanh nghiệp (Resource)
           </li>
@@ -67,7 +67,7 @@ const CompanyInformation = () => {
         />
 
         <p className="mt-[15px] font-[700]">Địa điểm công ty</p>
-        <div className="flex items-center gap-3 ">
+        <div className="flex items-center gap-3 sm:gap-2">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +75,7 @@ const CompanyInformation = () => {
               height="26"
               viewBox="0 0 21 26"
               fill="none"
+              className="sm:h-[21px] sm:w-[16px]"
             >
               <path
                 d="M9.20391 25.4158C6.34922 22.1472 0 14.2251 0 9.7753C0 4.37648 4.70094 0 10.5 0C16.2969 0 21 4.37648 21 9.7753C21 14.2251 14.6016 22.1472 11.7961 25.4158C11.1234 26.1947 9.87656 26.1947 9.20391 25.4158ZM10.5 13.0337C12.4305 13.0337 14 11.5725 14 9.7753C14 7.97807 12.4305 6.51686 10.5 6.51686C8.56953 6.51686 7 7.97807 7 9.7753C7 11.5725 8.56953 13.0337 10.5 13.0337Z"
@@ -82,18 +83,18 @@ const CompanyInformation = () => {
               />
             </svg>
           </span>
-          <p>{companyData.location || "Chưa cập nhật"}</p>
+          <p>1164 đường Phạm Văn Đồng, P.Linh Đông, TP. Thủ Đức, TP. HCM</p>
         </div>
       </div>
-      <div className="my-[30px] h-full w-[35%] border border-[#FE5656] bg-[#FE56561A] sm:mx-[24px] sm:w-auto md:flex md:w-[90%] md:items-end tablet-up:mx-[40px] tablet-up:mb-[35px] tablet-up:w-auto tablet-up:pb-[40px] desktop-up:mr-[30px] desktop-up:pb-[40px]">
-        <div className="md:w-[50%]">
+      <div className="h-full w-[35%] border border-[#FE5656] bg-[#FE56561A] sm:mx-auto sm:my-[20px] sm:flex sm:items-center sm:pb-[19px] md:flex md:w-[90%] md:items-end tablet-up:mx-[20px] tablet-up:my-[35px] tablet-up:w-auto tablet-up:pb-[40px] desktop-up:my-[30px] desktop-up:mr-[20px] desktop-up:pb-[40px]">
+        <div className="sm:w-full sm:pb-[5px] md:w-[50%] ">
           <img
             src="https://source.unsplash.com/random"
             alt=""
-            className="m-auto h-[200px] w-[200px] rounded-[8px] border border-[#7D7D7D] object-cover tablet-up:my-auto tablet-up:ml-[57px] tablet-up:h-[230px] tablet-up:w-[230px]"
+            className="mx-auto h-[250px] w-[250px] rounded-[8px] border border-[#7D7D7D] object-cover sm:ml-[21px] sm:mt-[5px] sm:h-[120px] sm:w-[115px] tablet-range:ml-[57px] tablet-up:my-auto tablet-up:h-[230px] tablet-up:w-[230px]"
           />
         </div>
-        <div className="md:w-[50%]">
+        <div className="sm:w-[50%] md:w-[50%]">
           <RecruitmentItem
             icon={
               <svg
