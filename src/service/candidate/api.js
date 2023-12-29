@@ -4,34 +4,27 @@ export const callFetchCandidateByUserId = (id) => {
   return axios.get(`/api/v1/candidate/${id}`);
 };
 
-export const callEditProfile = (
-  id,
-  candidateProfileDTO,
-  fileCV,
-  fileAvatar,
-) => {
-  const candidateProfileDTOtoJSON = JSON.stringify(candidateProfileDTO);
+export const callEditProfile = (id, candidateProfileDTO, fileCV) => {
   const formData = new FormData();
 
-  formData.append("candidateProfileDTO", candidateProfileDTOtoJSON);
+  // Tạo Blob cho JSON và thêm vào FormData
+  const jsonBlob = new Blob([JSON.stringify(candidateProfileDTO)], {
+    type: "application/json",
+  });
+  formData.append("candidateProfileDTO", jsonBlob);
+
+  // Thêm fileCV vào FormData
   if (fileCV) {
     formData.append(
       "fileCV",
       new Blob([fileCV], { type: "application/pdf" }),
-      `${
-        candidateProfileDTO.userProfileDTO.lastName +
-        "_" +
-        candidateProfileDTO.userProfileDTO.firstName +
-        "_"
-      }.pdf`,
+      `${candidateProfileDTO.userProfileDTO.lastName}_${candidateProfileDTO.userProfileDTO.firstName}_.pdf`,
     );
   } else {
     formData.append("fileCV", null);
   }
 
-  if (fileAvatar) {
-    formData.append("fileAvatar", fileAvatar);
-  }
+  // Gửi yêu cầu với Axios
   return axios({
     method: "put",
     url: `/api/v1/candidate/${id}`,
@@ -50,7 +43,7 @@ export const callUpdateAvatar = (id, fileAvatar) => {
 
   return axios.put(url, formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data, charset=UTF-8",
     },
   });
 };
