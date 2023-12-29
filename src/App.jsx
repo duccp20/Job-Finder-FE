@@ -199,11 +199,7 @@ const App = () => {
       children: [
         {
           index: true,
-          element: (
-            <ProtectedRoute>
-              <RecruitmentListOpen></RecruitmentListOpen>
-            </ProtectedRoute>
-          ),
+          element: <RecruitmentListOpen></RecruitmentListOpen>,
           errorElement: <NotFound />,
         },
         {
