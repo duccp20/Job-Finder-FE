@@ -9,7 +9,6 @@ const RecruitmentListOpen = ({}) => {
     useDataFetcher();
   return (
     <div>
-      <HeaderHR></HeaderHR>
       <div className=" mx-auto mb-[20px] mt-[90px] flex h-full w-[87%] rounded-[10px] border-[2px] border-[#DEDEDE]">
         <div className="item w-[40%] border-[#DEDEDE] px-[30px] py-[40px]">
           <h2 className=" relative mb-[20px] text-xl font-bold not-italic text-black after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-[80px] after:bg-[#f3bd50] after:content-['']">
