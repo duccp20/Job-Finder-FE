@@ -53,6 +53,7 @@ const RecruitmentOverall = () => {
     fetchJobDetail(); // Gọi hàm fetchJobDetail khi component được mount
   }, [id]);
   console.log("id in recruitment", id);
+  console.log("location path", location);
   return (
     <div>
       {isLoading ? (
@@ -178,8 +179,7 @@ const RecruitmentOverall = () => {
               </span>
               <span
                 className={`border-b-[2px] border-transparent hover:border-b-[#FE5656] hover:text-[#FE5656] ${
-                  location.pathname ===
-                  `/job-detail/company/${data.companyDTO.id}`
+                  location.pathname === `/job-detail/company/${data.id}`
                     ? "border-b-[#FE5656] text-[#FE5656]"
                     : "text-black"
                 }`}

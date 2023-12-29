@@ -200,6 +200,8 @@ const JobDetails = () => {
     }
 
     if (!cvFileName && dataCandidate.cv) {
+      // const fileUrl =
+      //   "https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/pdfs%2F976563fc-2cb3-440e-b58e-c5b89ad47b3f.pdf?alt=media";
       const encodedFileName = encodeURIComponent(dataCandidate.cv);
       try {
         const base64Data = await getRawFile(encodedFileName); // Gọi API
@@ -212,6 +214,21 @@ const JobDetails = () => {
     }
   };
 
+  const convertFileToBase64 = async (fileUrl) => {
+    try {
+      const response = await fetch(fileUrl);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error("Error converting file to base64:", error);
+      return null;
+    }
+  };
   const handleCloseCV = () => {
     setShowCV(false);
   };

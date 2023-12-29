@@ -2,10 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import useDataFetcher from "../Pagination/useDataFetcher";
 import Pagination from "../Pagination";
 import ProvincesDropdown from "../DropdownProvince";
+import fetchJobActiveByCompany from "./fetchJobActiveByCompany";
+import { convertDateFormat } from "../../utils/formatDate";
 
 const RecruitmentList = () => {
-  const { loading, pages, totalPages, currentPage, setCurrentPage } =
-    useDataFetcher();
+  const { loading, data, totalPages, currentPage, setCurrentPage } =
+    fetchJobActiveByCompany();
+
+  console.log("pages", data);
   const [isOpen, setIsOpen] = useState(false);
 
   const buttonState = () => {
@@ -305,12 +309,7 @@ const RecruitmentList = () => {
                   </defs>
                 </svg>
               </th>
-              <th
-                scope="col"
-                className="overflow-x-visible border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
-              >
-                Ứng viên/Lượt xem
-              </th>
+
               <th
                 scope="col"
                 className="border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
@@ -331,6 +330,7 @@ const RecruitmentList = () => {
               </th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td
@@ -429,7 +429,7 @@ const RecruitmentList = () => {
                       Đóng tin
                     </span>
                   </div>
-                  <div className="mb-[5px] flex cursor-pointer">
+                  <div className="mb-[5px] flex cursor-pointer flex-col">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="31"
