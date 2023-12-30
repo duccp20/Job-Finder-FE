@@ -12,6 +12,7 @@ import PopupHr from "../../components/PopupHr";
 const RecruitmentOverall = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isShowModalLogin, setIsShowModalLogin] = useState(false);
+  const [isShowModalJobCare, setIsShowModalJobCare] = useState(false);
   const [data, setData] = useState([]);
 
   const navigate = useNavigate();
@@ -29,14 +30,32 @@ const RecruitmentOverall = () => {
     }
   };
 
-  const handleConfirm = () => {
-    setIsShowModalLogin(false);
-    navigate("/login");
+  const handleJobCare = () => {
+    if (isAuthenticated) {
+      alert("Đã đăng nhập");
+    } else {
+      setIsShowModalJobCare(true);
+    }
   };
 
-  const handleCancel = () => {
-    setIsShowModalLogin(false);
+  const handleConfirm = (action) => {
+    if (action === "apply") {
+      setIsShowModalLogin(false);
+      navigate("/login");
+    } else {
+      setIsShowModalJobCare(false);
+      navigate("/login");
+    }
   };
+
+  const handleCancel = (action) => {
+    if (action === "apply") {
+      setIsShowModalLogin(false);
+    } else {
+      setIsShowModalJobCare(false);
+    }
+  };
+
   useEffect(() => {
     const fetchJobDetail = async () => {
       try {
@@ -65,9 +84,19 @@ const RecruitmentOverall = () => {
           <div className="mx-auto w-[90%] rounded-[6px] border-[2px] border-[#FE5656] sm:mb-[10px] sm:mt-[90px] sm:py-[30px] tablet-up:my-[10px] tablet-up:py-[45px]">
             {isShowModalLogin && (
               <PopupHr
+                content="Bạn phải đăng nhập để ứng tuyển"
                 type="require-login"
-                onConfirm={handleConfirm}
-                onCancel={handleCancel}
+                onConfirm={handleConfirm("apply")}
+                onCancel={handleCancel("apply")}
+              ></PopupHr>
+            )}
+
+            {isShowModalJobCare && (
+              <PopupHr
+                content="Bạn phải đăng nhập để lưu"
+                type="require-login"
+                onConfirm={handleConfirm("jobCare")}
+                onCancel={handleCancel("jobCare")}
               ></PopupHr>
             )}
             <div className="taler flex items-start justify-between sm:px-[20px] tablet-up:px-[40px]">
@@ -146,7 +175,10 @@ const RecruitmentOverall = () => {
                 >
                   ỨNG TUYỂN NGAY
                 </button>
-                <button className="relative flex-1 rounded-[4px] border-solid border-[#FE5656] py-2 pr-5 font-bold not-italic text-[#FE5656] hover:shadow-upper sm:border sm:text-[8px] tablet-up:border-[2px] tablet-up:text-base">
+                <button
+                  onClick={handleJobCare}
+                  className="relative flex-1 rounded-[4px] border-solid border-[#FE5656] py-2 pr-5 font-bold not-italic text-[#FE5656] hover:shadow-upper sm:border sm:text-[8px] tablet-up:border-[2px] tablet-up:text-base"
+                >
                   LƯU TIN
                   <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
                     <svg

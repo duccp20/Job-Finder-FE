@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "/images/logo-user.jpg";
+import logo from "/images/logo.png";
 import flag from "/svg/flag.svg";
 import guest from "/images/guest-logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,7 +68,7 @@ const HeaderHome = (props) => {
         <div className=" flex cursor-pointer items-center justify-between gap-5 pl-[26.75px] leading-10">
           <div>
             <span onClick={() => navigate("/")}>
-              <img src={logo} alt="" />
+              <img className="h-[40px] w-[300px]" src={logo} alt="" />
             </span>
           </div>
 

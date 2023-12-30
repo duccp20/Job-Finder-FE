@@ -6,9 +6,8 @@ import AppliedJobItem from "../../components/JobItem/appliedjobitem";
 const AppliedJob = () => {
   return (
     <div>
-      <HeaderHome></HeaderHome>
       <div className="pt-[50px]">
-        <div className=" ml-[100px] mr-[374px] mt-[36px] flex w-full ">
+        <div className="mt-[70px] flex w-full px-[100px]">
           <div className="w-[70%] pr-[50px]">
             <div className=" h-[117px] rounded-[5px] bg-[#FE5656] text-[#ffffff]">
               <p className="pl-[18px] pt-[20px] text-[22px] font-[700px]  ">

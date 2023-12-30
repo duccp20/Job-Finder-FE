@@ -78,6 +78,7 @@ import ProfileAdmin from "./pages/profileadmin/profileadmin";
 import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
+import JobCare from "./pages/jobcare/jobcare";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -99,6 +100,11 @@ const App = () => {
     console.log(res);
     if (res && res?.data) {
       dispatch(doFetchAccountAction(res.data));
+      const userID = res.data.id;
+      const resCandidate = await callFetchCandidateByUserId(userID);
+      if (resCandidate && resCandidate?.data) {
+        dispatch(doFetchCandidate(resCandidate.data));
+      }
     } else {
       dispatch(doLogoutAction(false));
     }
@@ -173,6 +179,14 @@ const App = () => {
               ),
             },
           ],
+        },
+        {
+          path: "apply",
+          element: <AppliedJob></AppliedJob>,
+        },
+        {
+          path: "care",
+          element: <JobCare></JobCare>,
         },
         {
           path: "job-detail",
@@ -337,6 +351,10 @@ const App = () => {
     {
       path: "/apply",
       element: <AppliedJob />,
+    },
+    {
+      path: "/care",
+      element: <JobCare />,
     },
     {
       path: "/loginas",

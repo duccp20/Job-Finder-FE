@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "/images/logo-user.jpg";
+import logo from "/images/logo.png";
 import Input from "../../components/Input/input";
 import ava from "/svg/avatar.svg";
 import rec from "/images/rec.jpg";
@@ -110,7 +110,9 @@ const LoginPage = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className=" flex items-center justify-center p-10 md:pt-0 ">
-            <img src={logo} alt="" />
+            <span onClick={() => navigate("/")}>
+              <img className="h-full w-full" src={logo} alt="" />
+            </span>
           </div>
           <h1 className="text-center text-[36px] font-bold uppercase ">
             Đăng nhập
