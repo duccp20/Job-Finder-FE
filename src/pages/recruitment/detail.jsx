@@ -76,6 +76,7 @@ const RecruitmentDetail = () => {
             dangerouslySetInnerHTML={{ __html: jobData.description }}
             className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
           />
+
           {/* <ul className="">
             <p> </p>
 
@@ -101,61 +102,14 @@ const RecruitmentDetail = () => {
           </p>
           <div
             dangerouslySetInnerHTML={{ __html: jobData.requirement }}
-            className="leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
+            className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
           ></div>
-          {/* <ul className="mx-[10px] list-disc px-[10px] leading-normal">
-            {}
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-
-              Nắm vững kiến thức về HTML/CSS,
-              JS/JQuery/AJAX/Bootstrap/Responsive.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Nắm vững ngôn ngữ lập trình JavaScript.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Hiểu biết về REST API.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Có khả năng làm việc tốt với ReactJs, Next.Js
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Có khả năng tự học, và linh hoạt khi làm việc với các framework
-              khác của Javascript. (NodeJs, ReactJs, Ghost, Strapi) để phát
-              triển dự án..
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Có tư duy logic tốt.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Có kỹ năng lên kế hoạch công việc và quản lý thời gian tốt.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Có kỹ năng làm việc nhóm tốt.{" "}
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Chịu được áp lực và hoàn thành công việc đúng deadline.
-            </li>
-          </ul> */}
           <p className="font-[700] sm:my-[5px] tablet-up:my-[10px]">
             Chế độ phúc lợi
           </p>
-          {/* <ul className="mx-[10px] list-disc px-[10px] leading-normal">
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-
-              Trợ cấp thực tập: 3.000.000 - 5.000.000 đồng/tháng.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Làm việc cùng team tech trẻ trung, đầy nhiệt huyết và năng động.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Cơ hội học hỏi và làm việc trực tiếp cùng các Leader đầy kinh
-              nghiệm.
-            </li>
-          </ul> */}
           <div
             dangerouslySetInnerHTML={{ __html: jobData.otherInfo }}
-            className="leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
+            className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
           ></div>
         </div>
         <div className="mx-auto h-full border border-[#FE5656] bg-[#FE56561A] sm:my-[20px] sm:pb-[20px] md:flex md:w-[90%] tablet-up:my-[30px] tablet-up:pb-[40px] desktop-up:mr-[30px] desktop-up:w-[40%]">

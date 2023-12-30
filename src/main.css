@@ -18,6 +18,7 @@ video {
   display: block;
   max-width: 100%;
 }
+
 input,
 select,
 textarea {
@@ -47,13 +48,6 @@ body {
   }
 }
 
-.jobDescription ul {
-  @apply list-inside list-decimal;
-}
-
-.jobDescription li {
-  @apply mb-2;
-}
 /* nổi lên */
 @keyframes fadeInUp {
   from {
@@ -118,6 +112,10 @@ body {
 .dropdown div {
   cursor: pointer;
   /* Add more styles for the dropdown items */
+}
+
+.jobDescription ul {
+  list-style: unset !important;
 }
 
 .selected-items .tag {
