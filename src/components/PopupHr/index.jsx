@@ -14,7 +14,7 @@ const PopupHr = (props) => {
         {props.type === "require-login" ? (
           <>
             <h1 className="my-[30px] text-center text-[25px] font-[800] uppercase leading-normal	">
-              Bạn phải đăng nhập để ứng tuyển
+              {props.content}
             </h1>
           </>
         ) : (

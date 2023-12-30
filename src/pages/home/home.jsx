@@ -266,7 +266,19 @@ const HomePage = () => {
                 <div>
                   {dataJob && dataJob.length > 0 ? (
                     dataJob.map((data) => (
-                      <JobItem key={data.id} {...data}></JobItem>
+                      <JobItem
+                        key={data.id}
+                        id={data.id}
+                        name={data.name}
+                        companyDTO={data.companyDTO}
+                        province={data.province}
+                        positionDTOs={data.positionDTOs}
+                        scheduleDTOs={data.scheduleDTOs}
+                        majorDTOs={data.majorDTOs}
+                        amount={data.amount}
+                        startDate={data.startDate}
+                        endDate={data.endDate}
+                      ></JobItem>
                     ))
                   ) : (
                     <p className="text-center">Không có dữ liệu :{"("}</p>

@@ -11,6 +11,7 @@ const RecruitmentDetail = () => {
   const jobData = useSelector((state) => state.job.data);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const [isShowModalLogin, setIsShowModalLogin] = useState(false);
+  const [isShowModalJobCare, setIsShowModalJobCare] = useState(false);
   console.log("jobData", jobData);
 
   const handleApply = () => {
@@ -21,16 +22,50 @@ const RecruitmentDetail = () => {
     }
   };
 
-  const handleConfirm = () => {
-    setIsShowModalLogin(false);
-    navigate("/login");
+  const handleJobCare = () => {
+    if (isAuthenticated) {
+      alert("Đã đăng nhập");
+    } else {
+      setIsShowModalJobCare(true);
+    }
   };
 
-  const handleCancel = () => {
-    setIsShowModalLogin(false);
+  const handleConfirm = (action) => {
+    if (action === "apply") {
+      setIsShowModalLogin(false);
+      navigate("/login");
+    } else {
+      setIsShowModalJobCare(false);
+      navigate("/login");
+    }
   };
+
+  const handleCancel = (action) => {
+    if (action === "apply") {
+      setIsShowModalLogin(false);
+    } else {
+      setIsShowModalJobCare(false);
+    }
+  };
+
   return (
     <>
+      {isShowModalLogin && (
+        <PopupHr
+          content="Bạn phải đăng nhập để ứng tuyển"
+          type="require-login"
+          onConfirm={handleConfirm("apply")}
+          onCancel={handleCancel("apply")}
+        ></PopupHr>
+      )}
+      {isShowModalJobCare && (
+        <PopupHr
+          content="Bạn phải đăng nhập để lưu"
+          type="require-login"
+          onConfirm={handleConfirm("jobCare")}
+          onCancel={handleCancel("jobCare")}
+        ></PopupHr>
+      )}
       {/* <PopupHr></PopupHr> */}
       <div className="flex md:flex-col-reverse">
         <div className=" flex flex-col sm:mx-[20px] sm:gap-[5px] sm:text-[8px] tablet-up:ml-[40px] tablet-up:mr-[10px] tablet-up:gap-[10px] tablet-up:text-inherit desktop-up:mt-[30px]  desktop-up:w-[60%]">
@@ -309,14 +344,11 @@ const RecruitmentDetail = () => {
           >
             ỨNG TUYỂN NGAY
           </button>
-          {isShowModalLogin && (
-            <PopupHr
-              type="require-login"
-              onConfirm={handleConfirm}
-              onCancel={handleCancel}
-            ></PopupHr>
-          )}
-          <button className="relative rounded-[4px] border-solid border-[#FE5656] py-2 font-bold  not-italic text-[#FE5656] hover:shadow-upper sm:border sm:pl-3 sm:pr-8 sm:text-[8px] tablet-up:border-[2px] tablet-up:pl-9 tablet-up:pr-16 tablet-up:text-base">
+
+          <button
+            onClick={handleJobCare}
+            className="relative rounded-[4px] border-solid border-[#FE5656] py-2 font-bold  not-italic text-[#FE5656] hover:shadow-upper sm:border sm:pl-3 sm:pr-8 sm:text-[8px] tablet-up:border-[2px] tablet-up:pl-9 tablet-up:pr-16 tablet-up:text-base"
+          >
             LƯU TIN
             <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
               <svg

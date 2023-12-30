@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "/images/logo-user.jpg";
+import logo from "/images/logo.png";
 import flag from "/svg/flag.svg";
 import guest from "/images/guest-logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,11 +25,8 @@ const HeaderHomeProps = (props) => {
 
   const isResponsive = window.innerWidth <= 1023;
 
-  const jobOptions = ["Tìm việc làm", "Tìm thực tập"];
-  const manageOptions = ["Quản lý việc làm", "Quản lý thực tập"];
   const [showPopup, setShowPopupLogin] = useState(false);
 
-  // const userOptions = ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"];
   const authOptions = isAuthenticated
     ? ["Thông tin cá nhân", "Đổi mật khẩu", "Đăng xuất"]
     : ["Đăng ký", "Đăng nhập"];
@@ -79,77 +76,11 @@ const HeaderHomeProps = (props) => {
           <div className=" flex cursor-pointer items-center justify-between gap-5 pl-[26.75px] leading-10">
             <div>
               <span onClick={() => navigate("/")}>
-                <img src={logo} alt="" />
+                <img className="h-auto w-[300px]" src={logo} alt="" />
               </span>
             </div>
             {/* chỗ props  */}
             <div className="flex items-center justify-center gap-4 text-[16px] font-[700] md:hidden">
-              <div
-                className="relative flex flex-col"
-                onMouseLeave={leaveDropdown}
-              >
-                <div
-                  className="z-[2] flex cursor-pointer items-center justify-center gap-2  hover:text-[#FE5656]"
-                  onMouseOver={() => enterDropdown("jobDropdown")}
-                >
-                  <span>
-                    {role === "candidate" &&
-                      (jobOptions.includes(selectedOption)
-                        ? selectedOption
-                        : "Tìm việc làm")}
-                    {role === "hr" &&
-                      (manageOptions.includes(selectedOption) && role === "hr"
-                        ? selectedOption
-                        : "Quản lý việc làm")}
-                  </span>
-                  {/* mũi tên */}
-
-                  {role !== "admin" && (
-                    <span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="8"
-                        viewBox="0 0 16 8"
-                        fill="none"
-                      >
-                        <path
-                          d="M7.99979 7.875C7.65863 7.875 7.31729 7.76514 7.05729 7.54541L0.390625 1.92041C-0.130208 1.48096 -0.130208 0.769043 0.390625 0.32959C0.911458 -0.109863 1.75521 -0.109863 2.27604 0.32959L7.99979 5.16094L13.7248 0.330469C14.2456 -0.108985 15.0894 -0.108985 15.6102 0.330469C16.131 0.769922 16.131 1.48184 15.6102 1.92129L8.94354 7.54629C8.68312 7.76602 8.34146 7.875 7.99979 7.875Z"
-                          fill="black"
-                        />
-                      </svg>
-                    </span>
-                  )}
-                </div>
-
-                {dropdown.jobDropdown && role === "hr" && (
-                  <div className="absolute right-0 z-[1] mt-1 w-[105%] rounded-[4px] bg-white px-2 pt-9 text-left text-[15px] font-[600] shadow-custom">
-                    {manageOptions.map((option) => (
-                      <button
-                        key={option}
-                        onClick={() => selectOption(option)}
-                        className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                )}
-                {dropdown.jobDropdown && role === "candidate" && (
-                  <div className="absolute right-0 z-[1] mt-1 w-[105%] rounded-[4px] bg-white px-2 pt-9 text-left text-[15px] font-[600] shadow-custom">
-                    {jobOptions.map((option) => (
-                      <button
-                        key={option}
-                        onClick={() => selectOption(option)}
-                        className="block w-full pt-1 text-left text-[15px] font-[600] hover:text-[#FE5656]"
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
               <span
                 className={`cursor-pointer hover:text-[#FE5656]
                ${
@@ -159,14 +90,33 @@ const HeaderHomeProps = (props) => {
                }`}
                 onClick={() => navigate("/apply")}
               >
-                {props.firstobject}
+                {props.firstObject}
               </span>
-              <span className="hover:text-[#FE5656]">
-                <span>{props.secondobject}</span>
+              <span
+                className={`cursor-pointer hover:text-[#FE5656]
+               ${
+                 window.location.pathname == "/apply"
+                   ? "border-b-[#FE5656] text-[#FE5656]"
+                   : "text-black"
+               }`}
+                onClick={() => navigate("/apply")}
+              >
+                {props.secondObject}
+              </span>
+              <span
+                className={`cursor-pointer hover:text-[#FE5656]
+               ${
+                 window.location.pathname == "/care"
+                   ? "border-b-[#FE5656] text-[#FE5656]"
+                   : "text-black"
+               }`}
+                onClick={() => navigate("/care")}
+              >
+                {props.thirdObject}
               </span>
             </div>
           </div>
-          <div className="min-md:hidden w-full items-end  justify-center  pr-5">
+          <div className="w-full items-end justify-center  pr-5  min-md:hidden">
             <a
               href="/
               "
@@ -227,16 +177,16 @@ const HeaderHomeProps = (props) => {
                   </div>
                 </div>
                 <div className="absolute -right-[15px] z-[10]">
-                  <a href="#">
+                  <div className="h-[55px] w-[55px] rounded-[50%] border shadow-bannerLighter">
                     <img
                       src={
                         isAuthenticated && dataUser && dataUser.avatar
-                          ? dataUser.avatar
+                          ? `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${dataUser.avatar}?alt=media`
                           : guest
                       }
                       className="h-full w-full rounded-[50%]"
                     />
-                  </a>
+                  </div>
                 </div>
 
                 {dropdown.userDropdown && (
@@ -322,7 +272,7 @@ const HeaderHomeProps = (props) => {
         >
           {/* div ô */}
           <div
-            className="relative flex h-auto w-full flex-col justify-between rounded-[10px] border-[0.5px] border-[#DEDEDE] bg-white px-[15px] 
+            className="relative flex h-auto w-full flex-col justify-between rounded-[10px] border-[0.5px] border-[#DEDEDE] bg-white px-[15px]
                  py-5  md:cursor-pointer  "
           >
             <div className="flex w-full flex-col justify-start  pr-[26.75px] ">
@@ -418,7 +368,7 @@ const HeaderHomeProps = (props) => {
             )}
           </div>
           <div
-            className="relative flex h-auto w-full flex-col justify-between rounded-[10px] border-[0.5px] border-[#DEDEDE] bg-white px-[18px] 
+            className="relative flex h-auto w-full flex-col justify-between rounded-[10px] border-[0.5px] border-[#DEDEDE] bg-white px-[18px]
                  py-[15px]  md:cursor-pointer  "
           >
             <span className="text-base font-[600px] not-italic text-black ">
