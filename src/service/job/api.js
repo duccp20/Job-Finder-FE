@@ -22,3 +22,6 @@ export const callGetActiveJobByCompanyID = (no, limit) => {
 export const callGetDisableJobByCompanyID = (no, limit) => {
   return axios.get(`/api/v1/job/disable/hr/company?no=${no}&limit=${limit}`);
 };
+export const callCreateJob = (body) => {
+  return axios.post(`/api/v1/job`, body);
+};

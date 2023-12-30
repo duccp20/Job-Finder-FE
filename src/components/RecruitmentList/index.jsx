@@ -469,4 +469,4 @@ const RecruitmentList = () => {
   );
 };
 
-export default RecruitmentListPage;
+export default RecruitmentList;

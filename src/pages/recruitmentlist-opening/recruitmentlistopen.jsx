@@ -4,6 +4,7 @@ import RecruitmentList from "../../components/RecruitmentList";
 import Table from "../../components/Table";
 import HeaderHR from "../../components/HeaderHR/headerHr";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const RecruitmentListOpen = ({}) => {
   const { loading, pages, totalPages, currentPage, setCurrentPage } =
