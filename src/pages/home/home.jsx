@@ -75,10 +75,10 @@ const HomePage = () => {
 
   console.log("data quantity", dataJob.length);
   return (
-    <div>
+    <div className="bg-[#F6F6F6]">
       {/* <LoginAs></LoginAs> */}
-      <div className="mt-[60px] flex h-screen w-full py-[36px] sm:px-[20px] md:flex-col md:gap-[20px] tablet-range:px-[50px] desktop-up:gap-[45px] desktop-up:px-[100px]">
-        <div className=" sm:flex-col sm:gap-[20px] md:flex md:w-full md:justify-between desktop-up:w-[20%]">
+      <div className="mt-[60px] flex h-screen w-full py-[36px] sm:px-[20px] md:mt-0 md:flex-col md:gap-[20px] md:py-5 tablet-range:px-[50px] desktop-up:gap-[45px] desktop-up:px-[100px]">
+        <div className=" sm:flex-col sm:gap-[15px] md:flex md:w-full md:justify-between desktop-up:w-[20%]">
           {[
             {
               state: checkboxes,
@@ -101,7 +101,7 @@ const HomePage = () => {
           ].map((section) => (
             <div
               key={section.title}
-              className=" relative h-auto rounded-[10px] border-[0.5px] border-[#DEDEDE] px-[18px] pt-[12px] md:cursor-pointer md:pb-[12px] desktop-up:mb-[15px] desktop-up:pb-[24px]"
+              className=" relative h-auto rounded-[10px] border-[0.5px] border-[#DEDEDE] bg-white px-[18px] pt-[12px] md:cursor-pointer md:pb-[10px] desktop-up:mb-[15px] desktop-up:pb-[24px]"
             >
               <div
                 className=" flex items-center justify-between md:gap-[20px]"
@@ -249,9 +249,9 @@ const HomePage = () => {
               </svg>
               <ProvincesDropdown placeholder="Khu vực"></ProvincesDropdown>
             </div>
-            <div className="">
+            <div className="bg-white">
               <button
-                className="whitespace-nowrap rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md"
+                className="whitespace-nowrap rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md sm:py-2"
                 type="submit"
               >
                 Tìm kiếm
