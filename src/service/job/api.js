@@ -11,6 +11,14 @@ export const callGetJobByID = (id) => {
 
 //no = 0 => page = 1;
 //limit = item trong 1 page
+export const callGetAllJobByCompanyID = (no, limit) => {
+  return axios.get(`/api/v1/job/hr/company?no=${no}&limit=${limit}`);
+};
+
 export const callGetActiveJobByCompanyID = (no, limit) => {
   return axios.get(`/api/v1/job/active/hr/company?no=${no}&limit=${limit}`);
+};
+
+export const callGetDisableJobByCompanyID = (no, limit) => {
+  return axios.get(`/api/v1/job/disable/hr/company?no=${no}&limit=${limit}`);
 };

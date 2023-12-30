@@ -3,10 +3,14 @@ import useDataFetcher from "../../components/Pagination/useDataFetcher";
 import RecruitmentList from "../../components/RecruitmentList";
 import Table from "../../components/Table";
 import HeaderHR from "../../components/HeaderHR/headerHr";
+import { useNavigate } from "react-router-dom";
 
 const RecruitmentListOpen = ({}) => {
   const { loading, pages, totalPages, currentPage, setCurrentPage } =
     useDataFetcher();
+
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className=" mx-auto mb-[20px] mt-[90px] flex h-full w-[87%] rounded-[10px] border-[2px] border-[#DEDEDE]">
@@ -90,7 +94,10 @@ const RecruitmentListOpen = ({}) => {
                 fill="white"
               />
             </svg>
-            <span className="cursor-pointer text-base font-bold not-italic text-white">
+            <span
+              className="cursor-pointer text-base font-bold not-italic text-white"
+              onClick={() => navigate("job/create")}
+            >
               Đăng tin tuyển dụng mới
             </span>
           </div>
