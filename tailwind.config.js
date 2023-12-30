@@ -27,6 +27,8 @@ export default {
       "desktop-up": { min: "1024px" },
       "in-lg": { min: "1024px", max: "1280px" },
       //   "max-xl": { max: "1535px" },
+      "min-md": { min: "1024px" },
+      "min-sm": { min: "768px" },
     },
     extend: {
       boxShadow: {
