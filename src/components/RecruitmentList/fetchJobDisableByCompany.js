@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { callGetActiveJobByCompanyID } from "../../service/job/api";
+import { callGetDisableJobByCompanyID } from "../../service/job/api";
 
-const fetchJobActiveByCompany = () => {
+const fetchJobDisableByCompany = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,7 +10,7 @@ const fetchJobActiveByCompany = () => {
     const fetchData = async () => {
       const no = Math.min(currentPage, totalPages);
       try {
-        const result = await callGetActiveJobByCompanyID(no, 3);
+        const result = await callGetDisableJobByCompanyID(no, 3);
         console.log("result", result);
         setData(result.data);
         setTotalPages(result.totalPages);
@@ -25,4 +25,4 @@ const fetchJobActiveByCompany = () => {
   return { loading, data, totalPages, currentPage, setCurrentPage };
 };
 
-export default fetchJobActiveByCompany;
+export default fetchJobDisableByCompany;

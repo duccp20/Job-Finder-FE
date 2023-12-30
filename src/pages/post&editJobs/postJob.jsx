@@ -8,6 +8,12 @@ import { useForm, Controller } from "react-hook-form";
 import IconError from "../../components/IconError";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
+import MultiSelectDropdown from "../../components/MultilSelectTag";
+import ProvincesDropdown from "../../components/DropdownProvince";
+import { doSetJobData } from "../../redux/job/jobSlice";
+import { callCreateJob } from "../../service/job/api";
+import Popup from "../../components/Popup";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 const cities = ["Tỉnh A", "Tỉnh B", "Tỉnh C"];
@@ -27,12 +33,19 @@ const modules = {
 
 const PostJob = (props) => {
   const [descriptionValue, setDescriptionValue] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const dataMajor = useSelector((state) => state.baseData.data.majors);
+  const dataSchedule = useSelector((state) => state.baseData.data.schedules);
+  const dataPosition = useSelector((state) => state.baseData.data.positions);
+  const dataCandidate = useSelector((state) => state.candidate.data);
 
   const schema = yup
     .object({
       jobTitle: yup.string().required("Tiêu đề không được để trống"),
-      selectPosition: yup.string().required("Vui lòng chọn vị trí"),
-      selectType: yup.string().required("Vui lòng chọn hình thức làm việc"),
+      selectPosition: yup.array().required("Vui lòng chọn vị trí"),
+      selectType: yup.array().required("Vui lòng chọn hình thức làm việc"),
       numberPosition: yup
         .number()
         .typeError("Số lượng tuyển là một số")
@@ -42,7 +55,7 @@ const PostJob = (props) => {
         .max(new Date(), "Ngày không thể vượt quá ngày hiện tại")
         .required("Ngày đăng tuyển không được để trống"),
       deadlineDate: yup.date().required("Hạn nộp hồ sơ không được để trống"),
-      city: yup.string().required("Vui lòng chọn tỉnh thành"),
+      // city: yup.string().required("Vui lòng chọn tỉnh thành"),
       address: yup.string().required("Địa chỉ không được để trống"),
       description: yup.string().required("Mô tả không được để trống"),
     })
@@ -62,7 +75,45 @@ const PostJob = (props) => {
     setValue(name, value, { shouldValidate: true });
   };
 
-  const onSubmit = (data) => console.log("data", data);
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    const postJobData = {
+      name: data.jobTitle,
+      positionDTOs: data.selectPosition,
+      majorDTOs: data.selectField,
+      scheduleDTOs: data.selectType,
+      amount: data.numberPosition,
+      salaryMin: "100000010",
+      salaryMax: "500000010",
+      description: data.description,
+      requirement: data.requirement,
+      otherInfo: data.welfare,
+      startDate: data.postDate,
+      endDate: data.deadlineDate,
+      location: data.address,
+      province: "Ho Chi Minh",
+    };
+    console.log(postJobData);
+
+    setIsSubmitting(true);
+    try {
+      const res = await callCreateJob(postJobData);
+
+      console.log("res in onSubmit", res);
+      setIsSubmitting(false);
+
+      if (res && res?.data) {
+        dispatch(doSetJobData(res.data));
+        setShowPopup(true);
+      }
+      if (res?.errors) {
+        alert(res.message);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   return (
     <div>
@@ -124,27 +175,28 @@ const PostJob = (props) => {
               <Controller
                 name="selectPosition"
                 control={control}
-                defaultValue=""
+                defaultValue={[]}
                 render={({ field }) => (
-                  <select
-                    {...field}
-                    className={`border-2 px-2 py-3 ${
-                      errors.selectPosition
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    } w-full rounded-md focus:outline-none`}
-                  >
-                    <option value="" disabled hidden>
-                      Chọn vị trí
-                    </option>
-                    {positions.map((position) => (
-                      <option key={position} value={position}>
-                        {position}
-                      </option>
-                    ))}
-                  </select>
+                  <MultiSelectDropdown
+                    height="auto"
+                    options={dataPosition}
+                    value={field.value || []}
+                    onChange={(selected) => field.onChange(selected || [])}
+                    text={
+                      field.value && field.value.length > 0
+                        ? field.value
+                            .map((selectedPosition, index) =>
+                              index < field.value.length - 1
+                                ? selectedPosition.name + " / "
+                                : selectedPosition.name,
+                            )
+                            .join("")
+                        : "Chọn vị trí việc làm"
+                    }
+                  />
                 )}
               />
+
               {errors?.selectPosition && (
                 <div className="flex items-center ">
                   <span className="pt-1.5">
@@ -162,25 +214,27 @@ const PostJob = (props) => {
                 Chuyên ngành
               </label>
               <Controller
-                name="selectField"
+                name="selectedField"
                 control={control}
-                defaultValue=""
+                defaultValue={[]}
                 render={({ field }) => (
-                  <select
-                    {...field}
-                    className={`border-2 px-2 py-3 ${
-                      errors.selectField ? "border-red-500" : "border-gray-300"
-                    } w-full rounded-md focus:outline-none`}
-                  >
-                    <option value="" disabled hidden>
-                      Chọn chuyên ngành
-                    </option>
-                    {positions.map((position) => (
-                      <option key={position} value={position}>
-                        {position}
-                      </option>
-                    ))}
-                  </select>
+                  <MultiSelectDropdown
+                    height="auto"
+                    options={dataMajor}
+                    value={field.value || []}
+                    onChange={(selected) => field.onChange(selected || [])}
+                    text={
+                      field.value && field.value.length > 0
+                        ? field.value
+                            .map((selectedField, index) =>
+                              index < field.value.length - 1
+                                ? selectedField.name + " / "
+                                : selectedField.name,
+                            )
+                            .join("")
+                        : "Chọn chuyên ngành"
+                    }
+                  />
                 )}
               />
             </div>
@@ -193,25 +247,28 @@ const PostJob = (props) => {
               <Controller
                 name="selectType"
                 control={control}
-                defaultValue=""
+                defaultValue={[]}
                 render={({ field }) => (
-                  <select
-                    {...field}
-                    className={`border-2 px-2 py-3 ${
-                      errors.selectType ? "border-red-500" : "border-gray-300"
-                    } w-full rounded-md focus:outline-none`}
-                  >
-                    <option value="" disabled hidden>
-                      Chọn hình thức
-                    </option>
-                    {positions.map((position) => (
-                      <option key={position} value={position}>
-                        {position}
-                      </option>
-                    ))}
-                  </select>
+                  <MultiSelectDropdown
+                    height="auto"
+                    options={dataSchedule}
+                    value={field.value || []}
+                    onChange={(selected) => field.onChange(selected || [])}
+                    text={
+                      field.value && field.value.length > 0
+                        ? field.value
+                            .map((selectType, index) =>
+                              index < field.value.length - 1
+                                ? selectType.name + " / "
+                                : selectType.name,
+                            )
+                            .join("")
+                        : "Chọn hình thức làm việc"
+                    }
+                  />
                 )}
               />
+
               {errors?.selectType && (
                 <div className="flex items-center ">
                   <span className="pt-1.5">
@@ -317,31 +374,11 @@ const PostJob = (props) => {
             <label htmlFor="city" className="pb-2 ">
               Tỉnh/ Thành phố <span className="text-red-700">*</span>
             </label>
-            <Controller
-              name="city"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <select
-                  {...field}
-                  className={`border-2 px-2 py-3 ${
-                    errors.city ? "border-red-500" : "border-gray-300"
-                  } w-full rounded-md focus:outline-none`}
-                >
-                  <option value="" disabled hidden>
-                    Chọn tỉnh thành
-                  </option>
 
-                  {cities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </select>
-              )}
-            />
+            <ProvincesDropdown />
+            {/* {...register("city")} */}
 
-            {errors?.city && (
+            {/* {errors?.city && (
               <div className="flex items-center ">
                 <span className="pt-1.5 ">
                   <IconError />
@@ -351,7 +388,7 @@ const PostJob = (props) => {
                   {errors.city?.message}
                 </p>
               </div>
-            )}
+            )} */}
           </div>
           <div className="mt-6 flex w-full flex-col">
             <label htmlFor="address" className="pb-2 ">
