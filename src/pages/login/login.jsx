@@ -12,8 +12,13 @@ import IconError from "../../components/IconError";
 import { callLogin } from "../../service/user/api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { doLoginAction } from "../../redux/account/accountSlice";
+import {
+  doLoginAction,
+  doSetProfileData,
+} from "../../redux/account/accountSlice";
 import LoginAs from "../../components/LoginAs";
+import { doFetchCandidate } from "../../redux/candidate/candidateSlice";
+import { callFetchCandidateByUserId } from "../../service/candidate/api";
 const schema = yup
   .object({
     email: yup
@@ -60,9 +65,18 @@ const LoginPage = () => {
     setIsSubmitting(false);
     if (res.httpCode === 200 && res.message === "Đăng nhập thành công!") {
       localStorage.setItem("access_token", res.accessToken);
+      console.log(res);
       dispatch(doLoginAction(res.data));
 
-      if (res.data.roleDTO.name === "Role_Candidate") {
+      const candidateRoleID = 2;
+      const userID = res.data.id;
+      if (res.data.roleDTO.roleId === candidateRoleID) {
+        const resCandidate = await callFetchCandidateByUserId(userID);
+        dispatch(doSetProfileData(resCandidate.data.userDTO));
+        if (resCandidate && resCandidate?.data) {
+          console.log("res in profile", resCandidate);
+          dispatch(doFetchCandidate(resCandidate.data));
+        }
         navigate("/");
       } else if (res.data.roleDTO.name === "Role_HR") {
         navigate("/hr");

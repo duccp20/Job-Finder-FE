@@ -8,11 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { doSetJobData } from "../../redux/job/jobSlice";
 import Loading from "../../components/Loading";
 import PopupHr from "../../components/PopupHr";
+import { callCreateJobCare } from "../../service/jobcare/api";
+import Uploader from "../../components/Uploader";
+import Popup from "../../components/Popup";
+import { callCheckCandidateHaveAppliedJob } from "../../service/applyJob/api";
 
 const RecruitmentOverall = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isShowModalLogin, setIsShowModalLogin] = useState(false);
   const [isShowModalJobCare, setIsShowModalJobCare] = useState(false);
+  const [isShowUpload, setIsShowUpload] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [checkApplied, setCheckApplied] = useState(false);
   const [data, setData] = useState([]);
 
   const navigate = useNavigate();
@@ -24,17 +31,18 @@ const RecruitmentOverall = () => {
 
   const handleApply = () => {
     if (isAuthenticated) {
-      alert("Đã đăng nhập");
+      setIsShowUpload(true);
     } else {
       setIsShowModalLogin(true);
     }
   };
 
-  const handleJobCare = () => {
+  const handleJobCare = async (id) => {
     if (isAuthenticated) {
-      alert("Đã đăng nhập");
+      await callCreateJobCare(id);
+      alert("Lưu thành công");
     } else {
-      setIsShowModalJobCare(true);
+      setIsShowModalLogin(true);
     }
   };
 
@@ -56,6 +64,14 @@ const RecruitmentOverall = () => {
     }
   };
 
+  const handleCloseUpload = () => {
+    setIsShowUpload(false);
+  };
+
+  const handleSuccess = () => {
+    setShowSuccessPopup(true);
+  };
+
   useEffect(() => {
     const fetchJobDetail = async () => {
       try {
@@ -63,7 +79,12 @@ const RecruitmentOverall = () => {
         console.log("response in recruitment", response);
         setData(response);
         dispatch(doSetJobData(response));
-        setIsLoading(false); // Cập nhật state với dữ liệu từ API
+        console.log("id", id);
+        const check = await callCheckCandidateHaveAppliedJob(id);
+        console.log("check", check.data);
+        setCheckApplied(check.data);
+        console.log("checkApplied", checkApplied);
+        setIsLoading(false);
       } catch (error) {
         console.error("Lỗi khi lấy thông tin chi tiết công việc: ", error);
       }
@@ -71,15 +92,23 @@ const RecruitmentOverall = () => {
 
     fetchJobDetail(); // Gọi hàm fetchJobDetail khi component được mount
   }, [id]);
-  console.log("id in recruitment", id);
-  console.log("location path", location);
+
   return (
     <div>
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          <HeaderHome />
+          {isShowUpload && (
+            <Uploader
+              onClose={handleCloseUpload}
+              onApplySuccess={handleSuccess}
+              id={id}
+            />
+          )}
+          {showSuccessPopup && (
+            <Popup text="Cập nhật thành công" redirect="apply" />
+          )}
           <SearchBar />
           <div className="mx-auto w-[90%] rounded-[6px] border-[2px] border-[#FE5656] sm:mb-[10px] sm:mt-[90px] sm:py-[30px] tablet-up:my-[10px] tablet-up:py-[45px]">
             {isShowModalLogin && (
@@ -169,14 +198,21 @@ const RecruitmentOverall = () => {
                 </div>
               </div>
               <div className="flex flex-col justify-center gap-[10px] ">
+                {checkApplied ? (
+                  <button className="flex-1 rounded-[4px] bg-[#BEB9B9] py-2 font-bold uppercase not-italic text-white  sm:whitespace-nowrap sm:px-2 sm:text-[8px]  tablet-up:px-5 tablet-up:text-base">
+                    Đã Ứng Tuyển
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleApply}
+                    className=" flex-1 rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:whitespace-nowrap sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base"
+                  >
+                    ỨNG TUYỂN NGAY
+                  </button>
+                )}
+
                 <button
-                  onClick={handleApply}
-                  className=" flex-1 rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:whitespace-nowrap sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base"
-                >
-                  ỨNG TUYỂN NGAY
-                </button>
-                <button
-                  onClick={handleJobCare}
+                  onClick={() => handleJobCare(data.id)}
                   className="relative flex-1 rounded-[4px] border-solid border-[#FE5656] py-2 pr-5 font-bold not-italic text-[#FE5656] hover:shadow-upper sm:border sm:text-[8px] tablet-up:border-[2px] tablet-up:text-base"
                 >
                   LƯU TIN

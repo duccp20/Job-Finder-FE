@@ -25,3 +25,13 @@ export const callGetDisableJobByCompanyID = (no, limit) => {
 export const callCreateJob = (body) => {
   return axios.post(`/api/v1/job`, body);
 };
+export const callReplicateJob = (id, body) => {
+  return axios.put(`/api/v1/job/replicate/${id}`, body);
+};
+export const callDeleteJob = (id) => {
+  return axios.put(`/api/v1/job/delete/${id}`);
+};
+
+export const callDisableJob = (id) => {
+  return axios.put(`/api/v1/job/disable/${id}`);
+};

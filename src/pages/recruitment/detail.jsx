@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RecruitmentItem from "../../components/Recruitment/item";
 import { useSelector } from "react-redux";
-import { convertDateFormat } from "../../utils/formatDate";
+import { convertDateFormatDDMMYYYY } from "../../utils/formatDate";
 import Popup from "../../components/Popup";
 import PopupHr from "../../components/PopupHr";
 import { useNavigate } from "react-router-dom";
+import { callCreateJobCare } from "../../service/jobcare/api";
+import { callCheckCandidateHaveAppliedJob } from "../../service/applyJob/api";
 
 const RecruitmentDetail = () => {
   const navigate = useNavigate();
@@ -12,6 +14,7 @@ const RecruitmentDetail = () => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const [isShowModalLogin, setIsShowModalLogin] = useState(false);
   const [isShowModalJobCare, setIsShowModalJobCare] = useState(false);
+  const [checkApplied, setCheckApplied] = useState(false);
   console.log("jobData", jobData);
 
   const handleApply = () => {
@@ -22,21 +25,22 @@ const RecruitmentDetail = () => {
     }
   };
 
-  const handleJobCare = () => {
+  const handleJobCare = async (id) => {
     if (isAuthenticated) {
-      alert("Đã đăng nhập");
+      await callCreateJobCare(id);
+      alert("Lưu thành công");
     } else {
-      setIsShowModalJobCare(true);
+      setIsShowModalLogin(true);
     }
   };
 
   const handleConfirm = (action) => {
     if (action === "apply") {
       setIsShowModalLogin(false);
-      navigate("/login");
+      // navigate("/login");
     } else {
       setIsShowModalJobCare(false);
-      navigate("/login");
+      // navigate("/login");
     }
   };
 
@@ -48,6 +52,14 @@ const RecruitmentDetail = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchCheckApplied = async () => {
+      const result = await callCheckCandidateHaveAppliedJob(jobData.id);
+      setCheckApplied(result.data);
+    };
+
+    fetchCheckApplied();
+  }, []);
   return (
     <>
       {isShowModalLogin && (
@@ -233,7 +245,7 @@ const RecruitmentDetail = () => {
                 </svg>
               }
               title="Ngày đăng tuyển"
-              detail={convertDateFormat(jobData.startDate)}
+              detail={convertDateFormatDDMMYYYY(jobData.startDate)}
             ></RecruitmentItem>
 
             <RecruitmentItem
@@ -252,7 +264,7 @@ const RecruitmentDetail = () => {
                 </svg>
               }
               title="Hạn nộp hồ sơ"
-              detail={convertDateFormat(jobData.endDate)}
+              detail={convertDateFormatDDMMYYYY(jobData.endDate)}
             ></RecruitmentItem>
           </div>
         </div>
@@ -285,22 +297,28 @@ const RecruitmentDetail = () => {
         </p>
         <p>
           Ứng viên nộp hồ sơ trực tuyến bằng cách bấm nút{" "}
-          <a href="#" className="text-[#FE5656]">
+          <span href="#" className="text-[#FE5656]">
             ỨNG TUYỂN NGAY
-          </a>{" "}
+          </span>{" "}
           dưới đây.
         </p>
 
         <div className="flex gap-[10px] sm:my-[10px] tablet-up:my-[30px]">
-          <button
-            className="rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base"
-            onClick={handleApply}
-          >
-            ỨNG TUYỂN NGAY
-          </button>
+          {checkApplied ? (
+            <button className="rounded-[4px] bg-[#BEB9B9] py-2 font-bold not-italic text-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base">
+              Đã Ứng Tuyển
+            </button>
+          ) : (
+            <button
+              className="rounded-[4px] bg-[#FE5656] py-2 font-bold not-italic text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656] sm:px-2 sm:text-[8px] sm:hover:outline-[1px] tablet-up:px-5 tablet-up:text-base"
+              onClick={handleApply}
+            >
+              ỨNG TUYỂN NGAY
+            </button>
+          )}
 
           <button
-            onClick={handleJobCare}
+            onClick={() => handleJobCare(jobData.id)}
             className="relative rounded-[4px] border-solid border-[#FE5656] py-2 font-bold  not-italic text-[#FE5656] hover:shadow-upper sm:border sm:pl-3 sm:pr-8 sm:text-[8px] tablet-up:border-[2px] tablet-up:pl-9 tablet-up:pr-16 tablet-up:text-base"
           >
             LƯU TIN
@@ -322,7 +340,7 @@ const RecruitmentDetail = () => {
           </button>
         </div>
         {/* <p>28/04/2023</p> */}
-        <p>Hạn nộp hồ sơ: {convertDateFormat(jobData.endDate)}</p>
+        <p>Hạn nộp hồ sơ: {convertDateFormatDDMMYYYY(jobData.endDate)}</p>
       </div>
     </>
   );

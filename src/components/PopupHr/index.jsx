@@ -37,7 +37,7 @@ const PopupHr = (props) => {
         <div className="mb-[9px] mt-[16px] flex justify-center gap-[20px] px-[100px]">
           <button
             onClick={props.onConfirm}
-            className="flex-1 rounded bg-gradientCustom px-[15px] py-[12px] text-center text-[15px] font-[700] text-white "
+            className="flex-1 rounded bg-[#fe5656] px-[15px] py-[12px] text-center text-[15px] font-[700] text-white "
             type="submit"
           >
             {props.type === "require-login" ? "Đăng nhập" : "Đồng ý"}

@@ -107,19 +107,19 @@ const Profile = () => {
     setPendingToggle(searchable); // Reset lại trạng thái toggle
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("user in profile", user);
-      const res = await callFetchCandidateByUserId(user.id);
-      dispatch(doSetProfileData(res.data.userDTO));
-      if (res && res?.data) {
-        console.log("res in profile", res);
-        dispatch(doFetchCandidate(res.data));
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     console.log("user in profile", user);
+  //     const res = await callFetchCandidateByUserId(user.id);
+  //     dispatch(doSetProfileData(res.data.userDTO));
+  //     if (res && res?.data) {
+  //       console.log("res in profile", res);
+  //       dispatch(doFetchCandidate(res.data));
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
   return (
     <div>
       {showNotification && (

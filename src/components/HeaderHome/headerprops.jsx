@@ -65,6 +65,10 @@ const HeaderHomeProps = (props) => {
     if (option === "Thông tin cá nhân") {
       navigate("/profile");
     }
+
+    if (option === "Đổi mật khẩu") {
+      navigate("/change-password");
+    }
   };
 
   return (
@@ -84,11 +88,11 @@ const HeaderHomeProps = (props) => {
               <span
                 className={`cursor-pointer hover:text-[#FE5656]
                ${
-                 window.location.pathname == "/apply"
+                 window.location.pathname == "/"
                    ? "border-b-[#FE5656] text-[#FE5656]"
                    : "text-black"
                }`}
-                onClick={() => navigate("/apply")}
+                onClick={() => navigate("/")}
               >
                 {props.firstObject}
               </span>

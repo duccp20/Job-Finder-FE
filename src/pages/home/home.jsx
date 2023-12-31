@@ -178,7 +178,7 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className=" flex flex-col gap-[36px] md:w-full in-lg:w-[80%]">
+        <div className=" flex w-full flex-col gap-[36px] md:w-full in-lg:w-[80%]">
           <form className="flex h-auto items-center justify-between rounded-[6px] sm:flex-col sm:gap-[15px] tablet-up:border-[0.5px] tablet-up:border-[#FE5656] tablet-up:px-[18px] tablet-up:py-[12px] ">
             <div className="flex flex-grow items-end sm:w-full sm:rounded-[6px] sm:border-[0.5px] sm:border-[#FE5656] sm:px-[20px] sm:py-[10px]">
               <svg

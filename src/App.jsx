@@ -79,6 +79,8 @@ import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import JobCare from "./pages/jobcare/jobcare";
+import ChangePassword from "./pages/changepassword/changepassword";
+import Replicate from "./pages/post&editJobs/replicate";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -181,6 +183,10 @@ const App = () => {
           ],
         },
         {
+          path: "change-password",
+          element: <ChangePassword />,
+        },
+        {
           path: "apply",
           element: <AppliedJob></AppliedJob>,
         },
@@ -252,12 +258,8 @@ const App = () => {
           ],
         },
         {
-          path: "job/create",
-          element: (
-            <ProtectedRoute>
-              <PostJob />
-            </ProtectedRoute>
-          ),
+          path: "replicate/:id",
+          element: <Replicate />,
         },
         // {
         //   path: "recruitment",
@@ -436,7 +438,14 @@ const App = () => {
       path: "/change-admin-password",
       element: <ChangeAdminPassword />,
     },
-
+    {
+      path: "/uploader",
+      element: <Uploader />,
+    },
+    {
+      path: "/cp",
+      element: <ChangePassword />,
+    },
     {
       path: "/admin",
       element: <MenuAdmin />,

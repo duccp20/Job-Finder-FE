@@ -171,14 +171,17 @@ const CompanyInformation = () => {
             <Loading></Loading>
           ) : (
             <>
-              <div className="flex flex-wrap justify-start   gap-4">
+              <div className="flex flex-wrap justify-start gap-4">
                 {dataJob && dataJob.length > 0 ? (
                   dataJob
                     .filter((data) => data.id != id)
                     .map((data) => (
                       <>
-                        <div className="w-[calc(50%-10px)] tablet-range:w-[calc(100%-30px)]">
-                          <JobItem key={data.id} {...data}></JobItem>
+                        <div
+                          key={data.id}
+                          className="w-[calc(50%-10px)] tablet-range:w-[calc(100%-30px)]"
+                        >
+                          <JobItem {...data}></JobItem>
                         </div>
                       </>
                     ))

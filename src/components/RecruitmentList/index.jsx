@@ -3,7 +3,7 @@ import useDataFetcher from "../Pagination/useDataFetcher";
 import Pagination from "../Pagination";
 import ProvincesDropdown from "../DropdownProvince";
 import fetchJobActiveByCompany from "./fetchJobActiveByCompany";
-import { convertDateFormat } from "../../utils/formatDate";
+import { convertDateFormatDDMMYYYY } from "../../utils/formatDate";
 import fetchAllJobByCompany from "./fetchAllJobByCompany";
 import fetchJobDisableByCompany from "./fetchJobDisableByCompany";
 import useFetchJobs from "./fetchall";
@@ -12,11 +12,12 @@ import {
   callGetAllJobByCompanyID,
   callGetDisableJobByCompanyID,
 } from "../../service/job/api";
+import { useNavigate } from "react-router-dom";
 
 const RecruitmentList = () => {
   // const { loading, data, totalPages, currentPage, setCurrentPage } =
   //   fetchAllJobByCompany();
-
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const buttonState = () => {
@@ -69,6 +70,10 @@ const RecruitmentList = () => {
     }
   }, [currentPage, totalPages, selectedOption]);
 
+  const handleReplicate = (id) => {
+    console.log("id", id);
+    navigate(`replicate/${id}`);
+  };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -84,6 +89,17 @@ const RecruitmentList = () => {
   }, [dropdownRef]);
   return (
     <div className="h-auto w-full">
+      <span>
+        <svg
+          width="626"
+          height="312"
+          viewBox="0 0 626 312"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="626" height="312" fill="white" />
+        </svg>
+      </span>
       <div className="mb-[30px] flex w-full justify-between gap-[13px] ">
         <div className="flex w-[40%] items-center rounded border px-[13px] py-[12px]">
           <label htmlFor="find">
@@ -377,7 +393,7 @@ const RecruitmentList = () => {
                 </td>
                 <td className="border px-[18px] py-[15px] text-center">
                   <div>
-                    <div>
+                    <div className="mb-2 flex items-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="21"
@@ -391,7 +407,7 @@ const RecruitmentList = () => {
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="text-base font-normal not-italic text-black ">
+                      <span className="cursor-pointer text-base font-normal not-italic text-black ">
                         Chỉnh sửa
                       </span>
                     </div>
@@ -430,7 +446,10 @@ const RecruitmentList = () => {
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="text-base font-normal not-italic text-black ">
+                      <span
+                        onClick={() => handleReplicate(item.id)}
+                        className="text-base font-normal not-italic text-black "
+                      >
                         Nhân bản
                       </span>
                     </div>

@@ -2,20 +2,21 @@ import { useState, useEffect } from "react";
 import { callGetAllJobActive } from "../../service/job/api";
 import { useSelector } from "react-redux";
 import { callGetJobCareByCandidateID } from "../../service/jobcare/api";
+import { callGetAllAppliedJobByCandidate } from "../../service/applyJob/api";
 
-const fetchDataJobCare = () => {
+const fetchDataAppliedJob = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
-  const candidateID = useSelector((state) => state.candidate.id);
-  console.log("candidateID", candidateID);
+
   useEffect(() => {
     const fetchData = async () => {
       const no = Math.min(currentPage, totalPages);
       try {
-        const result = await callGetJobCareByCandidateID(candidateID, no, 5);
+        const result = await callGetAllAppliedJobByCandidate(no, 5);
+        console.log("result in fetch data applied", result);
         setData(result.data);
         setTotalPages(result.totalPages);
         setTotalItems(result.totalItems);
@@ -27,15 +28,7 @@ const fetchDataJobCare = () => {
     };
     fetchData();
   }, [currentPage]);
-  return {
-    loading,
-    data,
-    setData,
-    totalPages,
-    totalItems,
-    currentPage,
-    setCurrentPage,
-  };
+  return { loading, data, totalPages, totalItems, currentPage, setCurrentPage };
 };
 
-export default fetchDataJobCare;
+export default fetchDataAppliedJob;
