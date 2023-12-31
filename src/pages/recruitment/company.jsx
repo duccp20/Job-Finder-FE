@@ -16,6 +16,11 @@ const CompanyInformation = () => {
 
   console.log(companyData, "datajob");
 
+  const styledDescription = companyData.description.replace(
+    /<ul>/g,
+    '<ul style="list-style: unset !important;">',
+  );
+
   return (
     <div>
       <div className="flex sm:flex-col-reverse tablet-range:flex-col-reverse">
@@ -64,6 +69,10 @@ const CompanyInformation = () => {
           </p> */}
           <div
             dangerouslySetInnerHTML={{ __html: companyData.description }}
+            className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
+          />
+          <div
+            dangerouslySetInnerHTML={{ __html: companyData.requirement }}
             className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
           />
 
