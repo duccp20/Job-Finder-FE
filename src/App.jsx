@@ -79,6 +79,7 @@ import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import JobCare from "./pages/jobcare/jobcare";
+import EditJob from "./pages/post&editJobs/editJob";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -251,14 +252,48 @@ const App = () => {
             },
           ],
         },
+
         {
-          path: "job/create",
-          element: (
-            <ProtectedRoute>
-              <PostJob />
-            </ProtectedRoute>
-          ),
+          path: "job",
+          errorElement: <NotFound />,
+          children: [
+            {
+              path: "create",
+              index: true,
+              element: (
+                <ProtectedRoute>
+                  <PostJob />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "edit/:id",
+              element: (
+                <ProtectedRoute>
+                  <EditJob />
+                </ProtectedRoute>
+              ),
+            },
+          ],
         },
+
+        // {
+        //   path: "job/create",
+        //   element: (
+        //     <ProtectedRoute>
+        //       <PostJob />
+        //     </ProtectedRoute>
+        //   ),
+        // },
+        // {
+        //   path: "job/edit/:id",
+        //   element: (
+        //     <ProtectedRoute>
+        //       <EditJob />
+        //     </ProtectedRoute>
+        //   ),
+        // },
+
         // {
         //   path: "recruitment",
         //   element: <RecruitmentOverall />,

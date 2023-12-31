@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderHR from "../../components/HeaderHR/headerHr";
 import Input from "../../components/Input/input";
 import * as yup from "yup";
@@ -12,8 +12,13 @@ import { useDispatch, useSelector } from "react-redux";
 import MultiSelectDropdown from "../../components/MultilSelectTag";
 import ProvincesDropdown from "../../components/DropdownProvince";
 import { doSetJobData } from "../../redux/job/jobSlice";
-import { callCreateJob } from "../../service/job/api";
+import {
+  callCreateJob,
+  callEditJob,
+  callGetJobByID,
+} from "../../service/job/api";
 import Popup from "../../components/Popup";
+import { useParams } from "react-router-dom";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 const cities = ["Tỉnh A", "Tỉnh B", "Tỉnh C"];
@@ -31,8 +36,15 @@ const modules = {
   ],
 };
 
-const PostJob = (props) => {
+const EditJob = (props) => {
+  const { id } = useParams();
+  console.log("id", id);
+
   const [descriptionValue, setDescriptionValue] = useState("");
+  const [requirementValue, setRequirementValue] = useState("");
+  const [welfareValue, setWelfareValue] = useState("");
+  const [postDate, setPostDate] = useState("");
+  const [deadlineDate, setDeadlineDate] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -41,6 +53,18 @@ const PostJob = (props) => {
   const dataPosition = useSelector((state) => state.baseData.data.positions);
 
   const dispatch = useDispatch();
+  const convertDateFormatYYYYMMDD = (timestamp) => {
+    var date = new Date(timestamp);
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    // Thêm số 0 phía trước nếu ngày hoặc tháng nhỏ hơn 10
+    day = day < 10 ? "0" + day : day;
+    month = month < 10 ? "0" + month : month;
+    console.log(`${year}-${month}-${day}`);
+    return `${year}-${month}-${day}`;
+  };
 
   const schema = yup
     .object({
@@ -51,11 +75,11 @@ const PostJob = (props) => {
         .number()
         .typeError("Số lượng tuyển là một số")
         .required("Số lượng tuyển không được để trống"),
-      postDate: yup
-        .date()
-        .max(new Date(), "Ngày không thể vượt quá ngày hiện tại")
-        .required("Ngày đăng tuyển không được để trống"),
-      deadlineDate: yup.date().required("Hạn nộp hồ sơ không được để trống"),
+      // postDate: yup
+      //   .date()
+      //   .max(new Date(), "Ngày không thể vượt quá ngày hiện tại")
+      //   .required("Ngày đăng tuyển không được để trống"),
+      // deadlineDate: yup.date().required("Hạn nộp hồ sơ không được để trống"),
       minSalary: yup
         .number()
         .typeError("Mức lương tối thiểu là một số")
@@ -67,6 +91,8 @@ const PostJob = (props) => {
       // city: yup.string().required("Vui lòng chọn tỉnh thành"),
       address: yup.string().required("Địa chỉ không được để trống"),
       description: yup.string().required("Mô tả không được để trống"),
+      requirement: yup.string().required("Yêu cầu là một số"),
+      welfare: yup.string().required("Vì sách là một số"),
     })
     .required();
 
@@ -83,11 +109,57 @@ const PostJob = (props) => {
   const handleQuillChange = (name, value) => {
     setValue(name, value, { shouldValidate: true });
   };
+  const [dataJob, setDataJob] = useState([]);
+
+  useEffect(() => {
+    // Cập nhật giá trị mặc định khi dữ liệu được tải
+    if (dataJob) {
+      setValue("jobTitle", dataJob.name);
+      setValue("numberPosition", dataJob.amount);
+      setValue("selectField", dataJob.majorDTOs);
+      setValue("selectPosition", dataJob.positionDTOs);
+      setValue("selectType", dataJob.scheduleDTOs);
+      setValue("address", dataJob.location);
+
+      // setDescriptionValue(dataJob.description);
+      // setRequirementValue(dataJob.requirement);
+      // setWelfareValue(dataJob.otherInfo);
+      setPostDate(convertDateFormatYYYYMMDD(dataJob.startDate));
+      setDeadlineDate(convertDateFormatYYYYMMDD(dataJob.endDate));
+
+      setValue("postDate", postDate);
+      setValue("deadlineDate", deadlineDate);
+      setValue("description", descriptionValue);
+      setValue("requirement", requirementValue);
+      setValue("welfare", welfareValue);
+    }
+  }, [dataJob]);
+
+  console.log("re", dataJob.requirement);
+  console.log("descriptionValue", descriptionValue);
+  console.log("requirementValue", requirementValue);
+  console.log("welfareValue", welfareValue);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await callGetJobByID(id);
+        setDataJob(data);
+      } catch (err) {
+        console.log("Lỗi khi tải dữ liệu:", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  console.log("data", dataJob);
 
   const onSubmit = async (data) => {
     console.log(data);
 
-    const postJobData = {
+    const startDate = convertDateFormatYYYYMMDD(data.postDate);
+    const endDate = convertDateFormatYYYYMMDD(data.deadlineDate);
+    const editJobData = {
       name: data.jobTitle,
       positionDTOs: data.selectPosition,
       majorDTOs: data.selectField,
@@ -98,17 +170,16 @@ const PostJob = (props) => {
       description: data.description,
       requirement: data.requirement,
       otherInfo: data.welfare,
-      startDate: data.postDate,
-      endDate: data.deadlineDate,
+      startDate: startDate,
+      endDate: endDate,
       location: data.address,
       province: "Ho Chi Minh",
     };
-    console.log(postJobData);
+    console.log("editJobData", editJobData);
 
     setIsSubmitting(true);
     try {
-      const res = await callCreateJob(postJobData);
-
+      const res = await callEditJob(id, editJobData);
       console.log("res in onSubmit", res);
       setIsSubmitting(false);
 
@@ -143,8 +214,7 @@ const PostJob = (props) => {
             </svg>
           </span>
           <p className="text-[20px] font-bold text-[#FE5656]">
-            {/* {props.title} */}
-            Đăng tin tuyển dụng mới
+            Chỉnh sửa tin tuyển dụng
           </p>
         </div>
         <form
@@ -158,6 +228,7 @@ const PostJob = (props) => {
             <Input
               type="text"
               id="jobTitle"
+              defaultValue={dataJob?.name}
               borderColor={
                 errors.jobTitle ? "border-red-500" : "border-gray-300"
               }
@@ -184,7 +255,14 @@ const PostJob = (props) => {
               <Controller
                 name="selectPosition"
                 control={control}
-                defaultValue={[]}
+                defaultValue={
+                  dataJob && dataJob.positionDTOs
+                    ? dataJob.positionDTOs.map((position) => ({
+                        id: position.id,
+                        name: position.name,
+                      }))
+                    : []
+                }
                 render={({ field }) => (
                   <MultiSelectDropdown
                     height="auto"
@@ -192,12 +270,12 @@ const PostJob = (props) => {
                     value={field.value || []}
                     onChange={(selected) => field.onChange(selected || [])}
                     text={
-                      field.value && field.value.length > 0
-                        ? field.value
-                            .map((selectedPosition, index) =>
-                              index < field.value.length - 1
-                                ? selectedPosition.name + " / "
-                                : selectedPosition.name,
+                      dataJob && dataJob.positionDTOs
+                        ? dataJob.positionDTOs
+                            .map((p, index) =>
+                              index < dataJob.positionDTOs.length - 1
+                                ? p.name + " / "
+                                : p.name,
                             )
                             .join("")
                         : "Chọn vị trí việc làm"
@@ -225,7 +303,14 @@ const PostJob = (props) => {
               <Controller
                 name="selectedField"
                 control={control}
-                defaultValue={[]}
+                defaultValue={
+                  dataJob && dataJob.majorDTOs
+                    ? dataJob.majorDTOs.map((major) => ({
+                        id: major.id,
+                        name: major.name,
+                      }))
+                    : []
+                }
                 render={({ field }) => (
                   <MultiSelectDropdown
                     height="auto"
@@ -233,12 +318,14 @@ const PostJob = (props) => {
                     value={field.value || []}
                     onChange={(selected) => field.onChange(selected || [])}
                     text={
-                      field.value && field.value.length > 0
-                        ? field.value
-                            .map((selectedField, index) =>
-                              index < field.value.length - 1
-                                ? selectedField.name + " / "
-                                : selectedField.name,
+                      dataJob &&
+                      dataJob.majorDTOs &&
+                      dataJob.majorDTOs.length > 0
+                        ? dataJob.majorDTOs
+                            .map((s, index) =>
+                              index < dataJob.majorDTOs.length - 1
+                                ? s.name + " / "
+                                : s.name,
                             )
                             .join("")
                         : "Chọn chuyên ngành"
@@ -256,7 +343,14 @@ const PostJob = (props) => {
               <Controller
                 name="selectType"
                 control={control}
-                defaultValue={[]}
+                defaultValue={
+                  dataJob && dataJob.scheduleDTOs
+                    ? dataJob.scheduleDTOs.map((s) => ({
+                        id: s.id,
+                        name: s.name,
+                      }))
+                    : []
+                }
                 render={({ field }) => (
                   <MultiSelectDropdown
                     height="auto"
@@ -264,12 +358,12 @@ const PostJob = (props) => {
                     value={field.value || []}
                     onChange={(selected) => field.onChange(selected || [])}
                     text={
-                      field.value && field.value.length > 0
-                        ? field.value
-                            .map((selectType, index) =>
-                              index < field.value.length - 1
-                                ? selectType.name + " / "
-                                : selectType.name,
+                      dataJob && dataJob.scheduleDTOs
+                        ? dataJob.scheduleDTOs
+                            .map((s, index) =>
+                              index < dataJob.scheduleDTOs.length - 1
+                                ? s.name + " / "
+                                : s.name,
                             )
                             .join("")
                         : "Chọn hình thức làm việc"
@@ -297,6 +391,7 @@ const PostJob = (props) => {
               <Input
                 type="text"
                 id="numberPosition"
+                defaultValue={dataJob?.amount}
                 borderColor={
                   errors.numberPosition ? "border-red-500" : "border-gray-300"
                 }
@@ -329,12 +424,18 @@ const PostJob = (props) => {
                     {...field}
                     type="date"
                     id="postDate"
+                    value={postDate}
+                    onChange={(e) => {
+                      setPostDate(e.target.value);
+                    }}
+                    {...register("postDate")}
                     borderColor={
                       errors.postDate ? "border-red-500" : "border-gray-300"
                     }
                   />
                 )}
               />
+
               {errors?.postDate && (
                 <div className="flex items-center ">
                   <span className="pt-1.5 ">
@@ -359,6 +460,10 @@ const PostJob = (props) => {
                     {...field}
                     type="date"
                     id="deadlineDate"
+                    value={deadlineDate}
+                    onChange={(e) => {
+                      setDeadlineDate(e.target.value);
+                    }}
                     borderColor={
                       errors.deadlineDate ? "border-red-500" : "border-gray-300"
                     }
@@ -462,6 +567,7 @@ const PostJob = (props) => {
             <Input
               type="text"
               id="address"
+              defaultValue={dataJob?.location}
               borderColor={
                 errors.address ? "border-red-500" : "border-gray-300"
               }
@@ -493,6 +599,7 @@ const PostJob = (props) => {
                 theme="snow"
                 id="description"
                 name="description"
+                value={descriptionValue}
                 onChange={(value) => {
                   setDescriptionValue(value);
                   handleQuillChange("description", value);
@@ -501,6 +608,7 @@ const PostJob = (props) => {
                 placeholder="Nhập thông tin cho vị trí công việc yêu cầu, trách nhiệm mà ứng viên có thể đảm nhận khi làm việc ở công ty"
               />
             </div>
+
             {errors?.description && (
               <div className="flex items-center ">
                 <span className="pt-1.5 ">
@@ -523,7 +631,13 @@ const PostJob = (props) => {
                 className="h-[78%]"
                 theme="snow"
                 id="requirement"
-                onChange={(value) => setValue("requirement", value)}
+                name="requirement"
+                c
+                value={requirementValue}
+                onChange={(value) => {
+                  setRequirementValue(value);
+                  handleQuillChange("requirement", value);
+                }}
                 modules={modules}
                 placeholder="Nhập kỹ năng chuyên môn hoặc kỹ năng mềm cần thiết với công việc mà ứng viên cần quan tâm"
               />
@@ -538,8 +652,12 @@ const PostJob = (props) => {
                 className="h-[78%]"
                 theme="snow"
                 id="welfare"
+                name="welfare"
                 value={welfareValue}
-                onChange={(value) => setValue("welfare", value)}
+                onChange={(value) => {
+                  setWelfareValue(value);
+                  handleQuillChange("welfare", value);
+                }}
                 modules={modules}
                 placeholder="Nhập những quyền lợi, lợi ích với công việc cho ứng viên với vị trí đăng tuyển"
               />
@@ -550,7 +668,7 @@ const PostJob = (props) => {
               className="rounded-[4px] bg-[#FE5656] px-[22px] py-[12px] text-center text-[15px] font-bold text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]"
               type="submit"
             >
-              Đăng tuyển
+              Cập nhật
               {/* {props.name} */}
             </button>
             <button
@@ -566,4 +684,4 @@ const PostJob = (props) => {
   );
 };
 
-export default PostJob;
+export default EditJob;

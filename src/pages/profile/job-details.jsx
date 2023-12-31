@@ -35,6 +35,7 @@ const JobDetails = () => {
   const dataUser = useSelector((state) => state.account.user);
   console.log("dataUser", dataUser);
   const dispatch = useDispatch();
+
   const candidateID = useSelector((state) => state.candidate.id);
   const dataCandidate = useSelector((state) => state.candidate.data);
   const dataMajor = useSelector((state) => state.baseData.data.majors);

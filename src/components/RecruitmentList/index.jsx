@@ -12,12 +12,14 @@ import {
   callGetAllJobByCompanyID,
   callGetDisableJobByCompanyID,
 } from "../../service/job/api";
+import { useNavigate } from "react-router-dom";
 
 const RecruitmentList = () => {
   // const { loading, data, totalPages, currentPage, setCurrentPage } =
   //   fetchAllJobByCompany();
 
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const buttonState = () => {
     setIsOpen(!isOpen);
@@ -26,6 +28,10 @@ const RecruitmentList = () => {
   const openOptions = ["Đang mở", "Đã đóng", "Tất cả"];
   const [dropdown, setDropdown] = useState({ openDropdown: false });
   const dropdownRef = useRef(null);
+
+  const handleEditClick = (id) => {
+    navigate(`job/edit/${id}`);
+  };
 
   const openDropdown = (dropdownName) => {
     setDropdown({ ...dropdown, [dropdownName]: true });
@@ -82,6 +88,7 @@ const RecruitmentList = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
+
   return (
     <div className="h-auto w-full">
       <div className="mb-[30px] flex w-full justify-between gap-[13px] ">
@@ -377,7 +384,10 @@ const RecruitmentList = () => {
                 </td>
                 <td className="border px-[18px] py-[15px] text-center">
                   <div>
-                    <div>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => handleEditClick(item.id)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="21"
@@ -391,7 +401,7 @@ const RecruitmentList = () => {
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="text-base font-normal not-italic text-black ">
+                      <span className="cursor-pointer text-base font-normal not-italic text-black">
                         Chỉnh sửa
                       </span>
                     </div>
