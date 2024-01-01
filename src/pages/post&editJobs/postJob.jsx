@@ -14,6 +14,7 @@ import ProvincesDropdown from "../../components/DropdownProvince";
 import { doSetJobData } from "../../redux/job/jobSlice";
 import { callCreateJob } from "../../service/job/api";
 import Popup from "../../components/Popup";
+import { useNavigate } from "react-router-dom";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 const cities = ["Tỉnh A", "Tỉnh B", "Tỉnh C"];
@@ -41,6 +42,7 @@ const PostJob = (props) => {
   const dataPosition = useSelector((state) => state.baseData.data.positions);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const schema = yup
     .object({
@@ -112,7 +114,7 @@ const PostJob = (props) => {
       console.log("res in onSubmit", res);
       setIsSubmitting(false);
 
-      if (res && res?.data) {
+      if (res) {
         dispatch(doSetJobData(res.data));
         setShowPopup(true);
       }
@@ -123,9 +125,11 @@ const PostJob = (props) => {
       alert(error);
     }
   };
+  console.log("showPopup", showPopup);
 
   return (
     <div>
+      {showPopup && <Popup text="Đăng thành công" redirect="hr"></Popup>}
       <div className="mx-auto my-[30px] w-[90%] px-[20px] py-[20px] shadow-banner">
         <div className="flex items-center justify-center gap-2">
           <span>
@@ -223,7 +227,7 @@ const PostJob = (props) => {
                 Chuyên ngành
               </label>
               <Controller
-                name="selectedField"
+                name="selectField"
                 control={control}
                 defaultValue={[]}
                 render={({ field }) => (
@@ -385,9 +389,9 @@ const PostJob = (props) => {
                 Mức lương tối thiểu<span className="text-red-600">*</span>
               </label>
               <Input
-                type="text"
+                type="number"
                 id="minSalary"
-                defaultValue={dataJob?.salaryMin}
+                name="minSalary"
                 borderColor={
                   errors.minSalary ? "border-red-500" : "border-gray-300"
                 }
@@ -413,9 +417,9 @@ const PostJob = (props) => {
                 Mức lương tối đa<span className="text-red-600">*</span>
               </label>
               <Input
-                type="text"
+                type="number"
                 id="maxSalary"
-                defaultValue={dataJob?.salaryMax}
+                name="maxSalary"
                 borderColor={
                   errors.maxSalary ? "border-red-500" : "border-gray-300"
                 }
@@ -538,7 +542,6 @@ const PostJob = (props) => {
                 className="h-[78%]"
                 theme="snow"
                 id="welfare"
-                value={welfareValue}
                 onChange={(value) => setValue("welfare", value)}
                 modules={modules}
                 placeholder="Nhập những quyền lợi, lợi ích với công việc cho ứng viên với vị trí đăng tuyển"
@@ -555,7 +558,10 @@ const PostJob = (props) => {
             </button>
             <button
               className="rounded-[4px] bg-gray-200 px-[36px] py-[12px] text-center text-[15px] font-bold text-[#7D7D7D] hover:bg-white hover:outline hover:outline-[#7D7D7D]"
-              type=""
+              type="text"
+              onClick={() => {
+                navigate("/hr");
+              }}
             >
               Hủy
             </button>
