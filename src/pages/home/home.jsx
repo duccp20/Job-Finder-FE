@@ -75,7 +75,7 @@ const HomePage = () => {
 
   console.log("data quantity", dataJob.length);
   return (
-    <div className="bg-[#F6F6F6]">
+    <div>
       {/* <LoginAs></LoginAs> */}
       <div className="mt-[60px] flex h-screen w-full py-[36px] sm:px-[20px] md:mt-0 md:flex-col md:gap-[20px] md:py-5 tablet-range:px-[50px] desktop-up:gap-[45px] desktop-up:px-[100px]">
         <div className=" sm:flex-col sm:gap-[15px] md:flex md:w-full md:justify-between desktop-up:w-[20%]">

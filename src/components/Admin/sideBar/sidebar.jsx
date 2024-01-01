@@ -16,7 +16,7 @@ const SideBar = () => {
     "Cộng tác viên",
     "Ứng viên",
   ];
-  const postOptions = ["Tin tuyển dụng", "Đợt thực tập", "Hồ sơ ứng viên"];
+  const postOptions = ["Tin tuyển dụng", "Hồ sơ ứng viên"];
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleDropdown = (nameDropdown) => {

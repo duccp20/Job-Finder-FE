@@ -28,6 +28,10 @@ const RecruitmentList = () => {
   const [dropdown, setDropdown] = useState({ openDropdown: false });
   const dropdownRef = useRef(null);
 
+  const handleEditClick = (id) => {
+    navigate(`job/edit/${id}`);
+  };
+
   const openDropdown = (dropdownName) => {
     setDropdown({ ...dropdown, [dropdownName]: true });
   };
@@ -87,6 +91,7 @@ const RecruitmentList = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
+
   return (
     <div className="h-auto w-full">
       <span>
@@ -393,7 +398,10 @@ const RecruitmentList = () => {
                 </td>
                 <td className="border px-[18px] py-[15px] text-center">
                   <div>
-                    <div className="mb-2 flex items-center">
+                    <div
+                      className="mb-2 flex cursor-pointer items-center"
+                      onClick={() => handleEditClick(item.id)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="21"
@@ -407,7 +415,7 @@ const RecruitmentList = () => {
                           fill="#FE5656"
                         />
                       </svg>
-                      <span className="cursor-pointer text-base font-normal not-italic text-black ">
+                      <span className="cursor-pointer text-base font-normal not-italic text-black">
                         Chỉnh sửa
                       </span>
                     </div>

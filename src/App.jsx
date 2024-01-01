@@ -81,6 +81,7 @@ import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import JobCare from "./pages/jobcare/jobcare";
 import ChangePassword from "./pages/changepassword/changepassword";
 import Replicate from "./pages/post&editJobs/replicate";
+import EditJob from "./pages/post&editJobs/editJob";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -257,10 +258,52 @@ const App = () => {
             },
           ],
         },
+
         {
           path: "replicate/:id",
           element: <Replicate />,
         },
+        {
+          path: "job",
+          errorElement: <NotFound />,
+          children: [
+            {
+              path: "create",
+              index: true,
+              element: (
+                <ProtectedRoute>
+                  <PostJob />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "edit/:id",
+              element: (
+                <ProtectedRoute>
+                  <EditJob />
+                </ProtectedRoute>
+              ),
+            },
+          ],
+        },
+
+        // {
+        //   path: "job/create",
+        //   element: (
+        //     <ProtectedRoute>
+        //       <PostJob />
+        //     </ProtectedRoute>
+        //   ),
+        // },
+        // {
+        //   path: "job/edit/:id",
+        //   element: (
+        //     <ProtectedRoute>
+        //       <EditJob />
+        //     </ProtectedRoute>
+        //   ),
+        // },
+
         // {
         //   path: "recruitment",
         //   element: <RecruitmentOverall />,
