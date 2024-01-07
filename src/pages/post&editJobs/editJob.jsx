@@ -18,7 +18,8 @@ import {
   callGetJobByID,
 } from "../../service/job/api";
 import Popup from "../../components/Popup";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Spinner from "../../components/Spinner/spinnner";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
 const cities = ["Tỉnh A", "Tỉnh B", "Tỉnh C"];
@@ -53,6 +54,8 @@ const EditJob = (props) => {
   const dataPosition = useSelector((state) => state.baseData.data.positions);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const convertDateFormatYYYYMMDD = (timestamp) => {
     var date = new Date(timestamp);
     var day = date.getDate();
@@ -80,14 +83,14 @@ const EditJob = (props) => {
       //   .max(new Date(), "Ngày không thể vượt quá ngày hiện tại")
       //   .required("Ngày đăng tuyển không được để trống"),
       // deadlineDate: yup.date().required("Hạn nộp hồ sơ không được để trống"),
-      minSalary: yup
-        .number()
-        .typeError("Mức lương tối thiểu là một số")
-        .required("Mức lương tối thiểu không được để trống"),
-      maxSalary: yup
-        .number()
-        .typeError("Mức lương tối đa là một số")
-        .required("Mức lương tối đa không được để trống"),
+      // minSalary: yup
+      //   .number()
+      //   .typeError("Mức lương tối thiểu là một số")
+      //   .required("Mức lương tối thiểu không được để trống"),
+      // maxSalary: yup
+      //   .number()
+      //   .typeError("Mức lương tối đa là một số")
+      //   .required("Mức lương tối đa không được để trống"),
       // city: yup.string().required("Vui lòng chọn tỉnh thành"),
       address: yup.string().required("Địa chỉ không được để trống"),
       description: yup.string().required("Mô tả không được để trống"),
@@ -120,10 +123,12 @@ const EditJob = (props) => {
       setValue("selectPosition", dataJob.positionDTOs);
       setValue("selectType", dataJob.scheduleDTOs);
       setValue("address", dataJob.location);
+      setValue("minSalary", dataJob.salaryMin);
+      setValue("maxSalary", dataJob.salaryMax);
 
-      // setDescriptionValue(dataJob.description);
-      // setRequirementValue(dataJob.requirement);
-      // setWelfareValue(dataJob.otherInfo);
+      setDescriptionValue(dataJob.description);
+      setRequirementValue(dataJob.requirement);
+      setWelfareValue(dataJob.otherInfo);
       setPostDate(convertDateFormatYYYYMMDD(dataJob.startDate));
       setDeadlineDate(convertDateFormatYYYYMMDD(dataJob.endDate));
 
@@ -135,11 +140,6 @@ const EditJob = (props) => {
     }
   }, [dataJob]);
 
-  console.log("re", dataJob.requirement);
-  console.log("descriptionValue", descriptionValue);
-  console.log("requirementValue", requirementValue);
-  console.log("welfareValue", welfareValue);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -150,12 +150,12 @@ const EditJob = (props) => {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
-  console.log("data", dataJob);
+  // console.log("data", dataJob);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log("data 123", data);
 
     const startDate = convertDateFormatYYYYMMDD(data.postDate);
     const endDate = convertDateFormatYYYYMMDD(data.deadlineDate);
@@ -180,11 +180,10 @@ const EditJob = (props) => {
     setIsSubmitting(true);
     try {
       const res = await callEditJob(id, editJobData);
-      console.log("res in onSubmit", res);
+      console.log("res in onSubmit 1111", res);
       setIsSubmitting(false);
 
-      if (res && res?.data) {
-        dispatch(doSetJobData(res.data));
+      if (res) {
         setShowPopup(true);
       }
       if (res?.errors) {
@@ -195,8 +194,13 @@ const EditJob = (props) => {
     }
   };
 
+  console.log("showPopup", showPopup);
+  console.log("isSubmitting", isSubmitting);
+
   return (
     <div>
+      {showPopup && <Popup text="Cập nhật thành công" redirect="hr"></Popup>}
+
       <div className="mx-auto my-[30px] w-[90%] px-[20px] py-[20px] shadow-banner">
         <div className="flex items-center justify-center gap-2">
           <span>
@@ -228,6 +232,7 @@ const EditJob = (props) => {
             <Input
               type="text"
               id="jobTitle"
+              name="jobTitle"
               defaultValue={dataJob?.name}
               borderColor={
                 errors.jobTitle ? "border-red-500" : "border-gray-300"
@@ -301,7 +306,7 @@ const EditJob = (props) => {
                 Chuyên ngành
               </label>
               <Controller
-                name="selectedField"
+                name="selectField"
                 control={control}
                 defaultValue={
                   dataJob && dataJob.majorDTOs
@@ -318,14 +323,12 @@ const EditJob = (props) => {
                     value={field.value || []}
                     onChange={(selected) => field.onChange(selected || [])}
                     text={
-                      dataJob &&
-                      dataJob.majorDTOs &&
-                      dataJob.majorDTOs.length > 0
+                      dataJob && dataJob.majorDTOs
                         ? dataJob.majorDTOs
-                            .map((s, index) =>
+                            .map((m, index) =>
                               index < dataJob.majorDTOs.length - 1
-                                ? s.name + " / "
-                                : s.name,
+                                ? m.name + " / "
+                                : m.name,
                             )
                             .join("")
                         : "Chọn chuyên ngành"
@@ -464,6 +467,7 @@ const EditJob = (props) => {
                     onChange={(e) => {
                       setDeadlineDate(e.target.value);
                     }}
+                    {...register("deadlineDate")}
                     borderColor={
                       errors.deadlineDate ? "border-red-500" : "border-gray-300"
                     }
@@ -492,13 +496,12 @@ const EditJob = (props) => {
               <Input
                 type="text"
                 id="minSalary"
+                name="minSalary"
                 defaultValue={dataJob?.salaryMin}
-                borderColor={
-                  errors.minSalary ? "border-red-500" : "border-gray-300"
-                }
+                borderColor="border-gray-300"
                 {...register("minSalary")}
               />
-              {errors?.minSalary && (
+              {/* {errors?.minSalary && (
                 <div className="flex items-center ">
                   <span className="pt-1.5">
                     <IconError />
@@ -508,7 +511,7 @@ const EditJob = (props) => {
                     {errors.minSalary?.message}
                   </p>
                 </div>
-              )}
+              )} */}
             </div>
             <div className="absolute left-[50%] top-[45%] translate-x-[-50%]  text-[30px]">
               -
@@ -520,13 +523,12 @@ const EditJob = (props) => {
               <Input
                 type="text"
                 id="maxSalary"
+                name="maxSalary"
                 defaultValue={dataJob?.salaryMax}
-                borderColor={
-                  errors.maxSalary ? "border-red-500" : "border-gray-300"
-                }
+                borderColor="border-gray-300"
                 {...register("maxSalary")}
               />
-              {errors?.maxSalary && (
+              {/* {errors?.maxSalary && (
                 <div className="flex items-center ">
                   <span className="pt-1.5">
                     <IconError />
@@ -536,7 +538,7 @@ const EditJob = (props) => {
                     {errors.maxSalary?.message}
                   </p>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
 
@@ -600,6 +602,7 @@ const EditJob = (props) => {
                 id="description"
                 name="description"
                 value={descriptionValue}
+                defaultValue={dataJob?.description}
                 onChange={(value) => {
                   setDescriptionValue(value);
                   handleQuillChange("description", value);
@@ -632,7 +635,6 @@ const EditJob = (props) => {
                 theme="snow"
                 id="requirement"
                 name="requirement"
-                c
                 value={requirementValue}
                 onChange={(value) => {
                   setRequirementValue(value);
@@ -665,15 +667,34 @@ const EditJob = (props) => {
           </div>
           <div className="mt-12 flex justify-end gap-4">
             <button
+              className={` className="rounded-[4px] hover:outline-[#FE5656]" bg-[#FE5656] px-[22px] py-[12px] text-center text-[15px] font-bold text-white hover:bg-white hover:text-[#FE5656] hover:outline${
+                isSubmitting ? "bg-gray-500" : "bg-gradientCustom"
+              }`}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <span className="flex items-center gap-2">
+                  <Spinner />
+                  <span>Đang xử lý...</span>
+                </span>
+              ) : (
+                "Cập nhật"
+              )}
+            </button>
+            {/* <button
               className="rounded-[4px] bg-[#FE5656] px-[22px] py-[12px] text-center text-[15px] font-bold text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]"
               type="submit"
             >
               Cập nhật
-              {/* {props.name} */}
-            </button>
+              {props.name}
+            </button> */}
             <button
               className="rounded-[4px] bg-gray-200 px-[36px] py-[12px] text-center text-[15px] font-bold text-[#7D7D7D] hover:bg-white hover:outline hover:outline-[#7D7D7D]"
               type=""
+              onClick={() => {
+                navigate("/hr");
+              }}
             >
               Hủy
             </button>
