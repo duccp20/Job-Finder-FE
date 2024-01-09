@@ -34,7 +34,7 @@ const AppliedJob = () => {
                     <AppliedJobItem
                       key={job.id}
                       logo={job.jobDTO.companyDTO.logo}
-                      id={job.id}
+                      id={job.jobDTO.id}
                       name={job.jobDTO.name}
                       companyName={job.jobDTO.companyDTO.name}
                       location={job.jobDTO.province}

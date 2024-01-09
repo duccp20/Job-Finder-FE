@@ -107,7 +107,7 @@ const RecruitmentOverall = () => {
             />
           )}
           {showSuccessPopup && (
-            <Popup text="Cập nhật thành công" redirect="apply" />
+            <Popup text="Cập nhật thành công" redirect="/apply" />
           )}
           <SearchBar />
           <div className="mx-auto w-[90%] rounded-[6px] border-[2px] border-[#FE5656] sm:mb-[10px] sm:mt-[90px] sm:py-[30px] tablet-up:my-[10px] tablet-up:py-[45px]">

@@ -17,8 +17,8 @@ const NotFound = () => {
 
   return (
     <div className="flex flex-row justify-center bg-white">
-      <div className="w-[1440px] bg-white">
-        <div className="flex h-screen flex-col items-center justify-center bg-white md:flex-row">
+      <div className=" bg-white">
+        <div className="flex h-screen items-center justify-center bg-white md:flex-row">
           <div className="w-1/2 sm:w-auto">
             <img alt="Element" src="/assets/images/404.svg" />
           </div>
