@@ -22,7 +22,8 @@ import {
   doSetProfileData,
 } from "../../redux/account/accountSlice";
 import Notification from "../../components/Notification";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Profile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -70,10 +71,28 @@ const Profile = () => {
           `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/images%2F${res.data}?alt=media`,
         );
         setShowButton(false);
-        alert("Cấp nhật ảnh thành công");
+        toast.success("Ảnh đại diện đã được cập nhật thành công!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
-      alert("Cấp nhật ảnh thất bại", error);
+      toast.error("Cấp nhật ảnh thất bại", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.log("Error in ava", error);
       setIsSubmitting(false);
       setShowButton(false);
@@ -91,10 +110,28 @@ const Profile = () => {
       const res = await callChangeSearchable(candidateID);
       if (res && res.httpCode === 200) {
         dispatch(doSetSearchable(pendingToggle));
-        alert("Thông báo: " + res.message);
+        toast.success("Cập nhật thành công!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
-      alert("Thông báo: " + error);
+      toast.error("Cập nhật thất bại!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -107,28 +144,18 @@ const Profile = () => {
     setPendingToggle(searchable); // Reset lại trạng thái toggle
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     console.log("user in profile", user);
-  //     const res = await callFetchCandidateByUserId(user.id);
-  //     dispatch(doSetProfileData(res.data.userDTO));
-  //     if (res && res?.data) {
-  //       console.log("res in profile", res);
-  //       dispatch(doFetchCandidate(res.data));
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
   return (
     <div>
+      <>
+        <ToastContainer />
+      </>
       {showNotification && (
         <Notification
-          action="Xác nhận"
+          action="Cho phép tìm kiếm hồ sơ?"
           title={
             pendingToggle
-              ? "Bạn có muốn cho Nhà Tuyển Dụng tìm kiếm hồ sơ của bạn không?"
-              : "Bạn có muốn 'không cho' Nhà Tuyển Dụng tìm kiếm hồ sơ của bạn không?"
+              ? "Sau khi nhấn “Đồng ý”, nhà tuyển dụng có thể chủ động tìm kiếm hồ sơ của bạn."
+              : "Sau khi nhấn “Đồng ý”, nhà tuyển dụng “KHÔNG THỂ” chủ động tìm kiếm hồ sơ của bạn."
           }
           des="Nhấn Đồng ý để xác nhận."
           onConfirm={handleConfirmToggle}

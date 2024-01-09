@@ -14,31 +14,14 @@ const JobPersonOverall = () => {
   console.log("candidateData", candidateData);
   const [file, setFile] = useState("");
   const [showCV, setShowCV] = useState(false);
-  const handleShowCV = async () => {
-    const encodedFileName = encodeURIComponent(candidateData.cv);
-    try {
-      const base64Data = await getRawFile(encodedFileName); // Giả sử API trả về chuỗi Base64
-      console.log("base64Data", base64Data);
-      setFile(base64Data); // Lưu trữ chuỗi Base64 vào state
-      setShowCV(true);
-    } catch (error) {
-      console.error("Có lỗi xảy ra khi tải file:", error);
-      // Xử lý lỗi tùy theo cách bạn muốn
-    }
+  const handleShowCV = () => {
+    const pdfName = candidateData?.cv;
+    const url = `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/pdfs%2F${pdfName}?alt=media`;
+    window.open(url, "_blank");
   };
   const handleCloseCV = () => {
     setShowCV(false);
   };
-
-  // useEffect(() => {
-  //   try {
-  //     const res = callFetchCandidateByUserId(user.id);
-  //     if (res && res.data) {
-  //       // setCandidateData
-  //       console.log("res.data", res.data);
-  //     }
-  //   } catch (error) {}
-  // }, []);
 
   return (
     <div className="flex h-auto w-[60%] flex-col gap-5">
