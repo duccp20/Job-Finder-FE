@@ -59,7 +59,7 @@ const JobCare = () => {
                       data.map((job) => (
                         <JobItem
                           key={job.id}
-                          id={job.id}
+                          id={job.jobDTO.id}
                           name={job.jobDTO.name}
                           companyDTO={job.jobDTO.companyDTO}
                           province={job.jobDTO.province}
