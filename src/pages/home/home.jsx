@@ -278,6 +278,7 @@ const HomePage = () => {
                         amount={data.amount}
                         startDate={data.startDate}
                         endDate={data.endDate}
+                        applied={data.applied}
                       ></JobItem>
                     ))
                   ) : (

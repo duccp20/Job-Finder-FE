@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { convertDateFormatDDMMYYYY } from "../../utils/formatDate";
 import PopupHr from "../PopupHr";
@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import {
   callCreateJobCare,
   callDeleteJobCareByCandidateID,
+  callDeleteJobCareByJobID,
 } from "../../service/jobcare/api";
 
 const JobItem = ({
@@ -20,9 +21,13 @@ const JobItem = ({
   startDate,
   endDate,
   onDelete,
+  applied,
 }) => {
+  const [isApplied, setIsApplied] = useState(applied);
   const [isShowModalLogin, setIsShowModalLogin] = useState(false);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+
+  const candidateID = useSelector((state) => state.candidate.id);
   const navigate = useNavigate();
   const maxTitleLength = 18;
 
@@ -36,7 +41,18 @@ const JobItem = ({
 
   const handleCreateJobCare = async () => {
     if (isAuthenticated) {
-      await callCreateJobCare(id);
+      let response;
+      if (isApplied) {
+        // Gọi API xóa công việc khỏi danh sách yêu thích
+        response = await callDeleteJobCareByJobID(id);
+      } else {
+        // Gọi API thêm công việc vào danh sách yêu thích
+        response = await callCreateJobCare(id);
+      }
+      // Kiểm tra kết quả từ API và cập nhật trạng thái
+      if (response && response.httpCode === 200) {
+        setIsApplied(!isApplied);
+      }
     } else {
       setIsShowModalLogin(true);
     }
@@ -51,6 +67,9 @@ const JobItem = ({
     setIsShowModalLogin(false);
   };
 
+  useEffect(() => {
+    setIsApplied(applied);
+  }, []);
   return (
     <>
       {isShowModalLogin && (
@@ -132,19 +151,39 @@ const JobItem = ({
                   onClick={() => handleCreateJobCare()}
                   className="h-auto cursor-pointer  self-start rounded-md border border-[#F1F1F1] hover:shadow-upper sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="15"
-                    height="21"
-                    viewBox="0 0 15 21"
-                    fill="none"
-                  >
-                    <path
-                      d="M12.7734 0.65625H2.22656C1.25574 0.65625 0.46875 1.48267 0.46875 2.50215V19.1114C0.46875 20.0613 1.44983 20.6527 2.23096 20.1743L7.5 16.9463L12.7698 20.1739C13.5498 20.6189 14.5312 20.0613 14.5312 19.1114V2.50215C14.5312 1.48267 13.7439 0.65625 12.7734 0.65625ZM12.7734 18.0385L7.5 14.8081L2.22656 18.0385V2.73289C2.22656 2.60329 2.32288 2.50215 2.41333 2.50215H12.5208C12.6782 2.50215 12.7734 2.60329 12.7734 2.73289V18.0385Z"
-                      fill="#7D7D7D"
-                      className="fill-[#FE5656]"
-                    />
-                  </svg>
+                  {/* Đã apply thì svg sẽx hiện đỏ */}
+                  {isApplied ? (
+                    <>
+                      <svg
+                        width="15"
+                        height="20"
+                        viewBox="0 0 15 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15 1.875V20L7.5 15.625L0 20V1.875C0 0.839844 0.839844 0 1.875 0H13.125C14.1602 0 15 0.839844 15 1.875Z"
+                          fill="#FE5656"
+                        ></path>
+                      </svg>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="21"
+                        viewBox="0 0 15 21"
+                        fill="none"
+                      >
+                        <path
+                          d="M12.7734 0.65625H2.22656C1.25574 0.65625 0.46875 1.48267 0.46875 2.50215V19.1114C0.46875 20.0613 1.44983 20.6527 2.23096 20.1743L7.5 16.9463L12.7698 20.1739C13.5498 20.6189 14.5312 20.0613 14.5312 19.1114V2.50215C14.5312 1.48267 13.7439 0.65625 12.7734 0.65625ZM12.7734 18.0385L7.5 14.8081L2.22656 18.0385V2.73289C2.22656 2.60329 2.32288 2.50215 2.41333 2.50215H12.5208C12.6782 2.50215 12.7734 2.60329 12.7734 2.73289V18.0385Z"
+                          fill="#7D7D7D"
+                          className="fill-[#FE5656]"
+                        />
+                      </svg>
+                    </>
+                  )}
                 </div>
               </>
             )}
