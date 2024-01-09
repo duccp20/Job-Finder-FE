@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "1.9.3",
     "@wojtekmaj/react-hooks": "^1.18.1",
     "axios": "^1.6.2",
+    "firebase": "^10.7.1",
     "framer-motion": "^10.16.16",
     "react": "18.2.0",
     "react-content-loader": "^6.2.1",

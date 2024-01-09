@@ -70,7 +70,7 @@ const JobDetails = () => {
     resolver: yupResolver(schema),
   });
 
-  const [cvPreview, setCVPreview] = useState("");
+  const [rawFile, setRawFile] = useState("");
   const [cvFileName, setCVFileName] = useState("");
   const handleUploadCv = (e) => {
     const file = e.target.files[0];
@@ -83,7 +83,7 @@ const JobDetails = () => {
       reader.onload = function (e) {
         const cvUrl = e.target.result;
         console.log("cvUrl", cvUrl);
-        setCVPreview(cvUrl);
+        setRawFile(cvUrl);
       };
 
       reader.readAsDataURL(file);
@@ -113,7 +113,7 @@ const JobDetails = () => {
   useEffect(() => {
     if (dataCandidate) {
       setValue("job", dataCandidate.desiredJob || "");
-      setValue("cv", cvPreview || "");
+      setValue("cv", rawFile || "");
       setValue("location", dataCandidate.desiredWorkingProvince || "");
       setValue("selectPosition", dataCandidate.positionDTOs || []);
       setValue("selectField", dataCandidate.majorDTOs || []);
@@ -201,45 +201,31 @@ const JobDetails = () => {
     }
 
     if (!cvFileName && dataCandidate.cv) {
-      // const fileUrl =
-      //   "https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/pdfs%2F976563fc-2cb3-440e-b58e-c5b89ad47b3f.pdf?alt=media";
-      const encodedFileName = encodeURIComponent(dataCandidate.cv);
-      try {
-        const base64Data = await getRawFile(encodedFileName); // Gọi API
-        console.log("base64Data", base64Data);
-        setCVPreview(base64Data);
-        setShowCV(true);
-      } catch (error) {
-        console.error("Có lỗi xảy ra khi tải file:", error);
-      }
+      window.open(
+        `https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/pdfs%2F${dataCandidate.cv}?alt=media`,
+        "_blank",
+      );
     }
   };
 
-  const convertFileToBase64 = async (fileUrl) => {
-    try {
-      const response = await fetch(fileUrl);
-      const blob = await response.blob();
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    } catch (error) {
-      console.error("Error converting file to base64:", error);
-      return null;
-    }
+  const fetchPDF = async () => {
+    const response = await fetch(
+      "https://firebasestorage.googleapis.com/v0/b/job-worked.appspot.com/o/pdfs%2F976563fc-2cb3-440e-b58e-c5b89ad47b3f.pdf?alt=media",
+    );
+    const blob = await response.blob();
+    setRawFile(URL.createObjectURL(blob));
   };
+
   const handleCloseCV = () => {
     setShowCV(false);
   };
   return (
     <>
       {showPopup && (
-        <Popup text="Cập nhật thành công" redirect="profile"></Popup>
+        <Popup text="Cập nhật thành công" redirect="/profile"></Popup>
       )}
       <div className="mb-[50px] flex h-auto w-[60%]  flex-col  rounded-[10px] shadow-banner">
-        {showCV && <PDF file={cvPreview} onClose={handleCloseCV}></PDF>}
+        {showCV && <PDF file={rawFile} onClose={handleCloseCV}></PDF>}
         <div className=" flex h-[55px] w-full justify-between rounded-bl-[0px] rounded-br-[0px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FE5656] px-[44px] py-[14px] shadow-banner">
           <span className="text-xl font-bold not-italic text-white ">
             Thông tin việc muốn ứng tuyển

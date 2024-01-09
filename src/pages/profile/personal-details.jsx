@@ -137,7 +137,7 @@ const PersonalDetails = () => {
   return (
     <>
       {showPopup && (
-        <Popup text="Cập nhật thành công" redirect="profile"></Popup>
+        <Popup text="Cập nhật thành công" redirect="/profile"></Popup>
       )}
       <div className="flex h-full w-[60%] flex-col rounded-[10px] shadow-banner">
         <div className=" flex h-[55px] w-full justify-between rounded-bl-[0px] rounded-br-[0px] rounded-tl-[10px] rounded-tr-[10px] bg-[#FE5656] px-[44px] py-[14px] shadow-banner">
