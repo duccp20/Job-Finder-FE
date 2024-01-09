@@ -79,7 +79,10 @@ import RoleBasedHome from "./components/ProtectedRoute/ProtectedHome";
 import RecruitmentListOpen from "./pages/recruitmentlist-opening/recruitmentlistopen";
 import RecruitmentList from "./pages/recruitmentlist/recruitmentlist";
 import JobCare from "./pages/jobcare/jobcare";
+import ChangePassword from "./pages/changepassword/changepassword";
+import Replicate from "./pages/post&editJobs/replicate";
 import EditJob from "./pages/post&editJobs/editJob";
+import LayoutRegister from "./components/Layout/layoutRegister";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -182,6 +185,10 @@ const App = () => {
           ],
         },
         {
+          path: "change-password",
+          element: <ChangePassword />,
+        },
+        {
           path: "apply",
           element: <AppliedJob></AppliedJob>,
         },
@@ -254,6 +261,10 @@ const App = () => {
         },
 
         {
+          path: "replicate/:id",
+          element: <Replicate />,
+        },
+        {
           path: "job",
           errorElement: <NotFound />,
           children: [
@@ -325,18 +336,29 @@ const App = () => {
       element: <LoginPage />,
     },
     {
-      path: "/register/candidate",
-      element: <RegisterCandidate />,
+      path: "/register",
+      element: <LayoutRegister />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          path: "candidate",
+          element: <RegisterCandidate />,
+          errorElement: <NotFound />,
+        },
+        {
+          path: "recruiter",
+          element: <RegisterHR />,
+          errorElement: <NotFound />,
+        },
+      ],
     },
-    {
-      path: "/register/recruiter",
-      element: <RegisterHR />,
-    },
+
     {
       path: "/verify-email",
       element: <Verify />,
       errorElement: <NotFound />,
     },
+
     {
       path: "/forgot-password",
       element: <ForgetPass />,
@@ -471,7 +493,14 @@ const App = () => {
       path: "/change-admin-password",
       element: <ChangeAdminPassword />,
     },
-
+    {
+      path: "/uploader",
+      element: <Uploader />,
+    },
+    {
+      path: "/cp",
+      element: <ChangePassword />,
+    },
     {
       path: "/admin",
       element: <MenuAdmin />,

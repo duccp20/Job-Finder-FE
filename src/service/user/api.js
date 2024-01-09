@@ -53,18 +53,12 @@ export const callResetPassword = (token, newPassword) => {
   });
 };
 
+export const callChangePassword = (oldPassword, newPassword) => {
+  return axios.put("/api/v1/user/change-password", {
+    oldPassword,
+    newPassword,
+  });
+};
 export const callFetchUserProfile = () => {
   return axios.get("/api/v1/user");
 };
-
-// export const callFetchAccount = () => {
-//   return axios.get("/api/v1/auth/account");
-// };
-
-// export const callLogout = () => {
-//   return axios.post("/api/v1/auth/logout");
-// };
-
-// export const callFetchUserPagination = (query) => {
-//   return axios.get(`/api/v1/user?${query}`);
-// };

@@ -8,8 +8,15 @@ import Loading from "../../components/Loading";
 import { callDeleteJobCareByCandidateID } from "../../service/jobcare/api";
 
 const JobCare = () => {
-  const { loading, data, totalPages, setData, currentPage, setCurrentPage } =
-    fetchDataJobCare();
+  const {
+    loading,
+    data,
+    totalPages,
+    setData,
+    totalItems,
+    currentPage,
+    setCurrentPage,
+  } = fetchDataJobCare();
 
   const handleDeleteJobCare = async (id) => {
     console.log("id delete", id);
@@ -44,7 +51,7 @@ const JobCare = () => {
                     </p>
                   </div>
                   <p className="mb-[20px] mt-[30px]">
-                    Bạn đã ứng tuyển 5 việc làm
+                    Bạn đã ứng tuyển {totalItems} việc làm
                   </p>
 
                   <div>

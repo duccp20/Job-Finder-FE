@@ -43,7 +43,7 @@ const Pagination = ({ setCurrentPage, currentPage, totalPages }) => {
             ) : null
           }
           onPageChange={handlePageClick}
-          pageRangeDisplayed={2}
+          pageRangeDisplayed={5}
           pageCount={totalPages}
           marginPagesDisplayed={0}
           previousLabel={

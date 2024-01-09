@@ -12,8 +12,13 @@ import IconError from "../../components/IconError";
 import { callLogin } from "../../service/user/api";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { doLoginAction } from "../../redux/account/accountSlice";
+import {
+  doLoginAction,
+  doSetProfileData,
+} from "../../redux/account/accountSlice";
 import LoginAs from "../../components/LoginAs";
+import { doFetchCandidate } from "../../redux/candidate/candidateSlice";
+import { callFetchCandidateByUserId } from "../../service/candidate/api";
 const schema = yup
   .object({
     email: yup
@@ -60,51 +65,74 @@ const LoginPage = () => {
     setIsSubmitting(false);
     if (res.httpCode === 200 && res.message === "Đăng nhập thành công!") {
       localStorage.setItem("access_token", res.accessToken);
+      console.log(res);
       dispatch(doLoginAction(res.data));
 
-      if (res.data.roleDTO.name === "Role_Candidate") {
-        navigate("/");
+      const candidateRoleID = 2;
+      console.log("userID", res.data.roleDTO.roleId);
+      const userID = res.data.id;
+      console.log("userID", userID);
+      if (res.data.roleDTO.roleId === candidateRoleID) {
+        console.log(localStorage.getItem("access_token"));
+        const resCandidate = await callFetchCandidateByUserId(userID);
+        console.log("resCandidate", resCandidate);
+        dispatch(doSetProfileData(resCandidate.data.userDTO));
+        if (resCandidate && resCandidate?.data) {
+          console.log("res in profile", resCandidate);
+          dispatch(doFetchCandidate(resCandidate.data));
+        }
+        window.location.href = "/";
       } else if (res.data.roleDTO.name === "Role_HR") {
-        navigate("/hr");
+        window.location.href = "/hr";
       } else {
-        navigate("/admin");
+        window.location.href = "/admin";
       }
 
       return;
     }
 
-    //th1: mat khau hoac email khong hop le
-    if (res.message === "DATA INVALID") {
-      setShowError({
-        flag: true,
-        type: "Email hoặc mật khẩu không đúng!",
-      });
-      return;
-    }
-    //th2: tai khoan khong ton tai
+    //th1: tai khoan khong ton tai
     if (res.message === "DATA NOT FOUND") {
       setShowError({
         flag: true,
-        type: "Tài khoản không tồn tại!",
+        type: "Email không tồn tại!",
       });
       return;
     }
-    console.log(res);
-    //th3: tai khoan chua active
-    if (res.body.message === "Account Not Active") {
+    //th2: sai mat khau
+    if (res.message === "DATA INVALID") {
       setShowError({
         flag: true,
-        type: "Tài khoản chưa được kích hoạt!",
+        type: "Sai mật khẩu!",
       });
       return;
     }
-    //th4: tai khoan da bi khoa
+
+    //th3: tai khoan chua active
+    if (
+      res &&
+      res.httpCode === 401 &&
+      res.message === "Email chưa được kích hoạt"
+    ) {
+      setShowError({
+        flag: true,
+        type: (
+          <>
+            <span>{res.message}!</span>
+            <span>Vui lòng kiểm tra email để kích hoạt tài khoản!</span>
+          </>
+        ),
+      });
+      return;
+    }
   };
 
   return (
     <>
-      {showRegisterMethod && <LoginAs></LoginAs>}
-      <div className="flex h-screen w-screen ">
+      {showRegisterMethod && (
+        <LoginAs onClose={() => setShowRegisterMethod(false)}></LoginAs>
+      )}
+      <div className="flex h-screen w-screen">
         <form
           className="flex w-[55%] flex-col px-36 py-10 sm:py-10 md:px-3 lg:w-full tablet-range:pt-40 "
           onSubmit={handleSubmit(onSubmit)}
@@ -120,7 +148,7 @@ const LoginPage = () => {
 
           <div className="flex flex-col gap-[25px] md:mt-5">
             {showError.flag && (
-              <p className=" mt-10 bg-[#fff6f5] p-2 text-red-600">
+              <p className=" mt-10 flex flex-col gap-2 bg-[#fff6f5] p-2 font-extrabold text-errMessage sm:mx-10 md:mx-10">
                 {showError.type}
               </p>
             )}
@@ -211,7 +239,7 @@ const LoginPage = () => {
                       <IconError />
                     </span>
 
-                    <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
+                    <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-errMessage">
                       {errors.password?.message}
                     </p>
                   </div>
@@ -258,14 +286,15 @@ const LoginPage = () => {
 
           <h6 className="text-center">
             Chưa có tài khoản?{" "}
-            <span>
-              <a
-                onClick={() => setShowRegisterMethod(true)}
-                className="text-[16px] font-bold text-[#FE5656]"
-              >
-                {" "}
-                Đăng ký ngay
-              </a>
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowRegisterMethod(true);
+              }}
+              className="cursor-pointer text-[16px] font-bold text-[#FE5656]"
+            >
+              {" "}
+              Đăng ký ngay
             </span>
           </h6>
         </form>

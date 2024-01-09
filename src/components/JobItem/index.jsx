@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { convertDateFormat } from "../../utils/formatDate";
+import { convertDateFormatDDMMYYYY } from "../../utils/formatDate";
 import PopupHr from "../PopupHr";
 import { useSelector } from "react-redux";
 import {
@@ -34,7 +34,7 @@ const JobItem = ({
     navigate("/job-detail/" + id);
   };
 
-  const handleAuthenticated = async () => {
+  const handleCreateJobCare = async () => {
     if (isAuthenticated) {
       await callCreateJobCare(id);
     } else {
@@ -129,7 +129,7 @@ const JobItem = ({
             ) : (
               <>
                 <div
-                  onClick={() => handleAuthenticated()}
+                  onClick={() => handleCreateJobCare()}
                   className="h-auto cursor-pointer  self-start rounded-md border border-[#F1F1F1] hover:shadow-upper sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]"
                 >
                   <svg
@@ -208,7 +208,8 @@ const JobItem = ({
                   />
                 </svg>
                 <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
-                  {convertDateFormat(startDate)} - {convertDateFormat(endDate)}
+                  {convertDateFormatDDMMYYYY(startDate)} -{" "}
+                  {convertDateFormatDDMMYYYY(endDate)}
                 </span>
               </div>
             </div>

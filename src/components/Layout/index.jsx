@@ -13,8 +13,9 @@ const Layout = () => {
     <div>
       <HeaderHomeProps
         role="candidate"
-        firstObject="Việc làm đã ứng tuyển"
-        secondObject="Việc làm đã lưu"
+        firstObject="Tìm kiếm việc làm"
+        secondObject="Việc làm đã ứng tuyển"
+        thirdObject="Việc làm đã lưu"
       ></HeaderHomeProps>
       {/* <HeaderHome></HeaderHome> */}
       <Outlet></Outlet>

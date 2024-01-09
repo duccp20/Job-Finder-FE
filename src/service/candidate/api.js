@@ -1,7 +1,14 @@
 import axios from "../../utils/axiosCustomize";
 
 export const callFetchCandidateByUserId = (id) => {
-  return axios.get(`/api/v1/candidate/${id}`);
+  return axios({
+    method: "get",
+    url: `/api/v1/candidate/${id}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  });
 };
 
 export const callEditProfile = (id, candidateProfileDTO, fileCV) => {
