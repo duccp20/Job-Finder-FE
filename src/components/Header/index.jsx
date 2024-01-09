@@ -1,10 +1,12 @@
-import React from "react";
-import logo from "/images/logo-user.jpg";
+import React, { useState } from "react";
+import logo from "/images/logo.png";
 import flag from "/svg/flag.svg";
 import arrow from "/svg/arrow.svg";
 import { useNavigate } from "react-router-dom";
+import LoginAs from "../LoginAs";
 const Header = () => {
   const navigate = useNavigate();
+  const [showRegisterMethod, setShowRegisterMethod] = useState(false);
   // const dispatch = useDispatch();
   // const handleLogout = async () => {
   //   const logout = await callLogout();
@@ -24,10 +26,15 @@ const Header = () => {
 
   return (
     <>
+      {showRegisterMethod && (
+        <LoginAs onClose={() => setShowRegisterMethod(false)} />
+      )}
       <div className=" border-1 fixed top-0 z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[#D1D1D1] bg-white px-[26.75px] leading-10 shadow-custom">
         <div>
-          <div onClick={() => navigate("/")}>
-            <img src={logo} alt="" />
+          <div>
+            <span onClick={() => navigate("/")}>
+              <img className="h-auto w-[300px]" src={logo} alt="" />
+            </span>
           </div>
         </div>
 
@@ -44,7 +51,14 @@ const Header = () => {
           </a>
 
           <span className="font-semibold hover:text-[#FE5656]">
-            <a href="/register">Đăng ký</a>
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowRegisterMethod(true);
+              }}
+            >
+              Đăng ký
+            </span>
           </span>
           <span className="font-semibold hover:text-[#FE5656]">
             <a href="/login">Đăng nhập</a>

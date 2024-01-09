@@ -1,8 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginAs = (props) => {
+const LoginAs = ({ onClose }) => {
   const navigate = useNavigate();
+  const ref = useRef();
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener("click", checkIfClickedOutside);
+    return () => {
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [onClose]);
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -12,8 +26,17 @@ const LoginAs = (props) => {
   }, []);
 
   return (
-    <div className="transparent absolute top-0 z-[100000] flex h-screen w-screen items-center justify-center  overflow-hidden bg-black bg-opacity-30 shadow-custom">
-      <div className="h-auto w-[45%] rounded-[40px] bg-gradientCustom px-[50px] py-[40px] backdrop-blur-[6.800000190734863px] ">
+    <div className="transparent fixed left-0 top-0 z-[100000] flex h-screen w-screen items-center justify-center  overflow-hidden bg-black bg-opacity-30 shadow-custom">
+      <div
+        ref={ref}
+        className="h-auto w-[45%] rounded-[40px] bg-gradientCustom px-[50px] py-[40px] backdrop-blur-[6.800000190734863px] "
+      >
+        <button
+          className="absolute right-5 top-5 cursor-pointer  font-extrabold text-white"
+          onClick={onClose}
+        >
+          &#10006;
+        </button>
         <h1 className="mb-[30px] text-center text-[30px] font-[800] uppercase leading-normal text-white">
           BẠN ĐĂNG KÝ VỚI VAI TRÒ LÀ
         </h1>

@@ -82,6 +82,7 @@ import JobCare from "./pages/jobcare/jobcare";
 import ChangePassword from "./pages/changepassword/changepassword";
 import Replicate from "./pages/post&editJobs/replicate";
 import EditJob from "./pages/post&editJobs/editJob";
+import LayoutRegister from "./components/Layout/layoutRegister";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -335,18 +336,29 @@ const App = () => {
       element: <LoginPage />,
     },
     {
-      path: "/register/candidate",
-      element: <RegisterCandidate />,
+      path: "/register",
+      element: <LayoutRegister />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          path: "candidate",
+          element: <RegisterCandidate />,
+          errorElement: <NotFound />,
+        },
+        {
+          path: "recruiter",
+          element: <RegisterHR />,
+          errorElement: <NotFound />,
+        },
+      ],
     },
-    {
-      path: "/register/recruiter",
-      element: <RegisterHR />,
-    },
+
     {
       path: "/verify-email",
       element: <Verify />,
       errorElement: <NotFound />,
     },
+
     {
       path: "/forgot-password",
       element: <ForgetPass />,

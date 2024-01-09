@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import IconError from "../../components/IconError";
 import { callChangePassword } from "../../service/user/api";
 import Popup from "../../components/Popup";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -35,6 +36,7 @@ const schema = yup
   .required();
 
 const ChangePassword = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -47,6 +49,14 @@ const ChangePassword = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const {
@@ -72,10 +82,11 @@ const ChangePassword = () => {
         console.log("res in password", res);
         setIsSubmitting(false);
         if (res && res.data) {
+          localStorage.removeItem("access_token");
           setShowPopup({
             status: true,
             text: "Thay đổi mật khẩu thành công",
-            redirect: "/",
+            redirect: "/login",
           });
         } else {
           alert(res);
@@ -164,7 +175,7 @@ const ChangePassword = () => {
           <div className="relative">
             <Input
               autoComplete={`on`}
-              type={showPassword ? "text" : "password"}
+              type={showNewPassword ? "text" : "password"}
               id="confirm-password"
               {...register("newPassword")}
               bordercolor={
@@ -173,9 +184,9 @@ const ChangePassword = () => {
             />
             <span
               className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
-              onClick={togglePasswordVisibility}
+              onClick={toggleNewPasswordVisibility}
             >
-              {showPassword ? (
+              {showNewPassword ? (
                 <svg
                   width="22"
                   height="15"
@@ -226,7 +237,7 @@ const ChangePassword = () => {
           <div className="relative">
             <Input
               autoComplete={`on`}
-              type={showPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               id="confirm-password"
               {...register("confirmPassword")}
               bordercolor={
@@ -237,7 +248,7 @@ const ChangePassword = () => {
               className="absolute right-0 top-[50%] flex -translate-y-1/2 cursor-pointer items-center pr-2"
               onClick={togglePasswordVisibility}
             >
-              {showPassword ? (
+              {showConfirmPassword ? (
                 <svg
                   width="22"
                   height="15"
@@ -299,7 +310,9 @@ const ChangePassword = () => {
         </div>
         <p className="mt-6 text-center font-normal">
           <span className=" font-extrabold text-[#FE5656] sm:inline-block sm:pt-2">
-            <a href="/login">Trở về đăng nhập</a>
+            <span className="cursor-pointer" onClick={() => navigate("/")}>
+              Trở về trang chủ
+            </span>
           </span>
         </p>
       </form>

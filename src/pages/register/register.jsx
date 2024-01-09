@@ -100,8 +100,7 @@ export const RegisterCandidate = () => {
         const res = await callActiveMail(data.email);
 
         if (res.httpCode === 200 && res.message === "SEND MAIL") {
-          console.log(res, "in call register mail");
-          window.location.href = "/verify-email";
+          window.location.href = "/verify-email?email=" + data.email;
         } else {
           console.log(res);
           alert("Không thể gửi mail vui lòng thử lại sau");
@@ -120,9 +119,6 @@ export const RegisterCandidate = () => {
   return (
     <>
       <div className=" h-full">
-        <div className="lg:hidden">
-          <Header></Header>
-        </div>
         <div className=" my-[110px] flex justify-center  sm:my-0">
           <div className="flex h-full w-[75%] justify-center rounded-xl border-2 shadow-lg sm:w-full ">
             <div className=" relative w-[40%] md:hidden">

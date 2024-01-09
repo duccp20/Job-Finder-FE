@@ -44,36 +44,39 @@ const HeaderHomeProps = (props) => {
       userDropdown: false,
     });
   };
-
-  const selectOption = (option) => {
+  const selectOption = (option, e) => {
     setSelectedOption(option);
     setDropdown(false);
 
-    if (option === "Đăng ký") {
-      setShowPopupLogin(true);
-    }
-    if (option === "Đăng nhập") {
-      navigate("/login");
-    }
-
-    if (option === "Đăng xuất") {
-      localStorage.removeItem("access_token");
-      dispatch(doLogoutAction());
-      navigate("/login");
-    }
-
-    if (option === "Thông tin cá nhân") {
-      navigate("/profile");
-    }
-
-    if (option === "Đổi mật khẩu") {
-      navigate("/change-password");
+    switch (option) {
+      case "Đăng ký":
+        e.stopPropagation();
+        setShowPopupLogin(true);
+        break;
+      case "Đăng nhập":
+        navigate("/login");
+        break;
+      case "Đăng xuất":
+        localStorage.removeItem("access_token");
+        dispatch(doLogoutAction());
+        navigate("/login");
+        break;
+      case "Thông tin cá nhân":
+        navigate("/profile");
+        break;
+      case "Đổi mật khẩu":
+        navigate("/change-password");
+        break;
+      default:
+        break;
     }
   };
 
   return (
     <>
-      {showPopup && <LoginAs></LoginAs>}
+      {showPopup && (
+        <LoginAs onClose={() => setShowPopupLogin(false)}></LoginAs>
+      )}
 
       <div className="relative items-center justify-center bg-[#F6f6f6] md:flex md:h-auto md:w-full md:flex-col">
         <div className="border-1 fixed top-0  z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[rgb(209,209,209)] bg-white shadow-custom md:relative">
@@ -198,7 +201,7 @@ const HeaderHomeProps = (props) => {
                     {authOptions.map((option) => (
                       <button
                         key={option}
-                        onClick={() => selectOption(option)}
+                        onClick={(e) => selectOption(option, e)}
                         className="block w-full pt-6 text-left text-[15px] font-[600] hover:text-[#FE5656]"
                       >
                         {option}
