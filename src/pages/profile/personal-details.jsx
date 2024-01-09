@@ -27,6 +27,7 @@ const PersonalDetails = () => {
   console.log("candidateID", candidateID);
   const dataCandidate = useSelector((state) => state.candidate.data);
   console.log("dataCandidate", dataCandidate);
+  console.log("dataCandidate searchable in profile", dataCandidate.searchable);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const schema = yup
     .object({
