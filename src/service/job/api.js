@@ -41,6 +41,20 @@ export const callEditJob = (id, body) => {
   return axios.put(`/api/v1/job/${id}`, body);
 };
 
+export const callFilterJobInHomePage = (
+  no,
+  limit,
+  schedule,
+  position,
+  major,
+  provinceName,
+  name,
+) => {
+  return axios.get(
+    `/api/v1/job/filter?no=${no}&limit=${limit}&schedule=${schedule}&position=${position}&major=${major}&provinceName=${provinceName}&name=${name}`,
+  );
+};
+
 //callback function
 //CRUD: create, read, update, delete
 // get: lấy thông tinh (Hiển thị): read

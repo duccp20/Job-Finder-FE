@@ -4,9 +4,9 @@ import { callGetAllCandidateJobCare } from "../../service/jobcare/api";
 import { useSelector } from "react-redux";
 
 const useDataFetcher = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [dataJob, setDataJob] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [jobCare, setJobCare] = useState([]);
   const candidateID = useSelector((state) => state.candidate.id);
@@ -33,9 +33,10 @@ const useDataFetcher = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const no = Math.min(currentPage, totalPages);
       try {
-        const result = await callGetAllJobActive(no, 5);
+        const result = await callGetAllJobActive(currentPage, 5);
         console.log("result", result);
         const resOfApplied = await callGetAllCandidateJobCare();
         console.log("resOfApplied", resOfApplied);
@@ -50,6 +51,7 @@ const useDataFetcher = () => {
     };
     fetchData();
   }, [currentPage]);
+
   return { loading, dataJob, totalPages, currentPage, setCurrentPage };
 };
 

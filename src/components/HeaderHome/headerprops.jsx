@@ -3,7 +3,7 @@ import logo from "/images/logo.png";
 import flag from "/svg/flag.svg";
 import guest from "/images/guest-logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { unstable_HistoryRouter, useNavigate } from "react-router-dom";
 import { doLogoutAction } from "../../redux/account/accountSlice";
 import LoginAs from "../LoginAs";
 const HeaderHomeProps = (props) => {
@@ -82,7 +82,7 @@ const HeaderHomeProps = (props) => {
         <div className="border-1 fixed top-0  z-[999] flex h-[70px] w-full items-center justify-between border-solid border-[rgb(209,209,209)] bg-white shadow-custom md:relative">
           <div className=" flex cursor-pointer items-center justify-between gap-5 pl-[26.75px] leading-10">
             <div>
-              <span onClick={() => navigate("/")}>
+              <span onClick={props.onLogoClick} className="cursor-pointer">
                 <img className="h-auto w-[300px]" src={logo} alt="" />
               </span>
             </div>

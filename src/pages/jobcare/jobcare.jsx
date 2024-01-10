@@ -51,7 +51,7 @@ const JobCare = () => {
                     </p>
                   </div>
                   <p className="mb-[20px] mt-[30px]">
-                    Bạn đã ứng tuyển {totalItems} việc làm
+                    Bạn đã lưu {totalItems} việc làm
                   </p>
 
                   <div>

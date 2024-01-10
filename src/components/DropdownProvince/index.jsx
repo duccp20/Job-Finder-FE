@@ -25,7 +25,7 @@ const ProvincesDropdown = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useClickOutside(() => setShowDropdown(false));
-  console.log("dropdownRef", dropdownRef);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,6 +44,7 @@ const ProvincesDropdown = (props) => {
     setSelectedProvince(province);
     setSearchTerm(province.name);
     setShowDropdown(false);
+    props.onProvinceChange(province.name);
   };
   const handleButtonClick = (event) => {
     event.stopPropagation();

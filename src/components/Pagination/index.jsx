@@ -7,6 +7,10 @@ const Pagination = ({ setCurrentPage, currentPage, totalPages }) => {
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
+
+  useEffect(() => {
+    console.log("currentPage sau khi cập nhật:", currentPage);
+  }, [currentPage]);
   const paginationVariants = {
     hidden: {
       opacity: 0,
@@ -33,6 +37,7 @@ const Pagination = ({ setCurrentPage, currentPage, totalPages }) => {
     >
       <div>
         <ReactPaginate
+         forcePage={currentPage}
           breakLabel={<span className="mr-[12px]">...</span>}
           // breakLabel={currentPage + 1}
           nextLabel={
