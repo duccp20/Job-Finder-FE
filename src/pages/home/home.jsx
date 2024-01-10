@@ -13,11 +13,20 @@ import Skeleton from "../../components/SkeletonLoader/skeleton";
 import { useSelector } from "react-redux";
 import ProvincesDropdown from "../../components/DropdownProvince";
 import { doSetRoleGuest } from "../../redux/account/accountSlice";
+import { callFilterJobInHomePage } from "../../service/job/api";
+import useJobFilter from "./useJobFilter";
 
 const HomePage = () => {
   const [major, setMajor] = useState([]);
   const [location, setLocation] = useState([]);
   const [checkboxes, setCheckboxes] = useState([]);
+  const [majorReq, setMajorReq] = useState("");
+  const [locationReq, setLocationReq] = useState("");
+  const [scheduleReq, setScheduleReq] = useState("");
+  const [search, setSearch] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [isFilter, setIsFilter] = useState(false);
+
   const data = useSelector((state) => state.baseData.data);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
@@ -60,20 +69,100 @@ const HomePage = () => {
     });
   };
 
-  const handleCheckboxChange = (id, setState) => {
-    setState((prevCheckboxes) =>
-      prevCheckboxes.map((checkbox) =>
-        checkbox.id === id
-          ? { ...checkbox, checked: !checkbox.checked }
-          : checkbox,
+  const handleSelectionChange = (id, items, setItems) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item,
       ),
     );
   };
 
+  const handleProvinceChange = (province) => {
+    setSelectedProvince(province);
+  };
+
+  const {
+    isLoading,
+    filteredJobs,
+    filteredTotalPages,
+    filteredCurrentPage,
+    setFilteredCurrentPage,
+    filterJobs,
+  } = useJobFilter();
+  const handleSubmit = async () => {
+    // setIsFilter(true);
+    const majorReq =
+      major.length > 0
+        ? major
+            .filter((item) => item.checked)
+            .map((item) => item.id)
+            .join(",")
+        : "";
+    setMajorReq(majorReq);
+    const locationReq =
+      location.length > 0
+        ? location
+            .filter((item) => item.checked)
+            .map((item) => item.id)
+            .join(",")
+        : "";
+    setLocationReq(locationReq);
+    const scheduleReq =
+      checkboxes.length > 0
+        ? checkboxes
+            .filter((item) => item.checked)
+            .map((item) => item.id)
+            .join(",")
+        : "";
+    setScheduleReq(scheduleReq);
+
+    console.log(scheduleReq);
+    console.log(locationReq);
+    console.log(majorReq);
+    console.log(search);
+    console.log(selectedProvince);
+    if (
+      scheduleReq === "" &&
+      locationReq === "" &&
+      majorReq === "" &&
+      search === "" &&
+      selectedProvince === null
+    ) {
+      console.log("Không có điều kiện lọc nào, chuyển sang dataJob");
+      setIsFilter(false);
+      setCurrentPage(0);
+    } else {
+      console.log("Có điều kiện lọc, sử dụng filteredJobs");
+      setIsFilter(true);
+      setFilteredCurrentPage(0);
+      filterJobs(
+        scheduleReq,
+        locationReq,
+        majorReq,
+        selectedProvince || "",
+        search || "",
+        0,
+      );
+    }
+  };
+
+  console.log("filteredJobs", filteredJobs);
+
+  useEffect(() => {
+    filterJobs(
+      scheduleReq,
+      locationReq,
+      majorReq,
+      selectedProvince || "",
+      search,
+      filteredCurrentPage,
+    );
+  }, [filteredCurrentPage]);
+
   const { loading, dataJob, totalPages, currentPage, setCurrentPage } =
     useDataFetcher();
 
-  console.log("data quantity", dataJob.length);
+  const isAnyLoading = loading || isLoading;
   return (
     <div>
       {/* <LoginAs></LoginAs> */}
@@ -160,7 +249,7 @@ const HomePage = () => {
               )}
               <div className="md:hidden">
                 <ul>
-                  {section.state.map((checkbox) => (
+                  {/* {section.state.map((checkbox) => (
                     <li key={checkbox.id} className="mb-2">
                       <Checkbox
                         id={checkbox.id}
@@ -171,6 +260,21 @@ const HomePage = () => {
                         }
                       />
                     </li>
+                  ))} */}
+                  {section.state.map((item) => (
+                    <Checkbox
+                      key={item.id}
+                      id={item.id}
+                      label={item.label}
+                      checked={item.checked}
+                      onChange={() =>
+                        handleSelectionChange(
+                          item.id,
+                          section.state,
+                          section.setState,
+                        )
+                      }
+                    />
                   ))}
                 </ul>
               </div>
@@ -218,6 +322,7 @@ const HomePage = () => {
                 id="findjob"
                 placeholder="Tìm kiếm việc làm"
                 className="w-full pl-[10px] placeholder:text-[#626262]"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
 
@@ -247,24 +352,51 @@ const HomePage = () => {
                   </linearGradient>
                 </defs>
               </svg>
-              <ProvincesDropdown placeholder="Khu vực"></ProvincesDropdown>
+              <ProvincesDropdown
+                placeholder="Khu vực"
+                onProvinceChange={handleProvinceChange}
+              ></ProvincesDropdown>
             </div>
             <div className="bg-white">
               <button
                 className="whitespace-nowrap rounded-[4px] bg-gradientCustom px-[30px] py-[6px] text-center text-base font-bold not-italic text-white shadow-md sm:py-2"
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
               >
                 Tìm kiếm
               </button>
             </div>
           </form>
           <div>
-            {loading ? (
+            {isAnyLoading ? (
               <Loading></Loading>
             ) : (
               <>
                 <div>
-                  {dataJob && dataJob.length > 0 ? (
+                  {isAnyLoading ? (
+                    <Loading />
+                  ) : isFilter ? (
+                    filteredJobs.length > 0 ? (
+                      filteredJobs.map((data) => (
+                        <JobItem
+                          key={data.id}
+                          id={data.id}
+                          name={data.name}
+                          companyDTO={data.companyDTO}
+                          province={data.province}
+                          positionDTOs={data.positionDTOs}
+                          scheduleDTOs={data.scheduleDTOs}
+                          majorDTOs={data.majorDTOs}
+                          amount={data.amount}
+                          startDate={data.startDate}
+                          endDate={data.endDate}
+                          applied={data.applied}
+                        />
+                      ))
+                    ) : (
+                      <p className="text-center">Không có dữ liệu :{"("}</p>
+                    )
+                  ) : dataJob.length > 0 ? (
                     dataJob.map((data) => (
                       <JobItem
                         key={data.id}
@@ -279,16 +411,19 @@ const HomePage = () => {
                         startDate={data.startDate}
                         endDate={data.endDate}
                         applied={data.applied}
-                      ></JobItem>
+                      />
                     ))
                   ) : (
                     <p className="text-center">Không có dữ liệu :{"("}</p>
                   )}
                 </div>
+
                 <Pagination
-                  totalPages={totalPages}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
+                  totalPages={isFilter ? filteredTotalPages : totalPages}
+                  currentPage={isFilter ? filteredCurrentPage : currentPage}
+                  setCurrentPage={
+                    isFilter ? setFilteredCurrentPage : setCurrentPage
+                  }
                 ></Pagination>
               </>
             )}
