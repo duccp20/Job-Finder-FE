@@ -1,19 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import useDataFetcher from "../../components/Pagination/useDataFetcher";
 import RecruitmentList from "../../components/RecruitmentList";
 import Table from "../../components/Table";
 import HeaderHR from "../../components/HeaderHR/headerHr";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Notification from "../../components/Notification";
+import pie from "/images/pie_chartHR.jpg";
+import chart from "/images/chart.jpg";
 
 const RecruitmentListOpen = ({}) => {
   const { loading, pages, totalPages, currentPage, setCurrentPage } =
     useDataFetcher();
 
   const navigate = useNavigate();
+  const [showNotification, setShowNotification] = useState(false);
+  const handleConfirmButton = () => {
+    setShowNotification(false);
+    navigate("job/create");
+  };
+  const handleCancelButton = () => {
+    setShowNotification(false);
+  };
 
   return (
     <div>
+      {showNotification && (
+        <Notification
+          action="Đăng tin tuyển dụng"
+          title="Bạn có muốn đăng tin tuyển dụng"
+          des="Thực tập sinh Business Analyst chuyên ngành Banking"
+          extra="*Tin sẽ chỉ được xóa khi chưa có lượt xem hoặc lượt ứng tuyển"
+          onConfirm={handleConfirmButton}
+          onCancel={handleCancelButton}
+        />
+      )}
       <div className=" mx-auto mb-[20px] mt-[90px] flex h-full w-[87%] rounded-[10px] border-[2px] border-[#DEDEDE]">
         <div className="item w-[40%] border-[#DEDEDE] px-[30px] py-[40px]">
           <h2 className=" relative mb-[20px] text-xl font-bold not-italic text-black after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-[80px] after:bg-[#f3bd50] after:content-['']">
@@ -48,11 +69,7 @@ const RecruitmentListOpen = ({}) => {
               </div>
             </div>
             <div className="flex-1 pl-[20px]">
-              <img
-                src="https://images.unsplash.com/photo-1682687982470-8f1b0e79151a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8"
-                alt=""
-                className="w-full rounded-[10px] object-cover "
-              />
+              <img src={pie} className="w-full rounded-[10px] object-cover " />
             </div>
           </div>
         </div>
@@ -64,7 +81,7 @@ const RecruitmentListOpen = ({}) => {
 
           <div className="flex-1 pl-[20px]">
             <img
-              src="https://images.unsplash.com/photo-1682687982470-8f1b0e79151a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8"
+              src={chart}
               alt=""
               className="w-full rounded-[10px] object-cover "
             />
@@ -97,7 +114,7 @@ const RecruitmentListOpen = ({}) => {
             </svg>
             <span
               className="cursor-pointer text-base font-bold not-italic text-white"
-              onClick={() => navigate("job/create")}
+              onClick={() => setShowNotification(true)}
             >
               Đăng tin tuyển dụng mới
             </span>

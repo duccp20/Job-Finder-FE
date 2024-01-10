@@ -129,7 +129,7 @@ const PostJob = (props) => {
 
   return (
     <div>
-      {showPopup && <Popup text="Đăng thành công" redirect="hr"></Popup>}
+      {showPopup && <Popup text="Đăng thành công" redirect="/hr"></Popup>}
       <div className="mx-auto my-[30px] w-[90%] px-[20px] py-[20px] shadow-banner">
         <div className="flex items-center justify-center gap-2">
           <span>

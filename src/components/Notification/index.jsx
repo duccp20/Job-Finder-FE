@@ -26,6 +26,9 @@ const Notification = (props) => {
           <p className="mb-[8px] text-base font-bold not-italic text-[#FE5656]">
             {props.des}
           </p>
+          <p className="mb-[8px] text-[13px] font-[400] italic text-[#333333B2]">
+            {props.extra}
+          </p>
         </div>
 
         <div className="mb-[9px] mt-[16px] flex justify-center gap-[20px] px-[100px]">
