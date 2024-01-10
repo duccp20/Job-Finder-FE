@@ -18,7 +18,7 @@ import {
   callReplicateJob,
 } from "../../service/job/api";
 import Popup from "../../components/Popup";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { convertDateFormatYYYYMMDD } from "../../utils/formatDate";
 
 const positions = ["Vị trí A", "Vị trí B", "Vị trí C"];
@@ -54,6 +54,20 @@ const Replicate = (props) => {
   const dataPosition = useSelector((state) => state.baseData.data.positions);
   const dataCandidate = useSelector((state) => state.candidate.data);
 
+  const navigate = useNavigate();
+  const convertDateFormatYYYYMMDD = (timestamp) => {
+    var date = new Date(timestamp);
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    // Thêm số 0 phía trước nếu ngày hoặc tháng nhỏ hơn 10
+    day = day < 10 ? "0" + day : day;
+    month = month < 10 ? "0" + month : month;
+    console.log(`${year}-${month}-${day}`);
+    return `${year}-${month}-${day}`;
+  };
+
   const schema = yup
     .object({
       jobTitle: yup.string().required("Tiêu đề không được để trống"),
@@ -63,11 +77,11 @@ const Replicate = (props) => {
         .number()
         .typeError("Số lượng tuyển là một số")
         .required("Số lượng tuyển không được để trống"),
-      postDate: yup
-        .date()
-        .max(new Date(), "Ngày không thể vượt quá ngày hiện tại")
-        .required("Ngày đăng tuyển không được để trống"),
-      deadlineDate: yup.date().required("Hạn nộp hồ sơ không được để trống"),
+      // postDate: yup
+      //   .date()
+      //   .max(new Date(), "Ngày không thể vượt quá ngày hiện tại")
+      //   .required("Ngày đăng tuyển không được để trống"),
+      // deadlineDate: yup.date().required("Hạn nộp hồ sơ không được để trống"),
       // city: yup.string().required("Vui lòng chọn tỉnh thành"),
       address: yup.string().required("Địa chỉ không được để trống"),
       description: yup.string().required("Mô tả không được để trống"),
@@ -97,8 +111,8 @@ const Replicate = (props) => {
       majorDTOs: data.selectField,
       scheduleDTOs: data.selectType,
       amount: data.numberPosition,
-      salaryMin: "100000010",
-      salaryMax: "500000010",
+      salaryMin: data.maxSalary,
+      salaryMax: data.minSalary,
       description: data.description,
       requirement: data.requirement,
       otherInfo: data.welfare,
@@ -116,9 +130,9 @@ const Replicate = (props) => {
       console.log("res in onSubmit", res);
       setIsSubmitting(false);
 
-      if (res && res?.data) {
-        dispatch(doSetJobData(res.data));
+      if (res) {
         setShowPopup(true);
+        // dispatch(doSetJobData(res.data));
       }
       if (res?.errors) {
         alert(res.message);
@@ -128,14 +142,18 @@ const Replicate = (props) => {
     }
   };
 
+  console.log("showPopup", showPopup);
+  console.log("isSubmitting", isSubmitting);
+
   useEffect(() => {
-    // Cập nhật giá trị mặc định khi dữ liệu được tải
     if (data) {
       setValue("jobTitle", data.name);
       setValue("numberPosition", data.amount);
       setValue("selectField", data.majorDTOs);
       setValue("selectPosition", data.positionDTOs);
       setValue("selectType", data.scheduleDTOs);
+      setValue("minSalary", data.salaryMin);
+      setValue("maxSalary", data.salaryMax);
 
       setValue("address", data.location);
 
@@ -144,9 +162,12 @@ const Replicate = (props) => {
       setWelfareValue(data.otherInfo || "");
       setPostDate(convertDateFormatYYYYMMDD(data.startDate));
       setDeadlineDate(convertDateFormatYYYYMMDD(data.endDate));
-      setValue("postDate", postDate);
-      setValue("deadlineDate", deadlineDate);
-      setValue("description", descriptionValue);
+
+      setValue("postDate", convertDateFormatYYYYMMDD(data.startDate));
+      setValue("deadlineDate", convertDateFormatYYYYMMDD(data.endDate));
+      setValue("description", data.description);
+      setValue("requirement", data.requirement);
+      setValue("welfare", data.otherInfo);
     }
   }, [data]);
 
@@ -161,6 +182,7 @@ const Replicate = (props) => {
   }, []);
   return (
     <div>
+      {showPopup && <Popup text="Nhân bản thành công" redirect="/hr"></Popup>}
       <div className="mx-auto my-[30px] w-[90%] px-[20px] py-[20px] shadow-banner">
         <div className="flex items-center justify-center gap-2">
           <span>
@@ -366,7 +388,7 @@ const Replicate = (props) => {
                   <Input
                     {...field}
                     type="date"
-                    value={postDate}
+                    // value={postDate}
                     id="postDate"
                     borderColor={
                       errors.postDate ? "border-red-500" : "border-gray-300"
@@ -398,7 +420,7 @@ const Replicate = (props) => {
                     {...field}
                     type="date"
                     id="deadlineDate"
-                    value={deadlineDate}
+                    // value={deadlineDate}
                     borderColor={
                       errors.deadlineDate ? "border-red-500" : "border-gray-300"
                     }
@@ -416,6 +438,60 @@ const Replicate = (props) => {
                   </p>
                 </div>
               )}
+            </div>
+          </div>
+
+          <div className="relative mt-6 flex w-full gap-12">
+            <div className="flex w-[50%] flex-col">
+              <label htmlFor="minSalary" className="pb-2 ">
+                Mức lương tối thiểu<span className="text-red-600">*</span>
+              </label>
+              <Input
+                type="text"
+                id="minSalary"
+                name="minSalary"
+                defaultValue={data && data.salaryMin}
+                borderColor="border-gray-300"
+                {...register("minSalary")}
+              />
+              {/* {errors?.minSalary && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
+                    {errors.minSalary?.message}
+                  </p>
+                </div>
+              )} */}
+            </div>
+            <div className="absolute left-[50%] top-[45%] translate-x-[-50%]  text-[30px]">
+              -
+            </div>
+            <div className="flex w-[50%] flex-col">
+              <label htmlFor="maxSalary" className="pb-2 ">
+                Mức lương tối đa<span className="text-red-600">*</span>
+              </label>
+              <Input
+                type="text"
+                id="maxSalary"
+                name="maxSalary"
+                defaultValue={data && data.salaryMax}
+                borderColor="border-gray-300"
+                {...register("maxSalary")}
+              />
+              {/* {errors?.maxSalary && (
+                <div className="flex items-center ">
+                  <span className="pt-1.5">
+                    <IconError />
+                  </span>
+
+                  <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
+                    {errors.maxSalary?.message}
+                  </p>
+                </div>
+              )} */}
             </div>
           </div>
 
@@ -537,12 +613,15 @@ const Replicate = (props) => {
               className="rounded-[4px] bg-[#FE5656] px-[22px] py-[12px] text-center text-[15px] font-bold text-white hover:bg-white hover:text-[#FE5656] hover:outline hover:outline-[#FE5656]"
               type="submit"
             >
-              Đăng tuyển
+              Nhân bản
               {/* {props.name} */}
             </button>
             <button
               className="rounded-[4px] bg-gray-200 px-[36px] py-[12px] text-center text-[15px] font-bold text-[#7D7D7D] hover:bg-white hover:outline hover:outline-[#7D7D7D]"
               type=""
+              onClick={() => {
+                navigate("/hr");
+              }}
             >
               Hủy
             </button>

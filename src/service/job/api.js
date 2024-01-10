@@ -30,7 +30,7 @@ export const callReplicateJob = (id, body) => {
   return axios.put(`/api/v1/job/replicate/${id}`, body);
 };
 export const callDeleteJob = (id) => {
-  return axios.put(`/api/v1/job/delete/${id}`);
+  return axios.delete(`/api/v1/job/delete/${id}`);
 };
 
 export const callDisableJob = (id) => {
@@ -40,3 +40,11 @@ export const callDisableJob = (id) => {
 export const callEditJob = (id, body) => {
   return axios.put(`/api/v1/job/${id}`, body);
 };
+
+//callback function
+//CRUD: create, read, update, delete
+// get: lấy thông tinh (Hiển thị): read
+// put: update (từ 1 trở lên)
+// patch: update (update 1 cái )
+// post: create
+// delete: delete

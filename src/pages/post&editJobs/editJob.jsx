@@ -132,11 +132,11 @@ const EditJob = (props) => {
       setPostDate(convertDateFormatYYYYMMDD(dataJob.startDate));
       setDeadlineDate(convertDateFormatYYYYMMDD(dataJob.endDate));
 
-      setValue("postDate", postDate);
-      setValue("deadlineDate", deadlineDate);
-      setValue("description", descriptionValue);
-      setValue("requirement", requirementValue);
-      setValue("welfare", welfareValue);
+      setValue("postDate", convertDateFormatYYYYMMDD(dataJob.startDate));
+      setValue("deadlineDate", convertDateFormatYYYYMMDD(dataJob.endDate));
+      setValue("description", dataJob.description);
+      setValue("requirement", dataJob.requirement);
+      setValue("welfare", dataJob.otherInfo);
     }
   }, [dataJob]);
 
@@ -144,6 +144,7 @@ const EditJob = (props) => {
     const fetchData = async () => {
       try {
         const data = await callGetJobByID(id);
+        console.log("data", data);
         setDataJob(data);
       } catch (err) {
         console.log("Lỗi khi tải dữ liệu:", err);
@@ -152,12 +153,13 @@ const EditJob = (props) => {
     fetchData();
   }, [id]);
 
-  // console.log("data", dataJob);
+  console.log("dataJob", dataJob);
 
   const onSubmit = async (data) => {
-    console.log("data 123", data);
+    console.log("data", data);
 
     const startDate = convertDateFormatYYYYMMDD(data.postDate);
+    console.log("startDate", startDate);
     const endDate = convertDateFormatYYYYMMDD(data.deadlineDate);
     const editJobData = {
       name: data.jobTitle,
@@ -180,7 +182,7 @@ const EditJob = (props) => {
     setIsSubmitting(true);
     try {
       const res = await callEditJob(id, editJobData);
-      console.log("res in onSubmit 1111", res);
+      console.log("res in onSubmit", res);
       setIsSubmitting(false);
 
       if (res) {
@@ -199,7 +201,7 @@ const EditJob = (props) => {
 
   return (
     <div>
-      {showPopup && <Popup text="Cập nhật thành công" redirect="hr"></Popup>}
+      {showPopup && <Popup text="Cập nhật thành công" redirect="/hr"></Popup>}
 
       <div className="mx-auto my-[30px] w-[90%] px-[20px] py-[20px] shadow-banner">
         <div className="flex items-center justify-center gap-2">
@@ -427,7 +429,7 @@ const EditJob = (props) => {
                     {...field}
                     type="date"
                     id="postDate"
-                    value={postDate}
+                    // value={postDate}
                     onChange={(e) => {
                       setPostDate(e.target.value);
                     }}
@@ -463,7 +465,7 @@ const EditJob = (props) => {
                     {...field}
                     type="date"
                     id="deadlineDate"
-                    value={deadlineDate}
+                    // value={deadlineDate}
                     onChange={(e) => {
                       setDeadlineDate(e.target.value);
                     }}
@@ -602,7 +604,7 @@ const EditJob = (props) => {
                 id="description"
                 name="description"
                 value={descriptionValue}
-                defaultValue={dataJob?.description}
+                // defaultValue={dataJob?.description}
                 onChange={(value) => {
                   setDescriptionValue(value);
                   handleQuillChange("description", value);

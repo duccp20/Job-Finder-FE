@@ -25,6 +25,7 @@ const Popup = (props) => {
 
     if (redirect) {
       navigate(redirect);
+      //navigate("/hr")
     }
   };
 

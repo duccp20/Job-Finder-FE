@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import useDataFetcher from "../Pagination/useDataFetcher";
 import Pagination from "../Pagination";
 import ProvincesDropdown from "../DropdownProvince";
+import Notification from "../../components/Notification";
+
 import fetchJobActiveByCompany from "./fetchJobActiveByCompany";
 import { convertDateFormatDDMMYYYY } from "../../utils/formatDate";
 import fetchAllJobByCompany from "./fetchAllJobByCompany";
@@ -27,10 +29,54 @@ const RecruitmentList = () => {
   const openOptions = ["Đang mở", "Đã đóng", "Tất cả"];
   const [dropdown, setDropdown] = useState({ openDropdown: false });
   const dropdownRef = useRef(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const [editButton, setEditButton] = useState(false);
+  const [replicateButton, setReplicateButton] = useState(false);
+  const [deleteButton, setDeleteButton] = useState(false);
+  const [closeButton, setCloseButton] = useState(false);
+  const [tempItemId, setTempItemId] = useState(null);
+
+  const getActionText = () => {
+    if (editButton) return "Chỉnh sửa hồ sơ";
+    if (replicateButton) return "Nhân bản hồ sơ";
+    if (deleteButton) return "Xóa hồ sơ";
+    if (closeButton) return "Đóng hồ sơ";
+  };
+
+  const handleConfirmButton = (id) => {
+    setShowNotification(false);
+
+    if (editButton) {
+      handleEditClick(id);
+    }
+    if (replicateButton) {
+      handleReplicate(id);
+    }
+    if (deleteButton) {
+      navigate("job/delete");
+    }
+    if (closeButton) {
+      navigate("job/close");
+    }
+  };
 
   const handleEditClick = (id) => {
+    setEditButton(false);
     navigate(`job/edit/${id}`);
   };
+
+  const handleReplicate = (id) => {
+    setReplicateButton(false);
+    navigate(`replicate/${id}`);
+  };
+
+  const handleCancelButton = () => {
+    setShowNotification(false);
+    setEditButton(false);
+    setReplicateButton(false);
+    setDeleteButton(false);
+  };
+  console.log("notification", showNotification);
 
   const openDropdown = (dropdownName) => {
     setDropdown({ ...dropdown, [dropdownName]: true });
@@ -74,10 +120,6 @@ const RecruitmentList = () => {
     }
   }, [currentPage, totalPages, selectedOption]);
 
-  const handleReplicate = (id) => {
-    console.log("id", id);
-    navigate(`replicate/${id}`);
-  };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -94,7 +136,7 @@ const RecruitmentList = () => {
 
   return (
     <div className="h-auto w-full">
-      <span>
+      {/* <span>
         <svg
           width="626"
           height="312"
@@ -104,7 +146,7 @@ const RecruitmentList = () => {
         >
           <rect width="626" height="312" fill="white" />
         </svg>
-      </span>
+      </span> */}
       <div className="mb-[30px] flex w-full justify-between gap-[13px] ">
         <div className="flex w-[40%] items-center rounded border px-[13px] py-[12px]">
           <label htmlFor="find">
@@ -310,12 +352,6 @@ const RecruitmentList = () => {
                   </defs>
                 </svg>
               </th>
-              {/* <th
-                scope="col"
-                className="overflow-x-visible border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
-              >
-                Ứng viên/Lượt xem
-              </th> */}
               <th
                 scope="col"
                 className="border px-[10px] py-[10px] text-center text-base font-semibold not-italic"
@@ -371,17 +407,6 @@ const RecruitmentList = () => {
                 <td className="border px-[18px] py-[15px] text-center">
                   {item.endDate}
                 </td>
-                {/* <td className="border px-[18px] py-[15px] text-center">
-                  <div>
-                    <span className="inline-block w-[60px] rounded-[5px] bg-[#FCB25F] py-[9px] text-center">
-                      15
-                    </span>
-                    <span> / </span>
-                    <span className="inline-block w-[60px] rounded-[5px] bg-[#54ADFF] py-[9px] text-center">
-                      125
-                    </span>
-                  </div>
-                </td> */}
                 <td className="border px-[18px] py-[15px] text-center">
                   {item.createBy}
                 </td>
@@ -400,7 +425,11 @@ const RecruitmentList = () => {
                   <div>
                     <div
                       className="mb-2 flex cursor-pointer items-center"
-                      onClick={() => handleEditClick(item.id)}
+                      onClick={() => {
+                        setTempItemId(item.id);
+                        setShowNotification(true);
+                        setEditButton(true);
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -421,7 +450,11 @@ const RecruitmentList = () => {
                     </div>
                     <div
                       className="mb-[10px] flex cursor-pointer"
-                      onClick={buttonState}
+                      onClick={() => {
+                        setTempItemId(item.id);
+                        setShowNotification(true);
+                        setCloseButton(true);
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -440,7 +473,14 @@ const RecruitmentList = () => {
                         Đóng tin
                       </span>
                     </div>
-                    <div className="mb-[5px] flex cursor-pointer">
+                    <div
+                      className="mb-[5px] flex cursor-pointer"
+                      onClick={() => {
+                        setTempItemId(item.id);
+                        setShowNotification(true);
+                        setReplicateButton(true);
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="31"
@@ -454,14 +494,18 @@ const RecruitmentList = () => {
                           fill="#FE5656"
                         />
                       </svg>
-                      <span
-                        onClick={() => handleReplicate(item.id)}
-                        className="text-base font-normal not-italic text-black "
-                      >
+                      <span className="text-base font-normal not-italic text-black ">
                         Nhân bản
                       </span>
                     </div>
-                    <div className="mb-[10px] flex cursor-pointer">
+                    <div
+                      className="mb-[10px] flex cursor-pointer"
+                      onClick={() => {
+                        setTempItemId(item.id);
+                        setShowNotification(true);
+                        setDeleteButton(true);
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="19"
@@ -479,6 +523,16 @@ const RecruitmentList = () => {
                         Xóa tin
                       </span>
                     </div>
+                    {showNotification && (
+                      <Notification
+                        action={getActionText()}
+                        title="Bạn có muốn đăng tin tuyển dụng"
+                        des="Thực tập sinh Business Analyst chuyên ngành Banking"
+                        extra="*Tin sẽ chỉ được xóa khi chưa có lượt xem hoặc lượt ứng tuyển"
+                        onConfirm={() => handleConfirmButton(tempItemId)}
+                        onCancel={handleCancelButton}
+                      />
+                    )}
                   </div>
                 </td>
               </tr>
