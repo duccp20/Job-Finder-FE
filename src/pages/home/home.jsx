@@ -15,6 +15,7 @@ import ProvincesDropdown from "../../components/DropdownProvince";
 import { doSetRoleGuest } from "../../redux/account/accountSlice";
 import { callFilterJobInHomePage } from "../../service/job/api";
 import useJobFilter from "./useJobFilter";
+import { convertDateFormatDDMMYYYY } from "../../utils/formatDate";
 
 const HomePage = () => {
   const [major, setMajor] = useState([]);
@@ -391,6 +392,7 @@ const HomePage = () => {
                           startDate={data.startDate}
                           endDate={data.endDate}
                           applied={data.applied}
+                          isFilter={true}
                         />
                       ))
                     ) : (
@@ -411,6 +413,7 @@ const HomePage = () => {
                         startDate={data.startDate}
                         endDate={data.endDate}
                         applied={data.applied}
+                        isFilter={false}
                       />
                     ))
                   ) : (

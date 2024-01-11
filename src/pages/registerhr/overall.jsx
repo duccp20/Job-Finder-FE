@@ -974,7 +974,7 @@ export const RegisterHR = () => {
                 Bằng việc ấn vào nút “Đăng ký”, tôi đồng ý với
                 <span className="text-red-600"> Thỏa thuận sử dụng </span>
                 và <span className="text-red-600"> Quy định bảo mật</span> của
-                Jobsit.vn
+                DreamxWork
               </p>
               <div className="mt-6 flex justify-center">
                 <button

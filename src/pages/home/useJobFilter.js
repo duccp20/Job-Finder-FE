@@ -40,6 +40,7 @@ const useJobFilter = () => {
         selectedProvince,
         search,
       );
+      console.log(res);
       setFilteredJobs(res.data);
       setFilteredTotalPages(res.totalPages);
     } catch (error) {

@@ -1,25 +1,36 @@
 import React, { useEffect, useState } from "react";
 import RecruitmentItem from "../../components/Recruitment/item";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { convertDateFormatDDMMYYYY } from "../../utils/formatDate";
 import Popup from "../../components/Popup";
 import PopupHr from "../../components/PopupHr";
-import { useNavigate } from "react-router-dom";
-import { callCreateJobCare } from "../../service/jobcare/api";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  callCreateJobCare,
+  callDeleteJobCareByJobID,
+} from "../../service/jobcare/api";
 import { callCheckCandidateHaveAppliedJob } from "../../service/applyJob/api";
+import Uploader from "../../components/Uploader";
 
 const RecruitmentDetail = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { id } = useParams();
+  const saved = new URLSearchParams(location.search).get("saved");
+  const savedValue = saved === "true";
   const jobData = useSelector((state) => state.job.data);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const [isShowModalLogin, setIsShowModalLogin] = useState(false);
   const [isShowModalJobCare, setIsShowModalJobCare] = useState(false);
+  const [isShowUpload, setIsShowUpload] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [isCareJob, setIsCareJob] = useState(savedValue);
   const [checkApplied, setCheckApplied] = useState(false);
-  console.log("jobData", jobData);
 
   const handleApply = () => {
     if (isAuthenticated) {
-      alert("Đã đăng nhập");
+      setIsShowUpload(true);
     } else {
       setIsShowModalLogin(true);
     }
@@ -27,8 +38,18 @@ const RecruitmentDetail = () => {
 
   const handleJobCare = async (id) => {
     if (isAuthenticated) {
-      await callCreateJobCare(id);
-      alert("Lưu thành công");
+      let response;
+      if (isCareJob) {
+        // Gọi API xóa công việc khỏi danh sách yêu thích
+        response = await callDeleteJobCareByJobID(id);
+      } else {
+        // Gọi API thêm công việc vào danh sách yêu thích
+        response = await callCreateJobCare(id);
+      }
+      // Kiểm tra kết quả từ API và cập nhật trạng thái
+      if (response && response.httpCode === 200) {
+        setIsCareJob(!isCareJob);
+      }
     } else {
       setIsShowModalLogin(true);
     }
@@ -37,19 +58,29 @@ const RecruitmentDetail = () => {
   const handleConfirm = (action) => {
     if (action === "apply") {
       setIsShowModalLogin(false);
-      // navigate("/login");
+      navigate("/login");
     } else {
       setIsShowModalJobCare(false);
-      // navigate("/login");
+      navigate("/login");
     }
   };
-
+  useEffect(() => {
+    console.log(isCareJob);
+  }, [isCareJob]);
   const handleCancel = (action) => {
     if (action === "apply") {
       setIsShowModalLogin(false);
     } else {
       setIsShowModalJobCare(false);
     }
+  };
+
+  const handleCloseUpload = () => {
+    setIsShowUpload(false);
+  };
+
+  const handleSuccess = () => {
+    setShowSuccessPopup(true);
   };
 
   useEffect(() => {
@@ -62,6 +93,16 @@ const RecruitmentDetail = () => {
   }, []);
   return (
     <>
+      {isShowUpload && (
+        <Uploader
+          onClose={handleCloseUpload}
+          onApplySuccess={handleSuccess}
+          id={id}
+        />
+      )}
+      {showSuccessPopup && (
+        <Popup text="Cập nhật thành công" redirect="/apply" />
+      )}
       {isShowModalLogin && (
         <PopupHr
           content="Bạn phải đăng nhập để ứng tuyển"
@@ -88,27 +129,6 @@ const RecruitmentDetail = () => {
             dangerouslySetInnerHTML={{ __html: jobData.description }}
             className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"
           />
-
-          {/* <ul className="">
-            <p> </p>
-
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Tham gia vào các dự án thiết kế, phát triển các sản phẩm mới theo
-              yêu cầu của khách hàng hoặc từ Leader.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Tham gia bảo trì, nâng cấp chức năng, giao diện theo yêu cầu của
-              khách hàng trên hệ thống website hiện có.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Tham gia phân tích yêu cầu, thiết kế, cài đặt và review code sử
-              dụng một trong các framework của Javascript.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">
-              Nghiên cứu và ứng dụng các công nghệ mới vào phát triển sản phẩm.
-            </li>
-            <li className="sm:mb-[5px] tablet-up:mb-[10px]">Báo cáo kết quả công việc cho PM.</li>
-          </ul> */}
           <p className="font-[700] sm:my-[5px] tablet-up:my-[10px]">
             Yêu cầu công việc
           </p>
@@ -323,19 +343,38 @@ const RecruitmentDetail = () => {
           >
             LƯU TIN
             <span className="absolute right-[15%] top-[50%] translate-y-[-50%]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="22"
-                viewBox="0 0 20 22"
-                fill="none"
-                className="sm:w-3"
-              >
-                <path
-                  d="M17.4175 0.9375H2.48821C1.11399 0.9375 0 1.78229 0 2.82442V19.8027C0 20.7737 1.38873 21.3783 2.49443 20.8893L9.95283 17.5896L17.4123 20.8889C18.5164 21.3437 19.9057 20.7737 19.9057 19.8027V2.82442C19.9057 1.78229 18.7912 0.9375 17.4175 0.9375ZM17.4175 18.706L9.95283 15.4039L2.48821 18.706V3.06028C2.48821 2.9278 2.62454 2.82442 2.75258 2.82442H17.0598C17.2827 2.82442 17.4175 2.9278 17.4175 3.06028V18.706Z"
-                  fill="#FE5656"
-                />
-              </svg>
+              {isCareJob ? (
+                <>
+                  <svg
+                    width="15"
+                    height="20"
+                    viewBox="0 0 15 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 1.875V20L7.5 15.625L0 20V1.875C0 0.839844 0.839844 0 1.875 0H13.125C14.1602 0 15 0.839844 15 1.875Z"
+                      fill="#FE5656"
+                    ></path>
+                  </svg>
+                </>
+              ) : (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="21"
+                    viewBox="0 0 15 21"
+                    fill="none"
+                  >
+                    <path
+                      d="M12.7734 0.65625H2.22656C1.25574 0.65625 0.46875 1.48267 0.46875 2.50215V19.1114C0.46875 20.0613 1.44983 20.6527 2.23096 20.1743L7.5 16.9463L12.7698 20.1739C13.5498 20.6189 14.5312 20.0613 14.5312 19.1114V2.50215C14.5312 1.48267 13.7439 0.65625 12.7734 0.65625ZM12.7734 18.0385L7.5 14.8081L2.22656 18.0385V2.73289C2.22656 2.60329 2.32288 2.50215 2.41333 2.50215H12.5208C12.6782 2.50215 12.7734 2.60329 12.7734 2.73289V18.0385Z"
+                      fill="#7D7D7D"
+                      className="fill-[#FE5656]"
+                    />
+                  </svg>
+                </>
+              )}
             </span>
           </button>
         </div>
