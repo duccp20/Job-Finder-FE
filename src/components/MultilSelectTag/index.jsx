@@ -44,7 +44,7 @@ const MultiSelectDropdown = ({
   return (
     <div className="relative" ref={dropdownRef}>
       <div
-        className="flex items-center justify-between rounded-md border-2 border-gray-300 p-1"
+        className="flex h-[48px] items-center justify-between rounded-md border-2 border-gray-300"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         <div className="z-10 flex gap-1">

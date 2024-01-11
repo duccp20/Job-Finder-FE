@@ -70,6 +70,7 @@ const JobCare = () => {
                           startDate={job.jobDTO.startDate}
                           endDate={job.jobDTO.endDate}
                           onDelete={() => handleDeleteJobCare(job.id)}
+                          applied={true}
                         ></JobItem>
                       ))}
                   </div>

@@ -22,6 +22,7 @@ const JobItem = ({
   endDate,
   onDelete,
   applied,
+  isFilter,
 }) => {
   const [isApplied, setIsApplied] = useState(applied);
   const [isShowModalLogin, setIsShowModalLogin] = useState(false);
@@ -36,7 +37,7 @@ const JobItem = ({
 
   const handleNavigateJobDetail = () => {
     console.log("job ID", id);
-    navigate("/job-detail/" + id);
+    navigate("/job-detail/" + id + "?saved=" + isApplied);
   };
 
   const handleCreateJobCare = async () => {
@@ -230,7 +231,7 @@ const JobItem = ({
                   />
                 </svg>
                 <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
-                  Số lượng ứng viên: {amount}
+                  Số lượng ứng viên: {amount} {}
                 </span>
               </div>
               <div className="flex items-center">
@@ -246,9 +247,15 @@ const JobItem = ({
                     fill="#FE5656"
                   />
                 </svg>
+                {isFilter
+                  ? startDate + "-" + endDate
+                  : convertDateFormatDDMMYYYY(startDate)}{" "}
+                -{" "}
                 <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
-                  {convertDateFormatDDMMYYYY(startDate)} -{" "}
-                  {convertDateFormatDDMMYYYY(endDate)}
+                  {isFilter
+                    ? startDate + "-" + endDate
+                    : convertDateFormatDDMMYYYY(startDate)}{" "}
+                  - {convertDateFormatDDMMYYYY(endDate)}
                 </span>
               </div>
             </div>

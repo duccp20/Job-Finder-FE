@@ -35,6 +35,7 @@ const initialState = {
     statusDTO: {},
     numOfApplication: "",
   },
+  isSavedJob: false,
 };
 
 export const jobSlice = createSlice({
@@ -44,8 +45,12 @@ export const jobSlice = createSlice({
     doSetJobData: (state, action) => {
       state.data = action.payload;
     },
+
+    doSetSavedJob: (state, action) => {
+      state.isSavedJob = !state.isSavedJob;
+    },
   },
 });
 
-export const { doSetJobData } = jobSlice.actions;
+export const { doSetJobData, doSetSavedJob } = jobSlice.actions;
 export default jobSlice.reducer;
