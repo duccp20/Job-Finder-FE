@@ -8,7 +8,7 @@ import {
 const useFetchJobs = (initialFetchFunction) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   const fetchData = async (fetchFunction) => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import logo from "/images/logo-user.jpg";
+import logo from "/images/logo.png";
 import flag from "/svg/flag.svg";
 import guest from "/images/guest-logo.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { doLogoutAction } from "../../redux/account/accountSlice";
-const HeaderHR = () => {
+const HeaderHR = (props) => {
   const dataUser = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const dispatch = useDispatch();
@@ -53,6 +53,10 @@ const HeaderHR = () => {
       navigate("/login");
     }
 
+    if (option === "Đổi mật khẩu") {
+      navigate("/hr/change-password");
+    }
+
     if (option === "Thông tin cá nhân") {
       navigate("/hr/contact");
     }
@@ -63,12 +67,12 @@ const HeaderHR = () => {
       <div className="border-1 flex h-[70px] items-center justify-between border-solid border-[rgb(209,209,209)] shadow-custom ">
         <div className=" flex items-center justify-between gap-5 pl-[26.75px] leading-10">
           <div className="cursor-pointer">
-            <span onClick={() => navigate("/hr")}>
-              <img src={logo} alt="" />
+            <span onClick={props.onLogoClick} className="cursor-pointer">
+              <img className="h-auto w-[300px]" src={logo} alt="" />
             </span>
           </div>
 
-          <div className="flex items-center justify-center gap-6 text-[16px] font-[700]">
+          {/* <div className="flex items-center justify-center gap-6 text-[16px] font-[700]">
             <div
               className="relative flex flex-col"
               onMouseLeave={leaveDropdown}
@@ -115,6 +119,41 @@ const HeaderHR = () => {
 
             <span className="hover:text-[#FE5656]">
               <a href="#">Tìm kiếm ứng viên</a>
+            </span>
+          </div> */}
+          <div className="flex items-center justify-center gap-4 text-[16px] font-[700] md:hidden">
+            <span
+              className={`cursor-pointer hover:text-[#FE5656]
+               ${
+                 window.location.pathname == "/hr"
+                   ? "border-b-[#FE5656] text-[#FE5656]"
+                   : "text-black"
+               }`}
+              onClick={() => navigate("/hr")}
+            >
+              Quản lý việc làm
+            </span>
+            <span
+              className={`cursor-pointer hover:text-[#FE5656]
+               ${
+                 window.location.pathname == "/hr/contact"
+                   ? "border-b-[#FE5656] text-[#FE5656]"
+                   : "text-black"
+               }`}
+              onClick={() => navigate("/apply")}
+            >
+              Tìm kiếm ứng viên
+            </span>
+            <span
+              className={`cursor-pointer hover:text-[#FE5656]
+               ${
+                 window.location.pathname == "/care"
+                   ? "border-b-[#FE5656] text-[#FE5656]"
+                   : "text-black"
+               }`}
+              onClick={() => navigate("/care")}
+            >
+              Hồ sơ ứng viên
             </span>
           </div>
         </div>

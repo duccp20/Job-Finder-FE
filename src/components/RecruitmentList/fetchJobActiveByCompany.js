@@ -4,7 +4,7 @@ import { callGetActiveJobByCompanyID } from "../../service/job/api";
 const fetchJobActiveByCompany = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
