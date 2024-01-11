@@ -233,6 +233,10 @@ const App = () => {
           ),
         },
         {
+          path: "change-password",
+          element: <ChangePassword />,
+        },
+        {
           path: "contact",
           element: (
             <ProtectedRoute>
