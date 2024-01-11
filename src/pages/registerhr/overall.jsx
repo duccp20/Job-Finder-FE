@@ -118,7 +118,7 @@ export const RegisterHR = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [listCompany, setListCompany] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
-
+  const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
@@ -166,6 +166,7 @@ export const RegisterHR = () => {
       const hrOtherInfoDTO = {
         position: data.position,
         companyDTO: {
+          id: selectedCompanyId,
           name: data.companyName,
           email: data.companyEmail,
           phone: data.telComp,
@@ -178,6 +179,8 @@ export const RegisterHR = () => {
         userCreationDTO,
         hrOtherInfoDTO,
       };
+
+      console.log(hrCreationDTO, "hrCreationDTO");
       const res = await callRegisterHR(hrCreationDTO);
 
       if (res && res.httpCode === 201) {
@@ -304,6 +307,7 @@ export const RegisterHR = () => {
       try {
         const res = await callGetAllCompanyActive();
         if (res && res.data) {
+          console.log(res.data);
           setListCompany(res.data);
           dispatch(doFetchCompany(res.data));
         }
@@ -776,6 +780,7 @@ export const RegisterHR = () => {
                               (c) => c.name === selectedCompanyName,
                             );
                             setSelectedCompany(company ? company.tax : "");
+                            setSelectedCompanyId(company ? company.id : null);
                             setValue("taxCode", company ? company.tax : ""); // setValue is from useForm
                           }}
                           value={value}
