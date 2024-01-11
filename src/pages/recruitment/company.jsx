@@ -25,48 +25,6 @@ const CompanyInformation = () => {
     <div>
       <div className="flex sm:flex-col-reverse tablet-range:flex-col-reverse">
         <div className="flex flex-col gap-[10px] pr-[30px] leading-normal text-inherit sm:w-full sm:px-[24px] sm:text-[8px] tablet-up:ml-[40px] tablet-up:mr-[10px] tablet-up:w-auto desktop-up:ml-[40px] desktop-up:mr-[10px] desktop-up:mt-[30px] desktop-up:w-[60%] ">
-          {/* <p className="mb-[10px] font-[700]">
-            Giới thiệu về Công ty R2S - Cung cấp phương pháp giải quyết phần mềm
-          </p>
-          <p className="mb-[10px]">
-            R2S thành lập vào ngày một tháng tám năm 2019 với nhiệm vụ đào tạo
-            nhân sự CNTT cho doanh nghiệp, phát triển phần mềm và tư vấn giải
-            pháp CNTT. R2S ra đời với sứ mệnh:
-          </p>
-          <ol className="list-decimal px-[10px] tablet-up:mx-[10px]">
-            <li>
-              Đào tạo nhân sự làm được việc ngay cho doanh nghiệp (Resource)
-            </li>
-            <li>Phát triển phần mềm (Software)</li>
-            <li>
-              Tư vấn giải pháp CNTT cho các doanh nghiệp thực hiện chuyển đổi số
-              (Solution)
-            </li>
-          </ol>
-          <p className="my-[10px]">
-            Với 03 nhiệm vụ trên, R2S đã cho ra đời R2S Academy với nhiều chươ
-            <ng></ng>
-            trình đào tạo dành cho lập trình viên, dành cho Tester, dành cho BA,
-            dành cho DevOps,…nhằm giúp các bạn trang bị những kinh nghiệm làm
-            việc như quản lý source code, viết code sạch, làm việc nhóm, cách
-            hỏi đáp để làm rõ yêu cầu,….Hiện nay, R2S Academy có hàng chục khoá
-            học và có gần 500 học viên đã và đang học. Trong số những học viên
-            tham gia tại R2S Academy, với hình thức đào tạo online nên các bạn
-            có cơ hội gặp gỡ nhau ở mọi miền đất nước. Thậm chí có những bạn
-            đang ở Đức, Ý, Nhật, Hàn Quốc, Malaysia cũng tham gia học.
-          </p>
-          <p>
-            Với mô hình đào tạo, phát triển phần mềm và kết nối doanh nghiệp,
-            R2S đã tạo ra môi trường học tập sát với nhu cầu thực tế. Không
-            những thế, học viên còn có cơ hội thực tập và được R2S tuyển dụng.
-            Một hệ sinh thái kết nối việc học, thực hành gắn liền thực tế nên
-            học viên có cơ hội học những gì doanh nghiệp cần, tích luỹ kinh
-            nghiệm thông qua các buổi học và có cơ hội việc làm ngay và sau khi
-            kết thúc khoá học. R2S coi trọng đến triết lý kinh doanh “TẬN TUỴ
-            phục vụ KHÁCH HÀNG, tạo NIỀM TIN với ĐỐI TÁC, CHĂM LO đời sống NHÂN
-            VIÊN, ĐÓNG GÓP thiết thực cho CỘNG ĐỒNG“. Đây chính là kim chỉ nam
-            để toàn thể nhân viên R2S cùng hành động.
-          </p> */}
           <div
             dangerouslySetInnerHTML={{ __html: companyData.description }}
             className="jobDescription mx-[10px] list-disc px-[10px] leading-normal sm:mb-[10px] tablet-up:mb-[20px]"

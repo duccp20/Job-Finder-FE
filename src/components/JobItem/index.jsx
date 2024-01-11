@@ -247,15 +247,13 @@ const JobItem = ({
                     fill="#FE5656"
                   />
                 </svg>
-                {isFilter
-                  ? startDate + "-" + endDate
-                  : convertDateFormatDDMMYYYY(startDate)}{" "}
-                -{" "}
+
                 <span className="ml-[12px] text-base font-light not-italic text-[#2B3940]">
                   {isFilter
-                    ? startDate + "-" + endDate
-                    : convertDateFormatDDMMYYYY(startDate)}{" "}
-                  - {convertDateFormatDDMMYYYY(endDate)}
+                    ? startDate.slice(0, 10) + " - " + endDate.slice(0, 10)
+                    : convertDateFormatDDMMYYYY(startDate) +
+                      " - " +
+                      convertDateFormatDDMMYYYY(endDate)}
                 </span>
               </div>
             </div>
