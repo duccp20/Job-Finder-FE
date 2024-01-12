@@ -83,6 +83,8 @@ import ChangePassword from "./pages/changepassword/changepassword";
 import Replicate from "./pages/post&editJobs/replicate";
 import EditJob from "./pages/post&editJobs/editJob";
 import LayoutRegister from "./components/Layout/layoutRegister";
+import FindCandidate from "./pages/hrPage/find-candidate";
+import CvCandidate from "./pages/hrPage/cv-candidate";
 
 const App = () => {
   const isLoading = useSelector((state) => state.account.isLoading);
@@ -223,6 +225,14 @@ const App = () => {
           index: true,
           element: <RecruitmentListOpen></RecruitmentListOpen>,
           errorElement: <NotFound />,
+        },
+        {
+          path: "search/candidate",
+          element: <FindCandidate></FindCandidate>,
+        },
+        {
+          path: "cv/candidate",
+          element: <CvCandidate></CvCandidate>,
         },
         {
           path: "news",

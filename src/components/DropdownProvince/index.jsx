@@ -19,8 +19,11 @@ const useClickOutside = (handler) => {
 
   return ref;
 };
+
 const ProvincesDropdown = (props) => {
-  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedProvince, setSelectedProvince] = useState(
+    props.province || null,
+  );
   const [provinces, setProvinces] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -40,11 +43,22 @@ const ProvincesDropdown = (props) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    // Update when props.province changes
+    if (props.province) {
+      setSelectedProvince(props.province);
+      setSearchTerm(props.province);
+    }
+  }, [props.province]);
   const handleProvinceClick = (province) => {
     setSelectedProvince(province);
     setSearchTerm(province.name);
     setShowDropdown(false);
     props.onProvinceChange(province.name);
+
+    // if (props.onProvinceSelect) {
+    //   props.onProvinceSelect(province);
+    // }
   };
   const handleButtonClick = (event) => {
     event.stopPropagation();
@@ -159,7 +173,7 @@ const ProvincesDropdown = (props) => {
         <input
           type="text"
           placeholder={props.placeholder}
-          value={searchTerm}
+          value={searchTerm || props.province}
           onChange={handleSearch}
           style={props.style}
           className=" border border-solid border-transparent pt-[2px] focus:outline-none "

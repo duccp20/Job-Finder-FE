@@ -36,7 +36,7 @@ const PostJob = (props) => {
   const [descriptionValue, setDescriptionValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
+  const [selectedProvince, setSelectedProvince] = useState("");
   const dataMajor = useSelector((state) => state.baseData.data.majors);
   const dataSchedule = useSelector((state) => state.baseData.data.schedules);
   const dataPosition = useSelector((state) => state.baseData.data.positions);
@@ -66,7 +66,6 @@ const PostJob = (props) => {
         .number()
         .typeError("Mức lương tối đa là một số")
         .required("Mức lương tối đa không được để trống"),
-      // city: yup.string().required("Vui lòng chọn tỉnh thành"),
       address: yup.string().required("Địa chỉ không được để trống"),
       description: yup.string().required("Mô tả không được để trống"),
     })
@@ -103,7 +102,7 @@ const PostJob = (props) => {
       startDate: data.postDate,
       endDate: data.deadlineDate,
       location: data.address,
-      province: "Ho Chi Minh",
+      province: selectedProvince,
     };
     console.log(postJobData);
 
@@ -126,7 +125,10 @@ const PostJob = (props) => {
     }
   };
   console.log("showPopup", showPopup);
-
+  const handleProvinceChange = (province) => {
+    setSelectedProvince(province);
+    console.log(province);
+  };
   return (
     <div>
       {showPopup && <Popup text="Đăng thành công" redirect="/hr"></Popup>}
@@ -443,21 +445,9 @@ const PostJob = (props) => {
             <label htmlFor="city" className="pb-2 ">
               Tỉnh/ Thành phố <span className="text-red-700">*</span>
             </label>
-
-            <ProvincesDropdown />
-            {/* {...register("city")} */}
-
-            {/* {errors?.city && (
-              <div className="flex items-center ">
-                <span className="pt-1.5 ">
-                  <IconError />
-                </span>
-
-                <p className="px-2 pt-2 font-nunito text-[10px] font-[400] leading-normal text-[#F00]">
-                  {errors.city?.message}
-                </p>
-              </div>
-            )} */}
+            <div className="w-auto rounded-md border-2 border-gray-300 p-2 ">
+              <ProvincesDropdown onProvinceChange={handleProvinceChange} />
+            </div>
           </div>
           <div className="mt-6 flex w-full flex-col">
             <label htmlFor="address" className="pb-2 ">

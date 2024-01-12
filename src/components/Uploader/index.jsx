@@ -19,20 +19,35 @@ const Uploader = ({ onApplySuccess, onClose, ...props }) => {
     const file = event.target.files[0];
 
     if (file) {
-      setSelectedFile(file); //lưu file
-      setNameFile(file.name); //lưu tên file
+      // Check if the file is a PDF
+      if (file.type === "application/pdf") {
+        setSelectedFile(file); // Save file
+        setNameFile(file.name); // Save file name
 
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const preview = e.target.result;
-        setPreview(preview);
-      };
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const preview = e.target.result;
+          setPreview(preview);
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+        setError(""); // Clear any existing errors
+      } else {
+        // Set error if file is not a PDF
+        setError("Chỉ hổ trợ file .pdf");
+        setSelectedFile(""); // Clear the selected file
+        setNameFile(""); // Clear the file name
+        setPreview(""); // Clear the preview
+      }
     }
   };
 
   const handleSubmit = async () => {
+    if (!selectedFile) {
+      setError("Vui lòng tải lên CV để tiếp tục ứng tuyển!");
+      return;
+    }
+
     setIsSubmitting(true);
     const candidateApplication = {
       cv: nameFile,
@@ -92,7 +107,12 @@ const Uploader = ({ onApplySuccess, onClose, ...props }) => {
             <span className="ml-[25px] flex-grow  text-xl not-italic text-white">
               Nộp hồ sơ ứng tuyển {props.job}
             </span>
-            <span className="items-end text-xl not-italic text-white">X</span>
+            <span
+              onClick={() => onClose()}
+              className="cursor-pointer items-end text-xl not-italic text-white"
+            >
+              X
+            </span>
           </div>
           <div className="border-2 px-[44px] pb-[32px] pt-[22px]">
             <div>
@@ -113,6 +133,7 @@ const Uploader = ({ onApplySuccess, onClose, ...props }) => {
                   hidden
                   ref={fileInputRef}
                 />
+
                 {nameFile ? (
                   <div className="flex items-center justify-center gap-2">
                     <svg
@@ -155,13 +176,18 @@ const Uploader = ({ onApplySuccess, onClose, ...props }) => {
                 )}
               </form>
               <div className="py-2">
-                {error && (
-                  <p className="text-xs font-normal italic text-red-600">
+                {error ? (
+                  <span className="text-xs font-normal italic text-red-600">
                     {error}
-                  </p>
+                  </span>
+                ) : (
+                  <span className="text-xs font-normal italic text-[#7D7D7D]">
+                    Vui lòng tải lên CV đính kèm (hỗ trợ file .pdf)
+                  </span>
                 )}
               </div>
             </div>
+
             <div className="flex h-[180px] flex-col">
               <h2 className="text-sm font-bold not-italic text-black">
                 Thư giới thiệu
