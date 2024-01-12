@@ -136,22 +136,22 @@ const HeaderHR = (props) => {
             <span
               className={`cursor-pointer hover:text-[#FE5656]
                ${
-                 window.location.pathname == "/hr/contact"
+                 window.location.pathname == "/hr/search/candidate"
                    ? "border-b-[#FE5656] text-[#FE5656]"
                    : "text-black"
                }`}
-              onClick={() => navigate("/apply")}
+              onClick={() => navigate("/hr/search/candidate")}
             >
               Tìm kiếm ứng viên
             </span>
             <span
               className={`cursor-pointer hover:text-[#FE5656]
                ${
-                 window.location.pathname == "/care"
+                 window.location.pathname == "/hr/cv/candidate"
                    ? "border-b-[#FE5656] text-[#FE5656]"
                    : "text-black"
                }`}
-              onClick={() => navigate("/care")}
+              onClick={() => navigate("/hr/cv/candidate")}
             >
               Hồ sơ ứng viên
             </span>

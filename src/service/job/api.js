@@ -30,7 +30,7 @@ export const callReplicateJob = (id, body) => {
   return axios.put(`/api/v1/job/replicate/${id}`, body);
 };
 export const callDeleteJob = (id) => {
-  return axios.delete(`/api/v1/job/delete/${id}`);
+  return axios.put(`/api/v1/job/delete/${id}`);
 };
 
 export const callDisableJob = (id) => {

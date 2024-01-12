@@ -1,10 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const NotFound = () => {
   const navigate = useNavigate();
 
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+
+  const role = useSelector((state) => state.account.user.roleDTO.roleId);
+  console.log("role", role);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseOver = () => {
@@ -14,6 +19,20 @@ const NotFound = () => {
   const handleMouseOut = () => {
     setIsHovered(false);
   };
+
+  const handleNavigate = () => {
+    switch (role) {
+      case 1:
+        navigate("/admin");
+        break;
+      case 3:
+        navigate("/hr");
+        break;
+      default:
+        navigate("/");
+    }
+  };
+  
 
   return (
     <div className="flex flex-row justify-center bg-white">
@@ -32,9 +51,7 @@ const NotFound = () => {
             </p>
             <div
               className="mt-12 w-full cursor-pointer justify-center px-40"
-              onClick={() => {
-                navigate("/");
-              }}
+              onClick={() => handleNavigate()}
             >
               {/* <div className='bg-[#fe5656] rounded-full text-white text-lg md:text-xl font-bold text-center py-3 px-6 
               ' > */}

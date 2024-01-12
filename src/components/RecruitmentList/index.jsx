@@ -10,17 +10,21 @@ import fetchAllJobByCompany from "./fetchAllJobByCompany";
 import fetchJobDisableByCompany from "./fetchJobDisableByCompany";
 import useFetchJobs from "./fetchall";
 import {
+  callDeleteJob,
+  callDisableJob,
   callGetActiveJobByCompanyID,
   callGetAllJobByCompanyID,
   callGetDisableJobByCompanyID,
 } from "../../service/job/api";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const RecruitmentList = () => {
   // const { loading, data, totalPages, currentPage, setCurrentPage } =
   //   fetchAllJobByCompany();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [reload, setReload] = useState(false);
 
   const buttonState = () => {
     setIsOpen(!isOpen);
@@ -35,7 +39,7 @@ const RecruitmentList = () => {
   const [deleteButton, setDeleteButton] = useState(false);
   const [closeButton, setCloseButton] = useState(false);
   const [tempItemId, setTempItemId] = useState(null);
-
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const getActionText = () => {
     if (editButton) return "Chỉnh sửa hồ sơ";
     if (replicateButton) return "Nhân bản hồ sơ";
@@ -53,10 +57,10 @@ const RecruitmentList = () => {
       handleReplicate(id);
     }
     if (deleteButton) {
-      navigate("job/delete");
+      handleDelete(id);
     }
     if (closeButton) {
-      navigate("job/close");
+      handleDisable(id);
     }
   };
 
@@ -68,6 +72,63 @@ const RecruitmentList = () => {
   const handleReplicate = (id) => {
     setReplicateButton(false);
     navigate(`replicate/${id}`);
+  };
+  const handleDelete = async (id) => {
+    const res = await callDeleteJob(id);
+    if (res && res.httpCode === 200) {
+      setShowNotification(false);
+      toast.success("Xóa tin tuyển dụng thành công!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setData(data.filter((job) => job.id !== id));
+    }
+  };
+
+  const handleDisable = async (id) => {
+    const originalData = [...data]; // keep a copy of the original data
+    const updatedData = data.map((job) =>
+      job.id === id
+        ? { ...job, statusDTO: { ...job.statusDTO, name: "Đã đóng" } }
+        : job,
+    );
+
+    // Optimistically update the UI
+    setData(updatedData);
+
+    try {
+      const res = await callDisableJob(id);
+      console.log("res", res);
+
+      if (res && res.httpCode === 200) {
+        setShowNotification(false);
+        setDeleteButton(false);
+        toast.success("Đóng tin tuyển dụng thành công!", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        // The data is already updated optimistically, so no need to do anything here
+      } else {
+        // If the response is not successful, revert the changes
+        setData(originalData);
+      }
+    } catch (error) {
+      console.error("Error closing job", error);
+      // Revert changes on error
+      setData(originalData);
+    }
   };
 
   const handleCancelButton = () => {
@@ -136,17 +197,9 @@ const RecruitmentList = () => {
 
   return (
     <div className="h-auto w-full">
-      {/* <span>
-        <svg
-          width="626"
-          height="312"
-          viewBox="0 0 626 312"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="626" height="312" fill="white" />
-        </svg>
-      </span> */}
+      <>
+        <ToastContainer />
+      </>
       <div className="mb-[30px] flex w-full justify-between gap-[13px] ">
         <div className="flex w-[40%] items-center rounded border px-[13px] py-[12px]">
           <label htmlFor="find">

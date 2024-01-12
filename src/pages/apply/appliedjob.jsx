@@ -16,7 +16,7 @@ const AppliedJob = () => {
         <>
           <div className="pt-[50px]">
             <div className="mt-[70px] flex w-full px-[100px]">
-              <div className="w-[70%] pr-[50px]">
+              <div className="w-full pr-[50px]">
                 <div className=" h-[117px] rounded-[5px] bg-[#FE5656] text-[#ffffff]">
                   <p className="pl-[18px] pt-[20px] text-[22px] font-[700px]  ">
                     Danh sách việc làm đã ứng tuyển
@@ -29,25 +29,21 @@ const AppliedJob = () => {
                 <p className="mb-[20px] mt-[30px]">
                   Bạn đã ứng tuyển {totalItems} việc làm
                 </p>
-                {data &&
-                  data.map((job) => (
-                    <AppliedJobItem
-                      key={job.id}
-                      logo={job.jobDTO.companyDTO.logo}
-                      id={job.jobDTO.id}
-                      name={job.jobDTO.name}
-                      companyName={job.jobDTO.companyDTO.name}
-                      location={job.jobDTO.province}
-                      appliedDate={job.appliedDate}
-                    />
-                  ))}
-                <div>
-                  {/* <AppliedJobItem></AppliedJobItem>
-                  <AppliedJobItem></AppliedJobItem>
-                  <AppliedJobItem></AppliedJobItem>
-                  <AppliedJobItem></AppliedJobItem>
-                  <AppliedJobItem></AppliedJobItem>
-                  <AppliedJobItem></AppliedJobItem> */}
+                <div className="flex w-full flex-wrap">
+                  {data &&
+                    data.map((job) => (
+                      <div className="w-1/2 p-2">
+                        <AppliedJobItem
+                          key={job.id}
+                          logo={job.jobDTO.companyDTO.logo}
+                          id={job.jobDTO.id}
+                          name={job.jobDTO.name}
+                          companyName={job.jobDTO.companyDTO.name}
+                          location={job.jobDTO.province}
+                          appliedDate={job.appliedDate}
+                        />
+                      </div>
+                    ))}
                 </div>
 
                 <Pagination
@@ -59,7 +55,7 @@ const AppliedJob = () => {
 
               <div></div>
 
-              <div className="h-[70vh] w-[230px] rounded-[5px] bg-[#7D7D7D82]"></div>
+              {/* <div className="h-[70vh] w-[230px] rounded-[5px] bg-[#7D7D7D82]"></div> */}
             </div>
           </div>
         </>

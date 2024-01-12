@@ -152,7 +152,7 @@ const JobItem = ({
                   onClick={() => handleCreateJobCare()}
                   className="h-auto cursor-pointer  self-start rounded-md border border-[#F1F1F1] hover:shadow-upper sm:px-[7px] sm:py-[5px] tablet-up:px-[15px] tablet-up:py-[12px]"
                 >
-                  {/* Đã apply thì svg sẽx hiện đỏ */}
+                  {/* Đã apply thì svg sẽ hiện đỏ */}
                   {isApplied ? (
                     <>
                       <svg

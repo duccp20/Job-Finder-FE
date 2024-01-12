@@ -259,7 +259,7 @@ const LoginPage = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Đang nhập..." : "Đăng nhập"}
+              {isSubmitting ? "Đang đăng nhập..." : "Đăng nhập"}
             </button>
           </div>
           <div className="mb-6">

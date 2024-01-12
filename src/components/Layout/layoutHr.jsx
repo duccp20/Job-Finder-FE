@@ -16,7 +16,7 @@ const LayoutHr = () => {
   };
   return (
     <div>
-      <HeaderHR onLogoClick={handleLogoClick}></HeaderHR>
+      <HeaderHR key={key} onLogoClick={handleLogoClick}></HeaderHR>
       <Outlet></Outlet>
     </div>
   );

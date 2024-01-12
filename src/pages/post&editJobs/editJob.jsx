@@ -48,7 +48,7 @@ const EditJob = (props) => {
   const [deadlineDate, setDeadlineDate] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
+  const [selectedProvince, setSelectedProvince] = useState("");
   const dataMajor = useSelector((state) => state.baseData.data.majors);
   const dataSchedule = useSelector((state) => state.baseData.data.schedules);
   const dataPosition = useSelector((state) => state.baseData.data.positions);
@@ -175,7 +175,7 @@ const EditJob = (props) => {
       startDate: startDate,
       endDate: endDate,
       location: data.address,
-      province: "Ho Chi Minh",
+      province: selectedProvince,
     };
     console.log("editJobData", editJobData);
 
@@ -199,6 +199,10 @@ const EditJob = (props) => {
   console.log("showPopup", showPopup);
   console.log("isSubmitting", isSubmitting);
 
+  const handleProvinceChange = (province) => {
+    setSelectedProvince(province);
+    console.log(province);
+  };
   return (
     <div>
       {showPopup && <Popup text="Cập nhật thành công" redirect="/hr"></Popup>}
@@ -549,7 +553,12 @@ const EditJob = (props) => {
               Tỉnh/ Thành phố <span className="text-red-700">*</span>
             </label>
 
-            <ProvincesDropdown />
+            <div className="w-auto rounded-md border-2 border-gray-300 p-2 ">
+              <ProvincesDropdown
+                onProvinceChange={handleProvinceChange}
+                province={dataJob?.province}
+              />
+            </div>
             {/* {...register("city")} */}
 
             {/* {errors?.city && (
